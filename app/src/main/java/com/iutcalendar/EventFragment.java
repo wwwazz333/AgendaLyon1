@@ -1,5 +1,7 @@
 package com.iutcalendar;
 
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -91,10 +93,19 @@ public class EventFragment extends Fragment {
     }
 
     public View createEvent(EventCalendrier e) {
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        lp.setMargins(20, 0, 20, 0);
 
         LinearLayout layout = new LinearLayout(getActivity());
+        layout.setPadding(20, 20, 20, 20);
         layout.setOrientation(LinearLayout.HORIZONTAL);
+        layout.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
+        GradientDrawable verticalDrawable = new GradientDrawable();
+        verticalDrawable.setColor(0xffE5E5E5);
+
+        verticalDrawable.setSize(5, 0);
+        layout.setDividerDrawable(verticalDrawable);
+
 
 
         LinearLayout horaire = new LinearLayout(getActivity());
@@ -107,6 +118,7 @@ public class EventFragment extends Fragment {
         fin.setText(new StringBuilder().append(e.getDate().addTime(e.getDuree()).getHour()).append("h").toString());
         fin.setTextSize(18);
 
+
         horaire.addView(debut);
         horaire.addView(fin);
         horaire.setLayoutParams(lp);
@@ -115,9 +127,9 @@ public class EventFragment extends Fragment {
 
         TextView summary = new TextView(getActivity());
 
-        summary.setLayoutParams(lp);
-        summary.setGravity(Gravity.CENTER);
-
+        summary.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT, 1));
+        summary.setGravity(Gravity.LEFT | Gravity.CENTER_VERTICAL);
+        summary.setPadding(40, 0, 40, 0);
         summary.setTextSize(18);
 
         summary.setText(e.getSummary());
@@ -132,7 +144,7 @@ public class EventFragment extends Fragment {
         salle.setText(e.getSalle());
 
         layout.addView(salle);
-        layout.setPadding(20, 0, 20, 0);
+
 
 
         return layout;
