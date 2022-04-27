@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.3671875" />
+        <entry key="app/src/main/res/drawable/border.xml" value="0.36614583333333334" />
+        <entry key="app/src/main/res/drawable/div.xml" value="0.36614583333333334" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.3671875" />
+        <entry key="app/src/main/res/drawable/left_arrow.xml" value="0.3671875" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/event_view.xml" value="0.35" />
+        <entry key="app/src/main/res/layout/fragment_day_of_week.xml" value="0.35104166666666664" />
+        <entry key="app/src/main/res/layout/fragment_event.xml" value="0.35104166666666664" />
+        <entry key="app/src/main/res/layout/fragment_event2.xml" value="0.178125" />
+        <entry key="app/src/main/res/layout/fragment_template_event.xml" value="0.30634715025906734" />
+        <entry key="app/src/main/res/layout/network_security_config.xml" value="0.178125" />
+        <entry key="app/src/main/res/xml/event_view.xml" value="0.35104166666666664" />
+        <entry key="app/src/main/res/xml/network_security_config.xml" value="0.456" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
