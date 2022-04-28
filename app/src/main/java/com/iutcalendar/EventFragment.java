@@ -1,7 +1,5 @@
 package com.iutcalendar;
 
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -10,11 +8,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.calendar.iutcalendar.R;
 import com.iutcalendar.calendrier.Calendrier;
 import com.iutcalendar.calendrier.CurrentDate;
 import com.iutcalendar.calendrier.EventCalendrier;
+import com.iutcalendar.event.ClickListiner;
+import com.iutcalendar.event.EventRecycleView;
 
 import java.io.File;
 import java.io.IOException;
@@ -63,90 +66,39 @@ public class EventFragment extends Fragment {
 
             List<EventCalendrier> eventToday = cal.getEventsOfDay(date);
 
+            RecyclerView recycleView = view.findViewById(R.id.recycleView);
+            ClickListiner listiner = new ClickListiner() {
+                @Override
+                public void click(int index) {
+                    Toast.makeText(getActivity(), "clicked item index is " + index, Toast.LENGTH_SHORT).show();
+                }
+            };
+            EventRecycleView adapter = new EventRecycleView(eventToday, getActivity().getApplication(), listiner);
+            recycleView.setAdapter(adapter);
+            recycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-            for (EventCalendrier e : eventToday) {
-                layout.addView(createEvent(e));
-            }
 
-            TextView t = new TextView(getActivity());
-            t.setLayoutParams(lp);
-            t.setGravity(Gravity.CENTER);
-            t.setTextSize(18);
+            TextView update = new TextView(getActivity());
+            update.setLayoutParams(lp);
+            update.setGravity(Gravity.CENTER);
+            update.setTextSize(18);
 
-            t.setText(new StringBuilder().append("last update : ").append(new SimpleDateFormat("dd/MM/yyyy HH:mm").format(fileCal.lastModified())).toString());
+            update.setText(new StringBuilder().append("last update : ").append(new SimpleDateFormat("dd/MM/yyyy HH:mm").format(fileCal.lastModified())).toString());
 
 
-            layout.addView(t);
+            layout.addView(update);
         } else {
-            TextView t = new TextView(getActivity());
-            t.setLayoutParams(lp);
-            t.setGravity(Gravity.CENTER);
-            t.setTextSize(18);
+            TextView update = new TextView(getActivity());
+            update.setLayoutParams(lp);
+            update.setGravity(Gravity.CENTER);
+            update.setTextSize(18);
 
-            t.setText("no update...");
+            update.setText("no update...");
 
 
-            layout.addView(t);
+            layout.addView(update);
         }
 
         return view;
-    }
-
-    public View createEvent(EventCalendrier e) {
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        lp.setMargins(20, 0, 20, 0);
-
-        LinearLayout layout = new LinearLayout(getActivity());
-        layout.setPadding(20, 20, 20, 20);
-        layout.setOrientation(LinearLayout.HORIZONTAL);
-        layout.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
-        GradientDrawable verticalDrawable = new GradientDrawable();
-        verticalDrawable.setColor(0xffE5E5E5);
-
-        verticalDrawable.setSize(5, 0);
-        layout.setDividerDrawable(verticalDrawable);
-
-
-
-        LinearLayout horaire = new LinearLayout(getActivity());
-        horaire.setOrientation(LinearLayout.VERTICAL);
-
-        TextView debut = new TextView(getActivity());
-        debut.setText(new StringBuilder().append(e.getDate().getHour()).append("h").toString());
-        debut.setTextSize(18);
-        TextView fin = new TextView(getActivity());
-        fin.setText(new StringBuilder().append(e.getDate().addTime(e.getDuree()).getHour()).append("h").toString());
-        fin.setTextSize(18);
-
-
-        horaire.addView(debut);
-        horaire.addView(fin);
-        horaire.setLayoutParams(lp);
-        layout.addView(horaire);
-
-
-        TextView summary = new TextView(getActivity());
-
-        summary.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT, 1));
-        summary.setGravity(Gravity.LEFT | Gravity.CENTER_VERTICAL);
-        summary.setPadding(40, 0, 40, 0);
-        summary.setTextSize(18);
-
-        summary.setText(e.getSummary());
-
-        layout.addView(summary);
-
-        TextView salle = new TextView(getActivity());
-        salle.setLayoutParams(lp);
-        salle.setGravity(Gravity.RIGHT);
-        salle.setTextSize(18);
-
-        salle.setText(e.getSalle());
-
-        layout.addView(salle);
-
-
-
-        return layout;
     }
 }
