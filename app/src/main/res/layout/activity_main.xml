@@ -6,14 +6,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context="com.iutcalendar.MainActivity"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="?background">
 
     <LinearLayout
+            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
         <ImageView
+                android:contentDescription="previous week button"
                 android:id="@+id/prevWeek"
                 android:layout_width="0dp"
                 android:gravity="center"
@@ -28,6 +31,7 @@
                 android:gravity="center"
                 android:textSize="22sp"/>
         <ImageView
+                android:contentDescription="next week boutton"
                 android:id="@+id/nextWeek"
                 android:layout_width="0dp"
                 android:gravity="center"
