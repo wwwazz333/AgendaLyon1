@@ -54,7 +54,7 @@ public class EventFragment extends Fragment {
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
 
-        File fileCal = PathGlobal.getInstance().getFileDownload();
+        File fileCal = PathGlobal.getFileDownload();
 
 
         if (fileCal.exists()) {
@@ -67,12 +67,7 @@ public class EventFragment extends Fragment {
             List<EventCalendrier> eventToday = cal.getEventsOfDay(date);
 
             RecyclerView recycleView = view.findViewById(R.id.recycleView);
-            ClickListiner listiner = new ClickListiner() {
-                @Override
-                public void click(int index) {
-                    Toast.makeText(getActivity(), "clicked item index is " + index, Toast.LENGTH_SHORT).show();
-                }
-            };
+            ClickListiner listiner = index -> Toast.makeText(getActivity(), eventToday.get(index).getDescription(), Toast.LENGTH_LONG).show();
             EventRecycleView adapter = new EventRecycleView(eventToday, getActivity().getApplication(), listiner);
             recycleView.setAdapter(adapter);
             recycleView.setLayoutManager(new LinearLayoutManager(getActivity()));

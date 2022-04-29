@@ -51,7 +51,9 @@ public class MainActivity extends AppCompatActivity {
         setOnclicDay(R.id.dimancheNum, GregorianCalendar.SUNDAY);
 
 
-        PathGlobal.getInstance().setPathDownload(getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath());
+        PathGlobal.setPathDownload(getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath());
+        System.out.println(getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath());
+        System.out.println("----------" + PathGlobal.getFileDownload());
 
 
         setCurrDate(new CurrentDate());
@@ -59,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
         new Thread(new Runnable() {
             public void run() {
-                FileDownload.updateFichier(PathGlobal.getInstance().getPathDownload() + "/savedCal.ics");
+                FileDownload.updateFichier(PathGlobal.getPathDownload() + "/savedCal.ics");
                 showEvents();
                 System.out.println("udpated");
             }

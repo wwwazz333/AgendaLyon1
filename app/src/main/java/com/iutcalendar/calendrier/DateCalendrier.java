@@ -6,13 +6,14 @@ import java.util.Locale;
 public class DateCalendrier extends GregorianCalendar {
 
     private boolean zoneOffsetAppliced = false;
-    private int summerOffset = 1;
+    private final int summerOffset = 1;
 
 
-    public DateCalendrier(){
+    public DateCalendrier() {
         super(Locale.FRANCE);
         set(GregorianCalendar.SECOND, 0);
     }
+
     public DateCalendrier(int day, int month, int year, int hour, int minute) {
         super(Locale.FRANCE);
 
@@ -22,13 +23,6 @@ public class DateCalendrier extends GregorianCalendar {
         setHour(hour);
         setMinute(minute);
         set(GregorianCalendar.SECOND, 0);
-    }
-
-    public void doZoneOffset() {
-        if (!zoneOffsetAppliced) {
-            setHour(getHour() + getZoneOffset() + summerOffset);
-        }
-        zoneOffsetAppliced = true;
     }
 
     public DateCalendrier(DateCalendrier other) {
@@ -44,13 +38,34 @@ public class DateCalendrier extends GregorianCalendar {
         this.zoneOffsetAppliced = other.zoneOffsetAppliced;
     }
 
+    public static String fillWithZeroBefore(int n) {
+        String s = String.valueOf(n);
+        if (s.length() < 2) {
+            s = "0" + s;
+        }
+        return s;
+    }
+
+    public static String fillWithZeroAfter(int n) {
+        String s = String.valueOf(n);
+        if (s.length() < 2) {
+            s += "0";
+        }
+        return s;
+    }
+
+    public void doZoneOffset() {
+        if (!zoneOffsetAppliced) {
+            setHour(getHour() + getZoneOffset() + summerOffset);
+        }
+        zoneOffsetAppliced = true;
+    }
 
     public int getZoneOffset() {
         return get(GregorianCalendar.ZONE_OFFSET) / (60 * 60 * 1000);
     }
 
     /**
-     *
      * @return num of day in month
      */
     public int getDay() {
@@ -58,7 +73,6 @@ public class DateCalendrier extends GregorianCalendar {
     }
 
     /**
-     *
      * @param day num of day in month
      */
     public void setDay(int day) {
@@ -105,7 +119,8 @@ public class DateCalendrier extends GregorianCalendar {
 
         return diff;
     }
-    public DateCalendrier addTime(DateCalendrier o){
+
+    public DateCalendrier addTime(DateCalendrier o) {
         DateCalendrier diff = new DateCalendrier(this);
 
         diff.add(GregorianCalendar.HOUR_OF_DAY, 1 * o.getHour());
@@ -114,17 +129,15 @@ public class DateCalendrier extends GregorianCalendar {
         return diff;
     }
 
-    public static String fillWithZeroBefor(int n){
-        String s = String.valueOf(n);
-        if(s.length() < 2){
-            s = "0" + s;
-        }
-        return s;
+    public String timeToString(){
+        return new StringBuilder().append(getHour()).append(":").append(DateCalendrier.fillWithZeroAfter(getMinute())).toString();
     }
+
+
 
     @Override
     public String toString() {
-        return getDay() + "/" + String.valueOf(getMonth()+1) + "/" + getYear() + " " +
+        return getDay() + "/" + (getMonth() + 1) + "/" + getYear() + " " +
                 getHour() + ":" + getMinute();
     }
 

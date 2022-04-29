@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.calendar.iutcalendar.R;
+import com.iutcalendar.calendrier.DateCalendrier;
 import com.iutcalendar.calendrier.EventCalendrier;
 
 import java.util.List;
@@ -41,8 +42,8 @@ public class EventRecycleView extends RecyclerView.Adapter<EventViewHolder> {
     public void onBindViewHolder(@NonNull EventViewHolder holder, int position) {
         final int index = viewHolder.getAdapterPosition();
         EventCalendrier e = list.get(position);
-        viewHolder.debut.setText(new StringBuilder().append(e.getDate().getHour()).append("h").toString());
-        viewHolder.fin.setText(new StringBuilder().append(e.getDate().addTime(e.getDuree()).getHour()).append("h").toString());
+        viewHolder.debut.setText(e.getDate().timeToString());
+        viewHolder.fin.setText(e.getDate().addTime(e.getDuree()).timeToString());
         viewHolder.summary.setText(e.getSummary());
         viewHolder.salle.setText(e.getSalle());
 

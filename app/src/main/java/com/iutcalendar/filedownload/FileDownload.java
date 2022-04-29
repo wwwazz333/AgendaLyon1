@@ -42,7 +42,6 @@ public class FileDownload {
         writeChannel.transferFrom(readChannel, 0, Long.MAX_VALUE);
 
         fileOS.close();
-
     }
 
     public static void updateFichier(String file_path) {

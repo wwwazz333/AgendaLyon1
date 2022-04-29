@@ -19,14 +19,14 @@
 
         <TextView
                 android:id="@+id/debut"
-                android:text="10h"
+                android:text="10:00"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:layout_marginBottom="3dp"/>
         <TextView
                 android:id="@+id/fin"
-                android:text="12h"
+                android:text="12:00"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"/>
@@ -40,7 +40,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:textSize="18sp"
-            android:paddingHorizontal="20dp"
+            android:paddingHorizontal="5dp"
             android:gravity="center_vertical"/>
 
     <TextView

@@ -3,29 +3,18 @@ package com.iutcalendar;
 import java.io.File;
 
 public class PathGlobal {
-    private static PathGlobal instance = null;
-    private String pathDownload;
+    public static final String nameFileSave = "savedCal.ics";
+    private static String pathDownload;
 
-    public PathGlobal() {
-
+    public static String getPathDownload() {
+        return PathGlobal.pathDownload;
     }
 
-    public static PathGlobal getInstance() {
-        if (instance == null) {
-            instance = new PathGlobal();
-        }
-        return instance;
+    public static void setPathDownload(String pathDownload) {
+        PathGlobal.pathDownload = pathDownload;
     }
 
-    public String getPathDownload() {
-        return pathDownload;
-    }
-
-    public void setPathDownload(String pathDownload) {
-        this.pathDownload = pathDownload;
-    }
-
-    public File getFileDownload() {
-        return new File(getPathDownload() + "/savedCal.ics");
+    public static File getFileDownload() {
+        return new File(PathGlobal.pathDownload + "/" + nameFileSave);
     }
 }

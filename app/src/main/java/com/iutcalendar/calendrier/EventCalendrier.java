@@ -40,7 +40,11 @@ public class EventCalendrier implements Comparable<EventCalendrier> {
         return salle;
     }
 
-    public DateCalendrier getDuree(){
+    public String getDescription() {
+        return description;
+    }
+
+    public DateCalendrier getDuree() {
         return new DateCalendrier(0, 0, 0, dureeH, dureeM);
     }
 
@@ -52,7 +56,8 @@ public class EventCalendrier implements Comparable<EventCalendrier> {
 
     public void parseLine(String str) {
         String[] splited = str.split(":");
-        if (splited.length != 2) {
+
+        if (splited.length < 2) {
             return;
         }
         String title = splited[0];
@@ -68,7 +73,7 @@ public class EventCalendrier implements Comparable<EventCalendrier> {
         } else if (title.equals("LOCATION")) {
             salle = splited[1];
         } else if (title.equals("DESCRIPTION")) {
-            description = splited[1];
+            description = str.substring(str.indexOf(':') + 1).trim().replace("\\n", "\n").replaceAll("^\n*|\n*$", "");
         }
     }
 
