@@ -1,5 +1,6 @@
 package com.iutcalendar;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
@@ -9,6 +10,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import com.calendar.iutcalendar.R;
 import com.iutcalendar.calendrier.CurrentDate;
+import com.iutcalendar.data.PathGlobal;
 import com.iutcalendar.filedownload.FileDownload;
 
 import java.util.GregorianCalendar;
@@ -22,6 +24,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        findViewById(R.id.settingsBtn).setOnClickListener(view -> {
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
+
+        });
+
 
         //Navigate weeks
         findViewById(R.id.nextWeek).setOnClickListener(view -> {
@@ -52,8 +61,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         PathGlobal.setPathDownload(getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath());
-        System.out.println(getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath());
-        System.out.println("----------" + PathGlobal.getFileDownload());
 
 
         setCurrDate(new CurrentDate());
@@ -61,12 +68,11 @@ public class MainActivity extends AppCompatActivity {
 
         new Thread(new Runnable() {
             public void run() {
-                FileDownload.updateFichier(PathGlobal.getPathDownload() + "/savedCal.ics");
+                FileDownload.updateFichier(PathGlobal.getPathDownload() + "/savedCal.ics", getApplicationContext());
                 showEvents();
                 System.out.println("udpated");
             }
         }).start();
-
     }
 
 
@@ -110,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
         ((TextView) findViewById(id)).setText(String.valueOf(getCurrDate().getDateOfDayOfWeek(day).getDay()));
         if (getCurrDate().getDay() == getCurrDate().getDateOfDayOfWeek(day).getDay()) {
             findViewById(id).setBackgroundColor(Color.argb(0.75f, 0.0f, 0.0f, 6.0f));
-        }else{
+        } else {
             findViewById(id).setBackgroundColor(Color.argb(0f, 1.0f, 1.0f, 1.0f));
         }
     }

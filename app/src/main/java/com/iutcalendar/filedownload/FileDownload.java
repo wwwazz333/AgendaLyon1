@@ -1,7 +1,7 @@
 package com.iutcalendar.filedownload;
 
-import android.util.Log;
-import com.iutcalendar.MainActivity;
+import android.content.Context;
+import androidx.preference.PreferenceManager;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -44,12 +44,15 @@ public class FileDownload {
         fileOS.close();
     }
 
-    public static void updateFichier(String file_path) {
+    public static void updateFichier(String file_path, Context context) {
         try { // update du fichier ou création
-            ReadableByteChannel readChannel =
-                    getCalender("http://adelb.univ-lyon1.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=51554&projectId=1&calType=ical&firstDate=2022-01-02&lastDate=2022-07-03");
-            saveByteToFile(readChannel, file_path);
-            System.out.println("fichier enregistré");
+            String url = PreferenceManager.getDefaultSharedPreferences(context).getString("url_path", "");
+            if (!url.isEmpty()) {
+                ReadableByteChannel readChannel =
+                        getCalender(url);
+                saveByteToFile(readChannel, file_path);
+                System.out.println("fichier enregistré");
+            }
         } catch (IOException e) {
             System.out.println("IOException erreur update file: " + e.getMessage());
         } catch (Exception e) {

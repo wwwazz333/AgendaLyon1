@@ -1,4 +1,4 @@
-package com.iutcalendar;
+package com.iutcalendar.data;
 
 import java.io.File;
 
