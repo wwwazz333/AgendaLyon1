@@ -12,12 +12,26 @@ import com.calendar.iutcalendar.R;
 import com.iutcalendar.calendrier.CurrentDate;
 import com.iutcalendar.data.PathGlobal;
 import com.iutcalendar.filedownload.FileDownload;
+import com.iutcalendar.settings.SettingsActivity;
 
 import java.util.GregorianCalendar;
 
 public class MainActivity extends AppCompatActivity {
     private static final String calDownload = "output_download.ics";
     private CurrentDate currDate;
+    static boolean active = false;
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        active = true;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        active = false;
+    }
 
 
     @Override
@@ -68,8 +82,11 @@ public class MainActivity extends AppCompatActivity {
 
         new Thread(new Runnable() {
             public void run() {
-                FileDownload.updateFichier(PathGlobal.getPathDownload() + "/savedCal.ics", getApplicationContext());
-                showEvents();
+                FileDownload.updateFichier(PathGlobal.getFileDownload().getAbsolutePath(), getApplicationContext());
+                if(MainActivity.active){
+                    showEvents();
+                }
+
                 System.out.println("udpated");
             }
         }).start();

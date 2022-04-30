@@ -21,7 +21,8 @@
             android:supportsRtl="true"
             android:theme="@style/Theme.IUTCalendar">
         <activity
-                android:name="com.iutcalendar.SettingsActivity"
+                android:name="com.iutcalendar.settings.SettingsActivity"
+                android:parentActivityName="com.iutcalendar.MainActivity"
                 android:exported="true"
                 android:label="@string/title_activity_settings"/>
         <activity

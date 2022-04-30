@@ -1,12 +1,14 @@
 <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
     <RelativeLayout
             android:id="@+id/settings"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:text="Retour"
                 android:layout_width="wrap_content"
@@ -14,19 +16,9 @@
                 android:id="@+id/btnRetour"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:src="@drawable/ic_baseline_close_24"
+                android:src="@drawable/ic_baseline_keyboard_return_24"
                 android:layout_alignParentBottom="true" android:layout_marginBottom="24dp"
                 android:layout_centerHorizontal="true"/>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:text="Scan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/btnScan"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_alignParentBottom="true" android:layout_marginBottom="8dp"
-                android:layout_alignParentEnd="true" android:layout_marginEnd="4dp"/>
     </RelativeLayout>
 
 </LinearLayout>

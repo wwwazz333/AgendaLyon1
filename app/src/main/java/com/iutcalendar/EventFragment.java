@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.fragment.app.Fragment;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.calendar.iutcalendar.R;
@@ -73,16 +74,18 @@ public class EventFragment extends Fragment {
             recycleView.setAdapter(adapter);
             recycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-
-            TextView update = new TextView(getActivity());
-            update.setLayoutParams(lp);
-            update.setGravity(Gravity.CENTER);
-            update.setTextSize(18);
-
-            update.setText(new StringBuilder().append("last update : ").append(new SimpleDateFormat("dd/MM/yyyy HH:mm").format(fileCal.lastModified())).toString());
+            if (PreferenceManager.getDefaultSharedPreferences(getContext()).getBoolean("show_update", true)) {
 
 
-            layout.addView(update);
+                TextView update = new TextView(getActivity());
+                update.setLayoutParams(lp);
+                update.setGravity(Gravity.CENTER);
+                update.setTextSize(18);
+
+                update.setText(new StringBuilder().append("last update : ").append(new SimpleDateFormat("dd/MM/yyyy HH:mm").format(fileCal.lastModified())).toString());
+
+                layout.addView(update);
+            }
         } else {
             TextView update = new TextView(getActivity());
             update.setLayoutParams(lp);

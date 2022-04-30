@@ -1,8 +1,8 @@
-package com.iutcalendar;
+package com.iutcalendar.settings;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.widget.EditText;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
@@ -10,33 +10,27 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
-import androidx.preference.PreferenceManager;
 import com.calendar.iutcalendar.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
-import com.journeyapps.barcodescanner.CaptureActivity;
 
 public class SettingsActivity extends AppCompatActivity implements
-        PreferenceFragmentCompat.OnPreferenceStartFragmentCallback  {
+        PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
+
+    FloatingActionButton retourBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_activity);
 
-        findViewById(R.id.btnRetour).setOnClickListener(view -> {
+        retourBtn = findViewById(R.id.btnRetour);
+
+        retourBtn.setOnClickListener(view -> {
             finish();
         });
 
-        findViewById(R.id.btnScan).setOnClickListener(view -> {
-            IntentIntegrator intentIntegrator = new IntentIntegrator(SettingsActivity.this);
-
-            intentIntegrator.setPrompt("test");
-            intentIntegrator.setOrientationLocked(false);
-            intentIntegrator.setCaptureActivity(CaptureActivity.class);
-
-            intentIntegrator.initiateScan();
-        });
 
         if (savedInstanceState == null) {
             getSupportFragmentManager()
@@ -63,8 +57,32 @@ public class SettingsActivity extends AppCompatActivity implements
                 .replace(R.id.settings, fragment)
                 .addToBackStack(null)
                 .commit();
+
+
+        retourBtn.setOnClickListener(view -> {
+            getSupportFragmentManager().popBackStack();
+            retourBtn.setOnClickListener(view1 -> {
+                finish();
+            });
+
+        });
         return true;
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        IntentResult res = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+
+        if (res.getContents() != null) {
+            Toast.makeText(getApplicationContext(), "QR code scané", Toast.LENGTH_SHORT).show();
+            EditText input = findViewById(R.id.inputURL);
+            input.setText(res.getContents());
+        } else {
+            Toast.makeText(getApplicationContext(), "échec", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public static class SettingsFragment extends PreferenceFragmentCompat {
@@ -73,18 +91,5 @@ public class SettingsActivity extends AppCompatActivity implements
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
         }
     }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        IntentResult res = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-
-        if(res.getContents() != null){
-            Toast.makeText(getApplicationContext(), res.getContents(), Toast.LENGTH_LONG).show();
-            PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("url_path", res.getContents()).commit();
-        }else{
-            Toast.makeText(getApplicationContext(), "res.getContents()", Toast.LENGTH_LONG).show();
-        }
-    }
 }
+
