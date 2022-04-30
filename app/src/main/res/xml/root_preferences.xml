@@ -4,11 +4,12 @@
     <PreferenceCategory
             app:title="URL">
 
-        <EditTextPreference
-                app:key="url_path"
+        <Preference
+                app:fragment="com.iutcalendar.URLSetterFragment"
                 app:title="url"
                 app:useSimpleSummaryProvider="true"/>
 
     </PreferenceCategory>
+
 
 </PreferenceScreen>

@@ -16,11 +16,13 @@
         <entry key="app/src/main/res/layout/fragment_event.xml" value="0.35104166666666664" />
         <entry key="app/src/main/res/layout/fragment_event2.xml" value="0.178125" />
         <entry key="app/src/main/res/layout/fragment_template_event.xml" value="0.30634715025906734" />
+        <entry key="app/src/main/res/layout/fragment_u_r_l_setter.xml" value="0.3359375" />
         <entry key="app/src/main/res/layout/network_security_config.xml" value="0.178125" />
         <entry key="app/src/main/res/layout/settings_activity.xml" value="0.35104166666666664" />
         <entry key="app/src/main/res/xml/event_view.xml" value="0.35104166666666664" />
         <entry key="app/src/main/res/xml/network_security_config.xml" value="0.456" />
         <entry key="app/src/main/res/xml/root_preferences.xml" value="0.35104166666666664" />
+        <entry key="app/src/main/res/xml/url_settings.xml" value="0.35" />
       </map>
     </option>
   </component>
