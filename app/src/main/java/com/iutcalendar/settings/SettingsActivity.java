@@ -14,6 +14,7 @@ import com.calendar.iutcalendar.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.iutcalendar.MainActivity;
 
 public class SettingsActivity extends AppCompatActivity implements
         PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
@@ -28,6 +29,8 @@ public class SettingsActivity extends AppCompatActivity implements
         retourBtn = findViewById(R.id.btnRetour);
 
         retourBtn.setOnClickListener(view -> {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
             finish();
         });
 
@@ -58,14 +61,6 @@ public class SettingsActivity extends AppCompatActivity implements
                 .addToBackStack(null)
                 .commit();
 
-
-        retourBtn.setOnClickListener(view -> {
-            getSupportFragmentManager().popBackStack();
-            retourBtn.setOnClickListener(view1 -> {
-                finish();
-            });
-
-        });
         return true;
 
     }

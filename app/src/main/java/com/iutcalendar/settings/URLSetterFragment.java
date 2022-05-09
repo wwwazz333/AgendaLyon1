@@ -11,12 +11,13 @@ import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
 import com.calendar.iutcalendar.R;
 import com.google.zxing.integration.android.IntentIntegrator;
+import com.iutcalendar.data.PathGlobal;
 import com.journeyapps.barcodescanner.CaptureActivity;
 
 public class URLSetterFragment extends Fragment {
 
     View view;
-    Button scan, valide;
+    Button scan, valide, cancel;
     EditText input;
 
     @Override
@@ -26,6 +27,7 @@ public class URLSetterFragment extends Fragment {
 
         scan = view.findViewById(R.id.scanBtn);
         valide = view.findViewById(R.id.submitBtn);
+        cancel = view.findViewById(R.id.cancelBtn);
         input = view.findViewById(R.id.inputURL);
 
         input.setText(PreferenceManager.getDefaultSharedPreferences(getContext()).getString("url_path", ""));
@@ -39,8 +41,13 @@ public class URLSetterFragment extends Fragment {
         });
 
         valide.setOnClickListener(v -> {
+            PathGlobal.getFileDownload().delete();
             PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putString("url_path", input.getText().toString()).commit();
-            Toast.makeText(getContext(), "validé", Toast.LENGTH_SHORT).show();
+            getParentFragmentManager().popBackStackImmediate();
+
+        });
+        cancel.setOnClickListener(v -> {
+            getParentFragmentManager().popBackStackImmediate();
         });
 
         return view;

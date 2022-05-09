@@ -24,13 +24,32 @@
             android:layout_below="@+id/inputURL"
             android:layout_centerHorizontal="true" app:icon="@drawable/ic_baseline_qr_code_scanner_24"
             android:text="Scan QR code"/>
-    <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/submitBtn"
-            android:text="validé"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="76dp"
-            android:layout_below="@+id/scanBtn"/>
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                  android:orientation="horizontal"
+                  android:layout_centerHorizontal="true"
+                  android:layout_alignParentBottom="true"
+                  android:layout_marginBottom="100dp">
+        <Space android:layout_width="0dp" android:layout_height="match_parent"
+               android:layout_weight="1"/>
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/cancelBtn"
+                android:text="annulé"
+        />
+        <Space android:layout_width="0dp" android:layout_height="match_parent"
+               android:layout_weight="1"/>
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/submitBtn"
+                android:text="validé"
+        />
+        <Space android:layout_width="0dp" android:layout_height="match_parent"
+               android:layout_weight="1"/>
+
+
+    </LinearLayout>
+
 
 </RelativeLayout>

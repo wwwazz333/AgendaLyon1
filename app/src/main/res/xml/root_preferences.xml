@@ -6,7 +6,7 @@
             app:title="URL">
 
         <Preference
-                app:fragment="com.iutcalendar.URLSetterFragment"
+                app:fragment="com.iutcalendar.settings.URLSetterFragment"
                 app:title="URL"
                 app:summary="URL pour mettre à jour le calendrier"/>
 
@@ -20,38 +20,7 @@
                 android:defaultValue="true"
         />
     </PreferenceCategory>
-    <PreferenceCategory
-            app:title="@string/messages_header">
 
-        <EditTextPreference
-                app:key="signature"
-                app:title="@string/signature_title"
-                app:useSimpleSummaryProvider="true"/>
-
-        <ListPreference
-                app:key="reply"
-                app:title="@string/reply_title"
-                app:entries="@array/reply_entries"
-                app:entryValues="@array/reply_values"
-                app:defaultValue="reply"
-                app:useSimpleSummaryProvider="true"/>
-
-    </PreferenceCategory>
-    <PreferenceCategory
-            app:title="@string/sync_header">
-
-        <SwitchPreferenceCompat
-                app:key="sync"
-                app:title="@string/sync_title"/>
-
-        <SwitchPreferenceCompat
-                app:key="attachment"
-                app:title="@string/attachment_title"
-                app:summaryOn="@string/attachment_summary_on"
-                app:summaryOff="@string/attachment_summary_off"
-                app:dependency="sync"/>
-
-    </PreferenceCategory>
 
 
 </PreferenceScreen>
