@@ -12,7 +12,6 @@
 
     <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
 
-
     <application
             android:allowBackup="true"
             android:hardwareAccelerated="false"
@@ -23,11 +22,23 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/Theme.IUTCalendar">
+        <receiver
+                android:name="com.iutcalendar.widget.WidgetCalendar"
+                android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+
+            <meta-data
+                    android:name="android.appwidget.provider"
+                    android:resource="@xml/widget_calendar_info"/>
+        </receiver>
+
         <activity
                 android:name="com.iutcalendar.settings.SettingsActivity"
-                android:parentActivityName="com.iutcalendar.MainActivity"
                 android:exported="true"
-                android:label="@string/title_activity_settings"/>
+                android:label="@string/title_activity_settings"
+                android:parentActivityName="com.iutcalendar.MainActivity"/>
         <activity
                 android:name="com.iutcalendar.MainActivity"
                 android:exported="true">

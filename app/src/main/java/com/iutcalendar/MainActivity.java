@@ -1,18 +1,23 @@
 package com.iutcalendar;
 
-import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.AlarmClock;
+import android.view.View;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import com.calendar.iutcalendar.R;
 import com.iutcalendar.calendrier.CurrentDate;
+import com.iutcalendar.data.DataSaver;
 import com.iutcalendar.data.PathGlobal;
 import com.iutcalendar.filedownload.FileDownload;
 import com.iutcalendar.settings.SettingsActivity;
@@ -102,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
 //
 //        startActivity(myIntent);
 
+
     }
 
 
@@ -144,10 +150,13 @@ public class MainActivity extends AppCompatActivity {
     public void setNumOfMonthAndSelected(int id, int day) {
         ((TextView) findViewById(id)).setText(String.valueOf(getCurrDate().getDateOfDayOfWeek(day).getDay()));
         if (getCurrDate().getDay() == getCurrDate().getDateOfDayOfWeek(day).getDay()) {
-            findViewById(id).setBackgroundColor(Color.parseColor("#FF03DAC5"));
+            findViewById(id).setBackgroundColor(Color.parseColor("#FFC41442"));
         } else {
             findViewById(id).setBackgroundColor(Color.argb(0f, 1.0f, 1.0f, 1.0f));
         }
     }
+
+
+
 
 }

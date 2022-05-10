@@ -10,16 +10,22 @@
         android:background="?background">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:text="Retour"
+            android:text="Settings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/settingsBtn"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:src="@drawable/ic_baseline_settings_24"
-            android:layout_marginEnd="24dp" android:layout_marginBottom="24dp"/>
-    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
-                  android:orientation="vertical">
+            android:layout_marginEnd="24dp" android:layout_marginBottom="24dp"
+            tools:ignore="SpeakableTextPresentCheck" android:contentDescription="Logo settings"/>
+    <Space
+            android:id="@+id/spacerTop"
+            android:layout_width="match_parent" android:layout_height="20dp"
+           app:layout_constraintTop_toTopOf="parent"/>
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                  android:orientation="vertical"
+                  app:layout_constraintTop_toBottomOf="@+id/spacerTop">
 
         <LinearLayout
                 android:layout_width="match_parent"
@@ -33,7 +39,7 @@
                     android:gravity="center"
                     android:layout_height="match_parent"
                     app:srcCompat="@drawable/ic_left_arrow"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1" android:labelFor="@id/currDateLabel"/>
             <TextView
                     android:id="@+id/currDateLabel"
                     android:layout_width="0dp"
@@ -43,12 +49,12 @@
                     android:gravity="center"
                     android:textSize="22sp"/>
             <ImageView
-                    android:contentDescription="next week boutton"
+                    android:contentDescription="next week logo"
                     android:id="@+id/nextWeek"
                     android:layout_width="0dp"
                     android:gravity="center"
                     android:layout_height="match_parent" app:srcCompat="@drawable/ic_right_arrow"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1" android:labelFor="@id/currDateLabel"/>
 
 
         </LinearLayout>

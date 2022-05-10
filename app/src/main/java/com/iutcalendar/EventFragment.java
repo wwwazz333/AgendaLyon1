@@ -17,6 +17,7 @@ import com.calendar.iutcalendar.R;
 import com.iutcalendar.calendrier.Calendrier;
 import com.iutcalendar.calendrier.CurrentDate;
 import com.iutcalendar.calendrier.EventCalendrier;
+import com.iutcalendar.data.DataSaver;
 import com.iutcalendar.data.PathGlobal;
 import com.iutcalendar.event.ClickListiner;
 import com.iutcalendar.event.EventRecycleView;
@@ -34,17 +35,7 @@ public class EventFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public String readFile(File file) {
-        String str = null;
-        try {
-            str = new String(Files.readAllBytes(Paths.get(file.getAbsolutePath())));
-        } catch (IOException e) {
-            Log.d("Error", e.getMessage());
-            str = "";
-        }
 
-        return str;
-    }
 
 
     @Override
@@ -60,7 +51,8 @@ public class EventFragment extends Fragment {
 
 
         if (fileCal.exists()) {
-            String str = readFile(fileCal);
+//            String str = DataSaver.getSavedCal(getContext());
+            String str = PathGlobal.readFile(fileCal);
             Calendrier cal = new Calendrier(str);
 
 
@@ -83,7 +75,7 @@ public class EventFragment extends Fragment {
                 update.setTextSize(18);
 
                 update.setText(new StringBuilder().append("last update : ").append(new SimpleDateFormat("dd/MM/yyyy HH:mm").format(fileCal.lastModified())).toString());
-
+//                update.setText(DataSaver.getSavedLastUpdate(getContext()));
                 layout.addView(update);
             }
         } else {

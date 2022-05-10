@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
 import com.calendar.iutcalendar.R;
 import com.google.zxing.integration.android.IntentIntegrator;
+import com.iutcalendar.data.DataSaver;
 import com.iutcalendar.data.PathGlobal;
 import com.journeyapps.barcodescanner.CaptureActivity;
 
@@ -30,7 +31,7 @@ public class URLSetterFragment extends Fragment {
         cancel = view.findViewById(R.id.cancelBtn);
         input = view.findViewById(R.id.inputURL);
 
-        input.setText(PreferenceManager.getDefaultSharedPreferences(getContext()).getString("url_path", ""));
+        input.setText(DataSaver.getSavedPath(getContext()));
 
         scan.setOnClickListener(v -> {
             IntentIntegrator intentIntegrator = new IntentIntegrator(getActivity());
@@ -42,7 +43,8 @@ public class URLSetterFragment extends Fragment {
 
         valide.setOnClickListener(v -> {
             PathGlobal.getFileDownload().delete();
-            PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putString("url_path", input.getText().toString()).commit();
+            DataSaver.saveCal(getContext(), "");
+            DataSaver.savePath(getContext(), input.getText().toString());
             getParentFragmentManager().popBackStackImmediate();
 
         });
