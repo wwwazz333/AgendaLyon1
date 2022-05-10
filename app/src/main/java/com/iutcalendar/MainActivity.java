@@ -1,24 +1,18 @@
 package com.iutcalendar;
 
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
-import android.view.View;
+import android.util.Log;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import com.calendar.iutcalendar.R;
 import com.iutcalendar.calendrier.CurrentDate;
-import com.iutcalendar.data.DataSaver;
-import com.iutcalendar.data.PathGlobal;
+import com.iutcalendar.data.DataGlobal;
+import com.iutcalendar.data.FileGlobal;
 import com.iutcalendar.filedownload.FileDownload;
 import com.iutcalendar.settings.SettingsActivity;
 
@@ -83,22 +77,18 @@ public class MainActivity extends AppCompatActivity {
         setOnclicDay(R.id.dimancheNum, GregorianCalendar.SUNDAY);
 
 
-        PathGlobal.setPathDownload(getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath());
-        DataSaver.savePathDownloadFile(getApplicationContext(), getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath());
+        DataGlobal.savePathDownloadFile(getApplicationContext(), getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath());
 
 
         setCurrDate(new CurrentDate());
         showEvents();
 
-        new Thread(new Runnable() {
-            public void run() {
-                FileDownload.updateFichier(PathGlobal.getFileDownload().getAbsolutePath(), getApplicationContext());
-                if (MainActivity.active) {
-                    showEvents();
-                }
-
-                System.out.println("udpated");
+        new Thread(() -> {
+            FileDownload.updateFichier(FileGlobal.getFileDownload(getApplicationContext()).getAbsolutePath(), getApplicationContext());
+            if (MainActivity.active) {
+                showEvents();
             }
+            Log.d("File", "updated");
         }).start();
 
 
@@ -156,8 +146,6 @@ public class MainActivity extends AppCompatActivity {
             findViewById(id).setBackgroundColor(Color.argb(0f, 1.0f, 1.0f, 1.0f));
         }
     }
-
-
 
 
 }

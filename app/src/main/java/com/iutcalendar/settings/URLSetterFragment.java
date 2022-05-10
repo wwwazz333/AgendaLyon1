@@ -6,13 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 import androidx.fragment.app.Fragment;
-import androidx.preference.PreferenceManager;
 import com.calendar.iutcalendar.R;
 import com.google.zxing.integration.android.IntentIntegrator;
-import com.iutcalendar.data.DataSaver;
-import com.iutcalendar.data.PathGlobal;
+import com.iutcalendar.data.DataGlobal;
+import com.iutcalendar.data.FileGlobal;
 import com.journeyapps.barcodescanner.CaptureActivity;
 
 public class URLSetterFragment extends Fragment {
@@ -31,7 +29,7 @@ public class URLSetterFragment extends Fragment {
         cancel = view.findViewById(R.id.cancelBtn);
         input = view.findViewById(R.id.inputURL);
 
-        input.setText(DataSaver.getSavedPath(getContext()));
+        input.setText(DataGlobal.getSavedPath(getContext()));
 
         scan.setOnClickListener(v -> {
             IntentIntegrator intentIntegrator = new IntentIntegrator(getActivity());
@@ -42,9 +40,9 @@ public class URLSetterFragment extends Fragment {
         });
 
         valide.setOnClickListener(v -> {
-            PathGlobal.getFileDownload().delete();
-            DataSaver.saveCal(getContext(), "");
-            DataSaver.savePath(getContext(), input.getText().toString());
+            FileGlobal.getFileDownload(getContext()).delete();
+//            DataSaver.saveCal(getContext(), "");
+            DataGlobal.savePath(getContext(), input.getText().toString());
             getParentFragmentManager().popBackStackImmediate();
 
         });

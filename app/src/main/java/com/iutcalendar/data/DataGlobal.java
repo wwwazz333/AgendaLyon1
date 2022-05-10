@@ -1,17 +1,12 @@
 package com.iutcalendar.data;
 
 import android.content.Context;
-import android.util.Log;
 import androidx.preference.PreferenceManager;
 
-import java.io.IOException;
-import java.nio.ByteBuffer;
-import java.nio.channels.ReadableByteChannel;
-
-public class DataSaver {
+public class DataGlobal {
     private final static String url = "url_path";
     private final static String pathFileDownload = "path_file_download";
-    private final static String calendrier = "object_calendrier";
+//    private final static String calendrier = "object_calendrier";
 
     public static void savePath(Context context, String data) {
         PreferenceManager.getDefaultSharedPreferences(context).edit().putString(url, data).commit();
@@ -21,13 +16,16 @@ public class DataSaver {
         return PreferenceManager.getDefaultSharedPreferences(context).getString(url, "");
     }
 
-    public static void savePathDownloadFile(Context context, String data){
+    public static void savePathDownloadFile(Context context, String data) {
         PreferenceManager.getDefaultSharedPreferences(context).edit().putString(pathFileDownload, data).commit();
     }
+
     public static String getSavedPathDownloadFile(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context).getString(pathFileDownload, "");
     }
 
+
+    /*
     public static void saveCal(Context context, String data) {
         PreferenceManager.getDefaultSharedPreferences(context).edit().putString(calendrier, data).commit();
     }
@@ -62,5 +60,6 @@ public class DataSaver {
 
         return builder.toString();
     }
+     */
 
 }

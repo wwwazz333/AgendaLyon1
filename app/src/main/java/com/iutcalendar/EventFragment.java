@@ -1,7 +1,6 @@
 package com.iutcalendar;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,15 +16,11 @@ import com.calendar.iutcalendar.R;
 import com.iutcalendar.calendrier.Calendrier;
 import com.iutcalendar.calendrier.CurrentDate;
 import com.iutcalendar.calendrier.EventCalendrier;
-import com.iutcalendar.data.DataSaver;
-import com.iutcalendar.data.PathGlobal;
+import com.iutcalendar.data.FileGlobal;
 import com.iutcalendar.event.ClickListiner;
 import com.iutcalendar.event.EventRecycleView;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -34,9 +29,6 @@ public class EventFragment extends Fragment {
     public EventFragment() {
         // Required empty public constructor
     }
-
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -47,12 +39,12 @@ public class EventFragment extends Fragment {
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
 
-        File fileCal = PathGlobal.getFileDownload();
+        File fileCal = FileGlobal.getFileDownload(getContext());
 
 
         if (fileCal.exists()) {
 //            String str = DataSaver.getSavedCal(getContext());
-            String str = PathGlobal.readFile(fileCal);
+            String str = FileGlobal.readFile(fileCal);
             Calendrier cal = new Calendrier(str);
 
 
