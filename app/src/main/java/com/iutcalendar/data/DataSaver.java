@@ -10,7 +10,7 @@ import java.nio.channels.ReadableByteChannel;
 
 public class DataSaver {
     private final static String url = "url_path";
-    private final static String lastUpdate = "last_update_date";
+    private final static String pathFileDownload = "path_file_download";
     private final static String calendrier = "object_calendrier";
 
     public static void savePath(Context context, String data) {
@@ -21,11 +21,11 @@ public class DataSaver {
         return PreferenceManager.getDefaultSharedPreferences(context).getString(url, "");
     }
 
-    public static void saveLastUpdate(Context context, String data){
-        PreferenceManager.getDefaultSharedPreferences(context).edit().putString(lastUpdate, data).commit();
+    public static void savePathDownloadFile(Context context, String data){
+        PreferenceManager.getDefaultSharedPreferences(context).edit().putString(pathFileDownload, data).commit();
     }
-    public static String getSavedLastUpdate(Context context) {
-        return PreferenceManager.getDefaultSharedPreferences(context).getString(lastUpdate, "");
+    public static String getSavedPathDownloadFile(Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context).getString(pathFileDownload, "");
     }
 
     public static void saveCal(Context context, String data) {

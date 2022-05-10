@@ -84,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         PathGlobal.setPathDownload(getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath());
+        DataSaver.savePathDownloadFile(getApplicationContext(), getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath());
 
 
         setCurrDate(new CurrentDate());
