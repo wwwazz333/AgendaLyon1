@@ -29,8 +29,6 @@ public class SettingsActivity extends AppCompatActivity implements
         retourBtn = findViewById(R.id.btnRetour);
 
         retourBtn.setOnClickListener(view -> {
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
             finish();
         });
 
@@ -48,7 +46,7 @@ public class SettingsActivity extends AppCompatActivity implements
     }
 
     @Override
-    public boolean onPreferenceStartFragment(PreferenceFragmentCompat caller, Preference pref) {
+    public boolean onPreferenceStartFragment(PreferenceFragmentCompat caller, Preference pref) {// pour la redirection vers les sous menu
         final Bundle args = pref.getExtras();
         final Fragment fragment = getSupportFragmentManager().getFragmentFactory().instantiate(
                 getClassLoader(),

@@ -1,12 +1,12 @@
 package com.iutcalendar;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.TypedValue;
+import android.provider.AlarmClock;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
+        showEvents();
         active = true;
     }
 
@@ -45,8 +46,6 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.settingsBtn).setOnClickListener(view -> {
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
-            finish();
-
         });
 
 
@@ -95,6 +94,14 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println("udpated");
             }
         }).start();
+
+
+//        Intent myIntent = new Intent(AlarmClock.ACTION_SET_ALARM);
+//        myIntent.putExtra(AlarmClock.EXTRA_HOUR, getCurrDate().getHour());
+//        myIntent.putExtra(AlarmClock.EXTRA_MINUTES, getCurrDate().getMinute()+1);
+//
+//        startActivity(myIntent);
+
     }
 
 
