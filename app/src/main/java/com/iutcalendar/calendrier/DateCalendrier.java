@@ -123,14 +123,14 @@ public class DateCalendrier extends GregorianCalendar {
     public DateCalendrier addTime(DateCalendrier o) {
         DateCalendrier diff = new DateCalendrier(this);
 
-        diff.add(GregorianCalendar.HOUR_OF_DAY, 1 * o.getHour());
-        diff.add(GregorianCalendar.MINUTE, 1 * o.getMinute());
+        diff.add(GregorianCalendar.HOUR_OF_DAY, o.getHour());
+        diff.add(GregorianCalendar.MINUTE, o.getMinute());
 
         return diff;
     }
 
     public String timeToString(){
-        return new StringBuilder().append(getHour()).append(":").append(DateCalendrier.fillWithZeroAfter(getMinute())).toString();
+        return getHour() + ":" + DateCalendrier.fillWithZeroAfter(getMinute());
     }
 
 

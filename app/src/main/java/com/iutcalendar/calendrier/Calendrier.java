@@ -1,5 +1,6 @@
 package com.iutcalendar.calendrier;
 
+
 import java.util.*;
 
 public class Calendrier {
@@ -13,8 +14,6 @@ public class Calendrier {
     public Calendrier(String txtIcs) {
         events = new ArrayList<>();
         String[] lines = txtIcs.split(DELIMITER_LINE);
-
-        EventCalendrier ev = new EventCalendrier();
 
         State stateCal = State.CLOSE;
         for (int i = 0; i < lines.length; i++) {

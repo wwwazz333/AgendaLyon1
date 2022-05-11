@@ -46,9 +46,7 @@ public class URLSetterFragment extends Fragment {
             getParentFragmentManager().popBackStackImmediate();
 
         });
-        cancel.setOnClickListener(v -> {
-            getParentFragmentManager().popBackStackImmediate();
-        });
+        cancel.setOnClickListener(v -> getParentFragmentManager().popBackStackImmediate());
 
         return view;
     }

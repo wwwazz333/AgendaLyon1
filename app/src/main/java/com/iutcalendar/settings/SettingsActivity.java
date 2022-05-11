@@ -27,9 +27,7 @@ public class SettingsActivity extends AppCompatActivity implements
 
         retourBtn = findViewById(R.id.btnRetour);
 
-        retourBtn.setOnClickListener(view -> {
-            finish();
-        });
+        retourBtn.setOnClickListener(view -> finish());
 
 
         if (savedInstanceState == null) {
