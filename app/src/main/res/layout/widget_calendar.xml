@@ -13,7 +13,8 @@
 
         <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:orientation="horizontal"
                 android:showDividers="middle"
                 android:divider="?android:dividerHorizontal"
@@ -22,7 +23,7 @@
 
             <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:layout_margin="5dp"
                     android:paddingVertical="3dp"
@@ -32,33 +33,38 @@
                 <TextView
                         android:id="@+id/debut1"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
                         android:textSize="18sp"
                         android:layout_marginBottom="3dp"/>
                 <TextView
                         android:id="@+id/fin1"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="0dp"
+                        android:gravity="center"
+                        android:layout_weight="1"
                         android:textSize="18sp"/>
+
+                <TextView
+                        android:id="@+id/salle1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textSize="18sp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginHorizontal="5dp"/>
 
             </LinearLayout>
 
             <TextView
                     android:id="@+id/summary1"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:gravity="center"
                     android:textSize="18sp"
-                    android:paddingHorizontal="5dp"
-                    android:gravity="center_vertical"/>
-
-            <TextView
-                    android:id="@+id/salle1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="18sp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginHorizontal="5dp"/>
+                    android:paddingHorizontal="5dp"/>
 
 
         </LinearLayout>
@@ -67,7 +73,8 @@
 
         <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:orientation="horizontal"
                 android:showDividers="middle"
                 android:divider="?android:dividerHorizontal"
@@ -76,7 +83,7 @@
 
             <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:layout_margin="5dp"
                     android:paddingVertical="3dp"
@@ -86,33 +93,38 @@
                 <TextView
                         android:id="@+id/debut2"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
                         android:textSize="18sp"
                         android:layout_marginBottom="3dp"/>
                 <TextView
                         android:id="@+id/fin2"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="0dp"
+                        android:gravity="center"
+                        android:layout_weight="1"
                         android:textSize="18sp"/>
+
+                <TextView
+                        android:id="@+id/salle2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textSize="18sp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginHorizontal="5dp"/>
 
             </LinearLayout>
 
             <TextView
                     android:id="@+id/summary2"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:gravity="center"
                     android:textSize="18sp"
-                    android:paddingHorizontal="5dp"
-                    android:gravity="center_vertical"/>
-
-            <TextView
-                    android:id="@+id/salle2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="18sp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginHorizontal="5dp"/>
+                    android:paddingHorizontal="5dp"/>
 
 
         </LinearLayout>
