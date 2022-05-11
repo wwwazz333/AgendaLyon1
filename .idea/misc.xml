@@ -10,6 +10,7 @@
         <entry key="app/src/main/res/drawable/border.xml" value="0.36614583333333334" />
         <entry key="app/src/main/res/drawable/custom_background.xml" value="0.36614583333333334" />
         <entry key="app/src/main/res/drawable/div.xml" value="0.36614583333333334" />
+        <entry key="app/src/main/res/drawable/event_background.xml" value="0.3671875" />
         <entry key="app/src/main/res/drawable/ic_baseline_arrow_back_24.xml" value="0.3671875" />
         <entry key="app/src/main/res/drawable/ic_baseline_close_24.xml" value="0.3671875" />
         <entry key="app/src/main/res/drawable/ic_baseline_keyboard_return_24.xml" value="0.3671875" />

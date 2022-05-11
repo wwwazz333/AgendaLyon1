@@ -9,6 +9,7 @@ public class Calendrier {
 
     public Calendrier(List<EventCalendrier> events) {
         this.events = events;
+        Collections.sort(events);
     }
 
     public Calendrier(String txtIcs) {
@@ -64,6 +65,9 @@ public class Calendrier {
         return eventsOfDay;
     }
 
+    public EventCalendrier getLastEvent() {
+        return events.get(events.size() - 1);
+    }
 
     @Override
     public String toString() {

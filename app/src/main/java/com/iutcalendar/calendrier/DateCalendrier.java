@@ -141,6 +141,21 @@ public class DateCalendrier extends GregorianCalendar {
                 getHour() + ":" + getMinute();
     }
 
+    public boolean sameDay(Object obj){
+        if (obj == null) {
+            return false;
+        }
+        if (this == obj) {
+            return true;
+        }
+        if (this.getClass() != obj.getClass()) {
+            return false;
+        }
+        final DateCalendrier other = (DateCalendrier) obj;
+
+        return get(GregorianCalendar.DAY_OF_YEAR) == other.get(GregorianCalendar.DAY_OF_YEAR) && getYear() == other.getYear();
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
