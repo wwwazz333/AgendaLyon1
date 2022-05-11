@@ -8,20 +8,43 @@ public class DataGlobal {
     private final static String pathFileDownload = "path_file_download";
 //    private final static String calendrier = "object_calendrier";
 
+    //String
+    public static void save(Context context, String key, String data){
+        PreferenceManager.getDefaultSharedPreferences(context).edit().putString(key, data).commit();
+    }
+    public static String getSavedString(Context context, String key) {
+        return PreferenceManager.getDefaultSharedPreferences(context).getString(key, "");
+    }
+    //boolean
+    public static void save(Context context, String key, boolean data){
+        PreferenceManager.getDefaultSharedPreferences(context).edit().putBoolean(key, data).commit();
+    }
+    public static boolean getSavedBoolean(Context context, String key) {
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(key, false);
+    }
+    //boolean
+    public static void save(Context context, String key, int data){
+        PreferenceManager.getDefaultSharedPreferences(context).edit().putInt(key, data).commit();
+    }
+    public static int getSavedInt(Context context, String key) {
+        return PreferenceManager.getDefaultSharedPreferences(context).getInt(key, 0);
+    }
+
+
     public static void savePath(Context context, String data) {
-        PreferenceManager.getDefaultSharedPreferences(context).edit().putString(url, data).commit();
+        save(context, url, data);
     }
 
     public static String getSavedPath(Context context) {
-        return PreferenceManager.getDefaultSharedPreferences(context).getString(url, "");
+        return getSavedString(context, url);
     }
 
     public static void savePathDownloadFile(Context context, String data) {
-        PreferenceManager.getDefaultSharedPreferences(context).edit().putString(pathFileDownload, data).commit();
+        save(context, pathFileDownload, data);
     }
 
     public static String getSavedPathDownloadFile(Context context) {
-        return PreferenceManager.getDefaultSharedPreferences(context).getString(pathFileDownload, "");
+        return getSavedString(context, pathFileDownload);
     }
 
 

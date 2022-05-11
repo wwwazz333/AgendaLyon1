@@ -19,6 +19,13 @@
                 app:summary="afficher la date de la dernière maj. du calendrier"
                 android:defaultValue="true"
         />
+
+        <SwitchPreference
+                app:key="revert_swaping_day"
+                app:title="inverser défilement"
+                app:summary="inverser le défilement des jours (swip)"
+                android:defaultValue="true"
+        />
     </PreferenceCategory>
 
 

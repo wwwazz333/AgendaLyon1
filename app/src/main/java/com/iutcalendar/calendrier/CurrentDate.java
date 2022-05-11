@@ -30,15 +30,19 @@ public class CurrentDate extends DateCalendrier {
     }
 
     public CurrentDate nextWeek(){
-        CurrentDate cal = new CurrentDate(this);
-        cal.add(GregorianCalendar.DAY_OF_YEAR, 7);
-        return cal;
+        return addDay(7);
     }
     public CurrentDate prevWeek(){
+        return addDay(-7);
+    }
+
+    public CurrentDate addDay(int days){
         CurrentDate cal = new CurrentDate(this);
-        cal.add(GregorianCalendar.DAY_OF_YEAR, -7);
+        cal.add(GregorianCalendar.DAY_OF_YEAR, days);
         return cal;
     }
+
+
 
     @Override
     public String toString() {

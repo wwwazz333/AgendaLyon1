@@ -5,8 +5,11 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import com.calendar.iutcalendar.R;
@@ -15,11 +18,11 @@ import com.iutcalendar.data.DataGlobal;
 import com.iutcalendar.data.FileGlobal;
 import com.iutcalendar.filedownload.FileDownload;
 import com.iutcalendar.settings.SettingsActivity;
+import com.iutcalendar.swiping.OnSwipeTouchListener;
 
 import java.util.GregorianCalendar;
 
 public class MainActivity extends AppCompatActivity {
-    private static final String calDownload = "output_download.ics";
     static boolean active = false;
     private CurrentDate currDate;
 
@@ -83,13 +86,7 @@ public class MainActivity extends AppCompatActivity {
         setCurrDate(new CurrentDate());
         showEvents();
 
-        new Thread(() -> {
-            FileDownload.updateFichier(FileGlobal.getFileDownload(getApplicationContext()).getAbsolutePath(), getApplicationContext());
-            if (MainActivity.active) {
-                showEvents();
-            }
-            Log.d("File", "updated");
-        }).start();
+        update();
 
 
 //        Intent myIntent = new Intent(AlarmClock.ACTION_SET_ALARM);
@@ -99,8 +96,19 @@ public class MainActivity extends AppCompatActivity {
 //        startActivity(myIntent);
 
 
+        View rootLayout = findViewById(R.id.swipe_action_view);
+        rootLayout.setOnTouchListener(new Gesture());
     }
 
+    public void update() {
+        new Thread(() -> {
+            FileDownload.updateFichier(FileGlobal.getFileDownload(getApplicationContext()).getAbsolutePath(), getApplicationContext());
+            if (MainActivity.active) {
+                showEvents();
+            }
+            Log.d("File", "updated");
+        }).start();
+    }
 
     public void setDaysOfWeek() {
         setNumOfMonthAndSelected(R.id.lundiNum, GregorianCalendar.MONDAY);
@@ -147,5 +155,39 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+    class Gesture extends OnSwipeTouchListener {
+        protected Gesture() {
+            super(MainActivity.this);
+        }
+
+        @Override
+        public void onSwipeLeft() {
+            super.onSwipeLeft();
+            int sens = -1;
+            if (DataGlobal.getSavedBoolean(getApplicationContext(), "revert_swaping_day")) {
+                sens *= -1;
+            }
+            setCurrDate(getCurrDate().addDay(sens));
+        }
+
+        @Override
+        public void onSwipeRight() {
+            super.onSwipeRight();
+            int sens = 1;
+            if (DataGlobal.getSavedBoolean(getApplicationContext(), "revert_swaping_day")) {
+                sens *= -1;
+            }
+            setCurrDate(getCurrDate().addDay(sens));
+        }
+
+        @Override
+        public void onSwipeDown() {
+            super.onSwipeDown();
+            Toast.makeText(getApplicationContext(), "Updating...", Toast.LENGTH_SHORT).show();
+            update();
+        }
+
+    }
 
 }
