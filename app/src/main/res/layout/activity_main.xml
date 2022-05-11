@@ -16,7 +16,7 @@
             android:id="@+id/settingsBtn"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:src="@drawable/ic_baseline_settings_24"
+            android:src="@drawable/ic_settings_ico"
             android:layout_marginEnd="24dp" android:layout_marginBottom="24dp"
             tools:ignore="SpeakableTextPresentCheck" android:contentDescription="Logo settings"/>
     <Space

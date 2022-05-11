@@ -11,6 +11,7 @@ import com.calendar.iutcalendar.R;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.iutcalendar.data.DataGlobal;
 import com.iutcalendar.data.FileGlobal;
+import com.iutcalendar.filedownload.FileDownload;
 import com.journeyapps.barcodescanner.CaptureActivity;
 
 public class URLSetterFragment extends Fragment {
@@ -43,7 +44,9 @@ public class URLSetterFragment extends Fragment {
             FileGlobal.getFileDownload(getContext()).delete();
 //            DataSaver.saveCal(getContext(), "");
             DataGlobal.savePath(getContext(), input.getText().toString());
+            FileDownload.updateFichier(FileGlobal.getFileDownload(getContext()).getAbsolutePath(), getContext());
             getParentFragmentManager().popBackStackImmediate();
+
 
         });
         cancel.setOnClickListener(v -> getParentFragmentManager().popBackStackImmediate());

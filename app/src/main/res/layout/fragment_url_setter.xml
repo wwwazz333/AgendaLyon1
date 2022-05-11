@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/inputURL"
-            android:layout_centerHorizontal="true" app:icon="@drawable/ic_baseline_qr_code_scanner_24"
+            android:layout_centerHorizontal="true" app:icon="@drawable/ic_qr_code_scanner_ico"
             android:text="Scan QR code"/>
     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                   android:orientation="horizontal"
