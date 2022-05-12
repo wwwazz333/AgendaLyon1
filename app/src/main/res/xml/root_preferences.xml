@@ -23,8 +23,8 @@
         <SwitchPreference
                 app:key="revert_swaping_day"
                 app:title="inverser défilement"
-                app:summary="inverser le défilement des jours (swip)"
-                android:defaultValue="true"
+                app:summary="inverser le défilement des jours (swipe)"
+                android:defaultValue="false"
         />
 
         <SwitchPreference
@@ -33,6 +33,7 @@
                 app:summary="applique le décallager pour l'heure d'été"
                 android:defaultValue="true"
         />
+
     </PreferenceCategory>
 
 

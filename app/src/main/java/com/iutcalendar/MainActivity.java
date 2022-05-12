@@ -6,9 +6,12 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.RotateAnimation;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import com.calendar.iutcalendar.R;
 import com.iutcalendar.calendrier.CurrentDate;
@@ -18,6 +21,7 @@ import com.iutcalendar.data.FileGlobal;
 import com.iutcalendar.filedownload.FileDownload;
 import com.iutcalendar.settings.SettingsActivity;
 import com.iutcalendar.swiping.OnSwipeTouchListener;
+import com.iutcalendar.swiping.ReloadAnimationFragment;
 
 import java.util.GregorianCalendar;
 
@@ -25,6 +29,11 @@ public class MainActivity extends AppCompatActivity {
     static boolean active = false;
     private FragmentTransaction fragmentTransaction;
     private CurrentDate currDate;
+
+    private void initVariable() {
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+    }
+
 
     @Override
     public void onResume() {
@@ -45,14 +54,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        initVariable();
 
 
         findViewById(R.id.settingsBtn).setOnClickListener(view -> {
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
         });
-
 
         //Navigate weeks
         findViewById(R.id.nextWeek).setOnClickListener(view -> {
@@ -102,27 +110,18 @@ public class MainActivity extends AppCompatActivity {
         View rootLayout = findViewById(R.id.swipe_action_view);
         rootLayout.setOnTouchListener(new Gesture());
     }
-
+    /*##################UPDATE##################*/
     public void update() {
+        startFragment(R.id.animFragment, new ReloadAnimationFragment());
         new Thread(() -> {
             FileDownload.updateFichier(FileGlobal.getFileDownload(getApplicationContext()).getAbsolutePath(), getApplicationContext());
             if (MainActivity.active) {
                 updateScreen();
             }
             Log.d("File", "updated");
+            startFragment(R.id.animFragment, new Fragment());
         }).start();
     }
-
-    public void setDaysOfWeek() {
-        setNumOfMonthAndSelected(R.id.lundiNum, GregorianCalendar.MONDAY);
-        setNumOfMonthAndSelected(R.id.mardiNum, GregorianCalendar.TUESDAY);
-        setNumOfMonthAndSelected(R.id.mercrediNum, GregorianCalendar.WEDNESDAY);
-        setNumOfMonthAndSelected(R.id.jeudiNum, GregorianCalendar.THURSDAY);
-        setNumOfMonthAndSelected(R.id.vendrediNum, GregorianCalendar.FRIDAY);
-        setNumOfMonthAndSelected(R.id.samediNum, GregorianCalendar.SATURDAY);
-        setNumOfMonthAndSelected(R.id.dimancheNum, GregorianCalendar.SUNDAY);
-    }
-
     public void updateScreen() {
         if (DataGlobal.getSavedBoolean(getApplicationContext(), "summer_offset")) {
             Log.d("Offset", "summer offset");
@@ -134,6 +133,26 @@ public class MainActivity extends AppCompatActivity {
 
         updateEvent();
     }
+    public void updateEvent() {
+        startFragment(R.id.frameLayout, new EventFragment());
+
+    }
+    /*##################GETTERS##################*/
+    public CurrentDate getCurrDate() {
+        return this.currDate;
+    }
+    /*##################SETTERS##################*/
+    public void setDaysOfWeek() {
+        setNumOfMonthAndSelected(R.id.lundiNum, GregorianCalendar.MONDAY);
+        setNumOfMonthAndSelected(R.id.mardiNum, GregorianCalendar.TUESDAY);
+        setNumOfMonthAndSelected(R.id.mercrediNum, GregorianCalendar.WEDNESDAY);
+        setNumOfMonthAndSelected(R.id.jeudiNum, GregorianCalendar.THURSDAY);
+        setNumOfMonthAndSelected(R.id.vendrediNum, GregorianCalendar.FRIDAY);
+        setNumOfMonthAndSelected(R.id.samediNum, GregorianCalendar.SATURDAY);
+        setNumOfMonthAndSelected(R.id.dimancheNum, GregorianCalendar.SUNDAY);
+    }
+
+
 
     public void setAnimationGoLeft() {
         fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
@@ -144,24 +163,14 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void setAnimationDirection(int d){
-        if(d > 0){
+    public void setAnimationDirection(int d) {
+        if (d > 0) {
             setAnimationGoLeft();
-        }else{
+        } else {
             setAnimationGoRight();
         }
     }
 
-    public void updateEvent() {
-        EventFragment fragment = new EventFragment();
-        fragmentTransaction.replace(R.id.frameLayout, fragment);
-        fragmentTransaction.commit();
-        fragmentTransaction = getSupportFragmentManager().beginTransaction();
-    }
-
-    public CurrentDate getCurrDate() {
-        return this.currDate;
-    }
 
     public void setCurrDate(CurrentDate currDate) {
         this.currDate = currDate;
@@ -186,6 +195,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /*##################OTHER##################*/
+    public void startFragment(int id, Fragment fragment) {
+        fragmentTransaction.replace(id, fragment);
+        fragmentTransaction.commit();
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+    }
 
     class Gesture extends OnSwipeTouchListener {
         protected Gesture() {
@@ -195,7 +210,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onSwipeLeft() {
             super.onSwipeLeft();
-            int sens = -1;
+            int sens = 1;
             if (DataGlobal.getSavedBoolean(getApplicationContext(), "revert_swaping_day")) {
                 sens *= -1;
             }
@@ -208,7 +223,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onSwipeRight() {
             super.onSwipeRight();
-            int sens = 1;
+            int sens = -1;
             if (DataGlobal.getSavedBoolean(getApplicationContext(), "revert_swaping_day")) {
                 sens *= -1;
             }
@@ -221,7 +236,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onSwipeDown() {
             super.onSwipeDown();
-            Toast.makeText(getApplicationContext(), "Updating...", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getApplicationContext(), "Updating...", Toast.LENGTH_SHORT).show();
             update();
         }
 
