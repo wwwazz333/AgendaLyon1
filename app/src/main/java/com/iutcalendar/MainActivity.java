@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import com.calendar.iutcalendar.R;
 import com.iutcalendar.calendrier.CurrentDate;
@@ -24,6 +23,7 @@ import java.util.GregorianCalendar;
 
 public class MainActivity extends AppCompatActivity {
     static boolean active = false;
+    private FragmentTransaction fragmentTransaction;
     private CurrentDate currDate;
 
     @Override
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
 
         findViewById(R.id.settingsBtn).setOnClickListener(view -> {
@@ -135,12 +135,28 @@ public class MainActivity extends AppCompatActivity {
         updateEvent();
     }
 
+    public void setAnimationGoLeft() {
+        fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
+    }
+
+    public void setAnimationGoRight() {
+        fragmentTransaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right);
+
+    }
+
+    public void setAnimationDirection(int d){
+        if(d > 0){
+            setAnimationGoLeft();
+        }else{
+            setAnimationGoRight();
+        }
+    }
+
     public void updateEvent() {
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fm.beginTransaction();
         EventFragment fragment = new EventFragment();
         fragmentTransaction.replace(R.id.frameLayout, fragment);
         fragmentTransaction.commit();
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
     }
 
     public CurrentDate getCurrDate() {
@@ -184,6 +200,9 @@ public class MainActivity extends AppCompatActivity {
                 sens *= -1;
             }
             setCurrDate(getCurrDate().addDay(sens));
+
+            setAnimationDirection(sens);
+            updateEvent();
         }
 
         @Override
@@ -194,6 +213,9 @@ public class MainActivity extends AppCompatActivity {
                 sens *= -1;
             }
             setCurrDate(getCurrDate().addDay(sens));
+
+            setAnimationDirection(sens);
+            updateEvent();
         }
 
         @Override
