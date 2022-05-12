@@ -195,7 +195,9 @@ public class MainActivity extends AppCompatActivity {
         ((TextView) findViewById(id)).setText(String.valueOf(getCurrDate().getDateOfDayOfWeek(day).getDay()));
         if (getCurrDate().getDay() == getCurrDate().getDateOfDayOfWeek(day).getDay()) {
             findViewById(id).setBackgroundColor(Color.parseColor("#FFC41442"));
-        } else {
+        } else if (getCurrDate().getDateOfDayOfWeek(day).sameDay(new CurrentDate())){
+            findViewById(id).setBackgroundColor(Color.parseColor("#88C41442"));
+        }else {
             findViewById(id).setBackgroundColor(Color.argb(0f, 1.0f, 1.0f, 1.0f));
         }
     }
