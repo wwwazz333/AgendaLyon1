@@ -6,8 +6,15 @@ import java.util.Locale;
 public class DateCalendrier extends GregorianCalendar {
 
     private boolean zoneOffsetAppliced = false;
-    private final int summerOffset = 1;
+    private static int summerOffset = 1;
 
+    public static int getSummerOffset() {
+        return DateCalendrier.summerOffset;
+    }
+
+    public static void setSummerOffset(int summerOffset) {
+        DateCalendrier.summerOffset = summerOffset;
+    }
 
     public DateCalendrier() {
         super(Locale.FRANCE);
@@ -56,7 +63,7 @@ public class DateCalendrier extends GregorianCalendar {
 
     public void doZoneOffset() {
         if (!zoneOffsetAppliced) {
-            setHour(getHour() + getZoneOffset() + summerOffset);
+            setHour(getHour() + getZoneOffset() + getSummerOffset());
         }
         zoneOffsetAppliced = true;
     }

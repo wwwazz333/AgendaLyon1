@@ -9,11 +9,11 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import com.calendar.iutcalendar.R;
 import com.iutcalendar.calendrier.CurrentDate;
+import com.iutcalendar.calendrier.DateCalendrier;
 import com.iutcalendar.data.DataGlobal;
 import com.iutcalendar.data.FileGlobal;
 import com.iutcalendar.filedownload.FileDownload;
@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        showEvents();
+        updateScreen();
         active = true;
     }
 
@@ -45,6 +45,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
+
         findViewById(R.id.settingsBtn).setOnClickListener(view -> {
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
@@ -54,11 +57,11 @@ public class MainActivity extends AppCompatActivity {
         //Navigate weeks
         findViewById(R.id.nextWeek).setOnClickListener(view -> {
             setCurrDate(getCurrDate().nextWeek());
-            showEvents();
+            updateScreen();
         });
         findViewById(R.id.prevWeek).setOnClickListener(view -> {
             setCurrDate(currDate.prevWeek());
-            showEvents();
+            updateScreen();
         });
 
         //click on day
@@ -84,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         setCurrDate(new CurrentDate());
-        showEvents();
+        updateScreen();
 
         update();
 
@@ -104,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
         new Thread(() -> {
             FileDownload.updateFichier(FileGlobal.getFileDownload(getApplicationContext()).getAbsolutePath(), getApplicationContext());
             if (MainActivity.active) {
-                showEvents();
+                updateScreen();
             }
             Log.d("File", "updated");
         }).start();
@@ -120,7 +123,19 @@ public class MainActivity extends AppCompatActivity {
         setNumOfMonthAndSelected(R.id.dimancheNum, GregorianCalendar.SUNDAY);
     }
 
-    public void showEvents() {
+    public void updateScreen() {
+        if (DataGlobal.getSavedBoolean(getApplicationContext(), "summer_offset")) {
+            Log.d("Offset", "summer offset");
+            DateCalendrier.setSummerOffset(1);
+        } else {
+            DateCalendrier.setSummerOffset(0);
+            Log.d("Offset", "winter offset");
+        }
+
+        updateEvent();
+    }
+
+    public void updateEvent() {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fm.beginTransaction();
         EventFragment fragment = new EventFragment();
@@ -142,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(id).setOnClickListener(view -> {
             setCurrDate(currDate.getDateOfDayOfWeek(day));
             setDaysOfWeek();
-            showEvents();
+            updateScreen();
         });
     }
 

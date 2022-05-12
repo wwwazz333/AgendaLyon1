@@ -15,9 +15,9 @@ import com.iutcalendar.calendrier.Calendrier;
 import com.iutcalendar.calendrier.CurrentDate;
 import com.iutcalendar.calendrier.DateCalendrier;
 import com.iutcalendar.calendrier.EventCalendrier;
+import com.iutcalendar.data.DataGlobal;
 import com.iutcalendar.data.FileGlobal;
 
-import java.util.GregorianCalendar;
 import java.util.List;
 
 
@@ -25,6 +25,12 @@ public class WidgetCalendar extends AppWidgetProvider {
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
+        if (DataGlobal.getSavedBoolean(context, "summer_offset")) {
+            DateCalendrier.setSummerOffset(1);
+        } else {
+            DateCalendrier.setSummerOffset(0);
+        }
+
         ComponentName thisWidget = new ComponentName(context, WidgetCalendar.class);
         Log.d("Widget", "start updated");
         int[] allWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);
