@@ -66,6 +66,8 @@ public class Calendrier {
     }
 
     public EventCalendrier getLastEvent() {
+        if (events.isEmpty())
+            return null;
         return events.get(events.size() - 1);
     }
 

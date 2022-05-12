@@ -22,6 +22,7 @@ import java.util.List;
 
 
 public class WidgetCalendar extends AppWidgetProvider {
+    public static final String SHOW_TOAST_ACTION = "showing_toast";
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
@@ -43,48 +44,49 @@ public class WidgetCalendar extends AppWidgetProvider {
             CurrentDate currentDate = new CurrentDate();
             Calendrier cal = new Calendrier(FileGlobal.readFile(FileGlobal.getFileDownload(context)));
 
-
             boolean isFirst = true;
+            if (cal.getLastEvent() != null) {
 
-            List<EventCalendrier> eventToday = cal.getEventsOfDay(currentDate);
-            for (EventCalendrier e : eventToday) {
-                if (e.getDate().getHour() >= currentDate.getHour()) {
-                    if (isFirst) {
-                        views.setTextViewText(R.id.debut1, e.getDate().timeToString());
-                        views.setTextViewText(R.id.fin1, e.getDate().addTime(e.getDuree()).timeToString());
-                        views.setTextViewText(R.id.summary1, e.getSummary());
-                        views.setTextViewText(R.id.salle1, e.getSalle());
-                    } else {
-                        views.setTextViewText(R.id.debut2, e.getDate().timeToString());
-                        views.setTextViewText(R.id.fin2, e.getDate().addTime(e.getDuree()).timeToString());
-                        views.setTextViewText(R.id.summary2, e.getSummary());
-                        views.setTextViewText(R.id.salle2, e.getSalle());
-
-                        break;
-                    }
-                    isFirst = false;
-                }
-            }
-            DateCalendrier dernierDateCal = cal.getLastEvent().getDate();
-            while (isFirst && currentDate.compareTo(dernierDateCal) <= 0) {
-                currentDate = currentDate.addDay(1);
-                eventToday = cal.getEventsOfDay(currentDate);
-
+                List<EventCalendrier> eventToday = cal.getEventsOfDay(currentDate);
                 for (EventCalendrier e : eventToday) {
-                    if (isFirst) {
-                        views.setTextViewText(R.id.debut1, e.getDate().timeToString());
-                        views.setTextViewText(R.id.fin1, e.getDate().addTime(e.getDuree()).timeToString());
-                        views.setTextViewText(R.id.summary1, e.getSummary());
-                        views.setTextViewText(R.id.salle1, e.getSalle());
-                    } else {
-                        views.setTextViewText(R.id.debut2, e.getDate().timeToString());
-                        views.setTextViewText(R.id.fin2, e.getDate().addTime(e.getDuree()).timeToString());
-                        views.setTextViewText(R.id.summary2, e.getSummary());
-                        views.setTextViewText(R.id.salle2, e.getSalle());
+                    if (e.getDate().getHour() >= currentDate.getHour()) {
+                        if (isFirst) {
+                            views.setTextViewText(R.id.debut1, e.getDate().timeToString());
+                            views.setTextViewText(R.id.fin1, e.getDate().addTime(e.getDuree()).timeToString());
+                            views.setTextViewText(R.id.summary1, e.getSummary());
+                            views.setTextViewText(R.id.salle1, e.getSalle());
+                        } else {
+                            views.setTextViewText(R.id.debut2, e.getDate().timeToString());
+                            views.setTextViewText(R.id.fin2, e.getDate().addTime(e.getDuree()).timeToString());
+                            views.setTextViewText(R.id.summary2, e.getSummary());
+                            views.setTextViewText(R.id.salle2, e.getSalle());
 
-                        break;
+                            break;
+                        }
+                        isFirst = false;
                     }
-                    isFirst = false;
+                }
+                DateCalendrier dernierDateCal = cal.getLastEvent().getDate();
+                while (isFirst && currentDate.compareTo(dernierDateCal) <= 0) {
+                    currentDate = currentDate.addDay(1);
+                    eventToday = cal.getEventsOfDay(currentDate);
+
+                    for (EventCalendrier e : eventToday) {
+                        if (isFirst) {
+                            views.setTextViewText(R.id.debut1, e.getDate().timeToString());
+                            views.setTextViewText(R.id.fin1, e.getDate().addTime(e.getDuree()).timeToString());
+                            views.setTextViewText(R.id.summary1, e.getSummary());
+                            views.setTextViewText(R.id.salle1, e.getSalle());
+                        } else {
+                            views.setTextViewText(R.id.debut2, e.getDate().timeToString());
+                            views.setTextViewText(R.id.fin2, e.getDate().addTime(e.getDuree()).timeToString());
+                            views.setTextViewText(R.id.summary2, e.getSummary());
+                            views.setTextViewText(R.id.salle2, e.getSalle());
+
+                            break;
+                        }
+                        isFirst = false;
+                    }
                 }
             }
 
@@ -104,10 +106,12 @@ public class WidgetCalendar extends AppWidgetProvider {
                     PendingIntent.getActivity(context, 0, new Intent(context, MainActivity.class), 0));
 
 
+
             Intent intent = new Intent(context, WidgetCalendar.class);
 
             intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
             intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds);
+            intent.putExtra(SHOW_TOAST_ACTION, "showToast");
 
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
             views.setOnClickPendingIntent(R.id.listLayout, pendingIntent);
@@ -115,6 +119,15 @@ public class WidgetCalendar extends AppWidgetProvider {
         }
 
         Log.d("Widget", "updated");
-        Toast.makeText(context, "Widget updated", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        super.onReceive(context, intent);
+
+        if (intent.getStringExtra(SHOW_TOAST_ACTION) != null) {
+            Log.d("Widget","Toast");
+            Toast.makeText(context, "Widget updated", Toast.LENGTH_SHORT).show();
+        }
     }
 }
