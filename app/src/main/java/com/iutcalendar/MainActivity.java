@@ -5,12 +5,10 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
-import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.RotateAnimation;
-import android.widget.ImageView;
+import android.view.MotionEvent;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GestureDetectorCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import com.calendar.iutcalendar.R;
@@ -20,7 +18,7 @@ import com.iutcalendar.data.DataGlobal;
 import com.iutcalendar.data.FileGlobal;
 import com.iutcalendar.filedownload.FileDownload;
 import com.iutcalendar.settings.SettingsActivity;
-import com.iutcalendar.swiping.OnSwipeTouchListener;
+import com.iutcalendar.swiping.GestureEventManager;
 import com.iutcalendar.swiping.ReloadAnimationFragment;
 
 import java.util.GregorianCalendar;
@@ -29,11 +27,18 @@ public class MainActivity extends AppCompatActivity {
     static boolean active = false;
     private FragmentTransaction fragmentTransaction;
     private CurrentDate currDate;
+    private GestureDetectorCompat gestureD;
 
     private void initVariable() {
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        gestureD = new GestureDetectorCompat(this, new GestureListener());
     }
 
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        gestureD.onTouchEvent(event);
+        return super.onTouchEvent(event);
+    }
 
     @Override
     public void onResume() {
@@ -107,9 +112,8 @@ public class MainActivity extends AppCompatActivity {
 //        startActivity(myIntent);
 
 
-        View rootLayout = findViewById(R.id.swipe_action_view);
-        rootLayout.setOnTouchListener(new Gesture());
     }
+
     /*##################UPDATE##################*/
     public void update() {
         startFragment(R.id.animFragment, new ReloadAnimationFragment());
@@ -122,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
             startFragment(R.id.animFragment, new Fragment());
         }).start();
     }
+
     public void updateScreen() {
         if (DataGlobal.getSavedBoolean(getApplicationContext(), "summer_offset")) {
             Log.d("Offset", "summer offset");
@@ -133,14 +138,23 @@ public class MainActivity extends AppCompatActivity {
 
         updateEvent();
     }
+
     public void updateEvent() {
         startFragment(R.id.frameLayout, new EventFragment());
 
     }
+
     /*##################GETTERS##################*/
     public CurrentDate getCurrDate() {
         return this.currDate;
     }
+
+    public void setCurrDate(CurrentDate currDate) {
+        this.currDate = currDate;
+        ((TextView) findViewById(R.id.currDateLabel)).setText(currDate.toString());
+        setDaysOfWeek();
+    }
+
     /*##################SETTERS##################*/
     public void setDaysOfWeek() {
         setNumOfMonthAndSelected(R.id.lundiNum, GregorianCalendar.MONDAY);
@@ -151,8 +165,6 @@ public class MainActivity extends AppCompatActivity {
         setNumOfMonthAndSelected(R.id.samediNum, GregorianCalendar.SATURDAY);
         setNumOfMonthAndSelected(R.id.dimancheNum, GregorianCalendar.SUNDAY);
     }
-
-
 
     public void setAnimationGoLeft() {
         fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
@@ -169,13 +181,6 @@ public class MainActivity extends AppCompatActivity {
         } else {
             setAnimationGoRight();
         }
-    }
-
-
-    public void setCurrDate(CurrentDate currDate) {
-        this.currDate = currDate;
-        ((TextView) findViewById(R.id.currDateLabel)).setText(currDate.toString());
-        setDaysOfWeek();
     }
 
     private void setOnclicDay(int id, int day) {
@@ -202,9 +207,20 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
     }
 
-    class Gesture extends OnSwipeTouchListener {
-        protected Gesture() {
-            super(MainActivity.this);
+    private class GestureListener extends GestureEventManager {
+
+        @Override
+        public void onSwipeRight() {
+            super.onSwipeRight();
+            int sens = -1;
+            if (DataGlobal.getSavedBoolean(getApplicationContext(), "revert_swaping_day")) {
+                sens *= -1;
+            }
+            setCurrDate(getCurrDate().addDay(sens));
+
+            setAnimationDirection(sens);
+            updateEvent();
+
         }
 
         @Override
@@ -221,25 +237,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onSwipeRight() {
-            super.onSwipeRight();
-            int sens = -1;
-            if (DataGlobal.getSavedBoolean(getApplicationContext(), "revert_swaping_day")) {
-                sens *= -1;
-            }
-            setCurrDate(getCurrDate().addDay(sens));
-
-            setAnimationDirection(sens);
-            updateEvent();
-        }
-
-        @Override
         public void onSwipeDown() {
             super.onSwipeDown();
-//            Toast.makeText(getApplicationContext(), "Updating...", Toast.LENGTH_SHORT).show();
             update();
         }
-
     }
+
 
 }
