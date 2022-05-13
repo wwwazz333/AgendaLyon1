@@ -13,7 +13,7 @@
         <TextView
                 android:id="@+id/dateLabel"
                 android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:text="Aujourd'hui"
+                android:text="@string/today"
                 android:textSize="22sp"
                 android:gravity="center"/>
 
@@ -54,6 +54,7 @@
                 <TextView
                         android:id="@+id/salle1"
                         android:layout_width="wrap_content"
+                        android:maxWidth="200dp"
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:gravity="center"
@@ -66,8 +67,9 @@
             <TextView
                     android:id="@+id/summary1"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:layout_gravity="center_vertical"
                     android:textSize="18sp"
                     android:paddingHorizontal="5dp"/>
 
@@ -113,6 +115,7 @@
                         android:id="@+id/salle2"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
+                        android:maxWidth="200dp"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:textSize="15sp"
@@ -124,8 +127,9 @@
             <TextView
                     android:id="@+id/summary2"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:layout_gravity="center_vertical"
                     android:textSize="18sp"
                     android:paddingHorizontal="5dp"/>
 
@@ -135,8 +139,8 @@
         <Button
                 android:id="@+id/openBtn"
                 android:layout_width="wrap_content" android:layout_height="20dp"
-                android:text="Ouvrir"
-                android:textSize="13dp"
+                android:text="@string/open"
+                android:textSize="13sp"
                 android:layout_gravity="center_horizontal"
                 android:background="@color/redOnePlus"/>
     </LinearLayout>

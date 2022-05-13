@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GestureDetectorCompat;
@@ -20,6 +21,7 @@ import com.iutcalendar.filedownload.FileDownload;
 import com.iutcalendar.settings.SettingsActivity;
 import com.iutcalendar.swiping.GestureEventManager;
 import com.iutcalendar.swiping.ReloadAnimationFragment;
+import com.iutcalendar.swiping.TouchGestureListener;
 
 import java.util.GregorianCalendar;
 
@@ -28,10 +30,19 @@ public class MainActivity extends AppCompatActivity {
     private FragmentTransaction fragmentTransaction;
     private CurrentDate currDate;
     private GestureDetectorCompat gestureD;
+    private TextView currDateLabel;
+
+    private LinearLayout nameDayLayout;
+    private LinearLayout dayOfWeek;
 
     private void initVariable() {
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
         gestureD = new GestureDetectorCompat(this, new GestureListener());
+
+        currDateLabel = findViewById(R.id.currDateLabel);
+        nameDayLayout = findViewById(R.id.nameDayLayout);
+        dayOfWeek = findViewById(R.id.dayOfWeek);
+
     }
 
     @Override
@@ -61,23 +72,27 @@ public class MainActivity extends AppCompatActivity {
 
         initVariable();
 
+        currDateLabel.setOnClickListener(view -> setCurrDate(new CurrentDate()));
 
+        //---------------Gesture swipe---------------
+        int childCount = nameDayLayout.getChildCount();
+        for (int i = 0; i < childCount; i++) {
+            nameDayLayout.getChildAt(i).setOnTouchListener(new TouchGestureListener(getApplicationContext(), new GestureWeekListener()));
+        }
+        nameDayLayout.setOnTouchListener(new TouchGestureListener(getApplicationContext(), new GestureWeekListener()));
+        dayOfWeek.setOnTouchListener(new TouchGestureListener(getApplicationContext(), new GestureWeekListener()));
+
+        //---------------Button---------------
         findViewById(R.id.settingsBtn).setOnClickListener(view -> {
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
         });
 
         //Navigate weeks
-        findViewById(R.id.nextWeek).setOnClickListener(view -> {
-            setCurrDate(getCurrDate().nextWeek());
-            updateScreen();
-        });
-        findViewById(R.id.prevWeek).setOnClickListener(view -> {
-            setCurrDate(currDate.prevWeek());
-            updateScreen();
-        });
+        findViewById(R.id.nextWeek).setOnClickListener(view -> setCurrDate(getCurrDate().nextWeek()));
+        findViewById(R.id.prevWeek).setOnClickListener(view -> setCurrDate(currDate.prevWeek()));
 
-        //click on day
+        //Click on day
         setOnclicDay(R.id.dayLundi, GregorianCalendar.MONDAY);
         setOnclicDay(R.id.dayMardi, GregorianCalendar.TUESDAY);
         setOnclicDay(R.id.dayMercredi, GregorianCalendar.WEDNESDAY);
@@ -100,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         setCurrDate(new CurrentDate());
-        updateScreen();
+
 
         update();
 
@@ -114,7 +129,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    /*##################UPDATE##################*/
+
+    /*########################################################################
+                                     UPDATE
+    ########################################################################*/
     public void update() {
         startFragment(R.id.animFragment, new ReloadAnimationFragment());
         new Thread(() -> {
@@ -141,21 +159,25 @@ public class MainActivity extends AppCompatActivity {
 
     public void updateEvent() {
         startFragment(R.id.frameLayout, new EventFragment());
-
     }
 
-    /*##################GETTERS##################*/
+    /*########################################################################
+                                    GETTERS
+    ########################################################################*/
     public CurrentDate getCurrDate() {
         return this.currDate;
     }
 
+    /*########################################################################
+                                    SETTERS
+     ########################################################################*/
     public void setCurrDate(CurrentDate currDate) {
         this.currDate = currDate;
-        ((TextView) findViewById(R.id.currDateLabel)).setText(currDate.toString());
+        currDateLabel.setText(currDate.toString());
         setDaysOfWeek();
+        updateScreen();
     }
 
-    /*##################SETTERS##################*/
     public void setDaysOfWeek() {
         setNumOfMonthAndSelected(R.id.lundiNum, GregorianCalendar.MONDAY);
         setNumOfMonthAndSelected(R.id.mardiNum, GregorianCalendar.TUESDAY);
@@ -166,49 +188,57 @@ public class MainActivity extends AppCompatActivity {
         setNumOfMonthAndSelected(R.id.dimancheNum, GregorianCalendar.SUNDAY);
     }
 
-    public void setAnimationGoLeft() {
+    public void setAnimationGoRight() {
         fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
     }
 
-    public void setAnimationGoRight() {
+    public void setAnimationGoLeft() {
         fragmentTransaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right);
 
     }
 
     public void setAnimationDirection(int d) {
         if (d > 0) {
-            setAnimationGoLeft();
-        } else {
             setAnimationGoRight();
+        } else {
+            setAnimationGoLeft();
         }
     }
 
     private void setOnclicDay(int id, int day) {
-        findViewById(id).setOnClickListener(view -> {
-            setCurrDate(currDate.getDateOfDayOfWeek(day));
-            setDaysOfWeek();
-            updateScreen();
-        });
+        findViewById(id).setOnTouchListener(new TouchGestureListener(getApplicationContext(), new GestureWeekListener() {
+            @Override
+            protected void onClick() {
+                setCurrDate(currDate.getDateOfDayOfWeek(day));
+                super.onClick();
+            }
+        }));
+
     }
 
     public void setNumOfMonthAndSelected(int id, int day) {
         ((TextView) findViewById(id)).setText(String.valueOf(getCurrDate().getDateOfDayOfWeek(day).getDay()));
         if (getCurrDate().getDay() == getCurrDate().getDateOfDayOfWeek(day).getDay()) {
             findViewById(id).setBackgroundColor(Color.parseColor("#FFC41442"));
-        } else if (getCurrDate().getDateOfDayOfWeek(day).sameDay(new CurrentDate())){
+        } else if (getCurrDate().getDateOfDayOfWeek(day).sameDay(new CurrentDate())) {
             findViewById(id).setBackgroundColor(Color.parseColor("#88C41442"));
-        }else {
+        } else {
             findViewById(id).setBackgroundColor(Color.argb(0f, 1.0f, 1.0f, 1.0f));
         }
     }
 
-    /*##################OTHER##################*/
+    /*########################################################################
+                                    OTHER
+     ########################################################################*/
     public void startFragment(int id, Fragment fragment) {
         fragmentTransaction.replace(id, fragment);
         fragmentTransaction.commit();
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
     }
 
+    /*########################################################################
+                                    GESTION EVENT
+     ########################################################################*/
     private class GestureListener extends GestureEventManager {
 
         @Override
@@ -218,11 +248,8 @@ public class MainActivity extends AppCompatActivity {
             if (DataGlobal.getSavedBoolean(getApplicationContext(), "revert_swaping_day")) {
                 sens *= -1;
             }
-            setCurrDate(getCurrDate().addDay(sens));
-
             setAnimationDirection(sens);
-            updateEvent();
-
+            setCurrDate(getCurrDate().addDay(sens));
         }
 
         @Override
@@ -232,10 +259,8 @@ public class MainActivity extends AppCompatActivity {
             if (DataGlobal.getSavedBoolean(getApplicationContext(), "revert_swaping_day")) {
                 sens *= -1;
             }
-            setCurrDate(getCurrDate().addDay(sens));
-
             setAnimationDirection(sens);
-            updateEvent();
+            setCurrDate(getCurrDate().addDay(sens));
         }
 
         @Override
@@ -243,6 +268,42 @@ public class MainActivity extends AppCompatActivity {
             super.onSwipeDown();
             update();
         }
+    }
+
+
+    public class GestureWeekListener extends GestureEventManager {
+
+        @Override
+        public void onSwipeRight() {
+            super.onSwipeRight();
+            int sens = -1;
+            if (DataGlobal.getSavedBoolean(getApplicationContext(), "revert_swaping_day")) {
+                sens *= -1;
+            }
+            setAnimationDirection(sens);
+            if (sens > 0) {
+                setCurrDate(getCurrDate().nextWeek());
+            } else {
+                setCurrDate(getCurrDate().prevWeek());
+            }
+        }
+
+        @Override
+        public void onSwipeLeft() {
+            super.onSwipeLeft();
+            int sens = 1;
+            if (DataGlobal.getSavedBoolean(getApplicationContext(), "revert_swaping_day")) {
+                sens *= -1;
+            }
+            setAnimationDirection(sens);
+            if (sens > 0) {
+                setCurrDate(getCurrDate().nextWeek());
+            } else {
+                setCurrDate(getCurrDate().prevWeek());
+            }
+
+        }
+
     }
 
 

@@ -45,14 +45,9 @@ public class EventRecycleView extends RecyclerView.Adapter<EventViewHolder> {
         viewHolder.debut.setText(e.getDate().timeToString());
         viewHolder.fin.setText(e.getDate().addTime(e.getDuree()).timeToString());
         viewHolder.summary.setText(e.getSummary());
-        viewHolder.salle.setText(e.getSalle());
+        viewHolder.salle.setText(e.getSalle().replace("\\,", "\n"));
 
-        viewHolder.view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                listiner.click(index);
-            }
-        });
+        viewHolder.view.setOnClickListener(view -> listiner.click(index));
     }
 
     @Override

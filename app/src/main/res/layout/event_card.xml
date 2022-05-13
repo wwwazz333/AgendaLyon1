@@ -38,17 +38,19 @@
             android:id="@+id/summary"
             android:text="bla bla ba bla bla"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textSize="18sp"
             android:paddingHorizontal="5dp"
-            android:gravity="center_vertical"/>
+            android:gravity="center_vertical"
+    android:layout_gravity="center_vertical"/>
 
     <TextView
             android:id="@+id/salle"
             android:text="Salle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:maxWidth="200dp"
             android:textSize="18sp"
             android:layout_gravity="center_vertical"
             android:layout_marginHorizontal="5dp"/>

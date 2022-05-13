@@ -16,9 +16,11 @@ import com.calendar.iutcalendar.R;
 import com.iutcalendar.calendrier.Calendrier;
 import com.iutcalendar.calendrier.CurrentDate;
 import com.iutcalendar.calendrier.EventCalendrier;
+import com.iutcalendar.data.DataGlobal;
 import com.iutcalendar.data.FileGlobal;
 import com.iutcalendar.event.ClickListiner;
 import com.iutcalendar.event.EventRecycleView;
+import com.iutcalendar.swiping.GestureEventManager;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -66,7 +68,7 @@ public class EventFragment extends Fragment {
                 update.setGravity(Gravity.CENTER);
                 update.setTextSize(18);
 
-                update.setText(new StringBuilder().append("last update : ").append(new SimpleDateFormat("dd/MM/yyyy HH:mm").format(fileCal.lastModified())).toString());
+                update.setText("last update : " + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(fileCal.lastModified()));
 //                update.setText(DataSaver.getSavedLastUpdate(getContext()));
                 layout.addView(update);
             }
@@ -84,4 +86,5 @@ public class EventFragment extends Fragment {
 
         return view;
     }
+
 }

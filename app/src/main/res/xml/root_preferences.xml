@@ -3,7 +3,8 @@
         xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory
-            app:title="URL">
+            app:title="URL"
+            android:icon="@drawable/ic_link_url">
 
         <Preference
                 app:fragment="com.iutcalendar.settings.URLSetterFragment"
@@ -12,7 +13,8 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="Général">
+    <PreferenceCategory app:title="Général"
+                        android:icon="@drawable/ic_settings_ico">
         <SwitchPreference
                 app:key="show_update"
                 app:title="afficher update"
@@ -36,6 +38,13 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory app:title="Fonctionnalité"
+                        android:icon="@drawable/ic_feature_settings">
+        <Preference
+                app:fragment="com.iutcalendar.settings.ExplicationSettingsFragment"
+                app:title="Utilisation"
+                app:summary="aide pour utiliser toutes les fonctionnalité de cette application"/>
+    </PreferenceCategory>
 
 
 </PreferenceScreen>
