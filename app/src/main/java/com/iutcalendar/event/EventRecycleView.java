@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.calendar.iutcalendar.R;
 import com.iutcalendar.calendrier.EventCalendrier;
+import com.iutcalendar.task.PersonnalCalendrier;
 
 import java.util.List;
 
@@ -47,6 +48,11 @@ public class EventRecycleView extends RecyclerView.Adapter<EventViewHolder> {
         viewHolder.salle.setText(e.getSalle().replace("\\,", "\n"));
 
         viewHolder.view.setOnClickListener(view -> listiner.click(index));
+
+
+        if(!PersonnalCalendrier.getInstance().getLinkedTask(e).isEmpty()){
+            viewHolder.summary.setText(e.getSummary() + "*");
+        }
     }
 
     @Override

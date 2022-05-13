@@ -1,6 +1,7 @@
 package com.iutcalendar;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,8 @@ import com.iutcalendar.calendrier.EventCalendrier;
 import com.iutcalendar.data.FileGlobal;
 import com.iutcalendar.event.ClickListiner;
 import com.iutcalendar.event.EventRecycleView;
+import com.iutcalendar.task.PersonnalCalendrier;
+import com.iutcalendar.task.Task;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -43,7 +46,6 @@ public class EventFragment extends Fragment {
 
 
         if (fileCal.exists()) {
-//            String str = DataSaver.getSavedCal(getContext());
             String str = FileGlobal.readFile(fileCal);
             Calendrier cal = new Calendrier(str);
 
@@ -51,6 +53,7 @@ public class EventFragment extends Fragment {
             CurrentDate date = ((MainActivity) getActivity()).getCurrDate();
 
             List<EventCalendrier> eventToday = cal.getEventsOfDay(date);
+
 
             RecyclerView recycleView = view.findViewById(R.id.recycleView);
             ClickListiner listiner = index -> Toast.makeText(getActivity(), eventToday.get(index).getDescription(), Toast.LENGTH_LONG).show();
@@ -67,7 +70,6 @@ public class EventFragment extends Fragment {
                 update.setTextSize(18);
 
                 update.setText("last update : " + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(fileCal.lastModified()));
-//                update.setText(DataSaver.getSavedLastUpdate(getContext()));
                 layout.addView(update);
             }
         } else {

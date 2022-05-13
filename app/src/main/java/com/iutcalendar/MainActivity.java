@@ -22,6 +22,7 @@ import com.iutcalendar.settings.SettingsActivity;
 import com.iutcalendar.swiping.GestureEventManager;
 import com.iutcalendar.swiping.ReloadAnimationFragment;
 import com.iutcalendar.swiping.TouchGestureListener;
+import com.iutcalendar.task.PersonnalCalendrier;
 
 import java.util.GregorianCalendar;
 
@@ -71,6 +72,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initVariable();
+
+        PersonnalCalendrier.getInstance().load(getApplicationContext());
+
 
         currDateLabel.setOnClickListener(view -> setCurrDate(new CurrentDate()));
 
@@ -125,8 +129,6 @@ public class MainActivity extends AppCompatActivity {
 //        myIntent.putExtra(AlarmClock.EXTRA_MINUTES, getCurrDate().getMinute()+1);
 //
 //        startActivity(myIntent);
-
-
     }
 
 
@@ -134,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
                                      UPDATE
     ########################################################################*/
     public void update() {
+
         startFragment(R.id.animFragment, new ReloadAnimationFragment());
         new Thread(() -> {
             FileDownload.updateFichier(FileGlobal.getFileDownload(getApplicationContext()).getAbsolutePath(), getApplicationContext());

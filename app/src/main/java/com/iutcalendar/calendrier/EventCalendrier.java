@@ -9,6 +9,7 @@ public class EventCalendrier implements Comparable<EventCalendrier> {
     private DateCalendrier debut;
     private int dureeH;
     private int dureeM;
+    private String UID;
 
     public EventCalendrier() {
         this.debut = null;
@@ -17,15 +18,21 @@ public class EventCalendrier implements Comparable<EventCalendrier> {
         this.summary = "";
         this.salle = "";
         this.description = "";
+        this.UID = "";
     }
 
-    public EventCalendrier(DateCalendrier debut, int dureeH, int dureeM, String summary, String salle, String description) {
+    public EventCalendrier(DateCalendrier debut, int dureeH, int dureeM, String summary, String salle, String description, String UID) {
         this.debut = debut;
         this.dureeH = dureeH;
         this.dureeM = dureeM;
         this.summary = summary;
         this.salle = salle;
         this.description = description;
+        this.UID = UID;
+    }
+
+    public String getUID() {
+        return UID;
     }
 
     public DateCalendrier getDate() {
@@ -51,7 +58,7 @@ public class EventCalendrier implements Comparable<EventCalendrier> {
     @Override
     public EventCalendrier clone() throws CloneNotSupportedException {
         super.clone();
-        return new EventCalendrier(debut, dureeH, dureeM, summary, salle, description);
+        return new EventCalendrier(debut, dureeH, dureeM, summary, salle, description, UID);
     }
 
     public void parseLine(String str) {
@@ -74,6 +81,8 @@ public class EventCalendrier implements Comparable<EventCalendrier> {
             salle = splited[1];
         } else if (title.equals("DESCRIPTION")) {
             description = str.substring(str.indexOf(':') + 1).trim().replace("\\n", "\n").replaceAll("^\n*|\n*$", "");
+        }else if (title.equals("UID")) {
+            UID = splited[1];
         }
     }
 

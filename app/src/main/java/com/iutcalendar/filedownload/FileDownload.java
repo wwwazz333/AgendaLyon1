@@ -55,9 +55,6 @@ public class FileDownload {
                 ReadableByteChannel readChannel =
                         getCalender(url);
 
-//                DataSaver.saveCal(context, readChannel);
-//                DataSaver.saveLastUpdate(context, new CurrentDate().toString());
-
 
                 saveByteToFile(readChannel, file_path);
                 Log.d("File", "fichier enregistré");

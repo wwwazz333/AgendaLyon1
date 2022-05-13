@@ -10,9 +10,13 @@ import java.nio.file.Paths;
 
 public class FileGlobal {
     public static final String nameFileSave = "savedCal.ics";
+    public static final String nameFilePersonnalTask = "personalTasks.dat";
 
     public static File getFileDownload(Context context) {
         return new File(DataGlobal.getSavedPathDownloadFile(context) + "/" + nameFileSave);
+    }
+    public static File getFilePersonnalTask(Context context) {
+        return new File(DataGlobal.getSavedPathDownloadFile(context) + "/" + nameFilePersonnalTask);
     }
 
     public static String readFile(File file) {
