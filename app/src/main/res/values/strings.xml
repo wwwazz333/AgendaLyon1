@@ -20,4 +20,6 @@
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
     <string name="app_widget_description">Widget pour consulté les 2 prochain évenements (update on click)</string>
+    <string name="today">Aujourd\'hui</string>
+    <string name="open">Ouvrir</string>
 </resources>
