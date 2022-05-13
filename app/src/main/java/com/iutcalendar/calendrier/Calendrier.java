@@ -55,9 +55,7 @@ public class Calendrier {
     public List<EventCalendrier> getEventsOfDay(DateCalendrier date) {
         LinkedList<EventCalendrier> eventsOfDay = new LinkedList<>();
         for (EventCalendrier ev : events) {
-            if (ev.getDate().getDay() == date.getDay() &&
-                    ev.getDate().getMonth() == date.getMonth() &&
-                    ev.getDate().getYear() == date.getYear()) {
+            if (ev.getDate().getDay() == date.getDay() && ev.getDate().getMonth() == date.getMonth() && ev.getDate().getYear() == date.getYear()) {
                 eventsOfDay.add(ev);
             }
         }
@@ -66,8 +64,7 @@ public class Calendrier {
     }
 
     public EventCalendrier getLastEvent() {
-        if (events.isEmpty())
-            return null;
+        if (events.isEmpty()) return null;
         return events.get(events.size() - 1);
     }
 

@@ -11,8 +11,6 @@ import com.calendar.iutcalendar.R;
 
 
 public class ReloadAnimationFragment extends Fragment {
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

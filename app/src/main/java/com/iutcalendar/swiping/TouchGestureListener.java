@@ -13,7 +13,6 @@ public class TouchGestureListener implements View.OnTouchListener {
         gestureDetector = new GestureDetector(ctx, gs);
     }
 
-
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         v.performClick();

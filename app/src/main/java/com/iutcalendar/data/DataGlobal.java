@@ -9,23 +9,28 @@ public class DataGlobal {
 //    private final static String calendrier = "object_calendrier";
 
     //String
-    public static void save(Context context, String key, String data){
+    public static void save(Context context, String key, String data) {
         PreferenceManager.getDefaultSharedPreferences(context).edit().putString(key, data).commit();
     }
+
     public static String getSavedString(Context context, String key) {
         return PreferenceManager.getDefaultSharedPreferences(context).getString(key, "");
     }
+
     //boolean
-    public static void save(Context context, String key, boolean data){
+    public static void save(Context context, String key, boolean data) {
         PreferenceManager.getDefaultSharedPreferences(context).edit().putBoolean(key, data).commit();
     }
+
     public static boolean getSavedBoolean(Context context, String key) {
         return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(key, false);
     }
+
     //boolean
-    public static void save(Context context, String key, int data){
+    public static void save(Context context, String key, int data) {
         PreferenceManager.getDefaultSharedPreferences(context).edit().putInt(key, data).commit();
     }
+
     public static int getSavedInt(Context context, String key) {
         return PreferenceManager.getDefaultSharedPreferences(context).getInt(key, 0);
     }

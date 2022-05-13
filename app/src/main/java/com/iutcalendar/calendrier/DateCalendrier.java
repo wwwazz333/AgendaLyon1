@@ -5,16 +5,8 @@ import java.util.Locale;
 
 public class DateCalendrier extends GregorianCalendar {
 
-    private boolean zoneOffsetAppliced = false;
     private static int summerOffset = 1;
-
-    public static int getSummerOffset() {
-        return DateCalendrier.summerOffset;
-    }
-
-    public static void setSummerOffset(int summerOffset) {
-        DateCalendrier.summerOffset = summerOffset;
-    }
+    private boolean zoneOffsetAppliced = false;
 
     public DateCalendrier() {
         super(Locale.FRANCE);
@@ -43,6 +35,14 @@ public class DateCalendrier extends GregorianCalendar {
         set(GregorianCalendar.SECOND, 0);
 
         this.zoneOffsetAppliced = other.zoneOffsetAppliced;
+    }
+
+    public static int getSummerOffset() {
+        return DateCalendrier.summerOffset;
+    }
+
+    public static void setSummerOffset(int summerOffset) {
+        DateCalendrier.summerOffset = summerOffset;
     }
 
     public static String fillWithZeroBefore(int n) {
@@ -136,10 +136,9 @@ public class DateCalendrier extends GregorianCalendar {
         return diff;
     }
 
-    public String timeToString(){
+    public String timeToString() {
         return getHour() + ":" + DateCalendrier.fillWithZeroAfter(getMinute());
     }
-
 
 
     @Override
@@ -148,7 +147,7 @@ public class DateCalendrier extends GregorianCalendar {
                 getHour() + ":" + getMinute();
     }
 
-    public boolean sameDay(Object obj){
+    public boolean sameDay(Object obj) {
         if (obj == null) {
             return false;
         }

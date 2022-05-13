@@ -43,7 +43,7 @@
             android:textSize="18sp"
             android:paddingHorizontal="5dp"
             android:gravity="center_vertical"
-    android:layout_gravity="center_vertical"/>
+            android:layout_gravity="center_vertical"/>
 
     <TextView
             android:id="@+id/salle"

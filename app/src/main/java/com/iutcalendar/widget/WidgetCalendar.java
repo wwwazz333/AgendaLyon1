@@ -103,8 +103,7 @@ public class WidgetCalendar extends AppWidgetProvider {
             }
 
             views.setOnClickPendingIntent(R.id.openBtn,
-                    PendingIntent.getActivity(context, 0, new Intent(context, MainActivity.class), 0));
-
+                    PendingIntent.getActivity(context, 0, new Intent(context, MainActivity.class), PendingIntent.FLAG_IMMUTABLE));
 
 
             Intent intent = new Intent(context, WidgetCalendar.class);
@@ -126,7 +125,7 @@ public class WidgetCalendar extends AppWidgetProvider {
         super.onReceive(context, intent);
 
         if (intent.getStringExtra(SHOW_TOAST_ACTION) != null) {
-            Log.d("Widget","Toast");
+            Log.d("Widget", "Toast");
             Toast.makeText(context, "Widget updated", Toast.LENGTH_SHORT).show();
         }
     }

@@ -16,11 +16,9 @@ import com.calendar.iutcalendar.R;
 import com.iutcalendar.calendrier.Calendrier;
 import com.iutcalendar.calendrier.CurrentDate;
 import com.iutcalendar.calendrier.EventCalendrier;
-import com.iutcalendar.data.DataGlobal;
 import com.iutcalendar.data.FileGlobal;
 import com.iutcalendar.event.ClickListiner;
 import com.iutcalendar.event.EventRecycleView;
-import com.iutcalendar.swiping.GestureEventManager;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
