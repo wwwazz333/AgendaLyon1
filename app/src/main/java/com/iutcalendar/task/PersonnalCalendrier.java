@@ -38,6 +38,11 @@ public class PersonnalCalendrier {
         return this.tasks.getOrDefault(linkedTo.getUID(), new LinkedList<>());
     }
 
+    public void remove(Task task) {
+        this.tasks.get(task.getLinkedToUID()).remove(task);
+    }
+
+
     public void load(Context context) {
         FileInputStream stream;
         try {
@@ -49,6 +54,7 @@ public class PersonnalCalendrier {
         try {
             ObjectInputStream in = new ObjectInputStream(stream);
             tasks = (HashMap) in.readObject();
+            Log.d("File", "file task loaded");
         } catch (IOException e) {
             Log.e("File", e.getMessage());
         } catch (ClassNotFoundException e) {
@@ -75,6 +81,5 @@ public class PersonnalCalendrier {
         } catch (IOException e) {
             Log.e("File", "couldn't write in fileTask");
         }
-
     }
 }

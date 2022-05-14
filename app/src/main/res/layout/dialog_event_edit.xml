@@ -15,7 +15,7 @@
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Evènement"
+                android:text="@string/event"
                 style="@style/TitleText"
 
                 android:layout_column="0"
@@ -25,7 +25,7 @@
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="title"
+                android:text="@string/resumerLabel"
 
                 android:layout_column="0"
                 android:layout_row="1"/>
@@ -43,13 +43,13 @@
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="description"
+                android:text="@string/descriptionLabel"
 
                 android:layout_column="0"
                 android:layout_row="2"/>
 
         <TextView
-                android:id="@+id/description"
+                android:id="@+id/textTask"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="blabla"
@@ -61,7 +61,7 @@
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="salle"
+                android:text="@string/locationLabel"
 
                 android:layout_column="0"
                 android:layout_row="3"/>
@@ -78,13 +78,13 @@
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="debut"
+                android:text="@string/horaireLabel"
 
                 android:layout_column="0"
                 android:layout_row="4"/>
 
         <TextView
-                android:id="@+id/debut"
+                android:id="@+id/horaire"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="blabla"
@@ -96,34 +96,25 @@
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="fin"
+                android:text="Durée"
 
                 android:layout_column="0"
                 android:layout_row="5"/>
 
         <TextView
-                android:id="@+id/fin"
+                android:id="@+id/duree"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="blabla"
 
                 android:layout_column="1"
-                android:layout_row="5"/>
-
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="fin"
-
-                android:layout_column="0"
                 android:layout_row="5"/>
 
         <!--########################TASK########################"-->
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tache"
+                android:text="@string/task"
                 style="@style/TitleText"
                 android:layout_column="0"
                 android:layout_row="6"
@@ -153,43 +144,6 @@
                 android:layout_column="0"
                 android:layout_columnSpan="2"/>
 
-
-
-        <!--<TextView
-                android:id="@+id/nameTaskLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Nom"
-
-                android:layout_column="0"
-                android:layout_row="8"
-                android:visibility="invisible"/>
-
-        <EditText
-                android:id="@+id/nameTask"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="1"
-                android:layout_row="8"
-                android:visibility="invisible"/>
-
-        <TextView
-                android:id="@+id/descriptionTaskLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Déscription"
-
-                android:layout_column="0"
-                android:layout_row="9"
-                android:visibility="invisible"/>
-
-        <EditText
-                android:id="@+id/descriptionTask"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="1"
-                android:layout_row="9"
-                android:visibility="invisible"/>-->
 
         <Button
                 android:layout_width="wrap_content"

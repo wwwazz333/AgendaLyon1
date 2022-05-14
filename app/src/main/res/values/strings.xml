@@ -24,4 +24,11 @@
     <string name="open">Ouvrir</string>
     <string name="cancel">ANNULÉ</string>
     <string name="submit">VALIDÉ</string>
+    <string name="event">Évènement</string>
+    <string name="task">Tâche</string>
+    <string name="titreLabel">Titre</string>
+    <string name="resumerLabel">Résumé</string>
+    <string name="descriptionLabel">Déscription</string>
+    <string name="locationLabel">Salle</string>
+    <string name="horaireLabel">Horaire</string>
 </resources>

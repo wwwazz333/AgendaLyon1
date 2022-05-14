@@ -1,6 +1,7 @@
 package com.iutcalendar.calendrier;
 
 import java.util.GregorianCalendar;
+import java.util.Objects;
 
 public class EventCalendrier implements Comparable<EventCalendrier> {
     private String summary;
@@ -81,7 +82,7 @@ public class EventCalendrier implements Comparable<EventCalendrier> {
             salle = splited[1];
         } else if (title.equals("DESCRIPTION")) {
             description = str.substring(str.indexOf(':') + 1).trim().replace("\\n", "\n").replaceAll("^\n*|\n*$", "");
-        }else if (title.equals("UID")) {
+        } else if (title.equals("UID")) {
             UID = splited[1];
         }
     }
@@ -115,5 +116,18 @@ public class EventCalendrier implements Comparable<EventCalendrier> {
     @Override
     public String toString() {
         return debut.toString() + " " + dureeH + ":" + dureeM;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        EventCalendrier that = (EventCalendrier) o;
+        return Objects.equals(UID, that.UID);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(UID);
     }
 }

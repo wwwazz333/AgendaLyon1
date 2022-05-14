@@ -6,18 +6,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.calendar.iutcalendar.R;
 
-public class TaskViewHolder  extends RecyclerView.ViewHolder {
+public class TaskViewHolder extends RecyclerView.ViewHolder {
 
-    TextView name;
-    TextView description;
+    TextView text;
     View view;
 
     public TaskViewHolder(@NonNull View itemView) {
         super(itemView);
 
-        name = itemView.findViewById(R.id.name);
-        description = itemView.findViewById(R.id.description);
-
+        text = itemView.findViewById(R.id.textTask);
         view = itemView;
     }
 }

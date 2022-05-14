@@ -54,8 +54,6 @@ public class EventFragment extends Fragment {
             List<EventCalendrier> eventToday = cal.getEventsOfDay(date);
 
 
-
-
             RecyclerView recycleView = view.findViewById(R.id.recycleView);
 
             ClickListiner listiner = index -> {//Event on click Event

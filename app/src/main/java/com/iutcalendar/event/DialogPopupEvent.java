@@ -10,50 +10,75 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.calendar.iutcalendar.R;
 import com.iutcalendar.calendrier.EventCalendrier;
+import com.iutcalendar.task.ClickListener;
 import com.iutcalendar.task.PersonnalCalendrier;
+import com.iutcalendar.task.Task;
 import com.iutcalendar.task.TaskRecycleView;
 
 public class DialogPopupEvent extends Dialog {
-    private TextView title, summary, salle, debut, fin;
+    private final EventCalendrier relatedEvent;
+    private final Activity activity;
+    private TextView title, summary, salle, horaire, duree;
     private Button okBtn;
-
     private ImageButton addBtn;
-
     private RecyclerView recyclerViewTask;
 
     public DialogPopupEvent(@NonNull Context context, EventCalendrier eventClicked, Activity activity) {
         super(context);
         setContentView(R.layout.dialog_event_edit);
         initVariable();
+        this.relatedEvent = eventClicked;
+        this.activity = activity;
 
         this.addBtn.setOnClickListener(view -> showAddTask());
 
         this.okBtn.setOnClickListener(view -> dismiss());
 
 
-        String timeDebut = eventClicked.getDate().timeToString();
-        String timeFin = eventClicked.getDate().addTime(eventClicked.getDuree()).timeToString();
+        String timeDebut = relatedEvent.getDate().timeToString();
+        String timeFin = relatedEvent.getDate().addTime(relatedEvent.getDuree()).timeToString();
 
-        this.title.setText(eventClicked.getSummary());
-        this.summary.setText(eventClicked.getDescription());
-        this.salle.setText(eventClicked.getSalle());
-        this.debut.setText(timeDebut);
-        this.fin.setText(timeFin);
+        this.title.setText(relatedEvent.getSummary());
+        this.summary.setText(relatedEvent.getDescription());
+        this.salle.setText(relatedEvent.getSalle());
+        this.horaire.setText(timeDebut + " - " + timeFin);
+        this.duree.setText(relatedEvent.getDuree().timeToString());
 
-        ClickListiner listiner = index -> {
-        };
-        TaskRecycleView adapter = new TaskRecycleView(PersonnalCalendrier.getInstance().getLinkedTask(eventClicked), activity.getApplication(), listiner);
+        updatedTask();
+
+    }
+
+    private void updatedTask() {
+        ClickListener listener = this::removeTask;
+        TaskRecycleView adapter = new TaskRecycleView(PersonnalCalendrier.getInstance().getLinkedTask(relatedEvent), activity.getApplication(), listener);
         recyclerViewTask.setAdapter(adapter);
         recyclerViewTask.setLayoutManager(new LinearLayoutManager(activity));
+    }
 
+    private void removeTask(Task taskClicked) {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+        alertDialog.setTitle("Suppression");
+        alertDialog.setMessage("Voulez-vous supprimer cette tâche ?");
+
+        alertDialog.setPositiveButton("Oui", (dialogInterface, i) -> {
+            updatedTask();
+            PersonnalCalendrier.getInstance().remove(taskClicked);
+            PersonnalCalendrier.getInstance().save(getContext());
+            Toast.makeText(getContext(), "Tâche supprimer", Toast.LENGTH_SHORT).show();
+            dialogInterface.dismiss();
+        });
+
+        alertDialog.setNegativeButton("Non", (dialogInterface, i) -> dialogInterface.cancel());
+
+        alertDialog.show();
     }
 
     private void initVariable() {
         title = findViewById(R.id.title);
-        summary = findViewById(R.id.description);
+        summary = findViewById(R.id.textTask);
         salle = findViewById(R.id.salle);
-        debut = findViewById(R.id.debut);
-        fin = findViewById(R.id.fin);
+        horaire = findViewById(R.id.horaire);
+        duree = findViewById(R.id.duree);
 
 
         okBtn = findViewById(R.id.okBtn);
@@ -65,29 +90,24 @@ public class DialogPopupEvent extends Dialog {
     private void showAddTask() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
         alertDialog.setTitle("ajout tache");
-        alertDialog.setMessage("Nom");
+        alertDialog.setMessage("Tâche");
 
-        final EditText inputName = new EditText(getContext());
+        final EditText editText = new EditText(getContext());
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT);
-        inputName.setLayoutParams(lp);
-        alertDialog.setView(inputName);
+        editText.setLayoutParams(lp);
+        alertDialog.setView(editText);
 
-//        alertDialog.setView(new TextView(getContext(), "Déscription"));
+        alertDialog.setPositiveButton(getContext().getString(R.string.submit),
+                (dialog, which) -> {
+                    PersonnalCalendrier.getInstance().addLinkedTask(new Task(editText.getText().toString(), relatedEvent.getUID()), relatedEvent);
+                    PersonnalCalendrier.getInstance().save(getContext());
+                    dialog.dismiss();
+                    updatedTask();
+                });
 
-        final EditText inputDescription = new EditText(getContext());
-        lp = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT);
-        inputDescription.setLayoutParams(lp);
-        alertDialog.setView(inputDescription);
-
-
-        alertDialog.setPositiveButton("Valide",
-                (dialog, which) -> dialog.dismiss());
-
-        alertDialog.setNegativeButton("Annulé",
+        alertDialog.setNegativeButton(getContext().getString(R.string.cancel),
                 (dialog, which) -> dialog.cancel());
 
         alertDialog.show();

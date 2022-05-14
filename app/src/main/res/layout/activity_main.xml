@@ -40,13 +40,14 @@
     <LinearLayout
             android:layout_width="match_parent" android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/tab_gap"
             app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginBottom="@dimen/tab_gap">
 
             <ImageView
                     android:contentDescription="previous week button"
@@ -55,7 +56,8 @@
                     android:gravity="center"
                     android:layout_height="match_parent"
                     app:srcCompat="@drawable/ic_left_arrow"
-                    android:layout_weight="1" android:labelFor="@id/currDateLabel"/>
+                    android:layout_weight="1" android:labelFor="@id/currDateLabel"
+                    android:visibility="invisible"/>
             <TextView
                     android:id="@+id/currDateLabel"
                     android:layout_width="0dp"
@@ -70,7 +72,8 @@
                     android:layout_width="0dp"
                     android:gravity="center"
                     android:layout_height="match_parent" app:srcCompat="@drawable/ic_right_arrow"
-                    android:layout_weight="1" android:labelFor="@id/currDateLabel"/>
+                    android:layout_weight="1" android:labelFor="@id/currDateLabel"
+                    android:visibility="invisible"/>
 
 
         </LinearLayout>

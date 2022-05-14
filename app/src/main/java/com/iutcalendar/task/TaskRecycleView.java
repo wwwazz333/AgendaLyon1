@@ -17,12 +17,12 @@ public class TaskRecycleView extends RecyclerView.Adapter<TaskViewHolder> {
     TaskViewHolder viewHolder;
 
     Context context;
-    ClickListiner listener;
+    ClickListener listener;
 
-    public TaskRecycleView(List<Task> list, Context context, ClickListiner listiner) {
+    public TaskRecycleView(List<Task> list, Context context, ClickListener listener) {
         this.list = list;
         this.context = context;
-        this.listener = listiner;
+        this.listener = listener;
     }
 
     @NonNull
@@ -40,11 +40,10 @@ public class TaskRecycleView extends RecyclerView.Adapter<TaskViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull TaskViewHolder holder, int position) {
         final int index = viewHolder.getAdapterPosition();
-        Task e = list.get(position);
-        viewHolder.name.setText(e.getName());
-        viewHolder.description.setText(e.getDescription());
+        Task task = list.get(position);
+        viewHolder.text.setText(task.getTxt());
 
-        viewHolder.view.setOnClickListener(view -> listener.click(index));
+        viewHolder.view.setOnClickListener(view -> listener.click(task));
     }
 
     @Override
