@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">IUTCalendar</string>
+    <string name="open">Open</string>
+    <string name="cancel">Cancel</string>
+    <string name="submit">Submit</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="tomorrow">Tomorrow</string>
+    <string name="today">Today</string>
+    <string name="app_widget_description">Widget to see 2 next event (it can be updated on click)</string>
+    <string name="task_add_btn_label">adding task button</string>
+    <string name="date_exemple">Sun 24 april 2022</string>
+    <string name="event">Event</string>
+    <string name="task">Task</string>
+    <string name="titreLabel">Title</string>
+    <string name="resumerLabel">Summary</string>
+    <string name="descriptionLabel">Description</string>
+    <string name="locationLabel">Location</string>
+    <string name="horaireLabel">Schedule</string>
+    <string name="Settings">Settings</string>
+    <string name="Lundi_abv">Mon</string>
+    <string name="Mardi_abv">Tue</string>
+    <string name="Mercredi_abv">Wed</string>
+    <string name="Jeudi_abv">Thu</string>
+    <string name="Vendredi_abv">Fri</string>
+    <string name="Samedi_abv">Sat</string>
+    <string name="Dimanche_abv">Sun</string>
+    <string name="Duration">Duration</string>
+    <string name="General">General</string>
+    <string name="Reload">Reload</string>
+    <string name="load_icon">loading icon</string>
+    <string name="qr_code_scan">Scan QR code</string>
+    <string name="logo_settings">Logo settings</string>
+    <string name="close_settings">close settings</string>
+</resources>

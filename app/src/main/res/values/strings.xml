@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">IUTCalendar</string>
-    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="title_activity_settings" translatable="false">SettingsActivity</string>
 
     <!--    Basique-->
-    <string name="ok">OK</string>
+    <string name="ok" translatable="false">OK</string>
     <string name="open">Ouvrir</string>
     <string name="cancel">Annulé</string>
     <string name="submit">Validé</string>
@@ -13,15 +13,15 @@
     <string name="today">Aujourd\'hui</string>
 
     <!--    Déscription-->
-    <string name="app_widget_description">Widget pour consulté les 2 prochain évenements (update on click)</string>
+    <string name="app_widget_description">Widget pour consulté les 2 prochain évenements (maj. au clique)</string>
     <string name="task_add_btn_label">bouton d\'ajout de tache</string>
 
 
     <!--    Exemple-->
     <string name="date_exemple">Dim 24 avril 2022</string>
-    <string name="exemple_url">
+    <string name="exemple_url" translatable="false">
         <![CDATA[https://adelb.univ-lyon1.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=xxxxx&projectId=1&amp;calType=ical&firstDate=year-month-day&lastDate=year-month-day]]></string>
-    <string name="exemple_hour">10:00</string>
+    <string name="exemple_hour" translatable="false">10:00</string>
 
     <!--    Other-->
     <string name="event">Évènement</string>
@@ -30,7 +30,7 @@
     <string name="resumerLabel">Résumé</string>
     <string name="descriptionLabel">Déscription</string>
     <string name="locationLabel">Salle</string>
-    <string name="horaireLabel">Horaire</string>
+    <string name="horaireLabel">Horaires</string>
     <string name="Settings">Paramètre</string>
     <string name="Lundi_abv">Lun</string>
     <string name="Mardi_abv">Mar</string>
@@ -39,17 +39,19 @@
     <string name="Vendredi_abv">Ven</string>
     <string name="Samedi_abv">Sam</string>
     <string name="Dimanche_abv">Dim</string>
-    <string name="exemple_text">blabla</string>
+    <string name="exemple_text" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+        eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    </string>
     <string name="Duration">Durée</string>
     <string name="General">Général</string>
     <string name="Reload">Recharger</string>
     <string name="load_icon">icone de chargement</string>
-    <string name="url">URL</string>
+    <string name="url" translatable="false">URL</string>
     <string name="qr_code_scan">Scan QR code</string>
     <string name="logo_settings">Logo paramètre</string>
     <string name="close_settings">fermer les paramètres</string>
 
 
     <!--    Avec Place Holder-->
-    <string name="both_time">%1$s - %2$s</string>
+    <string name="both_time" translatable="false">%1$s - %2$s</string>
 </resources>
