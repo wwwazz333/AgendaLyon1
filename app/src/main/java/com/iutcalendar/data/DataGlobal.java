@@ -4,10 +4,14 @@ import android.content.Context;
 import androidx.preference.PreferenceManager;
 
 public class DataGlobal {
-    private final static String url = "url_path";
-    private final static String pathFileDownload = "path_file_download";
-//    private final static String calendrier = "object_calendrier";
+    private final static String URL = "url_path";
+    private final static String PATH_FILE_DOWNLOAD = "path_file_download";
+    private final static String LANGUAGUE = "language_selected";
 
+
+    public static String getLanguage(Context context){
+        return PreferenceManager.getDefaultSharedPreferences(context).getString(LANGUAGUE, "fr");
+    }
     //String
     public static void save(Context context, String key, String data) {
         PreferenceManager.getDefaultSharedPreferences(context).edit().putString(key, data).commit();
@@ -37,19 +41,19 @@ public class DataGlobal {
 
 
     public static void savePath(Context context, String data) {
-        save(context, url, data);
+        save(context, URL, data);
     }
 
     public static String getSavedPath(Context context) {
-        return getSavedString(context, url);
+        return getSavedString(context, URL);
     }
 
     public static void savePathDownloadFile(Context context, String data) {
-        save(context, pathFileDownload, data);
+        save(context, PATH_FILE_DOWNLOAD, data);
     }
 
     public static String getSavedPathDownloadFile(Context context) {
-        return getSavedString(context, pathFileDownload);
+        return getSavedString(context, PATH_FILE_DOWNLOAD);
     }
 
 

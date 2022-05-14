@@ -3,47 +3,54 @@
         xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory
-            app:title="URL"
+            app:title="@string/url"
             android:icon="@drawable/ic_link_url">
 
         <Preference
                 app:fragment="com.iutcalendar.settings.URLSetterFragment"
-                app:title="URL"
+                app:title="@string/url"
                 app:summary="URL pour mettre à jour le calendrier"/>
 
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="Général"
+    <PreferenceCategory app:title="@string/General"
                         android:icon="@drawable/ic_settings_ico">
         <SwitchPreference
                 app:key="show_update"
-                app:title="afficher update"
-                app:summary="afficher la date de la dernière maj. du calendrier"
+                app:title="@string/show_update"
+                app:summary="@string/show_date_description"
                 android:defaultValue="true"
         />
 
         <SwitchPreference
                 app:key="revert_swaping_day"
-                app:title="inverser défilement"
-                app:summary="inverser le défilement des jours (swipe)"
+                app:title="@string/revert_swipe"
+                app:summary="@string/revert_swipe_description"
                 android:defaultValue="false"
         />
 
         <SwitchPreference
                 app:key="summer_offset"
-                app:title="heure d'été"
-                app:summary="applique le décallager pour l'heure d'été"
+                app:title="@string/summer_offset"
+                app:summary="@string/summer_offset_description"
                 android:defaultValue="true"
         />
+        <ListPreference
+                android:key="language_selected"
+                android:title="@string/choose_langue"
+                android:summary="@string/choose_langue_description"
+                android:defaultValue="fr"
+                android:entryValues="@array/language_values"
+                android:entries="@array/language_options"/>
 
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="Fonctionnalité"
+    <PreferenceCategory app:title="@string/Feature"
                         android:icon="@drawable/ic_feature_settings">
         <Preference
                 app:fragment="com.iutcalendar.settings.ExplicationSettingsFragment"
-                app:title="Utilisation"
-                app:summary="aide pour utiliser toutes les fonctionnalité de cette application"/>
+                app:title="@string/Usage"
+                app:summary="@string/Usage_description"/>
     </PreferenceCategory>
 
 

@@ -1,9 +1,12 @@
 package com.iutcalendar;
 
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.LinearLayout;
@@ -18,6 +21,7 @@ import com.iutcalendar.calendrier.DateCalendrier;
 import com.iutcalendar.data.DataGlobal;
 import com.iutcalendar.data.FileGlobal;
 import com.iutcalendar.filedownload.FileDownload;
+import com.iutcalendar.language.LanguageApp;
 import com.iutcalendar.settings.SettingsActivity;
 import com.iutcalendar.swiping.GestureEventManager;
 import com.iutcalendar.swiping.ReloadAnimationFragment;
@@ -25,14 +29,15 @@ import com.iutcalendar.swiping.TouchGestureListener;
 import com.iutcalendar.task.PersonnalCalendrier;
 
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
+    private static final String SELECTED_LANGUAGE = "Locale.Helper.Selected.Language";
     static boolean active = false;
     private FragmentTransaction fragmentTransaction;
     private CurrentDate currDate;
     private GestureDetectorCompat gestureD;
     private TextView currDateLabel;
-
     private LinearLayout nameDayLayout;
     private LinearLayout dayOfWeek;
 
@@ -65,11 +70,13 @@ public class MainActivity extends AppCompatActivity {
         active = false;
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        LanguageApp.setLocale(getResources(), DataGlobal.getLanguage(getApplicationContext()));
         setContentView(R.layout.activity_main);
+
+
 
         initVariable();
         PersonnalCalendrier.getInstance().load(getApplicationContext());
@@ -130,7 +137,6 @@ public class MainActivity extends AppCompatActivity {
 //
 //        startActivity(myIntent);
     }
-
 
     /*########################################################################
                                      UPDATE
@@ -239,6 +245,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
     }
 
+
     /*########################################################################
                                     GESTION EVENT
      ########################################################################*/
@@ -273,7 +280,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
     public class GestureWeekListener extends GestureEventManager {
 
         @Override
@@ -304,9 +310,7 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 setCurrDate(getCurrDate().prevWeek());
             }
-
         }
-
     }
 
 

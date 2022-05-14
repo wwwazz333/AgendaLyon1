@@ -25,9 +25,9 @@
         <entry key="app/src/main/res/drawable/ic_right_arrow.xml" value="0.36153846153846153" />
         <entry key="app/src/main/res/drawable/ic_simple_ico.xml" value="0.3671875" />
         <entry key="app/src/main/res/drawable/left_arrow.xml" value="0.3671875" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="app/src/main/res/layout/dialog_event_edit.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/event_card.xml" value="0.611965811965812" />
+        <entry key="app/src/main/res/layout/event_card.xml" value="0.5" />
         <entry key="app/src/main/res/layout/event_view.xml" value="0.35" />
         <entry key="app/src/main/res/layout/fragment_blank.xml" value="0.35104166666666664" />
         <entry key="app/src/main/res/layout/fragment_day_of_week.xml" value="0.35104166666666664" />

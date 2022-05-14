@@ -33,4 +33,15 @@
     <string name="qr_code_scan">Scan QR code</string>
     <string name="logo_settings">Logo settings</string>
     <string name="close_settings">close settings</string>
+    <string name="show_update">show update</string>
+    <string name="show_date_description">show last update\'s calendar</string>
+    <string name="revert_swipe">revert swiping</string>
+    <string name="revert_swipe_description">revert swiping for day and week</string>
+    <string name="summer_offset">summer offset</string>
+    <string name="summer_offset_description">Do the summer offset</string>
+    <string name="choose_langue">Language</string>
+    <string name="choose_langue_description">Choose language</string>
+    <string name="Feature">Feature</string>
+    <string name="Usage">Usages</string>
+    <string name="Usage_description">Help about how to use the app</string>
 </resources>
