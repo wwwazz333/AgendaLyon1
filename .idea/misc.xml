@@ -25,6 +25,7 @@
         <entry key="app/src/main/res/drawable/ic_simple_ico.xml" value="0.3671875" />
         <entry key="app/src/main/res/drawable/left_arrow.xml" value="0.3671875" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/dialog_event_edit.xml" value="0.328042328042328" />
         <entry key="app/src/main/res/layout/event_card.xml" value="0.35" />
         <entry key="app/src/main/res/layout/event_view.xml" value="0.35" />
         <entry key="app/src/main/res/layout/fragment_blank.xml" value="0.35104166666666664" />
@@ -38,6 +39,7 @@
         <entry key="app/src/main/res/layout/fragment_url_setter.xml" value="0.35104166666666664" />
         <entry key="app/src/main/res/layout/network_security_config.xml" value="0.178125" />
         <entry key="app/src/main/res/layout/settings_activity.xml" value="0.35104166666666664" />
+        <entry key="app/src/main/res/layout/task_card.xml" value="0.35" />
         <entry key="app/src/main/res/layout/widget_calendar.xml" value="0.33" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.36153846153846153" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.36153846153846153" />

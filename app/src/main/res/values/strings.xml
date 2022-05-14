@@ -22,4 +22,6 @@
     <string name="app_widget_description">Widget pour consulté les 2 prochain évenements (update on click)</string>
     <string name="today">Aujourd\'hui</string>
     <string name="open">Ouvrir</string>
+    <string name="cancel">ANNULÉ</string>
+    <string name="submit">VALIDÉ</string>
 </resources>

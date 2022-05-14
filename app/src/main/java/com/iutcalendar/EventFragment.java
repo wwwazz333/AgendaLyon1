@@ -1,14 +1,12 @@
 package com.iutcalendar;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,6 +17,7 @@ import com.iutcalendar.calendrier.CurrentDate;
 import com.iutcalendar.calendrier.EventCalendrier;
 import com.iutcalendar.data.FileGlobal;
 import com.iutcalendar.event.ClickListiner;
+import com.iutcalendar.event.DialogPopupEvent;
 import com.iutcalendar.event.EventRecycleView;
 import com.iutcalendar.task.PersonnalCalendrier;
 import com.iutcalendar.task.Task;
@@ -55,8 +54,15 @@ public class EventFragment extends Fragment {
             List<EventCalendrier> eventToday = cal.getEventsOfDay(date);
 
 
+
+
             RecyclerView recycleView = view.findViewById(R.id.recycleView);
-            ClickListiner listiner = index -> Toast.makeText(getActivity(), eventToday.get(index).getDescription(), Toast.LENGTH_LONG).show();
+
+            ClickListiner listiner = index -> {//Event on click Event
+                EventCalendrier ev = eventToday.get(index);
+                DialogPopupEvent dialog = new DialogPopupEvent(getContext(), ev, getActivity());
+                dialog.show();
+            };
             EventRecycleView adapter = new EventRecycleView(eventToday, getActivity().getApplication(), listiner);
             recycleView.setAdapter(adapter);
             recycleView.setLayoutManager(new LinearLayoutManager(getActivity()));

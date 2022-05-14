@@ -18,12 +18,12 @@ public class EventRecycleView extends RecyclerView.Adapter<EventViewHolder> {
     EventViewHolder viewHolder;
 
     Context context;
-    ClickListiner listiner;
+    ClickListiner listener;
 
     public EventRecycleView(List<EventCalendrier> list, Context context, ClickListiner listiner) {
         this.list = list;
         this.context = context;
-        this.listiner = listiner;
+        this.listener = listiner;
     }
 
     @NonNull
@@ -47,12 +47,14 @@ public class EventRecycleView extends RecyclerView.Adapter<EventViewHolder> {
         viewHolder.summary.setText(e.getSummary());
         viewHolder.salle.setText(e.getSalle().replace("\\,", "\n"));
 
-        viewHolder.view.setOnClickListener(view -> listiner.click(index));
+
 
 
         if(!PersonnalCalendrier.getInstance().getLinkedTask(e).isEmpty()){
             viewHolder.summary.setText(e.getSummary() + "*");
         }
+
+        viewHolder.view.setOnClickListener(view -> listener.click(index));
     }
 
     @Override
