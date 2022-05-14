@@ -1,29 +1,29 @@
 <resources>
     <string name="app_name">IUTCalendar</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_settings">SettingsActivity</string>
 
-    <!-- Preference Titles -->
-    <string name="messages_header">Messages</string>
-    <string name="sync_header">Sync</string>
-
-    <!-- Messages Preferences -->
-    <string name="signature_title">Your signature</string>
-    <string name="reply_title">Default reply action</string>
-
-    <!-- Sync Preferences -->
-    <string name="sync_title">Sync email periodically</string>
-    <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails</string>
-    <string name="attachment_summary_off">Only download attachments when manually requested</string>
-    <string name="appwidget_text">EXAMPLE</string>
-    <string name="add_widget">Add widget</string>
-    <string name="app_widget_description">Widget pour consulté les 2 prochain évenements (update on click)</string>
-    <string name="today">Aujourd\'hui</string>
+    <!--    Basique-->
+    <string name="ok">OK</string>
     <string name="open">Ouvrir</string>
-    <string name="cancel">ANNULÉ</string>
-    <string name="submit">VALIDÉ</string>
+    <string name="cancel">Annulé</string>
+    <string name="submit">Validé</string>
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
+    <string name="tomorrow">Demain</string>
+    <string name="today">Aujourd\'hui</string>
+
+    <!--    Déscription-->
+    <string name="app_widget_description">Widget pour consulté les 2 prochain évenements (update on click)</string>
+    <string name="task_add_btn_label">bouton d\'ajout de tache</string>
+
+
+    <!--    Exemple-->
+    <string name="date_exemple">Dim 24 avril 2022</string>
+    <string name="exemple_url">
+        <![CDATA[https://adelb.univ-lyon1.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=xxxxx&projectId=1&amp;calType=ical&firstDate=year-month-day&lastDate=year-month-day]]></string>
+    <string name="exemple_hour">10:00</string>
+
+    <!--    Other-->
     <string name="event">Évènement</string>
     <string name="task">Tâche</string>
     <string name="titreLabel">Titre</string>
@@ -31,16 +31,7 @@
     <string name="descriptionLabel">Déscription</string>
     <string name="locationLabel">Salle</string>
     <string name="horaireLabel">Horaire</string>
-
-    <string name="yes">Oui</string>
-    <string name="no">Non</string>
-    <string name="tomorrow">Demain</string>
-
-
-<!--    Avec Place Holder-->
-    <string name="both_time">%1$s - %2$s</string>
     <string name="Settings">Paramètre</string>
-    <string name="date_exemple">Dim 24 avril 2022</string>
     <string name="Lundi_abv">Lun</string>
     <string name="Mardi_abv">Mar</string>
     <string name="Mercredi_abv">Mer</string>
@@ -50,9 +41,6 @@
     <string name="Dimanche_abv">Dim</string>
     <string name="exemple_text">blabla</string>
     <string name="Duration">Durée</string>
-    <string name="task_add_btn_label">bouton d\'ajout de tache</string>
-    <string name="ok">OK</string>
-    <string name="exemple_hour">10:00</string>
     <string name="General">Général</string>
     <string name="Reload">Recharger</string>
     <string name="load_icon">icone de chargement</string>
@@ -60,6 +48,8 @@
     <string name="qr_code_scan">Scan QR code</string>
     <string name="logo_settings">Logo paramètre</string>
     <string name="close_settings">fermer les paramètres</string>
-    <string name="exemple_url">
-        <![CDATA[https://adelb.univ-lyon1.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=xxxxx&projectId=1&amp;calType=ical&firstDate=year-month-day&lastDate=year-month-day]]></string>
+
+
+    <!--    Avec Place Holder-->
+    <string name="both_time">%1$s - %2$s</string>
 </resources>

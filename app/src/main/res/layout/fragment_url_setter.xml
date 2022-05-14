@@ -20,6 +20,7 @@
             android:minHeight="48dp"
             android:layout_below="@+id/title"
             android:importantForAutofill="no"
+            android:labelFor="@id/submitBtn"
             android:hint="@string/exemple_url"/>
     <Button
             android:id="@+id/scanBtn"
