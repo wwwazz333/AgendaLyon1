@@ -23,14 +23,14 @@
 
         <TextView
                 android:id="@+id/debut"
-                android:text="10:00"
+                android:text="@string/exemple_hour"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:layout_marginBottom="3dp"/>
         <TextView
                 android:id="@+id/fin"
-                android:text="12:00"
+                android:text="@string/exemple_hour"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"/>
@@ -42,7 +42,7 @@
             android:layout_weight="1">
         <TextView
                 android:id="@+id/summary"
-                android:text="bla bla ba bla bla"
+                android:text="@string/exemple_text"
                 android:layout_height="match_parent"
                 android:layout_width="match_parent"
                 android:textSize="18sp"
@@ -54,7 +54,6 @@
                 android:id="@+id/countTask"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="0"
                 android:gravity="center"
                 android:background="@drawable/background_round_red"
                 android:layout_alignParentTop="true"
@@ -67,7 +66,7 @@
 
     <TextView
             android:id="@+id/salle"
-            android:text="Salle"
+            android:text="@string/locationLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:maxWidth="200dp"

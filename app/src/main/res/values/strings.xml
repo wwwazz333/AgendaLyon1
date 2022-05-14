@@ -39,4 +39,27 @@
 
 <!--    Avec Place Holder-->
     <string name="both_time">%1$s - %2$s</string>
+    <string name="Settings">Paramètre</string>
+    <string name="date_exemple">Dim 24 avril 2022</string>
+    <string name="Lundi_abv">Lun</string>
+    <string name="Mardi_abv">Mar</string>
+    <string name="Mercredi_abv">Mer</string>
+    <string name="Jeudi_abv">Jed</string>
+    <string name="Vendredi_abv">Ven</string>
+    <string name="Samedi_abv">Sam</string>
+    <string name="Dimanche_abv">Dim</string>
+    <string name="exemple_text">blabla</string>
+    <string name="Duration">Durée</string>
+    <string name="task_add_btn_label">bouton d\'ajout de tache</string>
+    <string name="ok">OK</string>
+    <string name="exemple_hour">10:00</string>
+    <string name="General">Général</string>
+    <string name="Reload">Recharger</string>
+    <string name="load_icon">icone de chargement</string>
+    <string name="url">URL</string>
+    <string name="qr_code_scan">Scan QR code</string>
+    <string name="logo_settings">Logo paramètre</string>
+    <string name="close_settings">fermer les paramètres</string>
+    <string name="exemple_url">
+        <![CDATA[https://adelb.univ-lyon1.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=xxxxx&projectId=1&amp;calType=ical&firstDate=year-month-day&lastDate=year-month-day]]></string>
 </resources>

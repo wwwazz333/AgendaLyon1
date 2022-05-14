@@ -6,12 +6,11 @@
 
 
     <ImageView
-            android:text="Realod"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/realoadIco"
             android:src="@drawable/ic_refresh"
-            android:contentDescription="incone de chargement"/>
+            android:contentDescription="@string/load_icon"/>
 
 
 </FrameLayout>

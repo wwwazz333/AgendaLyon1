@@ -10,12 +10,30 @@
             android:id="@+id/listLayout"
             android:layout_width="match_parent" android:layout_height="match_parent"
             android:orientation="vertical">
-        <TextView
-                android:id="@+id/dateLabel"
-                android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:text="@string/today"
-                android:textSize="22sp"
-                android:gravity="center"/>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+            <TextView
+                    android:id="@+id/dateLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/today"
+                    android:textSize="22sp"
+                    android:gravity="center"/>
+
+            <Button
+                    android:id="@+id/openBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:text="@string/open"
+                    android:textSize="13sp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@color/redOnePlus"/>
+        </LinearLayout>
+
 
         <LinearLayout
                 android:layout_width="match_parent"
@@ -37,7 +55,7 @@
 
                 <TextView
                         android:id="@+id/debut1"
-                        android:text="10:00"
+                        android:text="@string/exemple_hour"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_weight="1"
@@ -46,7 +64,7 @@
                         android:layout_marginBottom="3dp"/>
                 <TextView
                         android:id="@+id/fin1"
-                        android:text="10:00"
+                        android:text="@string/exemple_hour"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:gravity="center"
@@ -55,7 +73,7 @@
 
                 <TextView
                         android:id="@+id/salle1"
-                        android:text="S17"
+                        android:text="@string/locationLabel"
                         android:layout_width="wrap_content"
                         android:maxWidth="200dp"
                         android:layout_height="0dp"
@@ -71,7 +89,7 @@
                     android:layout_height="wrap_content">
                 <TextView
                         android:id="@+id/summary1"
-                        android:text="blalj kjsdfmlkqjsdfmlkdfmlqskjdf"
+                        android:text="@string/exemple_text"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
@@ -83,7 +101,6 @@
                         android:id="@+id/countTask1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0"
                         android:gravity="center"
                         android:background="@drawable/background_round_red"
                         android:layout_alignParentTop="true"
@@ -114,6 +131,7 @@
 
                 <TextView
                         android:id="@+id/debut2"
+                        android:text="@string/exemple_hour"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_weight="1"
@@ -122,6 +140,7 @@
                         android:layout_marginBottom="3dp"/>
                 <TextView
                         android:id="@+id/fin2"
+                        android:text="@string/exemple_hour"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:gravity="center"
@@ -130,6 +149,7 @@
 
                 <TextView
                         android:id="@+id/salle2"
+                        android:text="@string/locationLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:maxWidth="200dp"
@@ -146,7 +166,7 @@
                     android:layout_height="wrap_content">
                 <TextView
                         android:id="@+id/summary2"
-                        android:text="blalj kjsdfmlkqjsdfmlkdfmlqskjdf"
+                        android:text="@string/exemple_text"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
@@ -158,7 +178,6 @@
                         android:id="@+id/countTask2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0"
                         android:gravity="center"
                         android:background="@drawable/background_round_red"
                         android:layout_alignParentTop="true"
@@ -168,12 +187,6 @@
 
         </LinearLayout>
 
-        <Button
-                android:id="@+id/openBtn"
-                android:layout_width="wrap_content" android:layout_height="20dp"
-                android:text="@string/open"
-                android:textSize="13sp"
-                android:layout_gravity="center_horizontal"
-                android:background="@color/redOnePlus"/>
+
     </LinearLayout>
 </RelativeLayout>
