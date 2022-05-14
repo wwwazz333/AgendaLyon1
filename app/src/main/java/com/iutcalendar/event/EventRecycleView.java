@@ -48,10 +48,11 @@ public class EventRecycleView extends RecyclerView.Adapter<EventViewHolder> {
         viewHolder.salle.setText(e.getSalle().replace("\\,", "\n"));
 
 
-
-
-        if(!PersonnalCalendrier.getInstance().getLinkedTask(e).isEmpty()){
-            viewHolder.summary.setText(e.getSummary() + "*");
+        int numberTask = PersonnalCalendrier.getInstance().getLinkedTask(e).size();
+        if (numberTask == 0) {
+            viewHolder.countTask.setVisibility(View.INVISIBLE);
+        } else {
+            viewHolder.countTask.setText(String.valueOf(numberTask));
         }
 
         viewHolder.view.setOnClickListener(view -> listener.click(index));

@@ -37,6 +37,7 @@
 
                 <TextView
                         android:id="@+id/debut1"
+                        android:text="10:00"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_weight="1"
@@ -45,6 +46,7 @@
                         android:layout_marginBottom="3dp"/>
                 <TextView
                         android:id="@+id/fin1"
+                        android:text="10:00"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:gravity="center"
@@ -53,6 +55,7 @@
 
                 <TextView
                         android:id="@+id/salle1"
+                        android:text="S17"
                         android:layout_width="wrap_content"
                         android:maxWidth="200dp"
                         android:layout_height="0dp"
@@ -63,15 +66,29 @@
                         android:layout_marginHorizontal="5dp"/>
 
             </LinearLayout>
-
-            <TextView
-                    android:id="@+id/summary1"
+            <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_gravity="center_vertical"
-                    android:textSize="18sp"
-                    android:paddingHorizontal="5dp"/>
+                    android:layout_height="wrap_content">
+                <TextView
+                        android:id="@+id/summary1"
+                        android:text="blalj kjsdfmlkqjsdfmlkdfmlqskjdf"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:layout_gravity="center_vertical"
+                        android:textSize="18sp"
+                        android:paddingHorizontal="5dp"/>
+
+                <TextView
+                        android:id="@+id/countTask1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:gravity="center"
+                        android:background="@drawable/background_round_red"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentEnd="true"/>
+            </RelativeLayout>
 
 
         </LinearLayout>
@@ -124,14 +141,29 @@
 
             </LinearLayout>
 
-            <TextView
-                    android:id="@+id/summary2"
+            <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_gravity="center_vertical"
-                    android:textSize="18sp"
-                    android:paddingHorizontal="5dp"/>
+                    android:layout_height="wrap_content">
+                <TextView
+                        android:id="@+id/summary2"
+                        android:text="blalj kjsdfmlkqjsdfmlkdfmlqskjdf"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:layout_gravity="center_vertical"
+                        android:textSize="18sp"
+                        android:paddingHorizontal="5dp"/>
+
+                <TextView
+                        android:id="@+id/countTask2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:gravity="center"
+                        android:background="@drawable/background_round_red"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentEnd="true"/>
+            </RelativeLayout>
 
 
         </LinearLayout>

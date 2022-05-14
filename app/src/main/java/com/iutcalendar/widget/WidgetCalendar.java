@@ -7,6 +7,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 import com.calendar.iutcalendar.R;
@@ -17,6 +18,7 @@ import com.iutcalendar.calendrier.DateCalendrier;
 import com.iutcalendar.calendrier.EventCalendrier;
 import com.iutcalendar.data.DataGlobal;
 import com.iutcalendar.data.FileGlobal;
+import com.iutcalendar.task.PersonnalCalendrier;
 
 import java.util.List;
 
@@ -26,12 +28,15 @@ public class WidgetCalendar extends AppWidgetProvider {
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
+        //Load some Data needed
         if (DataGlobal.getSavedBoolean(context, "summer_offset")) {
             DateCalendrier.setSummerOffset(1);
         } else {
             DateCalendrier.setSummerOffset(0);
         }
+        PersonnalCalendrier.getInstance().load(context);
 
+        //update Widget
         ComponentName thisWidget = new ComponentName(context, WidgetCalendar.class);
         Log.d("Widget", "start updated");
         int[] allWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);
@@ -50,17 +55,8 @@ public class WidgetCalendar extends AppWidgetProvider {
                 List<EventCalendrier> eventToday = cal.getEventsOfDay(currentDate);
                 for (EventCalendrier e : eventToday) {
                     if (e.getDate().getHour() >= currentDate.getHour()) {
-                        if (isFirst) {
-                            views.setTextViewText(R.id.debut1, e.getDate().timeToString());
-                            views.setTextViewText(R.id.fin1, e.getDate().addTime(e.getDuree()).timeToString());
-                            views.setTextViewText(R.id.summary1, e.getSummary());
-                            views.setTextViewText(R.id.salle1, e.getSalle());
-                        } else {
-                            views.setTextViewText(R.id.debut2, e.getDate().timeToString());
-                            views.setTextViewText(R.id.fin2, e.getDate().addTime(e.getDuree()).timeToString());
-                            views.setTextViewText(R.id.summary2, e.getSummary());
-                            views.setTextViewText(R.id.salle2, e.getSalle());
-
+                        updateBothEvent(views, isFirst, e);
+                        if (!isFirst) {
                             break;
                         }
                         isFirst = false;
@@ -72,17 +68,8 @@ public class WidgetCalendar extends AppWidgetProvider {
                     eventToday = cal.getEventsOfDay(currentDate);
 
                     for (EventCalendrier e : eventToday) {
-                        if (isFirst) {
-                            views.setTextViewText(R.id.debut1, e.getDate().timeToString());
-                            views.setTextViewText(R.id.fin1, e.getDate().addTime(e.getDuree()).timeToString());
-                            views.setTextViewText(R.id.summary1, e.getSummary());
-                            views.setTextViewText(R.id.salle1, e.getSalle());
-                        } else {
-                            views.setTextViewText(R.id.debut2, e.getDate().timeToString());
-                            views.setTextViewText(R.id.fin2, e.getDate().addTime(e.getDuree()).timeToString());
-                            views.setTextViewText(R.id.summary2, e.getSummary());
-                            views.setTextViewText(R.id.salle2, e.getSalle());
-
+                        updateBothEvent(views, isFirst, e);
+                        if (!isFirst) {
                             break;
                         }
                         isFirst = false;
@@ -95,9 +82,9 @@ public class WidgetCalendar extends AppWidgetProvider {
             }
             //Label date
             if (currentDate.sameDay(new CurrentDate())) {
-                views.setTextViewText(R.id.dateLabel, "Aujourd'hui");
+                views.setTextViewText(R.id.dateLabel, context.getString(R.string.today));
             } else if (currentDate.sameDay(new CurrentDate().addDay(1))) {
-                views.setTextViewText(R.id.dateLabel, "Demain");
+                views.setTextViewText(R.id.dateLabel, context.getString(R.string.tomorrow));
             } else {
                 views.setTextViewText(R.id.dateLabel, currentDate.toString());
             }
@@ -120,6 +107,27 @@ public class WidgetCalendar extends AppWidgetProvider {
         Log.d("Widget", "updated");
     }
 
+    private void updateBothEvent(RemoteViews views, boolean first, EventCalendrier event) {
+        int numberTask = PersonnalCalendrier.getInstance().getLinkedTask(event).size();
+        if (first) {
+            views.setTextViewText(R.id.debut1, event.getDate().timeToString());
+            views.setTextViewText(R.id.fin1, event.getDate().addTime(event.getDuree()).timeToString());
+            views.setTextViewText(R.id.summary1, event.getSummary());
+            views.setTextViewText(R.id.salle1, event.getSalle());
+
+
+            setNumTask(views, R.id.countTask1, numberTask);
+
+        } else {
+            views.setTextViewText(R.id.debut2, event.getDate().timeToString());
+            views.setTextViewText(R.id.fin2, event.getDate().addTime(event.getDuree()).timeToString());
+            views.setTextViewText(R.id.summary2, event.getSummary());
+            views.setTextViewText(R.id.salle2, event.getSalle());
+
+            setNumTask(views, R.id.countTask2, numberTask);
+        }
+    }
+
     @Override
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
@@ -127,6 +135,15 @@ public class WidgetCalendar extends AppWidgetProvider {
         if (intent.getStringExtra(SHOW_TOAST_ACTION) != null) {
             Log.d("Widget", "Toast");
             Toast.makeText(context, "Widget updated", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void setNumTask(RemoteViews views, int id, int numberTask) {
+        if (numberTask == 0) {
+            views.setViewVisibility(id, View.INVISIBLE);
+        } else {
+            views.setViewVisibility(id, View.VISIBLE);
+            views.setTextViewText(id, String.valueOf(numberTask));
         }
     }
 }

@@ -136,13 +136,18 @@
                 android:layout_row="6"
                 android:layout_columnSpan="2"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/listTask"
+        <!--Obligé de mettre un relativeLayout pour match_parent-->
+        <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_row="7"
                 android:layout_column="0"
-                android:layout_columnSpan="2"/>
+                android:layout_columnSpan="2">
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/listTask"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+        </RelativeLayout>
 
 
         <Button

@@ -31,4 +31,12 @@
     <string name="descriptionLabel">Déscription</string>
     <string name="locationLabel">Salle</string>
     <string name="horaireLabel">Horaire</string>
+
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
+    <string name="tomorrow">Demain</string>
+
+
+<!--    Avec Place Holder-->
+    <string name="both_time">%1$s - %2$s</string>
 </resources>

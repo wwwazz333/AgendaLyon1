@@ -41,7 +41,8 @@ public class DialogPopupEvent extends Dialog {
         this.title.setText(relatedEvent.getSummary());
         this.summary.setText(relatedEvent.getDescription());
         this.salle.setText(relatedEvent.getSalle());
-        this.horaire.setText(timeDebut + " - " + timeFin);
+
+        this.horaire.setText(context.getString(R.string.both_time, timeDebut, timeFin));
         this.duree.setText(relatedEvent.getDuree().timeToString());
 
         updatedTask();
@@ -55,23 +56,6 @@ public class DialogPopupEvent extends Dialog {
         recyclerViewTask.setLayoutManager(new LinearLayoutManager(activity));
     }
 
-    private void removeTask(Task taskClicked) {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
-        alertDialog.setTitle("Suppression");
-        alertDialog.setMessage("Voulez-vous supprimer cette tâche ?");
-
-        alertDialog.setPositiveButton("Oui", (dialogInterface, i) -> {
-            updatedTask();
-            PersonnalCalendrier.getInstance().remove(taskClicked);
-            PersonnalCalendrier.getInstance().save(getContext());
-            Toast.makeText(getContext(), "Tâche supprimer", Toast.LENGTH_SHORT).show();
-            dialogInterface.dismiss();
-        });
-
-        alertDialog.setNegativeButton("Non", (dialogInterface, i) -> dialogInterface.cancel());
-
-        alertDialog.show();
-    }
 
     private void initVariable() {
         title = findViewById(R.id.title);
@@ -89,8 +73,8 @@ public class DialogPopupEvent extends Dialog {
 
     private void showAddTask() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
-        alertDialog.setTitle("ajout tache");
-        alertDialog.setMessage("Tâche");
+        alertDialog.setTitle("Ajouté un tâche");
+        alertDialog.setMessage(getContext().getString(R.string.task));
 
         final EditText editText = new EditText(getContext());
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
@@ -109,6 +93,24 @@ public class DialogPopupEvent extends Dialog {
 
         alertDialog.setNegativeButton(getContext().getString(R.string.cancel),
                 (dialog, which) -> dialog.cancel());
+
+        alertDialog.show();
+    }
+
+    private void removeTask(Task taskClicked) {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+        alertDialog.setTitle("Suppression");
+        alertDialog.setMessage("Voulez-vous supprimer cette tâche ?\n\"" + taskClicked.getTxt() + "\"");
+
+        alertDialog.setPositiveButton(getContext().getString(R.string.yes), (dialogInterface, i) -> {
+            updatedTask();
+            PersonnalCalendrier.getInstance().remove(taskClicked);
+            PersonnalCalendrier.getInstance().save(getContext());
+            Toast.makeText(getContext(), "Tâche supprimer", Toast.LENGTH_SHORT).show();
+            dialogInterface.dismiss();
+        });
+
+        alertDialog.setNegativeButton(getContext().getString(R.string.no), (dialogInterface, i) -> dialogInterface.cancel());
 
         alertDialog.show();
     }

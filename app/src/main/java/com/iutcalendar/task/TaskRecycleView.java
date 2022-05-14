@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.calendar.iutcalendar.R;
-import com.iutcalendar.event.ClickListiner;
 
 import java.util.List;
 
@@ -33,6 +32,7 @@ public class TaskRecycleView extends RecyclerView.Adapter<TaskViewHolder> {
         LayoutInflater inflater = LayoutInflater.from(context);
 
         View eventView = inflater.inflate(R.layout.task_card, parent, false);
+
         viewHolder = new TaskViewHolder(eventView);
         return viewHolder;
     }

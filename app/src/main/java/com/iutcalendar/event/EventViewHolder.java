@@ -8,10 +8,7 @@ import com.calendar.iutcalendar.R;
 
 public class EventViewHolder extends RecyclerView.ViewHolder {
 
-    TextView debut;
-    TextView fin;
-    TextView summary;
-    TextView salle;
+    TextView debut, fin, summary, salle, countTask;
     View view;
 
     public EventViewHolder(@NonNull View itemView) {
@@ -21,6 +18,7 @@ public class EventViewHolder extends RecyclerView.ViewHolder {
         fin = itemView.findViewById(R.id.fin);
         summary = itemView.findViewById(R.id.summary);
         salle = itemView.findViewById(R.id.salle);
+        countTask = itemView.findViewById(R.id.countTask);
 
         view = itemView;
     }
