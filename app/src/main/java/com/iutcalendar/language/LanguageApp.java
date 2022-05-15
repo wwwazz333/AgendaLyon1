@@ -21,4 +21,13 @@ public class LanguageApp {
         //Notify configuration
         return configuration;
     }
+
+    public static Locale getLocale(Resources resources) {
+        //Initialize metrics
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        //Initialize configuration
+        Configuration configuration = resources.getConfiguration();
+        //Notify configuration
+        return configuration.locale;
+    }
 }

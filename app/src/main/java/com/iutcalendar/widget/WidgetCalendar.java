@@ -18,6 +18,7 @@ import com.iutcalendar.calendrier.DateCalendrier;
 import com.iutcalendar.calendrier.EventCalendrier;
 import com.iutcalendar.data.DataGlobal;
 import com.iutcalendar.data.FileGlobal;
+import com.iutcalendar.language.LanguageApp;
 import com.iutcalendar.task.PersonnalCalendrier;
 
 import java.util.List;
@@ -35,6 +36,7 @@ public class WidgetCalendar extends AppWidgetProvider {
             DateCalendrier.setSummerOffset(0);
         }
         PersonnalCalendrier.getInstance().load(context);
+        LanguageApp.setLocale(context.getResources(), DataGlobal.getLanguage(context));
 
         //update Widget
         ComponentName thisWidget = new ComponentName(context, WidgetCalendar.class);

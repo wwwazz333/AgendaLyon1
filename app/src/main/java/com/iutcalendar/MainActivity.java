@@ -1,12 +1,9 @@
 package com.iutcalendar;
 
 import android.content.Intent;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.LinearLayout;
@@ -29,7 +26,6 @@ import com.iutcalendar.swiping.TouchGestureListener;
 import com.iutcalendar.task.PersonnalCalendrier;
 
 import java.util.GregorianCalendar;
-import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     private static final String SELECTED_LANGUAGE = "Locale.Helper.Selected.Language";
@@ -75,7 +71,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         LanguageApp.setLocale(getResources(), DataGlobal.getLanguage(getApplicationContext()));
         setContentView(R.layout.activity_main);
-
 
 
         initVariable();
@@ -180,9 +175,20 @@ public class MainActivity extends AppCompatActivity {
     /*########################################################################
                                     SETTERS
      ########################################################################*/
-    public void setCurrDate(CurrentDate currDate) {
-        this.currDate = currDate;
-        currDateLabel.setText(currDate.toString());
+    public void setCurrDate(CurrentDate newDate) {
+        Log.d("Date", "set curr date");
+        this.currDate = newDate;
+        if (newDate.sameDay(new CurrentDate())) {
+            currDateLabel.setText(getResources().getString(R.string.today));
+            Log.d("Date", "today");
+        } else if (newDate.sameDay(new CurrentDate().addDay(1))) {
+            currDateLabel.setText(getResources().getString(R.string.tomorrow));
+            Log.d("Date", "tomorrow");
+        } else {
+            Log.d("Date", "else");
+            currDateLabel.setText(newDate.toString(LanguageApp.getLocale(getResources())));
+        }
+
         setDaysOfWeek();
         updateScreen();
     }

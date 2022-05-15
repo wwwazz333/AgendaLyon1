@@ -49,4 +49,9 @@ public class CurrentDate extends DateCalendrier {
         return getDisplayName(GregorianCalendar.DAY_OF_WEEK, GregorianCalendar.SHORT, Locale.FRANCE) + " " +
                 fillWithZeroBefore(getDay()) + "/" + fillWithZeroBefore(getMonth() + 1) + "/" + getYear();
     }
+
+    public String toString(Locale location) {
+        return getDisplayName(GregorianCalendar.DAY_OF_WEEK, GregorianCalendar.SHORT, location) + " " +
+                fillWithZeroBefore(getDay()) + "/" + fillWithZeroBefore(getMonth() + 1) + "/" + getYear();
+    }
 }
