@@ -91,8 +91,11 @@ public class WidgetCalendar extends AppWidgetProvider {
                 views.setTextViewText(R.id.dateLabel, currentDate.toString());
             }
 
+            //open MainActivity via Btn
+            Intent intentActvity = new Intent(context, MainActivity.class);
+            intentActvity.putExtra("day_to_launche", currentDate.getTimeInMillis());
             views.setOnClickPendingIntent(R.id.openBtn,
-                    PendingIntent.getActivity(context, 0, new Intent(context, MainActivity.class), PendingIntent.FLAG_IMMUTABLE));
+                    PendingIntent.getActivity(context, 0, intentActvity, PendingIntent.FLAG_MUTABLE));
 
 
             Intent intent = new Intent(context, WidgetCalendar.class);

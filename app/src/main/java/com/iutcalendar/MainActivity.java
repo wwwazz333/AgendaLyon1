@@ -1,5 +1,6 @@
 package com.iutcalendar;
 
+import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -29,7 +30,7 @@ import java.util.GregorianCalendar;
 
 public class MainActivity extends AppCompatActivity {
     private static final String SELECTED_LANGUAGE = "Locale.Helper.Selected.Language";
-    static boolean active = false;
+    static boolean active = false, updating = false;
     private FragmentTransaction fragmentTransaction;
     private CurrentDate currDate;
     private GestureDetectorCompat gestureD;
@@ -65,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
         active = false;
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,8 +121,16 @@ public class MainActivity extends AppCompatActivity {
 
         DataGlobal.savePathDownloadFile(getApplicationContext(), getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath());
 
-
-        setCurrDate(new CurrentDate());
+        CurrentDate dateToLaunche = new CurrentDate();
+        long timeInMillis = getIntent().getLongExtra("day_to_launche", -1);
+        Log.d("Date", String.valueOf(timeInMillis));
+        if (timeInMillis != -1) {
+            Log.d("Date", "not default date");
+            dateToLaunche.setTimeInMillis(timeInMillis);
+        }else{
+            Log.d("Date", "default date");
+        }
+        setCurrDate(dateToLaunche);
 
 
         update();
@@ -137,7 +147,8 @@ public class MainActivity extends AppCompatActivity {
                                      UPDATE
     ########################################################################*/
     public void update() {
-
+        if (updating) return;
+        updating = true;
         startFragment(R.id.animFragment, new ReloadAnimationFragment());
         new Thread(() -> {
             FileDownload.updateFichier(FileGlobal.getFileDownload(getApplicationContext()).getAbsolutePath(), getApplicationContext());
@@ -146,6 +157,7 @@ public class MainActivity extends AppCompatActivity {
             }
             Log.d("File", "updated");
             startFragment(R.id.animFragment, new Fragment());
+            updating = false;
         }).start();
     }
 
