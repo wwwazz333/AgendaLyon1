@@ -7,7 +7,7 @@
         android:layout_height="match_parent"
         tools:context="com.iutcalendar.MainActivity"
         android:orientation="vertical"
-        android:background="?background"
+        android:background="?backgroundColor"
         android:id="@+id/rootLayout">
 
     <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent"

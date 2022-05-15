@@ -43,6 +43,14 @@
                 android:entryValues="@array/language_values"
                 android:entries="@array/language_options"/>
 
+
+        <ListPreference
+                android:key="theme_selected"
+                android:title="Theme"
+                android:summary="Changer de theme"
+                android:entryValues="@array/theme_values"
+                android:entries="@array/theme_options"/>
+
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/Feature"
@@ -52,6 +60,7 @@
                 app:title="@string/Usage"
                 app:summary="@string/Usage_description"/>
     </PreferenceCategory>
+
 
 
 </PreferenceScreen>

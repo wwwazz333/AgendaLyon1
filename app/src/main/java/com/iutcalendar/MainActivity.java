@@ -18,7 +18,7 @@ import com.iutcalendar.calendrier.DateCalendrier;
 import com.iutcalendar.data.DataGlobal;
 import com.iutcalendar.data.FileGlobal;
 import com.iutcalendar.filedownload.FileDownload;
-import com.iutcalendar.language.LanguageApp;
+import com.iutcalendar.language.SettingsApp;
 import com.iutcalendar.settings.SettingsActivity;
 import com.iutcalendar.swiping.GestureEventManager;
 import com.iutcalendar.swiping.ReloadAnimationFragment;
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LanguageApp.setLocale(getResources(), DataGlobal.getLanguage(getApplicationContext()));
+        SettingsApp.setLocale(getResources(), DataGlobal.getLanguage(getApplicationContext()));
         setContentView(R.layout.activity_main);
 
 
@@ -178,16 +178,16 @@ public class MainActivity extends AppCompatActivity {
     public void setCurrDate(CurrentDate newDate) {
         Log.d("Date", "set curr date");
         this.currDate = newDate;
-        if (newDate.sameDay(new CurrentDate())) {
+        newDate.runForDate(() -> {
             currDateLabel.setText(getResources().getString(R.string.today));
             Log.d("Date", "today");
-        } else if (newDate.sameDay(new CurrentDate().addDay(1))) {
+        }, () -> {
             currDateLabel.setText(getResources().getString(R.string.tomorrow));
             Log.d("Date", "tomorrow");
-        } else {
+        }, () -> {
             Log.d("Date", "else");
-            currDateLabel.setText(newDate.toString(LanguageApp.getLocale(getResources())));
-        }
+            currDateLabel.setText(newDate.toString(SettingsApp.getLocale(getResources())));
+        });
 
         setDaysOfWeek();
         updateScreen();

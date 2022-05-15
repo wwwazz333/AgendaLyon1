@@ -44,4 +44,6 @@
     <string name="Feature">Feature</string>
     <string name="Usage">Usages</string>
     <string name="Usage_description">Help about how to use the app</string>
+    <string name="last_update">last update : %1$s</string>
+    <string name="no_last_update">no update...</string>
 </resources>

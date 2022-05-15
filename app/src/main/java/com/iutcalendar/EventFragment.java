@@ -19,8 +19,7 @@ import com.iutcalendar.data.FileGlobal;
 import com.iutcalendar.event.ClickListiner;
 import com.iutcalendar.event.DialogPopupEvent;
 import com.iutcalendar.event.EventRecycleView;
-import com.iutcalendar.task.PersonnalCalendrier;
-import com.iutcalendar.task.Task;
+import com.iutcalendar.language.SettingsApp;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -44,7 +43,7 @@ public class EventFragment extends Fragment {
         File fileCal = FileGlobal.getFileDownload(getContext());
 
 
-        if (fileCal.exists()) {
+        if (fileCal.exists() && getActivity() != null && getActivity() instanceof MainActivity && getContext() != null) {
             String str = FileGlobal.readFile(fileCal);
             Calendrier cal = new Calendrier(str);
 
@@ -73,7 +72,18 @@ public class EventFragment extends Fragment {
                 update.setGravity(Gravity.CENTER);
                 update.setTextSize(18);
 
-                update.setText("last update : " + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(fileCal.lastModified()));
+
+                //affichage dernière maj
+                CurrentDate dateLastEdit = new CurrentDate();
+                dateLastEdit.setTimeInMillis(fileCal.lastModified());
+                dateLastEdit.runForDate(() -> update.setText(getResources().getString(R.string.last_update,
+                        new SimpleDateFormat("HH:mm", SettingsApp.getLocale(getResources())).format(fileCal.lastModified())
+                )), () -> update.setText(getResources().getString(R.string.last_update,
+                        "error" //impossible que last_update soit demain
+                )), () -> update.setText(getResources().getString(R.string.last_update,
+                        new SimpleDateFormat("dd/MM/yyyy HH:mm", SettingsApp.getLocale(getResources())).format(fileCal.lastModified())
+                )));
+
                 layout.addView(update);
             }
         } else {
@@ -82,7 +92,7 @@ public class EventFragment extends Fragment {
             update.setGravity(Gravity.CENTER);
             update.setTextSize(18);
 
-            update.setText("no update...");
+            update.setText(R.string.no_last_update);
 
 
             layout.addView(update);

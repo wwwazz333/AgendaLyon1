@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="fr" >
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="fr">
     <string name="app_name">IUTCalendar</string>
     <string name="title_activity_settings" translatable="false">SettingsActivity</string>
 
@@ -22,6 +22,11 @@
     <string name="exemple_url" translatable="false">
         <![CDATA[https://adelb.univ-lyon1.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=xxxxx&projectId=1&amp;calType=ical&firstDate=year-month-day&lastDate=year-month-day]]></string>
     <string name="exemple_hour" translatable="false">10:00</string>
+
+
+    <!--    Avec Place Holder-->
+    <string name="both_time" translatable="false">%1$s - %2$s</string>
+    <string name="last_update">dernière maj. : %1$s</string>
 
     <!--    Other-->
     <string name="event">Évènement</string>
@@ -50,10 +55,6 @@
     <string name="qr_code_scan">Scan QR code</string>
     <string name="logo_settings">Logo paramètre</string>
     <string name="close_settings">fermer les paramètres</string>
-
-
-    <!--    Avec Place Holder-->
-    <string name="both_time" translatable="false">%1$s - %2$s</string>
     <string name="show_update">afficher update</string>
     <string name="show_date_description">afficher la date de la dernière maj. du calendrier</string>
     <string name="revert_swipe">inverser défilement</string>
@@ -65,4 +66,5 @@
     <string name="Feature">Fonctionnalité</string>
     <string name="Usage">Utilisations</string>
     <string name="Usage_description">Aide pour utiliser toutes les fonctionnalité de cette application</string>
+    <string name="no_last_update">pas de maj....</string>
 </resources>

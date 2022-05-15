@@ -4,14 +4,19 @@ import android.content.Context;
 import androidx.preference.PreferenceManager;
 
 public class DataGlobal {
-    private final static String URL = "url_path";
-    private final static String PATH_FILE_DOWNLOAD = "path_file_download";
-    private final static String LANGUAGUE = "language_selected";
+    public final static String URL = "url_path";
+    public final static String PATH_FILE_DOWNLOAD = "path_file_download";
+    public final static String LANGUAGUE = "language_selected";
+    public final static String THEME = "theme_selected";
 
+    public static String getTheme(Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context).getString(THEME, "default");
+    }
 
-    public static String getLanguage(Context context){
+    public static String getLanguage(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context).getString(LANGUAGUE, "fr");
     }
+
     //String
     public static void save(Context context, String key, String data) {
         PreferenceManager.getDefaultSharedPreferences(context).edit().putString(key, data).commit();

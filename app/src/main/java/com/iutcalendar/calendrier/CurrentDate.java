@@ -43,6 +43,16 @@ public class CurrentDate extends DateCalendrier {
         return cal;
     }
 
+    public void runForDate(DoListener today, DoListener tomorrow, DoListener other) {
+        if (this.sameDay(new CurrentDate())) {
+            today.run();
+        } else if (this.sameDay(new CurrentDate().addDay(1))) {
+            tomorrow.run();
+        } else {
+            other.run();
+        }
+    }
+
 
     @Override
     public String toString() {

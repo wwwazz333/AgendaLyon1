@@ -131,7 +131,6 @@
                 android:src="@drawable/ic_add"
                 android:layout_gravity="end"
                 android:background="#00000000"
-                android:textColor="?colorPrimaryInverse"
                 android:layout_column="1"
                 android:layout_row="6"
                 android:layout_columnSpan="2"/>
@@ -156,7 +155,7 @@
                 android:id="@+id/okBtn"
                 android:text="@string/ok"
                 android:layout_gravity="end"
-                android:textColor="?colorPrimaryInverse"
+                android:textColor="?colorOnBackground"
                 android:background="#00000000"
 
                 android:layout_column="1"
