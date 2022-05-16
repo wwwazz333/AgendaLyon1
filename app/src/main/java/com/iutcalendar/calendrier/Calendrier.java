@@ -1,6 +1,8 @@
 package com.iutcalendar.calendrier;
 
 
+import android.content.Context;
+import com.calendar.iutcalendar.R;
 import com.iutcalendar.data.Tuple;
 
 import java.util.*;
@@ -10,7 +12,43 @@ public class Calendrier {
         ADD,
         DELETE,
         MOVE,
-        NONE
+        NONE;
+
+
+        public String toString(Context context) {
+            if (equals(Calendrier.Change.ADD)) {
+                return context.getString(R.string.Added);
+            } else if (equals(Calendrier.Change.DELETE)) {
+                return context.getString(R.string.Deleted);
+            } else if (equals(Calendrier.Change.MOVE)) {
+                return context.getString(R.string.Moved);
+            }
+            return toString();
+        }
+    }
+
+    public static class InfoChange {
+        private final Change changement;
+        private final DateCalendrier prevDate;
+        private final DateCalendrier newDate;
+
+        public InfoChange(Change changement, DateCalendrier prevDate, DateCalendrier newDate) {
+            this.changement = changement;
+            this.prevDate = prevDate;
+            this.newDate = newDate;
+        }
+
+        public Change getChangement() {
+            return changement;
+        }
+
+        public DateCalendrier getPrevDate() {
+            return prevDate;
+        }
+
+        public DateCalendrier getNewDate() {
+            return newDate;
+        }
     }
 
     static private final String DELIMITER_LINE = "\n(?=[A-Z])";
@@ -106,24 +144,24 @@ public class Calendrier {
         return Objects.equals(events, that.events);
     }
 
-    public List<Tuple<EventCalendrier, Change>> getChangedEvent(Calendrier prevCal) {
-        List<Tuple<EventCalendrier, Change>> changed = new ArrayList<>();
+    public List<Tuple<EventCalendrier, InfoChange>> getChangedEvent(Calendrier prevCal) {
+        List<Tuple<EventCalendrier, InfoChange>> changed = new ArrayList<>();
         EventCalendrier ev;
         for (EventCalendrier e : this.getEvents()) {
             int index = prevCal.getEvents().indexOf(e);
             if (index == -1) {
-                changed.add(new Tuple<>(e, Change.ADD));
+                changed.add(new Tuple<>(e, new InfoChange(Change.ADD, null, e.getDate())));
             } else {
                 ev = prevCal.getEvents().get(index);
                 if (!e.getDate().equals(ev.getDate())) {
-                    changed.add(new Tuple<>(e, Change.MOVE));
+                    changed.add(new Tuple<>(e, new InfoChange(Change.MOVE, ev.getDate(), e.getDate())));
                 }
             }
         }
         for (EventCalendrier e : prevCal.getEvents()) {
             int index = this.getEvents().indexOf(e);
             if (index == -1) {
-                changed.add(new Tuple<>(e, Change.DELETE));
+                changed.add(new Tuple<>(e, new InfoChange(Change.DELETE, e.getDate(), null)));
             }
         }
         return changed;

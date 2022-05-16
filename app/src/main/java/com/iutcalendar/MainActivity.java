@@ -1,5 +1,6 @@
 package com.iutcalendar;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ import com.iutcalendar.task.PersonnalCalendrier;
 
 import java.io.File;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private static final String SELECTED_LANGUAGE = "Locale.Helper.Selected.Language";
@@ -176,11 +178,38 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void checkChanges() {
-        for (Tuple change : getCalendrier().getChangedEvent(savePrevCalendrier)) {
-            Log.d("Calendrier", change.second + " : " + change.first.toString());
-        }
-        Log.d("Calendrier", "-------------FIN UPDATE-------------");
+        List<Tuple<EventCalendrier, Calendrier.InfoChange>> changes = getCalendrier().getChangedEvent(savePrevCalendrier);
+        if (!changes.isEmpty())
+            showChangedEvent(changes);
         savePrevCalendrier = getCalendrier().clone();
+    }
+
+    private void showChangedEvent(List<Tuple<EventCalendrier, Calendrier.InfoChange>> changes) {
+        if (!MainActivity.active) return;
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
+        alertDialog.setTitle(getString(R.string.event));
+        StringBuilder msg = new StringBuilder();
+
+        for (Tuple<EventCalendrier, Calendrier.InfoChange> tuple : changes) {
+            String action = tuple.second.getChangement().toString(getApplicationContext());
+            msg.append(action).append(" : ").append(tuple.first.getSummary()).append(" : ");
+            if (tuple.second.getPrevDate() != null) {
+                msg.append(tuple.second.getPrevDate().toString());
+            }
+            if (tuple.second.getNewDate() != null) {
+                msg.append(" -> ").append(tuple.second.getNewDate().toString());
+            }
+            msg.append('\n');
+        }
+        alertDialog.setMessage(msg.toString());
+
+        alertDialog.setPositiveButton(getString(R.string.ok),
+                (dialog, which) -> {
+                    dialog.dismiss();
+                });
+
+
+        alertDialog.show();
     }
 
     public void updateScreen() {

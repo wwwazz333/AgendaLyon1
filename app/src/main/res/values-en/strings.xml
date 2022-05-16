@@ -46,4 +46,7 @@
     <string name="Usage_description">Help about how to use the app</string>
     <string name="last_update">last update : %1$s</string>
     <string name="no_last_update">no update...</string>
+    <string name="Added">Added</string>
+    <string name="Deleted">Deleted</string>
+    <string name="Moved">Moved</string>
 </resources>

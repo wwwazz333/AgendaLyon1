@@ -67,4 +67,7 @@
     <string name="Usage">Utilisations</string>
     <string name="Usage_description">Aide pour utiliser toutes les fonctionnalité de cette application</string>
     <string name="no_last_update">pas de maj....</string>
+    <string name="Added">Ajouté</string>
+    <string name="Deleted">Supprimé</string>
+    <string name="Moved">Déplacé</string>
 </resources>
