@@ -14,7 +14,7 @@
 
         <FrameLayout
                 android:id="@+id/animFragment"
-                android:layout_width="50dp" android:layout_height="50dp"
+                android:layout_width="35dp" android:layout_height="35dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_centerHorizontal="true"

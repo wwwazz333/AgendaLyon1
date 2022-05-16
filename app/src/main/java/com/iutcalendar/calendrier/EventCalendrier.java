@@ -115,7 +115,7 @@ public class EventCalendrier implements Comparable<EventCalendrier> {
 
     @Override
     public String toString() {
-        return debut.toString() + " " + dureeH + ":" + dureeM;
+        return debut.toString() + " " + dureeH + ":" + dureeM + " : " + getSummary();
     }
 
     @Override

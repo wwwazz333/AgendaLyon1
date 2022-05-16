@@ -1,6 +1,5 @@
 package com.iutcalendar;
 
-import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -14,29 +13,34 @@ import androidx.core.view.GestureDetectorCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import com.calendar.iutcalendar.R;
+import com.iutcalendar.calendrier.Calendrier;
 import com.iutcalendar.calendrier.CurrentDate;
 import com.iutcalendar.calendrier.DateCalendrier;
+import com.iutcalendar.calendrier.EventCalendrier;
 import com.iutcalendar.data.DataGlobal;
 import com.iutcalendar.data.FileGlobal;
+import com.iutcalendar.data.Tuple;
 import com.iutcalendar.filedownload.FileDownload;
-import com.iutcalendar.language.SettingsApp;
 import com.iutcalendar.settings.SettingsActivity;
+import com.iutcalendar.settings.SettingsApp;
 import com.iutcalendar.swiping.GestureEventManager;
 import com.iutcalendar.swiping.ReloadAnimationFragment;
 import com.iutcalendar.swiping.TouchGestureListener;
 import com.iutcalendar.task.PersonnalCalendrier;
 
+import java.io.File;
 import java.util.GregorianCalendar;
 
 public class MainActivity extends AppCompatActivity {
     private static final String SELECTED_LANGUAGE = "Locale.Helper.Selected.Language";
-    static boolean active = false, updating = false;
+    private static boolean active = false, updating = false;
     private FragmentTransaction fragmentTransaction;
     private CurrentDate currDate;
     private GestureDetectorCompat gestureD;
     private TextView currDateLabel;
     private LinearLayout nameDayLayout;
     private LinearLayout dayOfWeek;
+    private Calendrier calendrier, savePrevCalendrier;
 
     private void initVariable() {
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -121,6 +125,11 @@ public class MainActivity extends AppCompatActivity {
 
 
         DataGlobal.savePathDownloadFile(getApplicationContext(), getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath());
+        //init Calendrier
+        File fileCal = FileGlobal.getFileDownload(getApplicationContext());
+        String str = FileGlobal.readFile(fileCal);
+        setCalendrier(new Calendrier(str));
+        savePrevCalendrier = getCalendrier().clone();
 
         CurrentDate dateToLaunche = new CurrentDate();
         long timeInMillis = getIntent().getLongExtra("day_to_launche", -1);
@@ -128,13 +137,17 @@ public class MainActivity extends AppCompatActivity {
         if (timeInMillis != -1) {
             Log.d("Date", "not default date");
             dateToLaunche.setTimeInMillis(timeInMillis);
-        }else{
+        } else {
             Log.d("Date", "default date");
         }
         setCurrDate(dateToLaunche);
 
+        for (EventCalendrier e : getCalendrier().getEvents()) {
+            Log.d("Calendrier", e.toString());
+        }
+        Log.d("Calendrier", "-------------FIN MAIN ACTIVITY-------------");
 
-        update();
+//        update();
 
 
 //        Intent myIntent = new Intent(AlarmClock.ACTION_SET_ALARM);
@@ -150,16 +163,24 @@ public class MainActivity extends AppCompatActivity {
     public void update() {
         if (updating) return;
         updating = true;
-        startFragment(R.id.animFragment, new ReloadAnimationFragment());
+        startFragment(R.id.animFragment, new ReloadAnimationFragment());//start anim re load
         new Thread(() -> {
             FileDownload.updateFichier(FileGlobal.getFileDownload(getApplicationContext()).getAbsolutePath(), getApplicationContext());
             if (MainActivity.active) {
                 updateScreen();
             }
             Log.d("File", "updated");
-            startFragment(R.id.animFragment, new Fragment());
+            startFragment(R.id.animFragment, new Fragment());//arret animation re load
             updating = false;
         }).start();
+    }
+
+    public void checkChanges() {
+        for (Tuple change : getCalendrier().getChangedEvent(savePrevCalendrier)) {
+            Log.d("Calendrier", change.second + " : " + change.first.toString());
+        }
+        Log.d("Calendrier", "-------------FIN UPDATE-------------");
+        savePrevCalendrier = getCalendrier().clone();
     }
 
     public void updateScreen() {
@@ -185,9 +206,13 @@ public class MainActivity extends AppCompatActivity {
         return this.currDate;
     }
 
+    public Calendrier getCalendrier() {
+        return calendrier;
+    }
+
     /*########################################################################
-                                    SETTERS
-     ########################################################################*/
+                                        SETTERS
+      ########################################################################*/
     public void setCurrDate(CurrentDate newDate) {
         Log.d("Date", "set curr date");
         this.currDate = newDate;
@@ -204,6 +229,11 @@ public class MainActivity extends AppCompatActivity {
 
         setDaysOfWeek();
         updateScreen();
+    }
+
+
+    public void setCalendrier(Calendrier calendrier) {
+        this.calendrier = calendrier;
     }
 
     public void setDaysOfWeek() {

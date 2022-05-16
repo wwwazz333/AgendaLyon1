@@ -1,11 +1,32 @@
 package com.iutcalendar.calendrier;
 
 
+import com.iutcalendar.data.Tuple;
+
 import java.util.*;
 
 public class Calendrier {
+    public enum Change {
+        ADD,
+        DELETE,
+        MOVE,
+        NONE
+    }
+
     static private final String DELIMITER_LINE = "\n(?=[A-Z])";
     private final List<EventCalendrier> events;
+
+    public List<EventCalendrier> getEvents() {
+        return events;
+    }
+
+    public Calendrier clone() {
+        List<EventCalendrier> n = new ArrayList<>();
+        for (EventCalendrier e : events) {
+            n.add(e);
+        }
+        return new Calendrier(n);
+    }
 
     public Calendrier(List<EventCalendrier> events) {
         this.events = events;
@@ -75,6 +96,42 @@ public class Calendrier {
             builder.append(ev.toString()).append("\n");
         }
         return builder.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Calendrier that = (Calendrier) o;
+        return Objects.equals(events, that.events);
+    }
+
+    public List<Tuple<EventCalendrier, Change>> getChangedEvent(Calendrier prevCal) {
+        List<Tuple<EventCalendrier, Change>> changed = new ArrayList<>();
+        EventCalendrier ev;
+        for (EventCalendrier e : this.getEvents()) {
+            int index = prevCal.getEvents().indexOf(e);
+            if (index == -1) {
+                changed.add(new Tuple<>(e, Change.ADD));
+            } else {
+                ev = prevCal.getEvents().get(index);
+                if (!e.getDate().equals(ev.getDate())) {
+                    changed.add(new Tuple<>(e, Change.MOVE));
+                }
+            }
+        }
+        for (EventCalendrier e : prevCal.getEvents()) {
+            int index = this.getEvents().indexOf(e);
+            if (index == -1) {
+                changed.add(new Tuple<>(e, Change.DELETE));
+            }
+        }
+        return changed;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(events);
     }
 
     private enum State {

@@ -18,7 +18,7 @@ import com.iutcalendar.calendrier.DateCalendrier;
 import com.iutcalendar.calendrier.EventCalendrier;
 import com.iutcalendar.data.DataGlobal;
 import com.iutcalendar.data.FileGlobal;
-import com.iutcalendar.language.SettingsApp;
+import com.iutcalendar.settings.SettingsApp;
 import com.iutcalendar.task.PersonnalCalendrier;
 
 import java.util.List;

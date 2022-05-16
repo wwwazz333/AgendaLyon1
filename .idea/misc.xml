@@ -42,6 +42,7 @@
         <entry key="app/src/main/res/layout/fragment_url_setter.xml" value="0.22" />
         <entry key="app/src/main/res/layout/network_security_config.xml" value="0.178125" />
         <entry key="app/src/main/res/layout/settings_activity.xml" value="0.35104166666666664" />
+        <entry key="app/src/main/res/layout/source_preference.xml" value="0.35" />
         <entry key="app/src/main/res/layout/task_card.xml" value="0.35" />
         <entry key="app/src/main/res/layout/widget_calendar.xml" value="0.2" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.36153846153846153" />

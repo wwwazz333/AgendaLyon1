@@ -2,6 +2,7 @@ package com.iutcalendar;
 
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -22,7 +23,7 @@ import com.iutcalendar.data.FileGlobal;
 import com.iutcalendar.event.ClickListiner;
 import com.iutcalendar.event.DialogPopupEvent;
 import com.iutcalendar.event.EventRecycleView;
-import com.iutcalendar.language.SettingsApp;
+import com.iutcalendar.settings.SettingsApp;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -49,20 +50,20 @@ public class EventFragment extends Fragment {
         update.setLayoutParams(lp);
         update.setGravity(Gravity.CENTER);
 
-        TypedValue typedValue = new TypedValue();
-        Resources.Theme theme = getActivity().getTheme();
-        theme.resolveAttribute(R.attr.colorOnSurface, typedValue, true);
-        @ColorInt int color = typedValue.data;
-        update.setTextColor(color);
+        // Pour la couleur du last update
+        update.setTextColor(SettingsApp.getColor(R.attr.colorOnSurface, getActivity()));
         update.setTextSize(18);
 
-
+        MainActivity mainActivity = ((MainActivity) getActivity());
         if (fileCal.exists() && getActivity() != null && getActivity() instanceof MainActivity && getContext() != null) {
             String str = FileGlobal.readFile(fileCal);
-            Calendrier cal = new Calendrier(str);
 
+            mainActivity.setCalendrier(new Calendrier(str));
+            Calendrier cal = mainActivity.getCalendrier();
 
-            CurrentDate date = ((MainActivity) getActivity()).getCurrDate();
+            mainActivity.checkChanges();
+
+            CurrentDate date = mainActivity.getCurrDate();
 
             List<EventCalendrier> eventToday = cal.getEventsOfDay(date);
 
