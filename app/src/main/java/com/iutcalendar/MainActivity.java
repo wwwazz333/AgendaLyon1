@@ -71,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SettingsApp.adapteTheme(this);
         SettingsApp.setLocale(getResources(), DataGlobal.getLanguage(getApplicationContext()));
         setContentView(R.layout.activity_main);
 

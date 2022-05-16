@@ -2,7 +2,8 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="center">
+            android:layout_gravity="center"
+            android:background="?attr/colorSurface">
 
 
     <GridLayout
@@ -26,7 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/resumerLabel"
-
+                android:textColor="?attr/colorOnSurface"
                 android:layout_column="0"
                 android:layout_row="1"/>
 
@@ -35,7 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/exemple_text"
-
+                android:textColor="?attr/colorOnSurface"
                 android:layout_column="1"
                 android:layout_row="1"/>
 
@@ -44,7 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/descriptionLabel"
-
+                android:textColor="?attr/colorOnSurface"
                 android:layout_column="0"
                 android:layout_row="2"/>
 
@@ -53,6 +54,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/exemple_text"
+                android:textColor="?attr/colorOnSurface"
 
                 android:layout_column="1"
                 android:layout_row="2"/>
@@ -62,6 +64,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/locationLabel"
+                android:textColor="?attr/colorOnSurface"
 
                 android:layout_column="0"
                 android:layout_row="3"/>
@@ -71,6 +74,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/exemple_text"
+                android:textColor="?attr/colorOnSurface"
 
                 android:layout_column="1"
                 android:layout_row="3"/>
@@ -79,6 +83,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/horaireLabel"
+                android:textColor="?attr/colorOnSurface"
 
                 android:layout_column="0"
                 android:layout_row="4"/>
@@ -88,6 +93,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/exemple_text"
+                android:textColor="?attr/colorOnSurface"
 
                 android:layout_column="1"
                 android:layout_row="4"/>
@@ -97,6 +103,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/Duration"
+                android:textColor="?attr/colorOnSurface"
 
                 android:layout_column="0"
                 android:layout_row="5"/>
@@ -106,6 +113,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/exemple_text"
+                android:textColor="?attr/colorOnSurface"
 
                 android:layout_column="1"
                 android:layout_row="5"/>
@@ -122,6 +130,7 @@
 
         <ImageButton
                 android:contentDescription="@string/task_add_btn_label"
+                android:textColor="?attr/colorOnSurface"
                 android:id="@+id/addBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -132,8 +141,7 @@
                 android:layout_gravity="end"
                 android:background="#00000000"
                 android:layout_column="1"
-                android:layout_row="6"
-                android:layout_columnSpan="2"/>
+                android:layout_row="6"/>
 
         <!--Obligé de mettre un relativeLayout pour match_parent-->
         <RelativeLayout
@@ -154,10 +162,9 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/okBtn"
                 android:text="@string/ok"
+                android:textColor="?attr/colorOnSurface"
                 android:layout_gravity="end"
-                android:textColor="?colorOnBackground"
                 android:background="#00000000"
-
                 android:layout_column="1"
                 android:layout_row="10"/>
 

@@ -3,7 +3,6 @@ package com.iutcalendar.language;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.os.Build;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import com.calendar.iutcalendar.R;
@@ -27,32 +26,18 @@ public class SettingsApp {
         return configuration.locale;
     }
 
-    /*public static void adapteTheme(Context context) {
+    public static void adapteTheme(Context context) {
 
-        if (DataGlobal.getTheme(context).equals("default")) {
-            Log.d("Theme", "default");
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                switch (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
-                    case Configuration.UI_MODE_NIGHT_YES:
-                        context.setTheme(R.style.Theme_IUTCalendarNight);
-                        Log.d("Theme", "black");
-                        break;
-                    case Configuration.UI_MODE_NIGHT_NO:
-                        context.setTheme(R.style.Theme_IUTCalendar);
-                        Log.d("Theme", "white");
-                        break;
-                }
 
-            }
+        String t = DataGlobal.getTheme(context);
+        Log.d("Theme", t);
+        if (t.equals("black")) {
+            context.setTheme(R.style.Theme_IUTCalendarNight);
+        } else if (t.equals("light")) {
+            context.setTheme(R.style.Theme_IUTCalendarLight);
         } else {
-            Log.d("Theme", "not default");
-            String t = DataGlobal.getTheme(context);
-            Log.d("Theme", t);
-            if (t.equals("black")) {
-                context.setTheme(R.style.Theme_IUTCalendarNight);
-            } else if (t.equals("light")) {
-                context.setTheme(R.style.Theme_IUTCalendar);
-            }
+            context.setTheme(R.style.Theme_IUTCalendar);
         }
-    }*/
+
+    }
 }

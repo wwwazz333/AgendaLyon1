@@ -25,6 +25,7 @@ public class SettingsActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         SettingsApp.setLocale(getResources(), DataGlobal.getLanguage(getApplicationContext()));
         setContentView(R.layout.settings_activity);
 
