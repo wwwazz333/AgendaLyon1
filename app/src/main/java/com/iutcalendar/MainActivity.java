@@ -164,11 +164,13 @@ public class MainActivity extends AppCompatActivity {
         startFragment(R.id.animFragment, new ReloadAnimationFragment());//start anim re load
         new Thread(() -> {
             FileDownload.updateFichier(FileGlobal.getFileDownload(getApplicationContext()).getAbsolutePath(), getApplicationContext());
+            Log.d("Test", String.valueOf(MainActivity.active));
             if (MainActivity.active) {
+                Log.d("Test", "activation");
                 updateScreen();
+                startFragment(R.id.animFragment, new Fragment());//arret animation re load
             }
             Log.d("File", "updated");
-            startFragment(R.id.animFragment, new Fragment());//arret animation re load
             updating = false;
         }).start();
     }
