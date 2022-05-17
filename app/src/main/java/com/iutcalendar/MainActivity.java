@@ -104,9 +104,6 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        //Navigate weeks
-        findViewById(R.id.nextWeek).setOnClickListener(view -> setCurrDate(getCurrDate().nextWeek()));
-        findViewById(R.id.prevWeek).setOnClickListener(view -> setCurrDate(currDate.prevWeek()));
 
         //Click on day
         setOnclicDay(R.id.dayLundi, GregorianCalendar.MONDAY);

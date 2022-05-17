@@ -52,7 +52,8 @@ public class WidgetCalendar extends AppWidgetProvider {
             RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_calendar);
 
 
-            CurrentDate currentDate = new CurrentDate();
+            CurrentDate currentDate = new CurrentDate(new CurrentDate().addTime(new DateCalendrier(0, 0, 0, 0, -30)));
+
             Calendrier cal = new Calendrier(FileGlobal.readFile(FileGlobal.getFileDownload(context)));
 
             EventCalendrier[] events = cal.getNext2EventAfter(currentDate);
