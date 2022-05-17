@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:locale="fr">
     <string name="app_name">IUTCalendar</string>
-    <string name="title_activity_settings" translatable="false">SettingsActivity</string>
+    <string name="title_activity_settings">Paramètre</string>
 
     <!--    Basique-->
     <string name="ok" translatable="false">OK</string>

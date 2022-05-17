@@ -30,8 +30,6 @@ public class SettingsApp {
     }
 
     public static void adapteTheme(Context context) {
-
-
         String t = DataGlobal.getTheme(context);
         Log.d("Theme", t);
         if (t.equals("black")) {

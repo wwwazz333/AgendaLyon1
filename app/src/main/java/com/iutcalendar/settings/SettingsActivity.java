@@ -19,6 +19,7 @@ import com.calendar.iutcalendar.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.iutcalendar.MainActivity;
 import com.iutcalendar.data.DataGlobal;
 
 public class SettingsActivity extends AppCompatActivity implements
@@ -29,10 +30,9 @@ public class SettingsActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SettingsApp.adapteTheme(this);
+        setTheme(R.style.Theme_IUTCalendarActionBar);
         SettingsApp.setLocale(getResources(), DataGlobal.getLanguage(getApplicationContext()));
         setContentView(R.layout.settings_activity);
-
 
         retourBtn = findViewById(R.id.btnRetour);
 

@@ -50,4 +50,5 @@
     <string name="Deleted">Deleted</string>
     <string name="Moved">Moved</string>
     <string name="No_events">No Events</string>
+    <string name="title_activity_settings">SettingsActivity</string>
 </resources>
