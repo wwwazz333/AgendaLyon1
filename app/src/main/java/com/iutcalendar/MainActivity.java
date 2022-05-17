@@ -189,18 +189,7 @@ public class MainActivity extends AppCompatActivity {
         alertDialog.setTitle(getString(R.string.event));
         StringBuilder msg = new StringBuilder();
 
-        for (Tuple<EventCalendrier, Calendrier.InfoChange> tuple : changes) {
-            String action = tuple.second.getChangement().toString(getApplicationContext());
-            msg.append(action).append(" : ").append(tuple.first.getSummary()).append(" : ");
-            if (tuple.second.getPrevDate() != null) {
-                msg.append(tuple.second.getPrevDate().toString());
-            }
-            if (tuple.second.getNewDate() != null) {
-                msg.append(" -> ").append(tuple.second.getNewDate().toString());
-            }
-            msg.append('\n');
-        }
-        alertDialog.setMessage(msg.toString());
+        alertDialog.setMessage(Calendrier.changeToString(getApplicationContext(), changes));
 
         alertDialog.setPositiveButton(getString(R.string.ok),
                 (dialog, which) -> {

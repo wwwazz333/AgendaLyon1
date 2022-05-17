@@ -141,6 +141,23 @@ public class Calendrier {
         return nexts;
     }
 
+    public static String changeToString(Context context, List<Tuple<EventCalendrier, Calendrier.InfoChange>> changes) {
+        StringBuilder msg = new StringBuilder();
+
+        for (Tuple<EventCalendrier, Calendrier.InfoChange> tuple : changes) {
+            String action = tuple.second.getChangement().toString(context);
+            msg.append(action).append(" : ").append(tuple.first.getSummary()).append(" : ");
+            if (tuple.second.getPrevDate() != null) {
+                msg.append(tuple.second.getPrevDate().toString());
+            }
+            if (tuple.second.getNewDate() != null) {
+                msg.append(" -> ").append(tuple.second.getNewDate().toString());
+            }
+            msg.append('\n');
+        }
+        return msg.toString();
+    }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
