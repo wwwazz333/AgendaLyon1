@@ -1,19 +1,15 @@
 package com.iutcalendar.widget;
 
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.Toast;
-import androidx.core.app.NotificationCompat;
 import com.calendar.iutcalendar.R;
 import com.iutcalendar.MainActivity;
 import com.iutcalendar.calendrier.Calendrier;
@@ -24,6 +20,8 @@ import com.iutcalendar.data.DataGlobal;
 import com.iutcalendar.data.FileGlobal;
 import com.iutcalendar.settings.SettingsApp;
 import com.iutcalendar.task.PersonnalCalendrier;
+
+import java.util.GregorianCalendar;
 
 
 public class WidgetCalendar extends AppWidgetProvider {
@@ -52,7 +50,8 @@ public class WidgetCalendar extends AppWidgetProvider {
             RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_calendar);
 
 
-            CurrentDate currentDate = new CurrentDate(new CurrentDate().addTime(new DateCalendrier(0, 0, 0, 0, -30)));
+            CurrentDate currentDate = new CurrentDate();
+            currentDate.add(GregorianCalendar.MINUTE, -30);//pour que l'event s'affiche tjrs au bout de 30min
 
             Calendrier cal = new Calendrier(FileGlobal.readFile(FileGlobal.getFileDownload(context)));
 
