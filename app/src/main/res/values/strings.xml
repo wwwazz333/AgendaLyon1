@@ -62,7 +62,7 @@
     <string name="summer_offset">Heure d\'été</string>
     <string name="summer_offset_description">Applique le décallager pour l\'heure d\'été</string>
     <string name="choose_langue">Langue</string>
-    <string name="choose_langue_description">Changer la langue</string>
+    <string name="choose_langue_description">Changer la langue (redémarrer l\'application)</string>
     <string name="Feature">Fonctionnalité</string>
     <string name="Usage">Utilisations</string>
     <string name="Usage_description">Aide pour utiliser toutes les fonctionnalité de cette application</string>
@@ -71,4 +71,6 @@
     <string name="Deleted">Supprimé</string>
     <string name="Moved">Déplacé</string>
     <string name="No_events">Aucun événements</string>
+    <string name="Theme">Thème</string>
+    <string name="themeLabelSettings">Changer de thème (redémarrer l\'application)</string>
 </resources>

@@ -46,8 +46,8 @@
 
         <ListPreference
                 android:key="theme_selected"
-                android:title="Theme"
-                android:summary="Changer de theme"
+                android:title="@string/Theme"
+                android:summary="@string/themeLabelSettings"
                 android:entryValues="@array/theme_values"
                 android:entries="@array/theme_options"/>
 

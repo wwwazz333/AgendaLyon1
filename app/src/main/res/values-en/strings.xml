@@ -40,7 +40,7 @@
     <string name="summer_offset">Summer offset</string>
     <string name="summer_offset_description">Do the summer offset</string>
     <string name="choose_langue">Language</string>
-    <string name="choose_langue_description">Choose language</string>
+    <string name="choose_langue_description">Choose language (restart the app)</string>
     <string name="Feature">Feature</string>
     <string name="Usage">Usages</string>
     <string name="Usage_description">Help about how to use the app</string>
@@ -51,4 +51,6 @@
     <string name="Moved">Moved</string>
     <string name="No_events">No Events</string>
     <string name="title_activity_settings">SettingsActivity</string>
+    <string name="themeLabelSettings">Choose the theme (restart the app)</string>
+    <string name="Theme">Theme</string>
 </resources>
