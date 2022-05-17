@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.util.Log;
 import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -25,6 +26,7 @@ public class DialogPopupEvent extends Dialog {
 
     public DialogPopupEvent(@NonNull Context context, EventCalendrier eventClicked, Activity activity) {
         super(context);
+        Log.d("Dialog", "start");
         setContentView(R.layout.dialog_event_edit);
         initVariable();
         this.relatedEvent = eventClicked;
@@ -40,13 +42,13 @@ public class DialogPopupEvent extends Dialog {
 
         this.title.setText(relatedEvent.getSummary());
         this.summary.setText(relatedEvent.getDescription());
-        this.salle.setText(relatedEvent.getSalle());
+        this.salle.setText(relatedEvent.getSalle().replace("\\,", ", "));
 
         this.horaire.setText(context.getString(R.string.both_time, timeDebut, timeFin));
         this.duree.setText(relatedEvent.getDuree().timeToString());
 
         updatedTask();
-
+        Log.d("Dialog", "end");
     }
 
     private void updatedTask() {
@@ -54,12 +56,13 @@ public class DialogPopupEvent extends Dialog {
         TaskRecycleView adapter = new TaskRecycleView(PersonnalCalendrier.getInstance().getLinkedTask(relatedEvent), activity.getApplication(), listener);
         recyclerViewTask.setAdapter(adapter);
         recyclerViewTask.setLayoutManager(new LinearLayoutManager(activity));
+        Log.d("Dialog", "updateTask");
     }
 
 
     private void initVariable() {
         title = findViewById(R.id.title);
-        summary = findViewById(R.id.textTask);
+        summary = findViewById(R.id.textSummary);
         salle = findViewById(R.id.salle);
         horaire = findViewById(R.id.horaire);
         duree = findViewById(R.id.duree);

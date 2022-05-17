@@ -1,155 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_gravity="center"
             android:background="?attr/colorSurface">
 
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical"
+                  android:paddingHorizontal="@dimen/tab_gap">
 
-    <GridLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:paddingHorizontal="@dimen/tab_gap"
-            android:useDefaultMargins="true">
-
+<!--        Force fill width-->
+        <View android:layout_width="9999dp" android:layout_height="wrap_content"/>
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/event"
-                style="@style/TitleText"
-
-                android:layout_column="0"
-                android:layout_row="0"
-                android:layout_columnSpan="2"/>
+                style="@style/TitleText"/>
 
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/resumerLabel"
-                android:textColor="?attr/colorOnSurface"
-                android:layout_column="0"
-                android:layout_row="1"/>
+                style="@style/subTitle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
 
         <TextView
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/exemple_text"
-                android:textColor="?attr/colorOnSurface"
-                android:layout_column="1"
-                android:layout_row="1"/>
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                android:textColor="?attr/colorOnSurface"/>
 
 
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/descriptionLabel"
-                android:textColor="?attr/colorOnSurface"
-                android:layout_column="0"
-                android:layout_row="2"/>
+                style="@style/subTitle"/>
 
         <TextView
-                android:id="@+id/textTask"
+                android:id="@+id/textSummary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/exemple_text"
-                android:textColor="?attr/colorOnSurface"
 
-                android:layout_column="1"
-                android:layout_row="2"/>
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                android:textColor="?attr/colorOnSurface"
+                android:breakStrategy="balanced"/>
 
 
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/locationLabel"
-                android:textColor="?attr/colorOnSurface"
-
-                android:layout_column="0"
-                android:layout_row="3"/>
+                style="@style/subTitle"/>
 
         <TextView
                 android:id="@+id/salle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/exemple_text"
-                android:textColor="?attr/colorOnSurface"
 
-                android:layout_column="1"
-                android:layout_row="3"/>
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                android:textColor="?attr/colorOnSurface"
+                android:breakStrategy="balanced"/>
 
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/horaireLabel"
-                android:textColor="?attr/colorOnSurface"
-
-                android:layout_column="0"
-                android:layout_row="4"/>
+                style="@style/subTitle"/>
 
         <TextView
                 android:id="@+id/horaire"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/exemple_text"
-                android:textColor="?attr/colorOnSurface"
 
-                android:layout_column="1"
-                android:layout_row="4"/>
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                android:textColor="?attr/colorOnSurface"
+                android:breakStrategy="balanced"/>
 
 
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/Duration"
-                android:textColor="?attr/colorOnSurface"
-
-                android:layout_column="0"
-                android:layout_row="5"/>
+                style="@style/subTitle"/>
 
         <TextView
                 android:id="@+id/duree"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/exemple_text"
-                android:textColor="?attr/colorOnSurface"
 
-                android:layout_column="1"
-                android:layout_row="5"/>
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                android:textColor="?attr/colorOnSurface"
+                android:breakStrategy="balanced"/>
 
         <!--########################TASK########################"-->
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/task"
-                style="@style/TitleText"
-                android:layout_column="0"
-                android:layout_row="6"
-                android:layout_columnSpan="2"/>
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:orientation="horizontal">
 
-        <ImageButton
-                android:contentDescription="@string/task_add_btn_label"
-                android:textColor="?attr/colorOnSurface"
-                android:id="@+id/addBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/task"
+                    style="@style/TitleText"/>
+            <View android:layout_width="0dp" android:layout_height="wrap_content"
+                  android:layout_weight="1"/>
 
-                android:minWidth="48dp"
-                android:minHeight="48dp"
-                android:src="@drawable/ic_add"
-                android:layout_gravity="end"
-                android:background="#00000000"
-                android:layout_column="1"
-                android:layout_row="6"/>
+            <ImageButton
+                    android:contentDescription="@string/task_add_btn_label"
+                    android:textColor="?attr/colorOnSurface"
+                    android:id="@+id/addBtn"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="48dp"
+                    android:minHeight="48dp"
+                    android:src="@drawable/ic_add"
+                    android:background="#00000000"/>
+        </LinearLayout>
+
 
         <!--Obligé de mettre un relativeLayout pour match_parent-->
         <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_row="7"
-                android:layout_column="0"
-                android:layout_columnSpan="2">
+                android:layout_height="wrap_content">
             <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/listTask"
                     android:layout_width="match_parent"
@@ -164,10 +152,9 @@
                 android:text="@string/ok"
                 android:textColor="?attr/colorOnSurface"
                 android:layout_gravity="end"
-                android:background="#00000000"
-                android:layout_column="1"
-                android:layout_row="10"/>
+                android:background="#00000000"/>
 
 
-    </GridLayout>
+    </LinearLayout>
+
 </ScrollView>
