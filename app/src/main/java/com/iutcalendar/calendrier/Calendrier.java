@@ -127,6 +127,20 @@ public class Calendrier {
         return events.get(events.size() - 1);
     }
 
+    public EventCalendrier[] getNext2EventAfter(DateCalendrier date) {
+        EventCalendrier[] nexts = new EventCalendrier[2];
+        int i = 0;
+        for (EventCalendrier e : getEvents()) {
+            if (i >= 2) {
+                break;
+            }
+            if (e.getDate().compareTo(date) >= 0) {
+                nexts[i++] = e;
+            }
+        }
+        return nexts;
+    }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();

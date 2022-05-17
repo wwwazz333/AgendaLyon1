@@ -70,4 +70,5 @@
     <string name="Added">Ajouté</string>
     <string name="Deleted">Supprimé</string>
     <string name="Moved">Déplacé</string>
+    <string name="No_events">Aucun événements</string>
 </resources>

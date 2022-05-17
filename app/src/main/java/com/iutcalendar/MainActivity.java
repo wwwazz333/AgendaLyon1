@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d("Global", "MainActivity start");
         SettingsApp.adapteTheme(this);
         SettingsApp.setLocale(getResources(), DataGlobal.getLanguage(getApplicationContext()));
         setContentView(R.layout.activity_main);
@@ -134,22 +135,18 @@ public class MainActivity extends AppCompatActivity {
         savePrevCalendrier = getCalendrier().clone();
 
         CurrentDate dateToLaunche = new CurrentDate();
-        long timeInMillis = getIntent().getLongExtra("day_to_launche", -1);
-        Log.d("Date", String.valueOf(timeInMillis));
-        if (timeInMillis != -1) {
-            Log.d("Date", "not default date");
-            dateToLaunche.setTimeInMillis(timeInMillis);
+        Log.d("Widget", "main : " + getIntent().getBooleanExtra("launche_next_event", false));
+        if (getIntent().getBooleanExtra("launche_next_event", false)) {
+            EventCalendrier[] es = getCalendrier().getNext2EventAfter(dateToLaunche);
+            if (es.length >= 1) {
+                dateToLaunche = new CurrentDate(es[0].getDate());
+            }
         } else {
-            Log.d("Date", "default date");
+            Log.d("Widget", "default date");
         }
         setCurrDate(dateToLaunche);
 
-        for (EventCalendrier e : getCalendrier().getEvents()) {
-            Log.d("Calendrier", e.toString());
-        }
-        Log.d("Calendrier", "-------------FIN MAIN ACTIVITY-------------");
-
-//        update();
+        update();
 
 
 //        Intent myIntent = new Intent(AlarmClock.ACTION_SET_ALARM);
@@ -157,6 +154,8 @@ public class MainActivity extends AppCompatActivity {
 //        myIntent.putExtra(AlarmClock.EXTRA_MINUTES, getCurrDate().getMinute()+1);
 //
 //        startActivity(myIntent);
+
+        Log.d("Global", "MainActivity end");
     }
 
     /*########################################################################

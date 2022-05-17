@@ -49,4 +49,5 @@
     <string name="Added">Added</string>
     <string name="Deleted">Deleted</string>
     <string name="Moved">Moved</string>
+    <string name="No_events">No Events</string>
 </resources>
