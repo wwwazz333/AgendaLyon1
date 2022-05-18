@@ -1,6 +1,9 @@
 package com.iutcalendar;
 
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -22,6 +25,9 @@ import com.iutcalendar.data.DataGlobal;
 import com.iutcalendar.data.FileGlobal;
 import com.iutcalendar.data.Tuple;
 import com.iutcalendar.filedownload.FileDownload;
+import com.iutcalendar.notification.BackgroundNotification;
+import com.iutcalendar.notification.Notif;
+import com.iutcalendar.notification.NotificationLauncher;
 import com.iutcalendar.settings.SettingsActivity;
 import com.iutcalendar.settings.SettingsApp;
 import com.iutcalendar.swiping.GestureEventManager;
@@ -34,7 +40,6 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private static final String SELECTED_LANGUAGE = "Locale.Helper.Selected.Language";
     private static boolean active = false, updating = false;
     private FragmentTransaction fragmentTransaction;
     private CurrentDate currDate;
@@ -43,6 +48,10 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout nameDayLayout;
     private LinearLayout dayOfWeek;
     private Calendrier calendrier, savePrevCalendrier;
+
+
+    private static final String NOTIFICATION_CHANNEL_ID = "12001";
+    private final static String default_notification_channel_id = "modificationChanelId";
 
     private void initVariable() {
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -145,12 +154,28 @@ public class MainActivity extends AppCompatActivity {
 
         update();
 
+        String changements = getIntent().getStringExtra("changes");
+        if (changements != null) {
+            Log.d("Extra", changements);
+            showChangedEvent(changements);
+        } else {
+            Log.d("Extra", "no changes");
+        }
+
 
 //        Intent myIntent = new Intent(AlarmClock.ACTION_SET_ALARM);
 //        myIntent.putExtra(AlarmClock.EXTRA_HOUR, getCurrDate().getHour());
 //        myIntent.putExtra(AlarmClock.EXTRA_MINUTES, getCurrDate().getMinute()+1);
 //
 //        startActivity(myIntent);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+
+
+        findViewById(R.id.startService).setOnClickListener(view ->
+                startService(new Intent(getApplicationContext(), BackgroundNotification.class)));
+        findViewById(R.id.endService).setOnClickListener(view ->
+                stopService(new Intent(getApplicationContext(), BackgroundNotification.class)));
+
 
         Log.d("Global", "MainActivity end");
     }
@@ -159,36 +184,45 @@ public class MainActivity extends AppCompatActivity {
                                      UPDATE
     ########################################################################*/
     public void update() {
+        Log.d("Update", "start");
         if (updating) return;
         updating = true;
         startFragment(R.id.animFragment, new ReloadAnimationFragment());//start anim re load
         new Thread(() -> {
             FileDownload.updateFichier(FileGlobal.getFileDownload(getApplicationContext()).getAbsolutePath(), getApplicationContext());
-            Log.d("Test", String.valueOf(MainActivity.active));
+            Log.d("Update", String.valueOf(MainActivity.active));
             if (MainActivity.active) {
-                Log.d("Test", "activation");
+                Log.d("Update", "activation");
                 updateScreen();
                 startFragment(R.id.animFragment, new Fragment());//arret animation re load
             }
-            Log.d("File", "updated");
             updating = false;
+            Log.d("File", "updated");
         }).start();
     }
 
     public void checkChanges() {
+        Log.d("Update", "check change start");
         List<Tuple<EventCalendrier, Calendrier.InfoChange>> changes = getCalendrier().getChangedEvent(savePrevCalendrier);
-        if (!changes.isEmpty())
-            showChangedEvent(changes);
+        if (!changes.isEmpty()) {
+            String changesMsg = Calendrier.changeToString(getApplicationContext(), changes);
+            showChangedEvent(changesMsg);
+
+            //TODO notif : doit être appeler en arrière plan quand
+            Notif.init(this);
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            intent.putExtra("changes", changesMsg);
+            PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            new Notif(this, getString(R.string.event), "changes : all the changes", R.drawable.ic_edit, pendingIntent).show();
+        }
         savePrevCalendrier = getCalendrier().clone();
     }
 
-    private void showChangedEvent(List<Tuple<EventCalendrier, Calendrier.InfoChange>> changes) {
-        if (!MainActivity.active) return;
+    private void showChangedEvent(String changes) {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
         alertDialog.setTitle(getString(R.string.event));
-        StringBuilder msg = new StringBuilder();
 
-        alertDialog.setMessage(Calendrier.changeToString(getApplicationContext(), changes));
+        alertDialog.setMessage(changes);
 
         alertDialog.setPositiveButton(getString(R.string.ok),
                 (dialog, which) -> {
@@ -198,6 +232,7 @@ public class MainActivity extends AppCompatActivity {
 
         alertDialog.show();
     }
+
 
     public void updateScreen() {
         if (DataGlobal.getSavedBoolean(getApplicationContext(), "summer_offset")) {

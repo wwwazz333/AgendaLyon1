@@ -23,6 +23,14 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/Theme.IUTCalendar" >
+        <service
+                android:name="com.iutcalendar.notification.BackgroundNotification"
+                android:enabled="true"
+                android:exported="true"/>
+        <service
+                android:name="com.iutcalendar.notification.NotificationLauncher"
+                android:enabled="true"
+                android:exported="true"/>
         <receiver
                 android:name="com.iutcalendar.widget.WidgetCalendar"
                 android:exported="true">

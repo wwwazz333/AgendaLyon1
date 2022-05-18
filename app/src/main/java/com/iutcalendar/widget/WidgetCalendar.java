@@ -1,15 +1,19 @@
 package com.iutcalendar.widget;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.Toast;
+import androidx.core.app.NotificationCompat;
 import com.calendar.iutcalendar.R;
 import com.iutcalendar.MainActivity;
 import com.iutcalendar.calendrier.Calendrier;
@@ -26,8 +30,6 @@ import java.util.GregorianCalendar;
 
 public class WidgetCalendar extends AppWidgetProvider {
     public static final String SHOW_TOAST_ACTION = "showing_toast";
-    public static final String NOTIFICATION_CHANNEL_ID = "10001";
-    private final static String default_notification_channel_id = "modification";
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
@@ -93,29 +95,6 @@ public class WidgetCalendar extends AppWidgetProvider {
             views.setOnClickPendingIntent(R.id.listLayout, pendingIntent);
             appWidgetManager.updateAppWidget(widgetId, views);
         }
-
-
-        //notification
-        /*
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context, default_notification_channel_id)
-                .setSmallIcon(R.drawable.ic_edit)
-                .setContentTitle("Changement")
-                .setContentText("Test");
-
-        NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        int importance = NotificationManager.IMPORTANCE_DEFAULT;
-        NotificationChannel notificationChannel = new
-                NotificationChannel(NOTIFICATION_CHANNEL_ID, "NOTIFICATION_CHANNEL_NAME", importance);
-        notificationChannel.enableLights(true);
-        notificationChannel.setLightColor(Color.BLUE);
-        notificationChannel.enableVibration(false);
-//            notificationChannel.setVibrationPattern(new long[]{100, 200});
-        mBuilder.setChannelId(NOTIFICATION_CHANNEL_ID);
-        mNotificationManager.createNotificationChannel(notificationChannel);
-        mNotificationManager.notify((int) System.currentTimeMillis(), mBuilder.build());
-
-         */
-
 
         Log.d("Widget", "updated");
     }
