@@ -23,14 +23,16 @@ public class DialogPopupEvent extends Dialog {
     private Button okBtn;
     private ImageButton addBtn;
     private RecyclerView recyclerViewTask;
+    private final UpdateListener whenFinish;
 
-    public DialogPopupEvent(@NonNull Context context, EventCalendrier eventClicked, Activity activity) {
+    public DialogPopupEvent(@NonNull Context context, EventCalendrier eventClicked, Activity activity, UpdateListener whenFinish) {
         super(context);
         Log.d("Dialog", "start");
         setContentView(R.layout.dialog_event_edit);
         initVariable();
         this.relatedEvent = eventClicked;
         this.activity = activity;
+        this.whenFinish = whenFinish;
 
         this.addBtn.setOnClickListener(view -> showAddTask());
 
@@ -59,6 +61,11 @@ public class DialogPopupEvent extends Dialog {
         Log.d("Dialog", "updateTask");
     }
 
+    @Override
+    public void dismiss() {
+        whenFinish.update();
+        super.dismiss();
+    }
 
     private void initVariable() {
         title = findViewById(R.id.title);

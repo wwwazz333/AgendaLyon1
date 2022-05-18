@@ -1,21 +1,22 @@
 package com.iutcalendar;
 
-import android.app.AlarmManager;
 import android.app.AlertDialog;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.GestureDetectorCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.RecyclerView;
 import com.calendar.iutcalendar.R;
 import com.iutcalendar.calendrier.Calendrier;
 import com.iutcalendar.calendrier.CurrentDate;
@@ -24,10 +25,8 @@ import com.iutcalendar.calendrier.EventCalendrier;
 import com.iutcalendar.data.DataGlobal;
 import com.iutcalendar.data.FileGlobal;
 import com.iutcalendar.data.Tuple;
+import com.iutcalendar.event.ClickListener;
 import com.iutcalendar.filedownload.FileDownload;
-import com.iutcalendar.notification.BackgroundNotification;
-import com.iutcalendar.notification.Notif;
-import com.iutcalendar.notification.NotificationLauncher;
 import com.iutcalendar.settings.SettingsActivity;
 import com.iutcalendar.settings.SettingsApp;
 import com.iutcalendar.swiping.GestureEventManager;
@@ -43,11 +42,13 @@ public class MainActivity extends AppCompatActivity {
     private static boolean active = false, updating = false;
     private FragmentTransaction fragmentTransaction;
     private CurrentDate currDate;
-    private GestureDetectorCompat gestureD;
     private TextView currDateLabel;
     private LinearLayout nameDayLayout;
     private LinearLayout dayOfWeek;
     private Calendrier calendrier, savePrevCalendrier;
+    private ConstraintLayout rootLayout;
+    private View actionView;
+    private FrameLayout frameLayout;
 
 
     private static final String NOTIFICATION_CHANNEL_ID = "12001";
@@ -55,19 +56,16 @@ public class MainActivity extends AppCompatActivity {
 
     private void initVariable() {
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        gestureD = new GestureDetectorCompat(this, new GestureListener());
 
         currDateLabel = findViewById(R.id.currDateLabel);
         nameDayLayout = findViewById(R.id.nameDayLayout);
         dayOfWeek = findViewById(R.id.dayOfWeek);
+        rootLayout = findViewById(R.id.rootLayout);
+        actionView = findViewById(R.id.actionView);
+        frameLayout = findViewById(R.id.frameLayout);
 
     }
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        gestureD.onTouchEvent(event);
-        return super.onTouchEvent(event);
-    }
 
     @Override
     public void onResume() {
@@ -105,6 +103,8 @@ public class MainActivity extends AppCompatActivity {
         }
         nameDayLayout.setOnTouchListener(new TouchGestureListener(getApplicationContext(), new GestureWeekListener()));
         dayOfWeek.setOnTouchListener(new TouchGestureListener(getApplicationContext(), new GestureWeekListener()));
+
+        actionView.setOnTouchListener(new TouchGestureListener(getApplicationContext(), new GestureDayListener()));
 
 
         //---------------Button---------------
@@ -163,18 +163,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-//        Intent myIntent = new Intent(AlarmClock.ACTION_SET_ALARM);
-//        myIntent.putExtra(AlarmClock.EXTRA_HOUR, getCurrDate().getHour());
-//        myIntent.putExtra(AlarmClock.EXTRA_MINUTES, getCurrDate().getMinute()+1);
-//
-//        startActivity(myIntent);
-        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-
-
-        findViewById(R.id.startService).setOnClickListener(view ->
-                startService(new Intent(getApplicationContext(), BackgroundNotification.class)));
-        findViewById(R.id.endService).setOnClickListener(view ->
-                stopService(new Intent(getApplicationContext(), BackgroundNotification.class)));
+//        findViewById(R.id.startService).setOnClickListener(view ->
+//                startService(new Intent(getApplicationContext(), BackgroundNotification.class)));
+//        findViewById(R.id.endService).setOnClickListener(view ->
+//                stopService(new Intent(getApplicationContext(), BackgroundNotification.class)));
 
 
         Log.d("Global", "MainActivity end");
@@ -209,11 +201,11 @@ public class MainActivity extends AppCompatActivity {
             showChangedEvent(changesMsg);
 
             //TODO notif : doit être appeler en arrière plan quand
-            Notif.init(this);
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            intent.putExtra("changes", changesMsg);
-            PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-            new Notif(this, getString(R.string.event), "changes : all the changes", R.drawable.ic_edit, pendingIntent).show();
+//            Notif.init(this);
+//            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//            intent.putExtra("changes", changesMsg);
+//            PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+//            new Notif(this, getString(R.string.event), "changes : all the changes", R.drawable.ic_edit, pendingIntent).show();
         }
         savePrevCalendrier = getCalendrier().clone();
     }
@@ -225,9 +217,7 @@ public class MainActivity extends AppCompatActivity {
         alertDialog.setMessage(changes);
 
         alertDialog.setPositiveButton(getString(R.string.ok),
-                (dialog, which) -> {
-                    dialog.dismiss();
-                });
+                (dialog, which) -> dialog.dismiss());
 
 
         alertDialog.show();
@@ -349,7 +339,12 @@ public class MainActivity extends AppCompatActivity {
     /*########################################################################
                                     GESTION EVENT
      ########################################################################*/
-    private class GestureListener extends GestureEventManager {
+    private class GestureDayListener extends GestureEventManager {
+
+        @Override
+        protected void onClick() {
+            super.onClick();
+        }
 
         @Override
         public void onSwipeRight() {
@@ -380,7 +375,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public class GestureWeekListener extends GestureEventManager {
+    private class GestureWeekListener extends GestureEventManager {
 
         @Override
         public void onSwipeRight() {
@@ -411,6 +406,9 @@ public class MainActivity extends AppCompatActivity {
                 setCurrDate(getCurrDate().prevWeek());
             }
         }
+    }
+    public GestureEventManager getGesutreDaily(){
+        return new GestureDayListener();
     }
 
 

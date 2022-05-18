@@ -61,16 +61,16 @@ public class GestureEventManager extends
         return false;
     }
 
-    protected void onSwipeRight() {
+    public void onSwipeRight() {
     }
 
-    protected void onSwipeLeft() {
+    public void onSwipeLeft() {
     }
 
     protected void onSwipeUp() {
     }
 
-    protected void onSwipeDown() {
+    public void onSwipeDown() {
     }
 
     protected void onClick() {

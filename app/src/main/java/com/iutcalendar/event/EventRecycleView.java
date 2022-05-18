@@ -7,7 +7,11 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.calendar.iutcalendar.R;
+import com.iutcalendar.MainActivity;
 import com.iutcalendar.calendrier.EventCalendrier;
+import com.iutcalendar.data.DataGlobal;
+import com.iutcalendar.swiping.GestureEventManager;
+import com.iutcalendar.swiping.TouchGestureListener;
 import com.iutcalendar.task.PersonnalCalendrier;
 
 import java.util.List;
@@ -18,12 +22,14 @@ public class EventRecycleView extends RecyclerView.Adapter<EventViewHolder> {
     EventViewHolder viewHolder;
 
     Context context;
-    ClickListiner listener;
+    GestureEventManager gestureEventManager;
+    ClickListener clickListener;
 
-    public EventRecycleView(List<EventCalendrier> list, Context context, ClickListiner listiner) {
+    public EventRecycleView(List<EventCalendrier> list, Context context, ClickListener clickListener, GestureEventManager eventManager) {
         this.list = list;
         this.context = context;
-        this.listener = listiner;
+        this.clickListener = clickListener;
+        this.gestureEventManager = eventManager;
     }
 
     @NonNull
@@ -54,8 +60,31 @@ public class EventRecycleView extends RecyclerView.Adapter<EventViewHolder> {
         } else {
             viewHolder.countTask.setText(String.valueOf(numberTask));
         }
+        viewHolder.view.setOnTouchListener(new TouchGestureListener(context, new GestureEventManager(){
+            @Override
+            protected void onClick() {
+                clickListener.click(index);
+                super.onClick();
+            }
 
-        viewHolder.view.setOnClickListener(view -> listener.click(index));
+            @Override
+            public void onSwipeRight() {
+                super.onSwipeRight();
+                gestureEventManager.onSwipeRight();
+            }
+
+            @Override
+            public void onSwipeLeft() {
+                super.onSwipeLeft();
+                gestureEventManager.onSwipeLeft();
+            }
+
+            @Override
+            public void onSwipeDown() {
+                super.onSwipeDown();
+                gestureEventManager.onSwipeDown();
+            }
+        }));
     }
 
     @Override
