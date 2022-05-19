@@ -13,6 +13,7 @@ import java.nio.channels.FileChannel;
 import java.nio.channels.ReadableByteChannel;
 
 public class FileDownload {
+    //TODO permission read / write File vrm besoin ?
 
     public static ReadableByteChannel getCalender(String urlCalender) throws IOException {
         URL url = new URL(urlCalender);

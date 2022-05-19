@@ -25,6 +25,8 @@ import com.iutcalendar.data.DataGlobal;
 public class SettingsActivity extends AppCompatActivity implements
         PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
 
+    //TODO modifier theme
+
     FloatingActionButton retourBtn;
 
     @Override

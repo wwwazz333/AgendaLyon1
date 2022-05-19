@@ -6,17 +6,14 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.view.GestureDetectorCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.RecyclerView;
 import com.calendar.iutcalendar.R;
 import com.iutcalendar.calendrier.Calendrier;
 import com.iutcalendar.calendrier.CurrentDate;
@@ -25,8 +22,8 @@ import com.iutcalendar.calendrier.EventCalendrier;
 import com.iutcalendar.data.DataGlobal;
 import com.iutcalendar.data.FileGlobal;
 import com.iutcalendar.data.Tuple;
-import com.iutcalendar.event.ClickListener;
 import com.iutcalendar.filedownload.FileDownload;
+import com.iutcalendar.notification.BackgroundNotification;
 import com.iutcalendar.settings.SettingsActivity;
 import com.iutcalendar.settings.SettingsApp;
 import com.iutcalendar.swiping.GestureEventManager;
@@ -162,11 +159,9 @@ public class MainActivity extends AppCompatActivity {
             Log.d("Extra", "no changes");
         }
 
-
-//        findViewById(R.id.startService).setOnClickListener(view ->
-//                startService(new Intent(getApplicationContext(), BackgroundNotification.class)));
-//        findViewById(R.id.endService).setOnClickListener(view ->
-//                stopService(new Intent(getApplicationContext(), BackgroundNotification.class)));
+        if (!BackgroundNotification.foregroundServiceRunning(this)) {
+            startForegroundService(new Intent(this, BackgroundNotification.class));
+        }
 
 
         Log.d("Global", "MainActivity end");
@@ -200,17 +195,13 @@ public class MainActivity extends AppCompatActivity {
             String changesMsg = Calendrier.changeToString(getApplicationContext(), changes);
             showChangedEvent(changesMsg);
 
-            //TODO notif : doit être appeler en arrière plan quand
-//            Notif.init(this);
-//            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-//            intent.putExtra("changes", changesMsg);
-//            PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-//            new Notif(this, getString(R.string.event), "changes : all the changes", R.drawable.ic_edit, pendingIntent).show();
         }
         savePrevCalendrier = getCalendrier().clone();
     }
 
     private void showChangedEvent(String changes) {
+        //TODO faire plus beau
+        //FIXME pas afficher quand charger agenda
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
         alertDialog.setTitle(getString(R.string.event));
 
@@ -407,7 +398,8 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-    public GestureEventManager getGesutreDaily(){
+
+    public GestureEventManager getGesutreDaily() {
         return new GestureDayListener();
     }
 

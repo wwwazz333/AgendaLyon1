@@ -49,7 +49,8 @@
                 android:title="@string/Theme"
                 android:summary="@string/themeLabelSettings"
                 android:entryValues="@array/theme_values"
-                android:entries="@array/theme_options"/>
+                android:entries="@array/theme_options"
+                android:defaultValue="default"/>
 
     </PreferenceCategory>
 

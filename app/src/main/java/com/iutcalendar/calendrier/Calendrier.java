@@ -176,6 +176,7 @@ public class Calendrier {
     }
 
     public List<Tuple<EventCalendrier, InfoChange>> getChangedEvent(Calendrier prevCal) {
+        //FIXME optimize
         List<Tuple<EventCalendrier, InfoChange>> changed = new ArrayList<>();
         EventCalendrier ev;
         for (EventCalendrier e : this.getEvents()) {

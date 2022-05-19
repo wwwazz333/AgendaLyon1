@@ -33,6 +33,7 @@ public class WidgetCalendar extends AppWidgetProvider {
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
+        //TODO set Background
         //Load some Data needed
         if (DataGlobal.getSavedBoolean(context, "summer_offset")) {
             DateCalendrier.setSummerOffset(1);

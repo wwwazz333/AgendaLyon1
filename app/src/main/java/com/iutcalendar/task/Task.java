@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class Task implements Serializable {
+    //TODO implémenté un rappel
     private final String txt;
 
     private final String linkedToUID;
