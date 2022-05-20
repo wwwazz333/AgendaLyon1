@@ -2,6 +2,7 @@ package com.iutcalendar.calendrier;
 
 
 import android.content.Context;
+import android.util.Log;
 import com.calendar.iutcalendar.R;
 import com.iutcalendar.data.Tuple;
 
@@ -52,7 +53,7 @@ public class Calendrier {
     }
 
     static private final String DELIMITER_LINE = "\n(?=[A-Z])";
-    private final List<EventCalendrier> events;
+    private List<EventCalendrier> events;
 
     public List<EventCalendrier> getEvents() {
         return events;
@@ -60,15 +61,12 @@ public class Calendrier {
 
     public Calendrier clone() {
         List<EventCalendrier> n = new ArrayList<>();
-        for (EventCalendrier e : events) {
-            n.add(e);
-        }
+        n.addAll(events);
         return new Calendrier(n);
     }
 
     public Calendrier(List<EventCalendrier> events) {
-        this.events = events;
-        Collections.sort(events);
+        setEvent(events);
     }
 
     public Calendrier(String txtIcs) {
@@ -96,8 +94,21 @@ public class Calendrier {
                 }
             }
         }
+        setEvent(events);
+    }
+
+    private void setEvent(List<EventCalendrier> events) {
+        this.events = events;
+//        events.removeAll(Collections.singleton(null));
+        for (EventCalendrier e :
+                events) {
+            if (e == null) {
+                Log.e("Event", "event null in arrays");
+            }
+        }
         Collections.sort(events);
     }
+
 
     public Calendrier getCalOfWeek(int weekNum) {
         LinkedList<EventCalendrier> eventsOfWeek = new LinkedList<>();
@@ -113,9 +124,11 @@ public class Calendrier {
 
     public List<EventCalendrier> getEventsOfDay(DateCalendrier date) {
         LinkedList<EventCalendrier> eventsOfDay = new LinkedList<>();
-        for (EventCalendrier ev : events) {
-            if (ev.getDate().getDay() == date.getDay() && ev.getDate().getMonth() == date.getMonth() && ev.getDate().getYear() == date.getYear()) {
-                eventsOfDay.add(ev);
+        if (date != null) {
+            for (EventCalendrier ev : events) {
+                if (ev.getDate().getDay() == date.getDay() && ev.getDate().getMonth() == date.getMonth() && ev.getDate().getYear() == date.getYear()) {
+                    eventsOfDay.add(ev);
+                }
             }
         }
 

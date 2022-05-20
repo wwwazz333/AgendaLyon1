@@ -8,6 +8,7 @@ public class DataGlobal {
     public final static String PATH_FILE_DOWNLOAD = "path_file_download";
     public final static String LANGUAGUE = "language_selected";
     public final static String THEME = "theme_selected";
+    public final static String ALARM_ENABELED = "alarme_enable";
 
     public static String getTheme(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context).getString(THEME, "default");

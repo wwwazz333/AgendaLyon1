@@ -11,6 +11,7 @@ import androidx.core.app.NotificationCompat;
 public class Notif extends NotificationCompat.Builder {
     public static final String CHANGE_EVENT_NOTIFICATION_ID = "Change event notification";
     public static final String UPDATE_BACKGROUND_NOTIFICATION_ID = "Background update permanent notification";
+    public static final String ALARM_NOTIFICATION_ID = "Alarm notfication";
     private NotificationManager mNotificationManager;
 
     public Notif(Context context, String chanelId, int importance, String title, String msg, @DrawableRes int icon, PendingIntent pendingItent) {
@@ -19,7 +20,9 @@ public class Notif extends NotificationCompat.Builder {
         setSmallIcon(icon);
         setContentTitle(title);
         setContentText(msg);
+        setAutoCancel(true);
         setContentIntent(pendingItent);
+
     }
 
     public void initChanel(Context context, String chanelId, int importance) {

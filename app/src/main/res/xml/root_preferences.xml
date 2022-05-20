@@ -53,6 +53,19 @@
                 android:defaultValue="default"/>
 
     </PreferenceCategory>
+    <PreferenceCategory app:title="Alarmes"
+                        android:icon="@drawable/ic_alarm">
+        <SwitchPreference
+                android:key="alarme_enable"
+                android:title="Alarmes auto"
+                android:summaryOn="Une alarm automatique vas s'activé en fonction des préférences"
+                android:defaultValue="false"/>
+
+        <Preference
+                app:fragment="com.iutcalendar.alarm.SettingsAlarmFragment"
+                app:title="Paramètre Alarmes"
+                app:summary="Paramètrage des alarmes en fonction des 1er heure de cours"/>
+    </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/Feature"
                         android:icon="@drawable/ic_feature_settings">
@@ -61,7 +74,6 @@
                 app:title="@string/Usage"
                 app:summary="@string/Usage_description"/>
     </PreferenceCategory>
-
 
 
 </PreferenceScreen>

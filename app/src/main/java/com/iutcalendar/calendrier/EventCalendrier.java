@@ -1,5 +1,7 @@
 package com.iutcalendar.calendrier;
 
+import android.util.Log;
+
 import java.util.GregorianCalendar;
 import java.util.Objects;
 
@@ -110,6 +112,13 @@ public class EventCalendrier implements Comparable<EventCalendrier> {
 
     @Override
     public int compareTo(EventCalendrier eventCalendrier) {
+        if (eventCalendrier.getDate() == null) {
+            Log.e("Event", "other date null");
+            return 1;
+        } else if (getDate() == null) {
+            Log.e("Event", "date null");
+            return -1;
+        }
         return getDate().compareTo(eventCalendrier.getDate());
     }
 

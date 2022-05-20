@@ -11,7 +11,9 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 import com.calendar.iutcalendar.R;
 import com.iutcalendar.MainActivity;
+import com.iutcalendar.alarm.Alarm;
 import com.iutcalendar.calendrier.Calendrier;
+import com.iutcalendar.calendrier.CurrentDate;
 import com.iutcalendar.calendrier.EventCalendrier;
 import com.iutcalendar.data.FileGlobal;
 import com.iutcalendar.data.Tuple;
@@ -21,13 +23,13 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class BackgroundNotification extends Service {
+public class BackgroundNotificationUpdate extends Service {
     //TODO start on boot
 
     public static boolean foregroundServiceRunning(Context ctx) {
         ActivityManager activityManager = (ActivityManager) ctx.getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : activityManager.getRunningServices(Integer.MAX_VALUE)) {
-            if (BackgroundNotification.class.getName().equals(service.service.getClassName())) {
+            if (BackgroundNotificationUpdate.class.getName().equals(service.service.getClassName())) {
                 return true;
             }
         }
@@ -38,19 +40,20 @@ public class BackgroundNotification extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d("Background", "start");
 
-//        Intent notifIntent = new Intent(getApplicationContext(), NotificationLauncher.class);
-//        PendingIntent pintent = PendingIntent.getService(getApplicationContext(), 0, notifIntent, 0);
-//        AlarmManager alarm = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-//        alarm.setRepeating(AlarmManager.RTC_WAKEUP, new CurrentDate().getTimeInMillis(), 60000, pintent);
-
         new Timer().scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 Log.d("Background", "start update");
                 repeatedTask();
                 Log.d("Background", "end update");
+                Calendrier cal = new Calendrier(FileGlobal.readFile(FileGlobal.getFileDownload(getApplicationContext())));
+                List<EventCalendrier> events = cal.getEventsOfDay(new CurrentDate());
+                if (!events.isEmpty()) {
+                    long timeAlarmRing = events.get(0).getDate().getTimeInMillis() - 2 * 3600 * 1000;
+                    Alarm.setAlarm(getApplicationContext(), timeAlarmRing);
+                }
             }
-        }, 0, 15 * 60_000);
+        }, 15 * 60_000, 15 * 60_000);
 
 
         Notif notif = new Notif(this, Notif.UPDATE_BACKGROUND_NOTIFICATION_ID, NotificationManager.IMPORTANCE_LOW,
@@ -61,6 +64,7 @@ public class BackgroundNotification extends Service {
     }
 
     public void repeatedTask() {
+        //FIXME optimize
         Calendrier prev = new Calendrier(FileGlobal.readFile(FileGlobal.getFileDownload(getApplicationContext())));
         FileDownload.updateFichier(FileGlobal.getFileDownload(getApplicationContext()).getAbsolutePath(), getApplicationContext());
         Calendrier nouveau = new Calendrier(FileGlobal.readFile(FileGlobal.getFileDownload(getApplicationContext())));
@@ -71,7 +75,6 @@ public class BackgroundNotification extends Service {
             String changesMsg = Calendrier.changeToString(getApplicationContext(), changes);
 
             //TODO string: message de notif
-            //TODO clear notif on click
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             intent.putExtra("changes", changesMsg);
             PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);

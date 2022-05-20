@@ -54,8 +54,9 @@ public class EventFragment extends Fragment {
             update.setTextColor(SettingsApp.getColor(R.attr.colorOnSurface, getActivity()));
             update.setTextSize(18);
 
-            MainActivity mainActivity = ((MainActivity) getActivity());
+
             if (fileCal.exists() && getActivity() != null && getActivity() instanceof MainActivity && getContext() != null) {
+                MainActivity mainActivity = ((MainActivity) getActivity());
                 String str = FileGlobal.readFile(fileCal);
 
                 mainActivity.setCalendrier(new Calendrier(str));

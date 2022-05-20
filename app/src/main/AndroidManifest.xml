@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
           package="com.calendar.iutcalendar">
 
     <uses-permission android:name="android.permission.INTERNET"/>
-<!--    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>-->
-<!--    <uses-permission-->
-<!--            android:name="android.permission.WRITE_EXTERNAL_STORAGE"-->
-<!--            tools:ignore="ScopedStorage"/>-->
+<!--        <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>-->
+<!--        <uses-permission-->
+<!--                android:name="android.permission.WRITE_EXTERNAL_STORAGE"-->
+<!--                tools:ignore="ScopedStorage"/>-->
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
 
-<!--    <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>-->
+    <!--    <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>-->
 
+    <uses-permission android:name="android.permission.VIBRATE"/>
     <application
             android:allowBackup="true"
             android:fullBackupContent="true"
@@ -25,7 +25,7 @@
             android:supportsRtl="true"
             android:theme="@style/Theme.IUTCalendar">
         <service
-                android:name="com.iutcalendar.notification.BackgroundNotification"
+                android:name="com.iutcalendar.notification.BackgroundNotificationUpdate"
                 android:enabled="true"
                 android:exported="true"/>
         <receiver
@@ -39,6 +39,12 @@
                     android:name="android.appwidget.provider"
                     android:resource="@xml/widget_calendar_info"/>
         </receiver>
+        <receiver
+                android:name="com.iutcalendar.alarm.Alarm"
+                android:exported="true">
+
+        </receiver>
+
 
         <activity
                 android:screenOrientation="portrait"

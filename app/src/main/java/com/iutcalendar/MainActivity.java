@@ -15,6 +15,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import com.calendar.iutcalendar.R;
+import com.iutcalendar.alarm.Alarm;
 import com.iutcalendar.calendrier.Calendrier;
 import com.iutcalendar.calendrier.CurrentDate;
 import com.iutcalendar.calendrier.DateCalendrier;
@@ -23,7 +24,7 @@ import com.iutcalendar.data.DataGlobal;
 import com.iutcalendar.data.FileGlobal;
 import com.iutcalendar.data.Tuple;
 import com.iutcalendar.filedownload.FileDownload;
-import com.iutcalendar.notification.BackgroundNotification;
+import com.iutcalendar.notification.BackgroundNotificationUpdate;
 import com.iutcalendar.settings.SettingsActivity;
 import com.iutcalendar.settings.SettingsApp;
 import com.iutcalendar.swiping.GestureEventManager;
@@ -159,10 +160,9 @@ public class MainActivity extends AppCompatActivity {
             Log.d("Extra", "no changes");
         }
 
-        if (!BackgroundNotification.foregroundServiceRunning(this)) {
-            startForegroundService(new Intent(this, BackgroundNotification.class));
+        if (!BackgroundNotificationUpdate.foregroundServiceRunning(this)) {
+            startForegroundService(new Intent(this, BackgroundNotificationUpdate.class));
         }
-
 
         Log.d("Global", "MainActivity end");
     }
