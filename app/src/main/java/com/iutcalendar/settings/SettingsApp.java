@@ -39,8 +39,8 @@ public class SettingsApp {
         } else {
             context.setTheme(R.style.Theme_IUTCalendar);
         }
-
     }
+
 
     public static @ColorInt int getColor(int id, Activity activity) {
         TypedValue typedValue = new TypedValue();

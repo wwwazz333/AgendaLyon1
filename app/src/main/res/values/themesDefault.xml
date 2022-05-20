@@ -33,14 +33,4 @@
         <!--        <item name="android:textColor">@color/text_white</item>-->
 
     </style>
-
-    <style name="Theme.IUTCalendar.AppWidgetContainerParent" parent="@android:style/Theme.DeviceDefault">
-        <item name="appWidgetRadius">8dp</item>
-        <item name="appWidgetPadding">4dp</item>
-        <item name="appWidgetInnerRadius">4dp</item>
-        <item name="android:background">@color/black</item>
-    </style>
-
-    <style name="Theme.IUTCalendar.AppWidgetContainer"
-           parent="Theme.IUTCalendar.AppWidgetContainerParent"/>
 </resources>

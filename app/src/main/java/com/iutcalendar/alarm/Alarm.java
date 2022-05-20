@@ -24,28 +24,31 @@ public class Alarm extends BroadcastReceiver {
 
     /**
      * cancel l'alarm précédente et en place une nouvelle
+     *
      * @param context
-     * @param time heure de l'alarm (en ms)
+     * @param time    heure de l'alarm (en ms)
      */
     public static void setAlarm(Context context, long time) {
         Intent ai = new Intent(context, Alarm.class);
         ai.putExtra("action", Alarm.START);
         //change requestCode pour placer plusieur alarm ou
-//        alarmIntent.setData(Uri.parse("custom://" + alarm.ID));
-//        alarmIntent.setAction(String.valueOf(alarm.ID));
+//        ai.setData(Uri.parse("custom://" + alarm.ID));
+//        ai.setAction(String.valueOf(alarm.ID));
         PendingIntent alarmIntent = PendingIntent.getBroadcast(context, 0, ai, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         am.setAlarmClock(new AlarmManager.AlarmClockInfo(time, alarmIntent), alarmIntent);
     }
 
     /**
-     *
      * @param context
      * @return la prochaine alarm du téléphone y compris celle du system
      */
     public static long getAlarm(Context context) {
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        return am.getNextAlarmClock().getTriggerTime();
+        if (am.getNextAlarmClock() != null) {
+            return am.getNextAlarmClock().getTriggerTime();
+        }
+        return -1;
     }
 
     @Override

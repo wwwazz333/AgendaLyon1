@@ -207,7 +207,9 @@
         <FrameLayout
                 android:id="@+id/frameLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="match_parent"
+                android:paddingBottom="200dp"
+        />
 
     </LinearLayout>
     <View android:id="@+id/actionView"

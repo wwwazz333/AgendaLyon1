@@ -14,6 +14,7 @@ public class DataGlobal {
         return PreferenceManager.getDefaultSharedPreferences(context).getString(THEME, "default");
     }
 
+
     public static String getLanguage(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context).getString(LANGUAGUE, "fr");
     }
@@ -53,5 +54,6 @@ public class DataGlobal {
     public static String getSavedPath(Context context) {
         return getSavedString(context, URL);
     }
+
 
 }

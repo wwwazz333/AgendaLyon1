@@ -1,4 +1,4 @@
-package com.iutcalendar;
+package com.iutcalendar.service;
 
 import android.app.AlarmManager;
 import android.app.NotificationManager;
@@ -10,6 +10,7 @@ import android.os.IBinder;
 import android.util.Log;
 import androidx.annotation.Nullable;
 import com.calendar.iutcalendar.R;
+import com.iutcalendar.MainActivity;
 import com.iutcalendar.alarm.Alarm;
 import com.iutcalendar.calendrier.Calendrier;
 import com.iutcalendar.calendrier.CurrentDate;
@@ -23,7 +24,7 @@ import java.util.List;
 
 public class ForgroundServiceUpdate extends Service {
     //TODO start on boot
-    private static final long INTERVAL_UPDATE = 15 * 60_000;
+    private static final long INTERVAL_UPDATE = /*15 * */60_000;
 
 
     public static void start(Context context) {
@@ -90,7 +91,8 @@ public class ForgroundServiceUpdate extends Service {
             //TODO string: message de notif
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             intent.putExtra("changes", changesMsg);
-            PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+            PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent,
+                    PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE);
 
             Notif notif = new Notif(this, Notif.CHANGE_EVENT_NOTIFICATION_ID, NotificationManager.IMPORTANCE_DEFAULT,
                     getString(R.string.event), "changes : all the changes", R.drawable.ic_edit, pendingIntent);

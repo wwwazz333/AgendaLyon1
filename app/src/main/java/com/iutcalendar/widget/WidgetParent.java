@@ -1,24 +1,19 @@
 package com.iutcalendar.widget;
 
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.Toast;
-import androidx.core.app.NotificationCompat;
 import com.calendar.iutcalendar.R;
 import com.iutcalendar.MainActivity;
 import com.iutcalendar.calendrier.Calendrier;
 import com.iutcalendar.calendrier.CurrentDate;
-import com.iutcalendar.calendrier.DateCalendrier;
 import com.iutcalendar.calendrier.EventCalendrier;
 import com.iutcalendar.data.DataGlobal;
 import com.iutcalendar.data.FileGlobal;
@@ -28,9 +23,11 @@ import com.iutcalendar.task.PersonnalCalendrier;
 import java.util.GregorianCalendar;
 
 
-public class WidgetCalendar extends AppWidgetProvider {
+public abstract class WidgetParent extends AppWidgetProvider {
     public static final String SHOW_TOAST_ACTION = "showing_toast";
     public static final int DELAY_AFTER_EVENT_PASSED = -30;
+
+    abstract public Class<?> getWidgetClassInstance();
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
@@ -40,17 +37,17 @@ public class WidgetCalendar extends AppWidgetProvider {
         SettingsApp.setLocale(context.getResources(), DataGlobal.getLanguage(context));
 
         //update Widget
-        ComponentName thisWidget = new ComponentName(context, WidgetCalendar.class);
+        ComponentName thisWidget = new ComponentName(context, getWidgetClassInstance());
         Log.d("Widget", "start updated");
         int[] allWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);
 
         for (int widgetId : allWidgetIds) {
             // Construct the RemoteViews object
-            RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_calendar);
+            RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_calendar_grey);
 
 
             CurrentDate currentDate = new CurrentDate();
-            currentDate.add(GregorianCalendar.MINUTE, WidgetCalendar.DELAY_AFTER_EVENT_PASSED);//pour que l'event s'affiche tjrs au bout de 30min
+            currentDate.add(GregorianCalendar.MINUTE, WidgetParent.DELAY_AFTER_EVENT_PASSED);//pour que l'event s'affiche tjrs au bout de 30min
 
 
             Calendrier cal = new Calendrier(FileGlobal.readFile(FileGlobal.getFileDownload(context)));
@@ -77,7 +74,6 @@ public class WidgetCalendar extends AppWidgetProvider {
             }
 
 
-
             //open MainActivity via Btn
             Intent intentActvity = new Intent(context, MainActivity.class);
             intentActvity.putExtra("launche_next_event", true);
@@ -85,7 +81,7 @@ public class WidgetCalendar extends AppWidgetProvider {
                     PendingIntent.getActivity(context, 0, intentActvity, PendingIntent.FLAG_IMMUTABLE));
 
 
-            Intent intent = new Intent(context, WidgetCalendar.class);
+            Intent intent = new Intent(context, getWidgetClassInstance());
 
             intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
             intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds);
@@ -95,7 +91,7 @@ public class WidgetCalendar extends AppWidgetProvider {
             views.setOnClickPendingIntent(R.id.listLayout, pendingIntent);
             appWidgetManager.updateAppWidget(widgetId, views);
 
-            
+
         }
 
         Log.d("Widget", "updated");

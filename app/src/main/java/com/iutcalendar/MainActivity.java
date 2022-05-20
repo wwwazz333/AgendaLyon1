@@ -21,13 +21,14 @@ import com.iutcalendar.data.DataGlobal;
 import com.iutcalendar.data.FileGlobal;
 import com.iutcalendar.data.Tuple;
 import com.iutcalendar.filedownload.FileDownload;
+import com.iutcalendar.service.ForgroundServiceUpdate;
 import com.iutcalendar.settings.SettingsActivity;
 import com.iutcalendar.settings.SettingsApp;
 import com.iutcalendar.swiping.GestureEventManager;
 import com.iutcalendar.swiping.ReloadAnimationFragment;
 import com.iutcalendar.swiping.TouchGestureListener;
 import com.iutcalendar.task.PersonnalCalendrier;
-import com.iutcalendar.widget.WidgetCalendar;
+import com.iutcalendar.widget.WidgetParent;
 
 import java.io.File;
 import java.util.GregorianCalendar;
@@ -45,9 +46,6 @@ public class MainActivity extends AppCompatActivity {
     private View actionView;
     private FrameLayout frameLayout;
 
-
-    private static final String NOTIFICATION_CHANNEL_ID = "12001";
-    private final static String default_notification_channel_id = "modificationChanelId";
 
     private void initVariable() {
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -90,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         //---------------Gesture swipe---------------
+        //Week
         int childCount = nameDayLayout.getChildCount();
         for (int i = 0; i < childCount; i++) {
             nameDayLayout.getChildAt(i).setOnTouchListener(new TouchGestureListener(getApplicationContext(), new GestureWeekListener()));
@@ -97,7 +96,9 @@ public class MainActivity extends AppCompatActivity {
         nameDayLayout.setOnTouchListener(new TouchGestureListener(getApplicationContext(), new GestureWeekListener()));
         dayOfWeek.setOnTouchListener(new TouchGestureListener(getApplicationContext(), new GestureWeekListener()));
 
+        //Day
         actionView.setOnTouchListener(new TouchGestureListener(getApplicationContext(), new GestureDayListener()));
+        frameLayout.setOnTouchListener(new TouchGestureListener(getApplicationContext(), new GestureDayListener()));
 
 
         //---------------Button---------------
@@ -135,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
         CurrentDate dateToLaunche = new CurrentDate();
         Log.d("Widget", "main : " + getIntent().getBooleanExtra("launche_next_event", false));
         if (getIntent().getBooleanExtra("launche_next_event", false)) {
-            dateToLaunche.add(GregorianCalendar.MINUTE, WidgetCalendar.DELAY_AFTER_EVENT_PASSED);//pcq l'event s'affiche tjrs au bout de 30min
+            dateToLaunche.add(GregorianCalendar.MINUTE, WidgetParent.DELAY_AFTER_EVENT_PASSED);//pcq l'event s'affiche tjrs au bout de 30min
             EventCalendrier[] es = getCalendrier().getNext2EventAfter(dateToLaunche);
             if (es.length >= 1) {
                 dateToLaunche = new CurrentDate(es[0].getDate());

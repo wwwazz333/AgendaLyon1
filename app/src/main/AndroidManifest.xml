@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
     <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <application
             android:allowBackup="true"
             android:fullBackupContent="true"
@@ -18,12 +19,8 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/Theme.IUTCalendar">
-        <service
-                android:name="com.iutcalendar.notification.BackgroundNotificationUpdate"
-                android:enabled="true"
-                android:exported="true"/>
         <receiver
-                android:name="com.iutcalendar.widget.WidgetCalendar"
+                android:name="com.iutcalendar.widget.WidgetCalendarBlack"
                 android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
@@ -33,15 +30,31 @@
                     android:name="android.appwidget.provider"
                     android:resource="@xml/widget_calendar_info"/>
         </receiver>
+        <receiver
+                android:name="com.iutcalendar.widget.WidgetCalendarGrey"
+                android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+
+            <meta-data
+                    android:name="android.appwidget.provider"
+                    android:resource="@xml/widget_grey_calendar_info"/>
+        </receiver>
+
         <service
-                android:name="com.iutcalendar.ForgroundServiceUpdate"
+                android:name="com.iutcalendar.service.ForgroundServiceUpdate"
                 android:enabled="true"
-                android:exported="true"
-                android:permission="TODO"/>
+                android:exported="false"/>
+        <receiver android:name="com.iutcalendar.service.StartForgroundServiceOnBoot"
+                  android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
         <receiver
                 android:name="com.iutcalendar.alarm.Alarm"
                 android:exported="true">
-
         </receiver>
 
 

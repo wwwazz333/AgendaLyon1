@@ -1,7 +1,7 @@
 <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         style="@style/Widget.IUTCalendar.AppWidget.Container"
-        android:theme="@style/Theme.IUTCalendar.AppWidgetContainerBlack"
+        android:theme="@style/Theme.IUTCalendar.AppWidgetContainerGrey"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/rootLayout">

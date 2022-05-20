@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.IUTCalendar.AppWidgetContainerParent" parent="@android:style/Theme.DeviceDefault">
+        <item name="appWidgetRadius">8dp</item>
+        <item name="appWidgetPadding">4dp</item>
+        <item name="appWidgetInnerRadius">4dp</item>
+        <item name="colorOnPrimary">@color/white</item>
+
+    </style>
+
+    <style name="Theme.IUTCalendar.AppWidgetContainer"
+           parent="Theme.IUTCalendar.AppWidgetContainerParent"/>
+
+    <style name="Theme.IUTCalendar.AppWidgetContainerBlack"
+           parent="Theme.IUTCalendar.AppWidgetContainerParent">
+        <item name="colorOnBackground">@color/white</item>
+        <item name="android:background">@color/black</item>
+    </style>
+
+    <style name="Theme.IUTCalendar.AppWidgetContainerGrey"
+           parent="Theme.IUTCalendar.AppWidgetContainerBlack">
+        <item name="android:background">@color/grey</item>
+    </style>
+
+    <style name="Theme.IUTCalendar.AppWidgetContainerWhite"
+           parent="Theme.IUTCalendar.AppWidgetContainerParent">
+        <item name="colorOnBackground">@color/black</item>
+        <item name="android:background">@color/altWhite</item>
+    </style>
+
+
+</resources>

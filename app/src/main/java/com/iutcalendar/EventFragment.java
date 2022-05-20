@@ -47,13 +47,7 @@ public class EventFragment extends Fragment {
 
             File fileCal = FileGlobal.getFileDownload(getContext());
 
-            TextView update = new TextView(getActivity());
-            update.setLayoutParams(lp);
-            update.setGravity(Gravity.CENTER);
-
-            // Pour la couleur du last update
-            update.setTextColor(SettingsApp.getColor(R.attr.colorOnSurface, getActivity()));
-            update.setTextSize(18);
+            TextView update = view.findViewById(R.id.updateText);
 
 
             if (fileCal.exists() && getActivity() != null && getActivity() instanceof MainActivity && getContext() != null) {
@@ -97,12 +91,9 @@ public class EventFragment extends Fragment {
                             new SimpleDateFormat("dd/MM/yyyy HH:mm", SettingsApp.getLocale(getResources())).format(fileCal.lastModified())
                     )));
 
-                    layout.addView(update);
                 }
             } else {
                 update.setText(R.string.no_last_update);
-
-                layout.addView(update);
             }
         }
 
