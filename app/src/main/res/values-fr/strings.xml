@@ -54,4 +54,6 @@
     <string name="themeLabelSettings">Changer de thème (redémarrer l\'application)</string>
     <string name="Theme">Thème</string>
     <string name="No_alarm">Aucune alarme</string>
+    <string name="WidgetTheme">Thème Widget</string>
+    <string name="themeWidgetLabelSettings">Changer le thème du widget (s\'applique après actualisation)</string>
 </resources>

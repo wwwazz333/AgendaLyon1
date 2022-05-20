@@ -54,4 +54,6 @@
     <string name="themeLabelSettings">Choose the theme (restart the app)</string>
     <string name="Theme">Theme</string>
     <string name="No_alarm">No alarm</string>
+    <string name="WidgetTheme">Widget Theme</string>
+    <string name="themeWidgetLabelSettings">Change theme of home screen widget (apply after update)</string>
 </resources>

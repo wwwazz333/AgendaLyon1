@@ -46,8 +46,8 @@
                 android:defaultValue="default"/>
         <ListPreference
                 android:key="theme_widget_selected"
-                android:title="Thème Widget"
-                android:summary="Changer le thème du widget"
+                android:title="@string/WidgetTheme"
+                android:summary="@string/themeWidgetLabelSettings"
                 android:entryValues="@array/theme_widget_values"
                 android:entries="@array/theme_widget_options"
                 android:defaultValue="grey"/>
