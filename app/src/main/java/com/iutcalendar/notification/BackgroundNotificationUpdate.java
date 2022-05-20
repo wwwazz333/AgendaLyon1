@@ -25,6 +25,7 @@ import java.util.TimerTask;
 
 public class BackgroundNotificationUpdate extends Service {
     //TODO start on boot
+    private static final long INTERVAL_UPDATE = 15 * 60_000;
 
     public static boolean foregroundServiceRunning(Context ctx) {
         ActivityManager activityManager = (ActivityManager) ctx.getSystemService(Context.ACTIVITY_SERVICE);
@@ -49,12 +50,22 @@ public class BackgroundNotificationUpdate extends Service {
                 //TODO si je le fais que ici sa s'actualise pas hyper rapidement
                 Calendrier cal = new Calendrier(FileGlobal.readFile(FileGlobal.getFileDownload(getApplicationContext())));
                 List<EventCalendrier> events = cal.getEventsOfDay(new CurrentDate());
+
                 if (!events.isEmpty()) {
                     long timeAlarmRing = events.get(0).getDate().getTimeInMillis() - 2 * 3600 * 1000;
-                    Alarm.setAlarm(getApplicationContext(), timeAlarmRing);
+                    CurrentDate d = new CurrentDate();
+                    d.setTimeInMillis(timeAlarmRing);
+                    Log.d("Background", d.timeToString());
+                    if (timeAlarmRing > System.currentTimeMillis()) {
+                        Log.d("Background", "alarm set");
+                        Alarm.setAlarm(getApplicationContext(), timeAlarmRing);
+                    } else {
+                        Log.d("Background", "alarm passer");
+                    }
+
                 }
             }
-        }, 15 * 60_000, 15 * 60_000);
+        }, BackgroundNotificationUpdate.INTERVAL_UPDATE, BackgroundNotificationUpdate.INTERVAL_UPDATE);
 
 
         Notif notif = new Notif(this, Notif.UPDATE_BACKGROUND_NOTIFICATION_ID, NotificationManager.IMPORTANCE_LOW,

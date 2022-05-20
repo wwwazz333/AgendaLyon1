@@ -22,7 +22,7 @@ public class SettingsAlarmFragment extends Fragment {
         TextView text = view.findViewById(R.id.test);
         DateCalendrier time = new DateCalendrier();
         time.setTimeInMillis(Alarm.getAlarm(getContext()));
-        text.setText(new CurrentDate().timeToString());
+        text.setText(time.timeToString());
         return view;
     }
 }

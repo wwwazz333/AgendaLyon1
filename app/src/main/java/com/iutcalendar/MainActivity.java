@@ -167,7 +167,6 @@ public class MainActivity extends AppCompatActivity {
             startForegroundService(new Intent(this, BackgroundNotificationUpdate.class));
         }
 
-
         Log.d("Global", "MainActivity end");
     }
 
