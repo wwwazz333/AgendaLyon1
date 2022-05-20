@@ -53,4 +53,5 @@
     <string name="title_activity_settings">Paramètre</string>
     <string name="themeLabelSettings">Changer de thème (redémarrer l\'application)</string>
     <string name="Theme">Thème</string>
+    <string name="No_alarm">Aucune alarme</string>
 </resources>
