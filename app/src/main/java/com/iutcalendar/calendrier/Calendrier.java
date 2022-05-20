@@ -146,11 +146,13 @@ public class Calendrier {
         for (EventCalendrier e : getEvents()) {
             if (i >= 2) {
                 break;
-            }
-            if (e.getDate().compareTo(date) >= 0) {
+            } else if (e.getDate().getTimeInMillis() >= date.getTimeInMillis()) {
                 nexts[i++] = e;
+            } else {
+                Log.d("Widget", e.getDate().timeToString());
             }
         }
+        Log.d("Widget", date.timeToString());
         return nexts;
     }
 

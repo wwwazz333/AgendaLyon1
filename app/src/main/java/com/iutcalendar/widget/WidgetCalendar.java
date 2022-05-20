@@ -56,6 +56,7 @@ public class WidgetCalendar extends AppWidgetProvider {
             CurrentDate currentDate = new CurrentDate();
             currentDate.add(GregorianCalendar.MINUTE, -30);//pour que l'event s'affiche tjrs au bout de 30min
 
+
             Calendrier cal = new Calendrier(FileGlobal.readFile(FileGlobal.getFileDownload(context)));
 
             EventCalendrier[] events = cal.getNext2EventAfter(currentDate);
@@ -78,6 +79,8 @@ public class WidgetCalendar extends AppWidgetProvider {
             } else {
                 views.setTextViewText(R.id.dateLabel, currentDate.toString());
             }
+
+
 
             //open MainActivity via Btn
             Intent intentActvity = new Intent(context, MainActivity.class);

@@ -102,7 +102,7 @@ public class EventCalendrier implements Comparable<EventCalendrier> {
 
 
         int hour = Integer.parseInt(time.substring(0, 2));
-        int minute = Integer.parseInt(time.substring(2, 3));
+        int minute = Integer.parseInt(time.substring(2, 4));
 
         DateCalendrier dateCalendrier = new DateCalendrier(day, month, year, hour, minute);
         dateCalendrier.doZoneOffset();

@@ -140,6 +140,7 @@ public class MainActivity extends AppCompatActivity {
         CurrentDate dateToLaunche = new CurrentDate();
         Log.d("Widget", "main : " + getIntent().getBooleanExtra("launche_next_event", false));
         if (getIntent().getBooleanExtra("launche_next_event", false)) {
+            dateToLaunche.add(GregorianCalendar.MINUTE, -30);//pcq l'event s'affiche tjrs au bout de 30min
             EventCalendrier[] es = getCalendrier().getNext2EventAfter(dateToLaunche);
             if (es.length >= 1) {
                 dateToLaunche = new CurrentDate(es[0].getDate());
@@ -167,7 +168,6 @@ public class MainActivity extends AppCompatActivity {
 //        PendingIntent pb = PendingIntent.getForegroundService(this, 0, testB, 0);
 //        AlarmManager am = (AlarmManager) getSystemService(ALARM_SERVICE);
 //        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 1000, pb);
-
 
         Log.d("Global", "MainActivity end");
     }

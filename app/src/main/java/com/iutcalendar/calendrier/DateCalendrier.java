@@ -137,7 +137,7 @@ public class DateCalendrier extends GregorianCalendar {
     }
 
     public String timeToString() {
-        return getHour() + ":" + DateCalendrier.fillWithZeroAfter(getMinute());
+        return getHour() + ":" + fillWithZeroBefore(getMinute());
     }
 
 
