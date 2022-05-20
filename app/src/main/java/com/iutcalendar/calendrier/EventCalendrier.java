@@ -97,7 +97,7 @@ public class EventCalendrier implements Comparable<EventCalendrier> {
 
 
         int year = Integer.parseInt(date.substring(0, 4));
-        int month = Integer.parseInt(date.substring(4, 6)) - 1;//pcq start à 0
+        int month = Integer.parseInt(date.substring(4, 6));
         int day = Integer.parseInt(date.substring(6, 8));
 
 
@@ -106,6 +106,7 @@ public class EventCalendrier implements Comparable<EventCalendrier> {
 
         DateCalendrier dateCalendrier = new DateCalendrier(day, month, year, hour, minute);
         dateCalendrier.doZoneOffset();
+
         return dateCalendrier;
     }
 

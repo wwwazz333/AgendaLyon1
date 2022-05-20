@@ -30,16 +30,12 @@ import java.util.GregorianCalendar;
 
 public class WidgetCalendar extends AppWidgetProvider {
     public static final String SHOW_TOAST_ACTION = "showing_toast";
+    public static final int DELAY_AFTER_EVENT_PASSED = -30;
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         //TODO set Background
         //Load some Data needed
-        if (DataGlobal.getSavedBoolean(context, "summer_offset")) {
-            DateCalendrier.setSummerOffset(1);
-        } else {
-            DateCalendrier.setSummerOffset(0);
-        }
         PersonnalCalendrier.getInstance().load(context);
         SettingsApp.setLocale(context.getResources(), DataGlobal.getLanguage(context));
 
@@ -54,7 +50,7 @@ public class WidgetCalendar extends AppWidgetProvider {
 
 
             CurrentDate currentDate = new CurrentDate();
-            currentDate.add(GregorianCalendar.MINUTE, -30);//pour que l'event s'affiche tjrs au bout de 30min
+            currentDate.add(GregorianCalendar.MINUTE, WidgetCalendar.DELAY_AFTER_EVENT_PASSED);//pour que l'event s'affiche tjrs au bout de 30min
 
 
             Calendrier cal = new Calendrier(FileGlobal.readFile(FileGlobal.getFileDownload(context)));

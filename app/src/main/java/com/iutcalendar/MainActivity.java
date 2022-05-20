@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -17,19 +16,18 @@ import androidx.fragment.app.FragmentTransaction;
 import com.calendar.iutcalendar.R;
 import com.iutcalendar.calendrier.Calendrier;
 import com.iutcalendar.calendrier.CurrentDate;
-import com.iutcalendar.calendrier.DateCalendrier;
 import com.iutcalendar.calendrier.EventCalendrier;
 import com.iutcalendar.data.DataGlobal;
 import com.iutcalendar.data.FileGlobal;
 import com.iutcalendar.data.Tuple;
 import com.iutcalendar.filedownload.FileDownload;
-import com.iutcalendar.notification.BackgroundNotificationUpdate;
 import com.iutcalendar.settings.SettingsActivity;
 import com.iutcalendar.settings.SettingsApp;
 import com.iutcalendar.swiping.GestureEventManager;
 import com.iutcalendar.swiping.ReloadAnimationFragment;
 import com.iutcalendar.swiping.TouchGestureListener;
 import com.iutcalendar.task.PersonnalCalendrier;
+import com.iutcalendar.widget.WidgetCalendar;
 
 import java.io.File;
 import java.util.GregorianCalendar;
@@ -91,8 +89,6 @@ public class MainActivity extends AppCompatActivity {
         PersonnalCalendrier.getInstance().load(getApplicationContext());
 
 
-        currDateLabel.setOnClickListener(view -> setCurrDate(new CurrentDate()));
-
         //---------------Gesture swipe---------------
         int childCount = nameDayLayout.getChildCount();
         for (int i = 0; i < childCount; i++) {
@@ -105,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         //---------------Button---------------
+        currDateLabel.setOnClickListener(view -> setCurrDate(new CurrentDate()));
         findViewById(R.id.settingsBtn).setOnClickListener(view -> {
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
@@ -129,8 +126,6 @@ public class MainActivity extends AppCompatActivity {
         setOnclicDay(R.id.samediNum, GregorianCalendar.SATURDAY);
         setOnclicDay(R.id.dimancheNum, GregorianCalendar.SUNDAY);
 
-
-        DataGlobal.savePathDownloadFile(getApplicationContext(), getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath());
         //init Calendrier
         File fileCal = FileGlobal.getFileDownload(getApplicationContext());
         String str = FileGlobal.readFile(fileCal);
@@ -140,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
         CurrentDate dateToLaunche = new CurrentDate();
         Log.d("Widget", "main : " + getIntent().getBooleanExtra("launche_next_event", false));
         if (getIntent().getBooleanExtra("launche_next_event", false)) {
-            dateToLaunche.add(GregorianCalendar.MINUTE, -30);//pcq l'event s'affiche tjrs au bout de 30min
+            dateToLaunche.add(GregorianCalendar.MINUTE, WidgetCalendar.DELAY_AFTER_EVENT_PASSED);//pcq l'event s'affiche tjrs au bout de 30min
             EventCalendrier[] es = getCalendrier().getNext2EventAfter(dateToLaunche);
             if (es.length >= 1) {
                 dateToLaunche = new CurrentDate(es[0].getDate());
@@ -150,8 +145,7 @@ public class MainActivity extends AppCompatActivity {
         }
         setCurrDate(dateToLaunche);
 
-//        update();
-
+        //affiche la dialog si ouvert depuis notification (changmenents)
         String changements = getIntent().getStringExtra("changes");
         if (changements != null) {
             Log.d("Extra", changements);
@@ -160,14 +154,10 @@ public class MainActivity extends AppCompatActivity {
             Log.d("Extra", "no changes");
         }
 
-        if (!BackgroundNotificationUpdate.foregroundServiceRunning(this)) {
-            startForegroundService(new Intent(this, BackgroundNotificationUpdate.class));
-        }
+        //démare le service d'arrière plan avec interval
+        ForgroundServiceUpdate.start(getApplicationContext());
 
-//        Intent testB = new Intent(this, TestBroadCast.class);
-//        PendingIntent pb = PendingIntent.getForegroundService(this, 0, testB, 0);
-//        AlarmManager am = (AlarmManager) getSystemService(ALARM_SERVICE);
-//        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 1000, pb);
+        update();
 
         Log.d("Global", "MainActivity end");
     }
@@ -221,13 +211,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void updateScreen() {
-        if (DataGlobal.getSavedBoolean(getApplicationContext(), "summer_offset")) {
-            Log.d("Offset", "summer offset");
-            DateCalendrier.setSummerOffset(1);
-        } else {
-            DateCalendrier.setSummerOffset(0);
-            Log.d("Offset", "winter offset");
-        }
+
 
         updateEvent();
     }

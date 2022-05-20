@@ -1,6 +1,7 @@
 package com.iutcalendar;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -67,6 +68,10 @@ public class EventFragment extends Fragment {
                 CurrentDate date = mainActivity.getCurrDate();
 
                 List<EventCalendrier> eventToday = cal.getEventsOfDay(date);
+
+                for (EventCalendrier e : eventToday) {
+                    Log.d("Date", e.toString());
+                }
 
 
                 ClickListener listener = index -> {//Event on click Event

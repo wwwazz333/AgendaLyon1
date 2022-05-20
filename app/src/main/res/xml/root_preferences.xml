@@ -28,13 +28,6 @@
                 app:summary="@string/revert_swipe_description"
                 android:defaultValue="false"
         />
-
-        <SwitchPreference
-                app:key="summer_offset"
-                app:title="@string/summer_offset"
-                app:summary="@string/summer_offset_description"
-                android:defaultValue="true"
-        />
         <ListPreference
                 android:key="language_selected"
                 android:title="@string/choose_langue"

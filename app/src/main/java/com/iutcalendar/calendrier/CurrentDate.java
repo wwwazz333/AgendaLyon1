@@ -57,11 +57,11 @@ public class CurrentDate extends DateCalendrier {
     @Override
     public String toString() {
         return getDisplayName(GregorianCalendar.DAY_OF_WEEK, GregorianCalendar.SHORT, Locale.FRANCE) + " " +
-                fillWithZeroBefore(getDay()) + "/" + fillWithZeroBefore(getMonth() + 1) + "/" + getYear();
+                fillWithZeroBefore(getDay()) + "/" + fillWithZeroBefore(getMonth()) + "/" + getYear();
     }
 
     public String toString(Locale location) {
         return getDisplayName(GregorianCalendar.DAY_OF_WEEK, GregorianCalendar.SHORT, location) + " " +
-                fillWithZeroBefore(getDay()) + "/" + fillWithZeroBefore(getMonth() + 1) + "/" + getYear();
+                fillWithZeroBefore(getDay()) + "/" + fillWithZeroBefore(getMonth()) + "/" + getYear();
     }
 }

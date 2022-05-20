@@ -64,6 +64,7 @@ public class FileDownload {
             Log.e("File", "IOException erreur update file: " + e.getMessage());
         } catch (Exception e) {
             Log.e("File", "Erreur update file : " + e.getMessage());
+            e.printStackTrace();
         }
     }
 

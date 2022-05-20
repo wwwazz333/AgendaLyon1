@@ -1,6 +1,7 @@
 package com.iutcalendar.data;
 
 import android.content.Context;
+import android.os.Environment;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -16,12 +17,17 @@ public class FileGlobal {
     public static final String nameFileSave = "savedCal.ics";
     public static final String nameFilePersonnalTask = "personalTasks.dat";
 
+
+    public static String getPathDownladDir(Context context) {
+        return context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath();
+    }
+
     public static File getFileDownload(Context context) {
-        return new File(DataGlobal.getSavedPathDownloadFile(context) + "/" + nameFileSave);
+        return new File(getPathDownladDir(context) + "/" + nameFileSave);
     }
 
     public static File getFilePersonnalTask(Context context) {
-        return new File(DataGlobal.getSavedPathDownloadFile(context) + "/" + nameFilePersonnalTask);
+        return new File(getPathDownladDir(context) + "/" + nameFilePersonnalTask);
     }
 
     public static String readFile(File file) {

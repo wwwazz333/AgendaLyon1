@@ -99,13 +99,6 @@ public class Calendrier {
 
     private void setEvent(List<EventCalendrier> events) {
         this.events = events;
-//        events.removeAll(Collections.singleton(null));
-        for (EventCalendrier e :
-                events) {
-            if (e == null) {
-                Log.e("Event", "event null in arrays");
-            }
-        }
         Collections.sort(events);
     }
 

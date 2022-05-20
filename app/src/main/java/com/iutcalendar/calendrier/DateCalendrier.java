@@ -1,48 +1,32 @@
 package com.iutcalendar.calendrier;
 
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.temporal.ChronoField;
 import java.util.GregorianCalendar;
-import java.util.Locale;
 
 public class DateCalendrier extends GregorianCalendar {
 
-    private static int summerOffset = 1;
-    private boolean zoneOffsetAppliced = false;
+    private final boolean zoneOffsetAppliced = false;
 
     public DateCalendrier() {
-        super(Locale.FRANCE);
         set(GregorianCalendar.SECOND, 0);
+        set(GregorianCalendar.MILLISECOND, 0);
     }
 
     public DateCalendrier(int day, int month, int year, int hour, int minute) {
-        super(Locale.FRANCE);
+        this();
 
         setDay(day);
         setMonth(month);
         setYear(year);
         setHour(hour);
         setMinute(minute);
-        set(GregorianCalendar.SECOND, 0);
     }
+
 
     public DateCalendrier(DateCalendrier other) {
-        super(Locale.FRANCE);
-
-        setDay(other.getDay());
-        setMonth(other.getMonth());
-        setYear(other.getYear());
-        setHour(other.getHour());
-        setMinute(other.getMinute());
-        set(GregorianCalendar.SECOND, 0);
-
-        this.zoneOffsetAppliced = other.zoneOffsetAppliced;
-    }
-
-    public static int getSummerOffset() {
-        return DateCalendrier.summerOffset;
-    }
-
-    public static void setSummerOffset(int summerOffset) {
-        DateCalendrier.summerOffset = summerOffset;
+        this(other.getDay(), other.getMonth(), other.getYear(), other.getHour(), other.getMinute());
     }
 
     public static String fillWithZeroBefore(int n) {
@@ -61,15 +45,13 @@ public class DateCalendrier extends GregorianCalendar {
         return s;
     }
 
+    /**
+     * le décalage est appliquer à la lecture du fichier uniquement
+     * par la suite toutes les date aurons le bons décalage.
+     */
     public void doZoneOffset() {
-        if (!zoneOffsetAppliced) {
-            setHour(getHour() + getZoneOffset() + getSummerOffset());
-        }
-        zoneOffsetAppliced = true;
-    }
-
-    public int getZoneOffset() {
-        return get(GregorianCalendar.ZONE_OFFSET) / (60 * 60 * 1000);
+        int offset = ZonedDateTime.of(getYear(), getMonth(), getDay(), getHour(), getMinute(), 0, 0, ZoneId.systemDefault()).get(ChronoField.OFFSET_SECONDS);
+        setHour(getHour() + offset / 3600);
     }
 
     /**
@@ -87,11 +69,11 @@ public class DateCalendrier extends GregorianCalendar {
     }
 
     public int getMonth() {
-        return get(GregorianCalendar.MONTH);
+        return get(GregorianCalendar.MONTH) + 1;
     }
 
     public void setMonth(int month) {
-        set(GregorianCalendar.MONTH, month);
+        set(GregorianCalendar.MONTH, month - 1);
     }
 
     public int getYear() {
@@ -143,7 +125,7 @@ public class DateCalendrier extends GregorianCalendar {
 
     @Override
     public String toString() {
-        return getDay() + "/" + (getMonth() + 1) + "/" + getYear() + " " +
+        return getDay() + "/" + getMonth() + "/" + getYear() + " " +
                 getHour() + ":" + getMinute();
     }
 
@@ -174,7 +156,6 @@ public class DateCalendrier extends GregorianCalendar {
             return false;
         }
         final DateCalendrier other = (DateCalendrier) obj;
-        return getDay() == other.getDay() && getMonth() == other.getMonth() && getYear() == other.getYear()
-                && getHour() == other.getHour() && getMinute() == other.getMinute();
+        return this.getTimeInMillis() == other.getTimeInMillis();
     }
 }
