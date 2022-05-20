@@ -27,7 +27,12 @@ public class Alarm extends BroadcastReceiver {
         ai.putExtra("action", Alarm.START);
         PendingIntent alarmIntent = PendingIntent.getBroadcast(context, 0, ai, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        am.set(AlarmManager.RTC_WAKEUP, time, alarmIntent);
+        am.setAlarmClock(new AlarmManager.AlarmClockInfo(System.currentTimeMillis() + 15 * 1000, alarmIntent), alarmIntent);
+    }
+
+    public static long getAlarm(Context context) {
+        AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        return am.getNextAlarmClock().getTriggerTime();
     }
 
     @Override

@@ -38,6 +38,7 @@
         <item name="appWidgetRadius">8dp</item>
         <item name="appWidgetPadding">4dp</item>
         <item name="appWidgetInnerRadius">4dp</item>
+        <item name="android:background">@color/black</item>
     </style>
 
     <style name="Theme.IUTCalendar.AppWidgetContainer"

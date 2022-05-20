@@ -46,6 +46,7 @@ public class BackgroundNotificationUpdate extends Service {
                 Log.d("Background", "start update");
                 repeatedTask();
                 Log.d("Background", "end update");
+                //TODO si je le fais que ici sa s'actualise pas hyper rapidement
                 Calendrier cal = new Calendrier(FileGlobal.readFile(FileGlobal.getFileDownload(getApplicationContext())));
                 List<EventCalendrier> events = cal.getEventsOfDay(new CurrentDate());
                 if (!events.isEmpty()) {

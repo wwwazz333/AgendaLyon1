@@ -1,6 +1,9 @@
 package com.iutcalendar;
 
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -163,6 +166,7 @@ public class MainActivity extends AppCompatActivity {
         if (!BackgroundNotificationUpdate.foregroundServiceRunning(this)) {
             startForegroundService(new Intent(this, BackgroundNotificationUpdate.class));
         }
+
 
         Log.d("Global", "MainActivity end");
     }

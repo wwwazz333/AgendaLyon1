@@ -95,6 +95,8 @@ public class WidgetCalendar extends AppWidgetProvider {
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
             views.setOnClickPendingIntent(R.id.listLayout, pendingIntent);
             appWidgetManager.updateAppWidget(widgetId, views);
+
+            
         }
 
         Log.d("Widget", "updated");
