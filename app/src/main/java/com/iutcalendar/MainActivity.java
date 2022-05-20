@@ -1,9 +1,6 @@
 package com.iutcalendar;
 
-import android.app.AlarmManager;
 import android.app.AlertDialog;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -18,7 +15,6 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import com.calendar.iutcalendar.R;
-import com.iutcalendar.alarm.Alarm;
 import com.iutcalendar.calendrier.Calendrier;
 import com.iutcalendar.calendrier.CurrentDate;
 import com.iutcalendar.calendrier.DateCalendrier;
@@ -153,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
         }
         setCurrDate(dateToLaunche);
 
-        update();
+//        update();
 
         String changements = getIntent().getStringExtra("changes");
         if (changements != null) {
@@ -166,6 +162,12 @@ public class MainActivity extends AppCompatActivity {
         if (!BackgroundNotificationUpdate.foregroundServiceRunning(this)) {
             startForegroundService(new Intent(this, BackgroundNotificationUpdate.class));
         }
+
+//        Intent testB = new Intent(this, TestBroadCast.class);
+//        PendingIntent pb = PendingIntent.getForegroundService(this, 0, testB, 0);
+//        AlarmManager am = (AlarmManager) getSystemService(ALARM_SERVICE);
+//        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 1000, pb);
+
 
         Log.d("Global", "MainActivity end");
     }

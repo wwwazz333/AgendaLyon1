@@ -33,6 +33,10 @@
                     android:name="android.appwidget.provider"
                     android:resource="@xml/widget_calendar_info"/>
         </receiver>
+        <service
+                android:name="com.iutcalendar.TestBroadCast"
+                android:enabled="true"
+                android:exported="true"/>
         <receiver
                 android:name="com.iutcalendar.alarm.Alarm"
                 android:exported="true">
