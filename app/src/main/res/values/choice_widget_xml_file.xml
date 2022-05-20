@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="theme_widget_values">//act as key
+        <item>black</item>
+        <item>grey</item>
+        <item>light</item>
+    </string-array>
+    <string-array name="theme_widget_options">//what is showed
+        <item>Black</item>
+        <item>Grey</item>
+        <item>Light</item>
+    </string-array>
+</resources>

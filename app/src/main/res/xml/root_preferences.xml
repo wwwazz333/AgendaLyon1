@@ -44,6 +44,13 @@
                 android:entryValues="@array/theme_values"
                 android:entries="@array/theme_options"
                 android:defaultValue="default"/>
+        <ListPreference
+                android:key="theme_widget_selected"
+                android:title="Thème Widget"
+                android:summary="Changer le thème du widget"
+                android:entryValues="@array/theme_widget_values"
+                android:entries="@array/theme_widget_options"
+                android:defaultValue="grey"/>
 
     </PreferenceCategory>
     <PreferenceCategory app:title="Alarmes"

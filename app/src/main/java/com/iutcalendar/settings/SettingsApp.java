@@ -8,6 +8,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
 import androidx.annotation.ColorInt;
+import androidx.annotation.LayoutRes;
 import com.calendar.iutcalendar.R;
 import com.iutcalendar.data.DataGlobal;
 
@@ -38,6 +39,18 @@ public class SettingsApp {
             context.setTheme(R.style.Theme_IUTCalendarLight);
         } else {
             context.setTheme(R.style.Theme_IUTCalendar);
+        }
+    }
+
+    public static @LayoutRes int getLayoutResWidget(Context context) {
+        String t = DataGlobal.getThemeResWidget(context);
+        Log.d("Widget", "Theme : " + t);
+        if (t.equals("black")) {
+            return R.layout.widget_calendar_black;
+        } else if (t.equals("light")) {
+            return R.layout.widget_calendar_light;
+        } else {
+            return R.layout.widget_calendar_grey;
         }
     }
 

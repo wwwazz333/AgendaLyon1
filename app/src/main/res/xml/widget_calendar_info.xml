@@ -7,9 +7,9 @@
         android:targetCellHeight="2"
         android:updatePeriodMillis="1800001"
         android:previewImage="@drawable/preview_widget"
-        android:initialLayout="@layout/widget_calendar"
+        android:initialLayout="@layout/widget_calendar_black"
         android:description="@string/app_widget_description"
         android:resizeMode="horizontal|vertical"
         android:widgetCategory="home_screen"
-        android:initialKeyguardLayout="@layout/widget_calendar"
+        android:initialKeyguardLayout="@layout/widget_calendar_black"
 />

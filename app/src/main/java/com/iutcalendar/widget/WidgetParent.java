@@ -43,7 +43,7 @@ public abstract class WidgetParent extends AppWidgetProvider {
 
         for (int widgetId : allWidgetIds) {
             // Construct the RemoteViews object
-            RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_calendar_grey);
+            RemoteViews views = new RemoteViews(context.getPackageName(), SettingsApp.getLayoutResWidget(context));
 
 
             CurrentDate currentDate = new CurrentDate();
