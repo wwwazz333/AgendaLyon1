@@ -20,7 +20,7 @@
             android:supportsRtl="true"
             android:theme="@style/Theme.IUTCalendar">
         <receiver
-                android:name="com.iutcalendar.widget.WidgetCalendarBlack"
+                android:name="com.iutcalendar.widget.WidgetCalendar"
                 android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>

@@ -24,7 +24,7 @@ import java.util.List;
 
 public class ForgroundServiceUpdate extends Service {
     //TODO start on boot
-    private static final long INTERVAL_UPDATE = /*15 * */60_000;
+    private static final long INTERVAL_UPDATE = 15 * 60_000;
 
 
     public static void start(Context context) {

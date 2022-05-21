@@ -1,16 +1,13 @@
 package com.iutcalendar.event;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.calendar.iutcalendar.R;
-import com.iutcalendar.MainActivity;
 import com.iutcalendar.calendrier.EventCalendrier;
-import com.iutcalendar.data.DataGlobal;
 import com.iutcalendar.swiping.GestureEventManager;
 import com.iutcalendar.swiping.TouchGestureListener;
 import com.iutcalendar.task.PersonnalCalendrier;
@@ -61,7 +58,7 @@ public class EventRecycleView extends RecyclerView.Adapter<EventViewHolder> {
         } else {
             viewHolder.countTask.setText(String.valueOf(numberTask));
         }
-        viewHolder.view.setOnTouchListener(new TouchGestureListener(context, new GestureEventManager(){
+        viewHolder.view.setOnTouchListener(new TouchGestureListener(context, new GestureEventManager() {
             @Override
             protected void onClick() {
                 clickListener.click(index);

@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <style name="Theme.IUTCalendarNight" parent="Theme.IUTCalendarParent">
         <item name="colorSecondaryVariant">@color/red</item>
         <item name="colorOnSecondary">@color/white</item> <!--Logo sur btn floating-->

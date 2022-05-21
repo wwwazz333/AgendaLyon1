@@ -28,9 +28,9 @@ public class PersonnalCalendrier {
     }
 
     public void addLinkedTask(Task task, EventCalendrier linkedTo) {
-        if (tasks.get(linkedTo.getUID()) == null) {
-            tasks.put(linkedTo.getUID(), new LinkedList<>());
-        }
+        // si aucune tache n'a déjà été ajouté à cette event alors crès la liste pour cette event
+        tasks.computeIfAbsent(linkedTo.getUID(), k -> new LinkedList<>());
+
         getLinkedTask(linkedTo).add(task);
     }
 
@@ -39,7 +39,9 @@ public class PersonnalCalendrier {
     }
 
     public void remove(Task task) {
-        this.tasks.get(task.getLinkedToUID()).remove(task);
+        List<Task> taskList = this.tasks.get(task.getLinkedToUID());
+        if (taskList != null && !taskList.isEmpty())
+            taskList.remove(task);
     }
 
 
@@ -53,7 +55,13 @@ public class PersonnalCalendrier {
         }
         try {
             ObjectInputStream in = new ObjectInputStream(stream);
-            tasks = (HashMap) in.readObject();
+            Object obj = in.readObject();
+            if (obj instanceof HashMap) {
+                tasks = (HashMap<String, List<Task>>) obj;
+            } else {
+                Log.e("File", "personnal task error : wrong type, please delete your personnal task file");
+            }
+
             Log.d("File", "file task loaded");
         } catch (IOException e) {
             Log.e("File", e.getMessage());

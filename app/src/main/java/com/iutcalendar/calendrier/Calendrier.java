@@ -2,7 +2,6 @@ package com.iutcalendar.calendrier;
 
 
 import android.content.Context;
-import android.util.Log;
 import com.calendar.iutcalendar.R;
 import com.iutcalendar.data.Tuple;
 
@@ -142,10 +141,8 @@ public class Calendrier {
             } else if (e.getDate().getTimeInMillis() >= date.getTimeInMillis()) {
                 nexts[i++] = e;
             } else {
-                Log.d("Widget", e.getDate().timeToString());
             }
         }
-        Log.d("Widget", date.timeToString());
         return nexts;
     }
 

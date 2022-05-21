@@ -23,11 +23,10 @@ import com.iutcalendar.task.PersonnalCalendrier;
 import java.util.GregorianCalendar;
 
 
-public abstract class WidgetParent extends AppWidgetProvider {
+public class WidgetCalendar extends AppWidgetProvider {
     public static final String SHOW_TOAST_ACTION = "showing_toast";
     public static final int DELAY_AFTER_EVENT_PASSED = -30;
 
-    abstract public Class<?> getWidgetClassInstance();
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
@@ -37,7 +36,7 @@ public abstract class WidgetParent extends AppWidgetProvider {
         SettingsApp.setLocale(context.getResources(), DataGlobal.getLanguage(context));
 
         //update Widget
-        ComponentName thisWidget = new ComponentName(context, getWidgetClassInstance());
+        ComponentName thisWidget = new ComponentName(context, WidgetCalendar.class);
         Log.d("Widget", "start updated");
         int[] allWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);
 
@@ -47,7 +46,7 @@ public abstract class WidgetParent extends AppWidgetProvider {
 
 
             CurrentDate currentDate = new CurrentDate();
-            currentDate.add(GregorianCalendar.MINUTE, WidgetParent.DELAY_AFTER_EVENT_PASSED);//pour que l'event s'affiche tjrs au bout de 30min
+            currentDate.add(GregorianCalendar.MINUTE, WidgetCalendar.DELAY_AFTER_EVENT_PASSED);//pour que l'event s'affiche tjrs au bout de 30min
 
 
             Calendrier cal = new Calendrier(FileGlobal.readFile(FileGlobal.getFileDownload(context)));
@@ -81,7 +80,7 @@ public abstract class WidgetParent extends AppWidgetProvider {
                     PendingIntent.getActivity(context, 0, intentActvity, PendingIntent.FLAG_IMMUTABLE));
 
 
-            Intent intent = new Intent(context, getWidgetClassInstance());
+            Intent intent = new Intent(context, WidgetCalendar.class);
 
             intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
             intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds);

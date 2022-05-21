@@ -28,7 +28,7 @@ import com.iutcalendar.swiping.GestureEventManager;
 import com.iutcalendar.swiping.ReloadAnimationFragment;
 import com.iutcalendar.swiping.TouchGestureListener;
 import com.iutcalendar.task.PersonnalCalendrier;
-import com.iutcalendar.widget.WidgetParent;
+import com.iutcalendar.widget.WidgetCalendar;
 
 import java.io.File;
 import java.util.GregorianCalendar;
@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
         CurrentDate dateToLaunche = new CurrentDate();
         Log.d("Widget", "main : " + getIntent().getBooleanExtra("launche_next_event", false));
         if (getIntent().getBooleanExtra("launche_next_event", false)) {
-            dateToLaunche.add(GregorianCalendar.MINUTE, WidgetParent.DELAY_AFTER_EVENT_PASSED);//pcq l'event s'affiche tjrs au bout de 30min
+            dateToLaunche.add(GregorianCalendar.MINUTE, WidgetCalendar.DELAY_AFTER_EVENT_PASSED);//pcq l'event s'affiche tjrs au bout de 30min
             EventCalendrier[] es = getCalendrier().getNext2EventAfter(dateToLaunche);
             if (es.length >= 1) {
                 dateToLaunche = new CurrentDate(es[0].getDate());
