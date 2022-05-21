@@ -47,6 +47,7 @@
         <entry key="app/src/main/res/layout/task_card.xml" value="0.35" />
         <entry key="app/src/main/res/layout/widget_calendar.xml" value="0.33" />
         <entry key="app/src/main/res/layout/widget_calendarGrey.xml" value="0.35104166666666664" />
+        <entry key="app/src/main/res/layout/widget_calendar_black.xml" value="0.33" />
         <entry key="app/src/main/res/layout/widget_calendar_grey.xml" value="0.33" />
         <entry key="app/src/main/res/layout/widget_calendar_light.xml" value="0.35104166666666664" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.36153846153846153" />

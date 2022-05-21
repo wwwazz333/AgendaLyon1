@@ -50,19 +50,21 @@ public class SettingsActivity extends AppCompatActivity implements
 
     @Override
     public boolean onPreferenceStartFragment(PreferenceFragmentCompat caller, Preference pref) {// pour la redirection vers les sous menu
-        final Bundle args = pref.getExtras();
-        final Fragment fragment = getSupportFragmentManager().getFragmentFactory().instantiate(
-                getClassLoader(),
-                pref.getFragment());
-        fragment.setArguments(args);
-        fragment.setTargetFragment(caller, 0);
-        // Replace the existing Fragment with the new Fragment
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.settings, fragment)
-                .addToBackStack(null)
-                .commit();
-
-        return true;
+        if (pref.getFragment() != null) {
+            final Bundle args = pref.getExtras();
+            final Fragment fragment = getSupportFragmentManager().getFragmentFactory().instantiate(
+                    getClassLoader(),
+                    pref.getFragment());
+            fragment.setArguments(args);
+//            fragment.setTargetFragment(caller, 0);//depreciet
+            // Replace the existing Fragment with the new Fragment
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.settings, fragment)
+                    .addToBackStack(null)
+                    .commit();
+            return true;
+        }
+        return false;
 
     }
 

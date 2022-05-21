@@ -83,11 +83,11 @@ public class EventFragment extends Fragment {
                     CurrentDate dateLastEdit = new CurrentDate();
                     dateLastEdit.setTimeInMillis(fileCal.lastModified());
                     dateLastEdit.runForDate(() -> update.setText(getResources().getString(R.string.last_update,
-                            new SimpleDateFormat("HH:mm", SettingsApp.getLocale(getResources())).format(fileCal.lastModified())
+                            new SimpleDateFormat("HH:mm", SettingsApp.getLocale()).format(fileCal.lastModified())
                     )), () -> update.setText(getResources().getString(R.string.last_update,
                             "error" //impossible que last_update soit demain
                     )), () -> update.setText(getResources().getString(R.string.last_update,
-                            new SimpleDateFormat("dd/MM/yyyy HH:mm", SettingsApp.getLocale(getResources())).format(fileCal.lastModified())
+                            new SimpleDateFormat("dd/MM/yyyy HH:mm", SettingsApp.getLocale()).format(fileCal.lastModified())
                     )));
 
                 }

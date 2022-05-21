@@ -52,9 +52,9 @@ public class WidgetCalendar extends AppWidgetProvider {
             Calendrier cal = new Calendrier(FileGlobal.readFile(FileGlobal.getFileDownload(context)));
 
             EventCalendrier[] events = cal.getNext2EventAfter(currentDate);
-            if (events.length > 0) {
+            if (events.length > 0 && events[0] != null) {
                 currentDate = new CurrentDate(events[0].getDate());
-                if (events.length == 2 && events[0].getDate().sameDay(events[1].getDate())) {
+                if (events.length == 2 && events[1] != null && events[0].getDate().sameDay(events[1].getDate())) {
                     updateBothEvent(views, events[0], events[1]);
                 } else {
                     updateBothEvent(views, events[0], null);

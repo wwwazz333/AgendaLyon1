@@ -29,7 +29,7 @@ public class ForgroundServiceUpdate extends Service {
 
     public static void start(Context context) {
         Intent intentService = new Intent(context, ForgroundServiceUpdate.class);
-        PendingIntent pendingIntent = PendingIntent.getForegroundService(context, 0, intentService, 0);
+        PendingIntent pendingIntent = PendingIntent.getForegroundService(context, 0, intentService, PendingIntent.FLAG_IMMUTABLE);
         AlarmManager am = (AlarmManager) context.getSystemService(ALARM_SERVICE);
         am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + INTERVAL_UPDATE, INTERVAL_UPDATE, pendingIntent);
     }

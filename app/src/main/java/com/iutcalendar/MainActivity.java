@@ -246,7 +246,7 @@ public class MainActivity extends AppCompatActivity {
             Log.d("Date", "tomorrow");
         }, () -> {
             Log.d("Date", "else");
-            currDateLabel.setText(newDate.toString(SettingsApp.getLocale(getResources())));
+            currDateLabel.setText(newDate.toString(SettingsApp.getLocale()));
         });
 
         setDaysOfWeek();

@@ -11,11 +11,13 @@ import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.os.VibratorManager;
 import android.provider.Settings;
 import android.util.Log;
 import com.calendar.iutcalendar.R;
 import com.iutcalendar.data.DataGlobal;
 import com.iutcalendar.notification.Notif;
+import kotlin.Suppress;
 
 public class Alarm extends BroadcastReceiver {
     public final static int NONE = 0, STOP = 1, START = 2;
@@ -25,7 +27,7 @@ public class Alarm extends BroadcastReceiver {
     /**
      * cancel l'alarm précédente et en place une nouvelle
      *
-     * @param context
+     * @param context le context
      * @param time    heure de l'alarm (en ms)
      */
     public static void setAlarm(Context context, long time) {
@@ -40,7 +42,7 @@ public class Alarm extends BroadcastReceiver {
     }
 
     /**
-     * @param context
+     * @param context le context
      * @return la prochaine alarm du téléphone y compris celle du system
      */
     public static long getAlarm(Context context) {
@@ -55,7 +57,7 @@ public class Alarm extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         switch (intent.getIntExtra("action", Alarm.NONE)) {
             case Alarm.START:
-                Boolean enabled = DataGlobal.getSavedBoolean(context, DataGlobal.ALARM_ENABELED);
+                boolean enabled = DataGlobal.getSavedBoolean(context, DataGlobal.ALARM_ENABELED);
                 if (enabled) {
                     //Sound
                     Alarm.ring = RingtoneManager.getRingtone(context, Settings.System.DEFAULT_RINGTONE_URI);
@@ -67,8 +69,7 @@ public class Alarm extends BroadcastReceiver {
                     ring.play();
 
                     //Vibration
-
-                    final Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+                    final Vibrator vibrator = getVibrator(context);
                     if (vibrator != null) {
                         vibrator.cancel();
                         long[] pattern = {1000, 1000, 1000, 1000};
@@ -93,7 +94,7 @@ public class Alarm extends BroadcastReceiver {
                     ring.stop();
                     ring = null;
                 }
-                final Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+                final Vibrator vibrator = getVibrator(context);
                 if (vibrator != null) {
                     vibrator.cancel();
                 }
@@ -103,5 +104,17 @@ public class Alarm extends BroadcastReceiver {
                 break;
         }
 
+    }
+
+    private Vibrator getVibrator(Context context) {
+//        //FIXME works ?
+        Vibrator vb;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+            VibratorManager vibratorManager = (VibratorManager) context.getSystemService(Context.VIBRATOR_MANAGER_SERVICE);
+            vb = vibratorManager.getDefaultVibrator();
+        } else {
+            vb = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+        }
+        return vb;
     }
 }
