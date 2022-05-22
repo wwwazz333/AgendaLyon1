@@ -31,7 +31,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="32dp"
                     android:text="@string/open"
-                    android:textColor="?colorOnPrimary"
+                    android:textColor="@color/white"
                     android:textSize="13sp"
                     android:layout_gravity="center_horizontal"
                     android:background="@color/redOnePlus"/>

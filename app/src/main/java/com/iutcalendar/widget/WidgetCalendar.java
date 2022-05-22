@@ -60,6 +60,7 @@ public class WidgetCalendar extends AppWidgetProvider {
                     updateBothEvent(views, events[0], null);
                 }
             } else {
+                updateBothEvent(views, null, null);
                 views.setTextViewText(R.id.summary1, context.getString(R.string.No_events));
             }
 
@@ -88,6 +89,8 @@ public class WidgetCalendar extends AppWidgetProvider {
 
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
             views.setOnClickPendingIntent(R.id.listLayout, pendingIntent);
+
+
             appWidgetManager.updateAppWidget(widgetId, views);
 
 
