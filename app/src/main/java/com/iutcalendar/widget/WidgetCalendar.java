@@ -30,7 +30,6 @@ public class WidgetCalendar extends AppWidgetProvider {
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        //TODO set Background
         //Load some Data needed
         PersonnalCalendrier.getInstance().load(context);
         SettingsApp.setLocale(context.getResources(), DataGlobal.getLanguage(context));

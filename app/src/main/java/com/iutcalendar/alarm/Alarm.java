@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.media.AudioAttributes;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
+import android.os.Build;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.os.VibratorManager;
@@ -17,12 +18,12 @@ import android.util.Log;
 import com.calendar.iutcalendar.R;
 import com.iutcalendar.data.DataGlobal;
 import com.iutcalendar.notification.Notif;
-import kotlin.Suppress;
 
 public class Alarm extends BroadcastReceiver {
     public final static int NONE = 0, STOP = 1, START = 2;
 
     private static Ringtone ring;
+    private static Thread looping_thread;
 
     /**
      * cancel l'alarm précédente et en place une nouvelle
@@ -60,29 +61,13 @@ public class Alarm extends BroadcastReceiver {
                 boolean enabled = DataGlobal.getSavedBoolean(context, DataGlobal.ALARM_ENABELED);
                 if (enabled) {
                     //Sound
-                    Alarm.ring = RingtoneManager.getRingtone(context, Settings.System.DEFAULT_RINGTONE_URI);
-                    AudioAttributes alarmVoume = new AudioAttributes.Builder()
-                            .setUsage(AudioAttributes.USAGE_ALARM)
-                            .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
-                            .build();
-                    ring.setAudioAttributes(alarmVoume);
-                    ring.play();
+                    startRingtion(context);
 
                     //Vibration
-                    final Vibrator vibrator = getVibrator(context);
-                    if (vibrator != null) {
-                        vibrator.cancel();
-                        long[] pattern = {1000, 1000, 1000, 1000};
-                        vibrator.vibrate(VibrationEffect.createWaveform(pattern, 1));
-                    }
+                    startVibration(context);
 
                     //Notification
-                    Intent ai = new Intent(context, Alarm.class);
-                    ai.putExtra("action", Alarm.STOP);
-                    PendingIntent cancelAlarmIntent = PendingIntent.getBroadcast(context, 0, ai, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
-
-                    new Notif(context, Notif.ALARM_NOTIFICATION_ID, NotificationManager.IMPORTANCE_HIGH,
-                            "Alarm", "ring", R.drawable.ic_alarm, cancelAlarmIntent).show();
+                    showNotification(context);
 
                     Log.d("Alarm", "ringing...");
                 } else {
@@ -90,14 +75,8 @@ public class Alarm extends BroadcastReceiver {
                 }
                 break;
             case Alarm.STOP:
-                if (ring != null) {
-                    ring.stop();
-                    ring = null;
-                }
-                final Vibrator vibrator = getVibrator(context);
-                if (vibrator != null) {
-                    vibrator.cancel();
-                }
+                stopRington();
+                stopVibration(context);
                 break;
             default:
                 Log.d("Alarm", "no action");
@@ -106,8 +85,56 @@ public class Alarm extends BroadcastReceiver {
 
     }
 
+    private void showNotification(Context context) {
+        Intent ai = new Intent(context, Alarm.class);
+        ai.putExtra("action", Alarm.STOP);
+        PendingIntent cancelAlarmIntent = PendingIntent.getBroadcast(context, 0, ai, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+
+        new Notif(context, Notif.ALARM_NOTIFICATION_ID, NotificationManager.IMPORTANCE_HIGH,
+                "Alarm", "ring", R.drawable.ic_alarm, cancelAlarmIntent).show();
+    }
+
+    private void startVibration(Context context) {
+        final Vibrator vibrator = getVibrator(context);
+        if (vibrator != null) {
+            vibrator.cancel();
+            long[] pattern = {1000, 1000, 1000, 1000};
+            vibrator.vibrate(VibrationEffect.createWaveform(pattern, 1));
+        }
+    }
+
+    private void stopVibration(Context context) {
+        final Vibrator vibrator = getVibrator(context);
+        if (vibrator != null) {
+            vibrator.cancel();
+        }
+    }
+
+
+    private void startRingtion(Context context) {
+        Alarm.ring = RingtoneManager.getRingtone(context, Settings.System.DEFAULT_RINGTONE_URI);
+        AudioAttributes alarmVoume = new AudioAttributes.Builder()
+                .setUsage(AudioAttributes.USAGE_ALARM)
+                .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                .build();
+        ring.setAudioAttributes(alarmVoume);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            ring.setLooping(true);
+        } else{
+            Log.d("Alarm", "can't put loop");
+        }
+        ring.play();
+    }
+
+    private void stopRington() {
+        if (ring != null) {
+            ring.stop();
+            ring = null;
+        }
+    }
+
     private Vibrator getVibrator(Context context) {
-//        //FIXME works ?
+        //FIXME works ?
         Vibrator vb;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
             VibratorManager vibratorManager = (VibratorManager) context.getSystemService(Context.VIBRATOR_MANAGER_SERVICE);

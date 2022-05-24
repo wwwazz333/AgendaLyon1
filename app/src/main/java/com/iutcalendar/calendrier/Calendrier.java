@@ -5,6 +5,11 @@ import android.content.Context;
 import com.calendar.iutcalendar.R;
 import com.iutcalendar.data.Tuple;
 
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 
 public class Calendrier {
@@ -202,6 +207,24 @@ public class Calendrier {
             }
         }
         return changed;
+    }
+
+    public static boolean isValideFormat(String str) {
+        final String beging = "BEGIN:VCALENDAR";
+        return str.length() >= beging.length() && str.startsWith(beging);
+    }
+
+    public static void writeCalendarFile(String conentFile, String file_path) throws IOException, InvalideFormatException {
+        if (isValideFormat(conentFile)) {
+            Path p = Paths.get(file_path);
+
+            BufferedWriter buf = Files.newBufferedWriter(p);
+            buf.write(conentFile);
+            buf.close();
+        } else {
+            throw new InvalideFormatException("Le format du calendrier n'est pas valide");
+        }
+
     }
 
     @Override

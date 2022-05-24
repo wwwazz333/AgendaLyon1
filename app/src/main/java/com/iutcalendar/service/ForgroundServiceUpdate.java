@@ -23,7 +23,6 @@ import com.iutcalendar.notification.Notif;
 import java.util.List;
 
 public class ForgroundServiceUpdate extends Service {
-    //TODO start on boot
     private static final long INTERVAL_UPDATE = 15 * 60_000;
 
 
@@ -36,16 +35,18 @@ public class ForgroundServiceUpdate extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.d("Background", "start Service");
+        Log.d("Background", "start Service at " + new CurrentDate().timeToString());
         Notif notif = new Notif(this, Notif.UPDATE_BACKGROUND_NOTIFICATION_ID, NotificationManager.IMPORTANCE_LOW,
                 "maj.", "mise à jour de l'agenda", R.drawable.ic_update, null);
         startForeground(startId, notif.build());
 
         new Thread(() -> {
-            updateFile();
             setUpAlarm();
+
+            updateFile();
             stopForeground(true);
             stopSelf();
+            Log.d("Background", "end Service");
         }).start();
 
         return Service.START_STICKY;
