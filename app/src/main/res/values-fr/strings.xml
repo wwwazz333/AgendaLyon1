@@ -56,4 +56,11 @@
     <string name="No_alarm">Aucune alarme</string>
     <string name="WidgetTheme">Thème Widget</string>
     <string name="themeWidgetLabelSettings">Changer le thème du widget (s\'applique après actualisation)</string>
+    <string name="Information">Information</string>
+    <string name="InformationSettingsLabel">Information à propos de l\'application</string>
+    <string name="urlSettingsLabel">URL pour mettre à jour le calendrier</string>
+    <string name="Alarm_auto">Alarmes auto</string>
+    <string name="alarm_auto_label">Une alarm automatique vas s\'activé en fonction des préférences</string>
+    <string name="Settings_alarms">Paramètre Alarmes</string>
+    <string name="settings_alarm_label">Paramètrage des alarmes en fonction des 1er heure de cours</string>
 </resources>

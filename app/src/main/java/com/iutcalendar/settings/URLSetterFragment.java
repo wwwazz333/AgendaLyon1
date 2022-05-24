@@ -40,11 +40,13 @@ public class URLSetterFragment extends Fragment {
             intentIntegrator.initiateScan();
         });
 
+        final String prevURL = input.getText().toString();
         valide.setOnClickListener(v -> {
-            FileGlobal.getFileDownload(getContext()).delete();
-//            DataSaver.saveCal(getContext(), "");
-            DataGlobal.savePath(getContext(), input.getText().toString());
-            FileDownload.updateFichier(FileGlobal.getFileDownload(getContext()).getAbsolutePath(), getContext());
+            if (!prevURL.equals(input.getText().toString())) {
+                FileGlobal.getFileDownload(getContext()).delete();
+                DataGlobal.savePath(getContext(), input.getText().toString());
+                FileDownload.updateFichier(FileGlobal.getFileDownload(getContext()).getAbsolutePath(), getContext());
+            }
             getParentFragmentManager().popBackStackImmediate();
 
 

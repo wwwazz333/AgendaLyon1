@@ -9,7 +9,7 @@
         <Preference
                 app:fragment="com.iutcalendar.settings.URLSetterFragment"
                 app:title="@string/url"
-                app:summary="URL pour mettre à jour le calendrier"/>
+                app:summary="@string/urlSettingsLabel"/>
 
     </PreferenceCategory>
 
@@ -57,14 +57,17 @@
                         android:icon="@drawable/ic_alarm">
         <SwitchPreference
                 android:key="alarme_enable"
-                android:title="Alarmes auto"
-                android:summaryOn="Une alarm automatique vas s'activé en fonction des préférences"
-                android:defaultValue="false"/>
+                android:title="@string/Alarm_auto"
+                android:summaryOn="@string/alarm_auto_label"
+                android:defaultValue="false">
 
+        </SwitchPreference>
         <Preference
                 app:fragment="com.iutcalendar.alarm.SettingsAlarmFragment"
-                app:title="Paramètre Alarmes"
-                app:summary="Paramètrage des alarmes en fonction des 1er heure de cours"/>
+                app:title="@string/Settings_alarms"
+                app:summary="@string/settings_alarm_label"/>
+
+
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/Feature"
@@ -73,6 +76,10 @@
                 app:fragment="com.iutcalendar.settings.ExplicationSettingsFragment"
                 app:title="@string/Usage"
                 app:summary="@string/Usage_description"/>
+        <Preference
+                app:fragment="com.iutcalendar.settings.InformationAppFragment"
+                app:title="@string/Information"
+                app:summary="@string/InformationSettingsLabel"/>
     </PreferenceCategory>
 
 

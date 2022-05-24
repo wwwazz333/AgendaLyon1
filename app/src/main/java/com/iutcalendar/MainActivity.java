@@ -57,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
         rootLayout = findViewById(R.id.rootLayout);
         actionView = findViewById(R.id.actionView);
         frameLayout = findViewById(R.id.frameLayout);
-
     }
 
 

@@ -23,7 +23,6 @@ public class Alarm extends BroadcastReceiver {
     public final static int NONE = 0, STOP = 1, START = 2;
 
     private static Ringtone ring;
-    private static Thread looping_thread;
 
     /**
      * cancel l'alarm précédente et en place une nouvelle

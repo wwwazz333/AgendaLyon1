@@ -23,6 +23,9 @@ public class Task implements Serializable {
         return txt;
     }
 
+    public void destroy(){
+
+    }
 
     @Override
     public String toString() {
