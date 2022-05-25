@@ -13,12 +13,14 @@ public class Task implements Serializable {
     private final String linkedToUID;
 
     private final boolean isAlarm;
+    private boolean isAlarmActivate;
 
 
     public Task(String name, String linkedToUID, boolean isAlarm) {
         this.txt = name;
         this.linkedToUID = linkedToUID;
         this.isAlarm = isAlarm;
+        this.isAlarmActivate = true;
     }
 
     public Task(String name, String linkedToUID) {
@@ -35,6 +37,14 @@ public class Task implements Serializable {
 
     public boolean isAlarm() {
         return isAlarm;
+    }
+
+    public boolean isAlarmActivate() {
+        return isAlarmActivate;
+    }
+
+    public void setAlarmActivate(boolean alarmActivate) {
+        isAlarmActivate = alarmActivate;
     }
 
     public void destroy(Context context) {

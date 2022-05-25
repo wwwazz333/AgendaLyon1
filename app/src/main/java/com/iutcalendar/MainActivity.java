@@ -86,7 +86,6 @@ public class MainActivity extends AppCompatActivity {
         initVariable();
         PersonnalCalendrier.getInstance(getApplicationContext());
 
-
         //---------------Gesture swipe---------------
         //Week
         int childCount = nameDayLayout.getChildCount();

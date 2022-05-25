@@ -34,17 +34,18 @@ public class Alarm extends BroadcastReceiver {
     public static void setAlarm(Context context, long time) {
         Intent ai = new Intent(context, Alarm.class);
         ai.putExtra("action", Alarm.START);
-        //change requestCode pour placer plusieur alarm ou
-//        ai.setData(Uri.parse("custom://" + alarm.ID));
-//        ai.setAction(String.valueOf(alarm.ID));
         PendingIntent alarmIntent = PendingIntent.getBroadcast(context, 0, ai, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         am.setAlarmClock(new AlarmManager.AlarmClockInfo(time, alarmIntent), alarmIntent);
     }
 
     public static void setAlarm(Context context, long time, String id) {
+        setAlarm(context, time, id, Alarm.START);
+    }
+
+    public static void setAlarm(Context context, long time, String id, int howToLaunch) {
         Intent ai = new Intent(context, Alarm.class);
-        ai.putExtra("action", Alarm.START);
+        ai.putExtra("action", howToLaunch);
         //change requestCode pour placer plusieur alarm ou
         ai.setData(Uri.parse("reveil://" + id));
         ai.setAction(id);

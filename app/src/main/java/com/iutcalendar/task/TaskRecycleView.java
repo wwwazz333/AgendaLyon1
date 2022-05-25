@@ -14,13 +14,10 @@ public class TaskRecycleView extends RecyclerView.Adapter<TaskViewHolder> {
 
     List<Task> list;
     TaskViewHolder viewHolder;
-
-    Context context;
     ClickListener listener;
 
-    public TaskRecycleView(List<Task> list, Context context, ClickListener listener) {
+    public TaskRecycleView(List<Task> list, ClickListener listener) {
         this.list = list;
-        this.context = context;
         this.listener = listener;
     }
 
@@ -42,6 +39,15 @@ public class TaskRecycleView extends RecyclerView.Adapter<TaskViewHolder> {
         final int index = viewHolder.getAdapterPosition();
         Task task = list.get(position);
         viewHolder.text.setText(task.getTxt());
+        if (task.isAlarm()) {
+            viewHolder.alarmIcon.setVisibility(View.VISIBLE);
+            if (task.isAlarmActivate()) {
+                viewHolder.alarmIcon.setImageDrawable(viewHolder.view.getContext().getDrawable(R.drawable.ic_alarm));
+            } else {
+                viewHolder.alarmIcon.setImageDrawable(viewHolder.view.getContext().getDrawable(R.drawable.ic_alarm_off));
+            }
+        }
+
 
         viewHolder.view.setOnClickListener(view -> listener.click(task));
     }

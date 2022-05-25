@@ -55,7 +55,7 @@ public class DialogPopupEvent extends Dialog {
 
     private void updatedTask() {
         ClickListener listener = this::removeTask;
-        TaskRecycleView adapter = new TaskRecycleView(PersonnalCalendrier.getInstance(getContext()).getLinkedTask(relatedEvent), activity.getApplication(), listener);
+        TaskRecycleView adapter = new TaskRecycleView(PersonnalCalendrier.getInstance(getContext()).getLinkedTask(relatedEvent), listener);
         recyclerViewTask.setAdapter(adapter);
         recyclerViewTask.setLayoutManager(new LinearLayoutManager(activity));
         Log.d("Dialog", "updateTask");
@@ -109,16 +109,33 @@ public class DialogPopupEvent extends Dialog {
 
     private void removeTask(Task taskClicked) {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
-        alertDialog.setTitle("Suppression");
-        alertDialog.setMessage("Voulez-vous supprimer cette tâche ?\n\"" + taskClicked.getTxt() + "\"");
+        if (!taskClicked.isAlarm()) {
+            alertDialog.setTitle("Suppression");
+            alertDialog.setMessage("Voulez-vous supprimer cette tâche ?\n\"" + taskClicked.getTxt() + "\"");
 
-        alertDialog.setPositiveButton(getContext().getString(R.string.yes), (dialogInterface, i) -> {
-            updatedTask();
-            PersonnalCalendrier.getInstance(getContext()).remove(getContext(), taskClicked);
-            PersonnalCalendrier.getInstance(getContext()).save(getContext());
-            Toast.makeText(getContext(), "Tâche supprimer", Toast.LENGTH_SHORT).show();
-            dialogInterface.dismiss();
-        });
+            alertDialog.setPositiveButton(getContext().getString(R.string.yes), (dialogInterface, i) -> {
+
+                PersonnalCalendrier.getInstance(getContext()).remove(getContext(), taskClicked);
+                PersonnalCalendrier.getInstance(getContext()).save(getContext());
+                Toast.makeText(getContext(), "Tâche supprimer", Toast.LENGTH_SHORT).show();
+                updatedTask();
+                dialogInterface.dismiss();
+            });
+        } else {
+            alertDialog.setTitle("Désactivation");
+            alertDialog.setMessage("Voulez-vous " + ((taskClicked.isAlarmActivate()) ? "désactivé" : "activé") +
+                    " cette tâche ?\n\"" + taskClicked.getTxt() + "\"");
+
+            alertDialog.setPositiveButton(getContext().getString(R.string.yes), (dialogInterface, i) -> {
+
+                taskClicked.setAlarmActivate(!taskClicked.isAlarmActivate());
+                PersonnalCalendrier.getInstance(getContext()).save(getContext());
+                updatedTask();
+                dialogInterface.dismiss();
+
+            });
+        }
+
 
         alertDialog.setNegativeButton(getContext().getString(R.string.no), (dialogInterface, i) -> dialogInterface.cancel());
 

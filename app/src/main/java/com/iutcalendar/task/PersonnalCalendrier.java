@@ -45,14 +45,14 @@ public class PersonnalCalendrier {
     }
 
     public void removeAllLinkedTask(Context context, String linkedToUID) {
-        for (Task task : PersonnalCalendrier.getInstance(context).getLinkedTask(linkedToUID)) {
+        for (Task task : getLinkedTask(linkedToUID)) {
             task.destroy(context);
         }
         this.tasks.remove(linkedToUID);
     }
 
     public void removeAllAlarmOf(Context context, String linkedToUID) {
-        java.util.Iterator<Task> it = PersonnalCalendrier.getInstance(context).getLinkedTask(linkedToUID).iterator();
+        java.util.Iterator<Task> it = getLinkedTask(linkedToUID).iterator();
         while (it.hasNext()) {
             Task t = it.next();
             if (t.isAlarm()) {
@@ -60,9 +60,18 @@ public class PersonnalCalendrier {
                 it.remove();
             }
         }
-        for (Task task : PersonnalCalendrier.getInstance(context).getLinkedTask(linkedToUID)) {
+        for (Task task : getLinkedTask(linkedToUID)) {
             task.destroy(context);
         }
+    }
+
+    public Task getAlarmOf(String linkedToUID){
+        for (Task task : getLinkedTask(linkedToUID)) {
+            if(task.isAlarm()){
+                return task;
+            }
+        }
+        return null;
     }
 
     public void remove(Context context, Task task) {
