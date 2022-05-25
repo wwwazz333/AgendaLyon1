@@ -43,8 +43,6 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:orientation="horizontal"
-                android:showDividers="middle"
-                android:divider="?android:dividerHorizontal"
                 android:layout_margin="5dp">
 
             <LinearLayout
@@ -52,9 +50,7 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:layout_margin="5dp"
-                    android:paddingVertical="3dp"
-                    android:showDividers="middle"
-                    android:divider="?android:dividerVertical">
+                    android:paddingVertical="3dp">
 
                 <TextView
                         android:id="@+id/debut1"
@@ -83,9 +79,7 @@
                           android:layout_height="match_parent"
                           android:layout_weight="1"
                           android:orientation="vertical"
-                          android:layout_gravity="center"
-                          android:showDividers="middle"
-                          android:divider="?android:dividerVertical">
+                          android:layout_gravity="center">
 
                 <RelativeLayout
                         android:layout_width="match_parent"
@@ -136,8 +130,6 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:orientation="horizontal"
-                android:showDividers="middle"
-                android:divider="?android:dividerHorizontal"
                 android:layout_margin="5dp">
 
             <LinearLayout
@@ -145,9 +137,7 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:layout_margin="5dp"
-                    android:paddingVertical="3dp"
-                    android:showDividers="middle"
-                    android:divider="?android:dividerVertical">
+                    android:paddingVertical="3dp">
 
                 <TextView
                         android:id="@+id/debut2"
@@ -177,9 +167,7 @@
                           android:layout_height="match_parent"
                           android:layout_weight="1"
                           android:orientation="vertical"
-                          android:layout_gravity="center"
-                          android:showDividers="middle"
-                          android:divider="?android:dividerVertical">
+                          android:layout_gravity="center">
 
                 <RelativeLayout
                         android:layout_width="match_parent"
