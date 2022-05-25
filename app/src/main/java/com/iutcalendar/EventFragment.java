@@ -54,6 +54,7 @@ public class EventFragment extends Fragment {
                 String str = FileGlobal.readFile(fileCal);
 
                 mainActivity.setCalendrier(new Calendrier(str));
+                mainActivity.getCalendrier().deleteUselessTask(getContext());
                 Calendrier cal = mainActivity.getCalendrier();
 
                 mainActivity.checkChanges();

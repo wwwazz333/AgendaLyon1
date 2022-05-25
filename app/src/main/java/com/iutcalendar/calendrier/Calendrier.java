@@ -4,6 +4,7 @@ package com.iutcalendar.calendrier;
 import android.content.Context;
 import com.calendar.iutcalendar.R;
 import com.iutcalendar.data.Tuple;
+import com.iutcalendar.task.PersonnalCalendrier;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -207,6 +208,20 @@ public class Calendrier {
             }
         }
         return changed;
+    }
+
+    public void deleteUselessTask(Context context) {
+
+        LinkedList<String> UIDs = new LinkedList<>();
+
+        for (EventCalendrier event : getEvents()) {
+            UIDs.add(event.getUID());
+        }
+        for (String UID : PersonnalCalendrier.getInstance(context).getKeys()) {
+            if (!UIDs.contains(UID)) {//alors on doit suprrimé les tache lié à cette UID (vieux UID)
+                PersonnalCalendrier.getInstance(context).removeAllLinkedTask(context, UID);
+            }
+        }
     }
 
     public static boolean isValideFormat(String str) {

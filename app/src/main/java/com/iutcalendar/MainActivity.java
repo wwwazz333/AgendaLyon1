@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         initVariable();
-        PersonnalCalendrier.getInstance().load(getApplicationContext());
+        PersonnalCalendrier.getInstance(getApplicationContext());
 
 
         //---------------Gesture swipe---------------
@@ -158,6 +158,8 @@ public class MainActivity extends AppCompatActivity {
         //démare le service d'arrière plan avec interval
         ForgroundServiceUpdate.start(getApplicationContext());
 
+
+
         update();
 
         Log.d("Global", "MainActivity end");
@@ -212,8 +214,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void updateScreen() {
-
-
         updateEvent();
     }
 

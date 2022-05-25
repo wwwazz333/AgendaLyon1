@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.media.AudioAttributes;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
@@ -39,6 +40,28 @@ public class Alarm extends BroadcastReceiver {
         PendingIntent alarmIntent = PendingIntent.getBroadcast(context, 0, ai, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         am.setAlarmClock(new AlarmManager.AlarmClockInfo(time, alarmIntent), alarmIntent);
+    }
+
+    public static void setAlarm(Context context, long time, String id) {
+        Intent ai = new Intent(context, Alarm.class);
+        ai.putExtra("action", Alarm.START);
+        //change requestCode pour placer plusieur alarm ou
+        ai.setData(Uri.parse("reveil://" + id));
+        ai.setAction(id);
+        PendingIntent alarmIntent = PendingIntent.getBroadcast(context, 0, ai, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+        AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        am.setAlarmClock(new AlarmManager.AlarmClockInfo(time, alarmIntent), alarmIntent);
+    }
+
+    public static void cancelAlarm(Context context, String id) {
+        Intent ai = new Intent(context, Alarm.class);
+        ai.putExtra("action", Alarm.START);
+        //change requestCode pour placer plusieur alarm ou
+        ai.setData(Uri.parse("reveil://" + id));
+        ai.setAction(id);
+        PendingIntent alarmIntent = PendingIntent.getBroadcast(context, 0, ai, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+        AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        am.cancel(alarmIntent);
     }
 
     /**
@@ -119,7 +142,7 @@ public class Alarm extends BroadcastReceiver {
         ring.setAudioAttributes(alarmVoume);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             ring.setLooping(true);
-        } else{
+        } else {
             Log.d("Alarm", "can't put loop");
         }
         ring.play();

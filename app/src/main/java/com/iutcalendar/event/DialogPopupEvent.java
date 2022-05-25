@@ -55,7 +55,7 @@ public class DialogPopupEvent extends Dialog {
 
     private void updatedTask() {
         ClickListener listener = this::removeTask;
-        TaskRecycleView adapter = new TaskRecycleView(PersonnalCalendrier.getInstance().getLinkedTask(relatedEvent), activity.getApplication(), listener);
+        TaskRecycleView adapter = new TaskRecycleView(PersonnalCalendrier.getInstance(getContext()).getLinkedTask(relatedEvent), activity.getApplication(), listener);
         recyclerViewTask.setAdapter(adapter);
         recyclerViewTask.setLayoutManager(new LinearLayoutManager(activity));
         Log.d("Dialog", "updateTask");
@@ -95,8 +95,8 @@ public class DialogPopupEvent extends Dialog {
 
         alertDialog.setPositiveButton(getContext().getString(R.string.submit),
                 (dialog, which) -> {
-                    PersonnalCalendrier.getInstance().addLinkedTask(new Task(editText.getText().toString(), relatedEvent.getUID()), relatedEvent);
-                    PersonnalCalendrier.getInstance().save(getContext());
+                    PersonnalCalendrier.getInstance(getContext()).addLinkedTask(new Task(editText.getText().toString(), relatedEvent.getUID()), relatedEvent);
+                    PersonnalCalendrier.getInstance(getContext()).save(getContext());
                     dialog.dismiss();
                     updatedTask();
                 });
@@ -114,8 +114,8 @@ public class DialogPopupEvent extends Dialog {
 
         alertDialog.setPositiveButton(getContext().getString(R.string.yes), (dialogInterface, i) -> {
             updatedTask();
-            PersonnalCalendrier.getInstance().remove(taskClicked);
-            PersonnalCalendrier.getInstance().save(getContext());
+            PersonnalCalendrier.getInstance(getContext()).remove(getContext(), taskClicked);
+            PersonnalCalendrier.getInstance(getContext()).save(getContext());
             Toast.makeText(getContext(), "Tâche supprimer", Toast.LENGTH_SHORT).show();
             dialogInterface.dismiss();
         });

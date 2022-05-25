@@ -1,5 +1,8 @@
 package com.iutcalendar.task;
 
+import android.content.Context;
+import com.iutcalendar.alarm.Alarm;
+
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -9,10 +12,17 @@ public class Task implements Serializable {
 
     private final String linkedToUID;
 
+    private final boolean isAlarm;
 
-    public Task(String name, String linkedToUID) {
+
+    public Task(String name, String linkedToUID, boolean isAlarm) {
         this.txt = name;
         this.linkedToUID = linkedToUID;
+        this.isAlarm = isAlarm;
+    }
+
+    public Task(String name, String linkedToUID) {
+        this(name, linkedToUID, false);
     }
 
     public String getLinkedToUID() {
@@ -23,8 +33,12 @@ public class Task implements Serializable {
         return txt;
     }
 
-    public void destroy(){
+    public boolean isAlarm() {
+        return isAlarm;
+    }
 
+    public void destroy(Context context) {
+        Alarm.cancelAlarm(context, getLinkedToUID());
     }
 
     @Override

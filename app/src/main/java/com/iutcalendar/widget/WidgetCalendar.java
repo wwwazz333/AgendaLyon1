@@ -31,7 +31,7 @@ public class WidgetCalendar extends AppWidgetProvider {
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         //Load some Data needed
-        PersonnalCalendrier.getInstance().load(context);
+        PersonnalCalendrier.getInstance(context);
         SettingsApp.setLocale(context.getResources(), DataGlobal.getLanguage(context));
 
         //update Widget
@@ -54,12 +54,12 @@ public class WidgetCalendar extends AppWidgetProvider {
             if (events.length > 0 && events[0] != null) {
                 currentDate = new CurrentDate(events[0].getDate());
                 if (events.length == 2 && events[1] != null && events[0].getDate().sameDay(events[1].getDate())) {
-                    updateBothEvent(views, events[0], events[1]);
+                    updateBothEvent(context, views, events[0], events[1]);
                 } else {
-                    updateBothEvent(views, events[0], null);
+                    updateBothEvent(context, views, events[0], null);
                 }
             } else {
-                updateBothEvent(views, null, null);
+                updateBothEvent(context, views, null, null);
                 views.setTextViewText(R.id.summary1, context.getString(R.string.No_events));
             }
 
@@ -98,7 +98,7 @@ public class WidgetCalendar extends AppWidgetProvider {
         Log.d("Widget", "updated");
     }
 
-    private void updateBothEvent(RemoteViews views, EventCalendrier event1, EventCalendrier event2) {
+    private void updateBothEvent(Context context, RemoteViews views, EventCalendrier event1, EventCalendrier event2) {
 
         if (event1 != null) {
             views.setTextViewText(R.id.debut1, event1.getDate().timeToString());
@@ -106,7 +106,7 @@ public class WidgetCalendar extends AppWidgetProvider {
             views.setTextViewText(R.id.summary1, event1.getSummary());
             views.setTextViewText(R.id.salle1, event1.getSalle());
 
-            int numberTask = PersonnalCalendrier.getInstance().getLinkedTask(event1).size();
+            int numberTask = PersonnalCalendrier.getInstance(context).getLinkedTask(event1).size();
             setNumTask(views, R.id.countTask1, numberTask);
 
         } else {
@@ -122,7 +122,7 @@ public class WidgetCalendar extends AppWidgetProvider {
             views.setTextViewText(R.id.summary2, event2.getSummary());
             views.setTextViewText(R.id.salle2, event2.getSalle());
 
-            int numberTask = PersonnalCalendrier.getInstance().getLinkedTask(event2).size();
+            int numberTask = PersonnalCalendrier.getInstance(context).getLinkedTask(event2).size();
             setNumTask(views, R.id.countTask2, numberTask);
         } else {
             views.setTextViewText(R.id.debut2, "");

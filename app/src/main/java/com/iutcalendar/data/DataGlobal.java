@@ -10,6 +10,8 @@ public class DataGlobal {
     public final static String THEME_RES_WIDGET = "theme_widget_selected";
     public final static String ALARM_ENABELED = "alarme_enable";
 
+    public final static String ALARM_RING_TIME_BEFOR = "alarm_ring_time_before";
+
     public static String getTheme(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context).getString(THEME, "default");
     }

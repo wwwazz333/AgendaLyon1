@@ -9,6 +9,7 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 
 public class PersonnalCalendrier {
@@ -20,9 +21,10 @@ public class PersonnalCalendrier {
         this.tasks = new HashMap<>();
     }
 
-    public static PersonnalCalendrier getInstance() {
+    public static PersonnalCalendrier getInstance(Context context) {
         if (instance == null) {
             instance = new PersonnalCalendrier();
+            instance.load(context);
         }
         return instance;
     }
@@ -38,10 +40,41 @@ public class PersonnalCalendrier {
         return this.tasks.getOrDefault(linkedTo.getUID(), new LinkedList<>());
     }
 
-    public void remove(Task task) {
+    public List<Task> getLinkedTask(String linkedToUID) {
+        return this.tasks.getOrDefault(linkedToUID, new LinkedList<>());
+    }
+
+    public void removeAllLinkedTask(Context context, String linkedToUID) {
+        for (Task task : PersonnalCalendrier.getInstance(context).getLinkedTask(linkedToUID)) {
+            task.destroy(context);
+        }
+        this.tasks.remove(linkedToUID);
+    }
+
+    public void removeAllAlarmOf(Context context, String linkedToUID) {
+        java.util.Iterator<Task> it = PersonnalCalendrier.getInstance(context).getLinkedTask(linkedToUID).iterator();
+        while (it.hasNext()) {
+            Task t = it.next();
+            if (t.isAlarm()) {
+                t.destroy(context);
+                it.remove();
+            }
+        }
+        for (Task task : PersonnalCalendrier.getInstance(context).getLinkedTask(linkedToUID)) {
+            task.destroy(context);
+        }
+    }
+
+    public void remove(Context context, Task task) {
         List<Task> taskList = this.tasks.get(task.getLinkedToUID());
-        if (taskList != null && !taskList.isEmpty())
+        if (taskList != null && !taskList.isEmpty()) {
+            task.destroy(context);
             taskList.remove(task);
+        }
+    }
+
+    public Set<String> getKeys() {
+        return this.tasks.keySet();
     }
 
 

@@ -15,10 +15,13 @@ import com.iutcalendar.alarm.Alarm;
 import com.iutcalendar.calendrier.Calendrier;
 import com.iutcalendar.calendrier.CurrentDate;
 import com.iutcalendar.calendrier.EventCalendrier;
+import com.iutcalendar.data.DataGlobal;
 import com.iutcalendar.data.FileGlobal;
 import com.iutcalendar.data.Tuple;
 import com.iutcalendar.filedownload.FileDownload;
 import com.iutcalendar.notification.Notif;
+import com.iutcalendar.task.PersonnalCalendrier;
+import com.iutcalendar.task.Task;
 
 import java.util.List;
 
@@ -30,7 +33,7 @@ public class ForgroundServiceUpdate extends Service {
         Intent intentService = new Intent(context, ForgroundServiceUpdate.class);
         PendingIntent pendingIntent = PendingIntent.getForegroundService(context, 0, intentService, PendingIntent.FLAG_IMMUTABLE);
         AlarmManager am = (AlarmManager) context.getSystemService(ALARM_SERVICE);
-        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + INTERVAL_UPDATE, INTERVAL_UPDATE, pendingIntent);
+        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 10_000, INTERVAL_UPDATE, pendingIntent);
     }
 
     @Override
@@ -41,9 +44,13 @@ public class ForgroundServiceUpdate extends Service {
         startForeground(startId, notif.build());
 
         new Thread(() -> {
+
             setUpAlarm();
 
             updateFile();
+            Calendrier cal = new Calendrier(FileGlobal.readFile(FileGlobal.getFileDownload(getApplicationContext())));
+            cal.deleteUselessTask(getApplicationContext());
+
             stopForeground(true);
             stopSelf();
             Log.d("Background", "end Service");
@@ -61,24 +68,42 @@ public class ForgroundServiceUpdate extends Service {
     private void setUpAlarm() {
         //TODO si je le fais que ici sa s'actualise pas hyper rapidement
         Calendrier cal = new Calendrier(FileGlobal.readFile(FileGlobal.getFileDownload(getApplicationContext())));
-        List<EventCalendrier> events = cal.getEventsOfDay(new CurrentDate());
 
-        if (!events.isEmpty()) {
-            long timeAlarmRing = events.get(0).getDate().getTimeInMillis() - 2 * 3600 * 1000;
-            CurrentDate d = new CurrentDate();
-            d.setTimeInMillis(timeAlarmRing);
-            Log.d("Background", "veux mettre alarm à : " + d.timeToString());
-            if (timeAlarmRing > System.currentTimeMillis()) {
-                Log.d("Background", "alarm set");
-                Alarm.setAlarm(getApplicationContext(), timeAlarmRing);
-            } else {
-                Log.d("Background", "alarm passer => non mise");
+        for (int dayAfter = 0; dayAfter < 7; dayAfter++) {
+            List<EventCalendrier> events = cal.getEventsOfDay(new CurrentDate().addDay(dayAfter));
+
+            if (!events.isEmpty()) {
+                EventCalendrier currEvent = events.get(0);
+                long timeAlarmRing = currEvent.getDate().getTimeInMillis() - getAlarmRingTimeBefore();
+                CurrentDate d = new CurrentDate();
+                d.setTimeInMillis(timeAlarmRing);
+                Log.d("Background", "veux mettre alarm à : " + d + " " + d.timeToString());
+
+
+                for (EventCalendrier event : events) {//del tt les alarm du jour (si cours après qui étais premier et qu'il y en à un qui c'est déplacer devant
+                    PersonnalCalendrier.getInstance(getApplicationContext()).removeAllAlarmOf(
+                            getApplicationContext(), event.getUID());
+                }
+
+
+                if (timeAlarmRing > System.currentTimeMillis()) {
+                    Log.d("Background", "alarm set");
+                    //remet ou met l'alarm si besoin
+                    PersonnalCalendrier.getInstance(getApplicationContext()).addLinkedTask(
+                            new Task("Alarm auto", currEvent.getUID(), true), currEvent);
+                    Alarm.setAlarm(getApplicationContext(), timeAlarmRing, currEvent.getUID());
+                } else {
+                    Log.d("Background", "alarm passer => non mise");
+                }
             }
-
         }
     }
 
-    public void updateFile() {
+    private long getAlarmRingTimeBefore() {
+        return DataGlobal.getSavedInt(getApplicationContext(), DataGlobal.ALARM_RING_TIME_BEFOR) * 60_000L;
+    }
+
+    private void updateFile() {
         //FIXME optimize
         Calendrier prev = new Calendrier(FileGlobal.readFile(FileGlobal.getFileDownload(getApplicationContext())));
         FileDownload.updateFichier(FileGlobal.getFileDownload(getApplicationContext()).getAbsolutePath(), getApplicationContext());
