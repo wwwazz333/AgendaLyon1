@@ -33,7 +33,7 @@ public class ForgroundServiceUpdate extends Service {
         Intent intentService = new Intent(context, ForgroundServiceUpdate.class);
         PendingIntent pendingIntent = PendingIntent.getForegroundService(context, 0, intentService, PendingIntent.FLAG_IMMUTABLE);
         AlarmManager am = (AlarmManager) context.getSystemService(ALARM_SERVICE);
-        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 10_000, INTERVAL_UPDATE, pendingIntent);
+        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + INTERVAL_UPDATE, INTERVAL_UPDATE, pendingIntent);
     }
 
     @Override
@@ -97,6 +97,7 @@ public class ForgroundServiceUpdate extends Service {
                 }
             }
         }
+        PersonnalCalendrier.getInstance(getApplicationContext()).save(getApplicationContext());
     }
 
     private long getAlarmRingTimeBefore() {

@@ -222,6 +222,7 @@ public class Calendrier {
                 PersonnalCalendrier.getInstance(context).removeAllLinkedTask(context, UID);
             }
         }
+        PersonnalCalendrier.getInstance(context).save(context);
     }
 
     public static boolean isValideFormat(String str) {

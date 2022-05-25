@@ -18,10 +18,10 @@ public class SettingsAlarmFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_settings_alarm, container, false);
 
         TextView text = view.findViewById(R.id.test);
-        if (getActivity() != null && Alarm.getAlarm(getContext()) != -1) {
+        if (getContext() != null && Alarm.getAlarm(getContext()) != -1) {
             DateCalendrier time = new DateCalendrier();
             time.setTimeInMillis(Alarm.getAlarm(getContext()));
-            text.setText(time.timeToString());
+            text.setText(time.toString());
         } else {
             text.setText(R.string.No_alarm);
         }
