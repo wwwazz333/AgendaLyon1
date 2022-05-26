@@ -11,7 +11,8 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 import com.calendar.iutcalendar.R;
 import com.iutcalendar.MainActivity;
-import com.iutcalendar.alarm.Alarm;
+import com.iutcalendar.alarm.AlarmRing;
+import com.iutcalendar.alarm.PersonnalAlarmManager;
 import com.iutcalendar.calendrier.Calendrier;
 import com.iutcalendar.calendrier.CurrentDate;
 import com.iutcalendar.calendrier.EventCalendrier;
@@ -20,13 +21,11 @@ import com.iutcalendar.data.FileGlobal;
 import com.iutcalendar.data.Tuple;
 import com.iutcalendar.filedownload.FileDownload;
 import com.iutcalendar.notification.Notif;
-import com.iutcalendar.task.PersonnalCalendrier;
-import com.iutcalendar.task.Task;
 
 import java.util.List;
 
 public class ForgroundServiceUpdate extends Service {
-    private static final long INTERVAL_UPDATE = 15 * 60_000;
+    private static final long INTERVAL_UPDATE = /*15 * */60_000;
 
     private Calendrier calendrier;
 
@@ -35,7 +34,7 @@ public class ForgroundServiceUpdate extends Service {
         Intent intentService = new Intent(context, ForgroundServiceUpdate.class);
         PendingIntent pendingIntent = PendingIntent.getForegroundService(context, 0, intentService, PendingIntent.FLAG_IMMUTABLE);
         AlarmManager am = (AlarmManager) context.getSystemService(ALARM_SERVICE);
-        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + INTERVAL_UPDATE, INTERVAL_UPDATE, pendingIntent);
+        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() /*+ INTERVAL_UPDATE*/, INTERVAL_UPDATE, pendingIntent);
     }
 
     @Override
@@ -45,17 +44,27 @@ public class ForgroundServiceUpdate extends Service {
                 "maj.", "maj. agenda en arrière plan", R.drawable.ic_update, null);
         startForeground(startId, notif.build());
 
-        new Thread(() -> {
 
+        new Thread(() -> {
+            long timerCount = System.currentTimeMillis();
+            String txt = "";
             calendrier = new Calendrier(FileGlobal.readFile(FileGlobal.getFileDownload(getApplicationContext())));
+            txt += "read cal : " + (System.currentTimeMillis() - timerCount) / 1000 + "s\n";
+            timerCount = System.currentTimeMillis();
+
             setUpAlarm();
+            txt += "alarm : " + (System.currentTimeMillis() - timerCount) / 1000 + "s\n";
+            timerCount = System.currentTimeMillis();
+
 
             updateFile();
-            Calendrier cal = new Calendrier(FileGlobal.readFile(FileGlobal.getFileDownload(getApplicationContext())));
-            cal.deleteUselessTask(getApplicationContext());
+            txt += "maj : " + (System.currentTimeMillis() - timerCount) / 1000 + "s\n";
+
+
+            calendrier.deleteUselessTask(getApplicationContext());
 
             new Notif(this, Notif.CHANGE_EVENT_NOTIFICATION_ID, NotificationManager.IMPORTANCE_DEFAULT,
-                    "Fin maj.", "la maj est fini, permantent notif devrais disparaitre", R.drawable.ic_update, null).show();
+                    "Tps background", txt, R.drawable.ic_update, null).show();
 
             stopForeground(true);
             stopSelf();
@@ -74,9 +83,13 @@ public class ForgroundServiceUpdate extends Service {
     private void setUpAlarm() {
         //TODO si je le fais que ici sa s'actualise pas hyper rapidement
 
+        PersonnalAlarmManager personnalAlarmManager = PersonnalAlarmManager.getInstance(getApplicationContext());
 
+
+        CurrentDate dayAnalysed = new CurrentDate();
         for (int dayAfter = 0; dayAfter < 7; dayAfter++) {
-            List<EventCalendrier> events = calendrier.getEventsOfDay(new CurrentDate().addDay(dayAfter));
+            dayAnalysed = dayAnalysed.addDay(1);
+            List<EventCalendrier> events = calendrier.getEventsOfDay(dayAnalysed);
 
             if (!events.isEmpty()) {
                 EventCalendrier currEvent = events.get(0);
@@ -88,37 +101,44 @@ public class ForgroundServiceUpdate extends Service {
 
                 //sauvgrade si alarme désactivé pour se jour
                 boolean prevWasActivate = true;
-                Task alarmTaskOfCurrDay = PersonnalCalendrier.getInstance(getApplicationContext()).getAlarmOf(currEvent.getUID());
+                List<AlarmRing> listAlarmForThisDay = personnalAlarmManager.get(dayAnalysed);
+                if (!listAlarmForThisDay.isEmpty()) {
+                    prevWasActivate = listAlarmForThisDay.get(0).isActivate();
+                }
+                /*Task alarmTaskOfCurrDay = PersonnalCalendrier.getInstance(getApplicationContext()).getAlarmOf(currEvent.getUID());
                 if (alarmTaskOfCurrDay != null) {
                     prevWasActivate = alarmTaskOfCurrDay.isAlarmActivate();
-                }
+                }*/
                 //supprimer toutes les alarmes (Tash) pour se jour
-                for (EventCalendrier event : events) {
+                personnalAlarmManager.removeForDay(getApplicationContext(), dayAnalysed);
+                /*for (EventCalendrier event : events) {
                     //del tt les alarm du jour (si cours après qui étais premier et qu'il y en à un qui c'est déplacer devant
                     //del la tache
                     PersonnalCalendrier.getInstance(getApplicationContext()).removeAllAlarmOf(
                             getApplicationContext(), event.getUID());
                     //del l'alarm
                     Alarm.cancelAlarm(getApplicationContext(), currEvent.getUID());
-                }
+                }*/
 
                 if (timeAlarmRing > System.currentTimeMillis()) {
                     Log.d("Background", "alarm set");
                     //remet ou met l'alarm si besoin
-                    Task taskAlarmToAdd = new Task("Alarm auto", currEvent.getUID(), true);
+                    /*Task taskAlarmToAdd = new Task("Alarm auto at : " + d.timeToString(), currEvent.getUID(), true);
                     taskAlarmToAdd.setAlarmActivate(prevWasActivate);
-                    PersonnalCalendrier.getInstance(getApplicationContext()).addLinkedTask(taskAlarmToAdd, currEvent);
+                    PersonnalCalendrier.getInstance(getApplicationContext()).addLinkedTask(taskAlarmToAdd, currEvent);*/
 
-                    if (prevWasActivate) {
+                    personnalAlarmManager.add(dayAnalysed, new AlarmRing(timeAlarmRing, prevWasActivate));
+                    /*if (prevWasActivate) {
                         Alarm.setAlarm(getApplicationContext(), timeAlarmRing, currEvent.getUID(), Alarm.START);
-                    }
+                    }*/
 
                 } else {
                     Log.d("Background", "alarm passer => non mise");
                 }
             }
         }
-        PersonnalCalendrier.getInstance(getApplicationContext()).save(getApplicationContext());
+        personnalAlarmManager.save(getApplicationContext());
+//        PersonnalCalendrier.getInstance(getApplicationContext()).save(getApplicationContext());
     }
 
     private long getAlarmRingTimeBefore() {
@@ -145,6 +165,7 @@ public class ForgroundServiceUpdate extends Service {
             Notif notif = new Notif(this, Notif.CHANGE_EVENT_NOTIFICATION_ID, NotificationManager.IMPORTANCE_DEFAULT,
                     getString(R.string.event), "changes : all the changes", R.drawable.ic_edit, pendingIntent);
             notif.show();
+            calendrier = nouveau;
         }
     }
 }

@@ -63,7 +63,7 @@
 
         </SwitchPreference>
         <Preference
-                app:fragment="com.iutcalendar.alarm.SettingsAlarmFragment"
+                app:fragment="com.iutcalendar.settings.SettingsAlarmFragment"
                 app:title="@string/Settings_alarms"
                 app:summary="@string/settings_alarm_label"/>
 

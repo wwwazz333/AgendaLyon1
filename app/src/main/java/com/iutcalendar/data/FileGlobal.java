@@ -16,6 +16,7 @@ import java.nio.file.Paths;
 public class FileGlobal {
     public static final String nameFileSave = "savedCal.ics";
     public static final String nameFilePersonnalTask = "personalTasks.dat";
+    public static final String nameFilePersonnalAlarm = "personalAlarms.dat";
 
 
     public static String getPathDownladDir(Context context) {
@@ -28,6 +29,10 @@ public class FileGlobal {
 
     public static File getFilePersonnalTask(Context context) {
         return new File(getPathDownladDir(context) + "/" + nameFilePersonnalTask);
+    }
+
+    public static File getFilePersonnalAlarm(Context context) {
+        return new File(getPathDownladDir(context) + "/" + nameFilePersonnalAlarm);
     }
 
     public static String readFile(File file) {

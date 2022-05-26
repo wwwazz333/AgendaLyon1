@@ -29,6 +29,23 @@ public class PersonnalCalendrier {
         return instance;
     }
 
+    public boolean hasAlarm(String linkedToUID) {
+        for (Task task : getLinkedTask(linkedToUID)) {
+            if (task.isAlarm()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public int getCountTaskOf(String linkedToUID) {
+        return getLinkedTask(linkedToUID).size() - (hasAlarm(linkedToUID) ? 1 : 0);
+    }
+
+    public int getCountTaskOf(EventCalendrier linkedTo) {
+        return getCountTaskOf(linkedTo.getUID());
+    }
+
     public void addLinkedTask(Task task, EventCalendrier linkedTo) {
         // si aucune tache n'a déjà été ajouté à cette event alors crès la liste pour cette event
         tasks.computeIfAbsent(linkedTo.getUID(), k -> new LinkedList<>());
@@ -65,9 +82,9 @@ public class PersonnalCalendrier {
         }
     }
 
-    public Task getAlarmOf(String linkedToUID){
+    public Task getAlarmOf(String linkedToUID) {
         for (Task task : getLinkedTask(linkedToUID)) {
-            if(task.isAlarm()){
+            if (task.isAlarm()) {
                 return task;
             }
         }

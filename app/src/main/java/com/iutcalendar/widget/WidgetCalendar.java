@@ -106,7 +106,7 @@ public class WidgetCalendar extends AppWidgetProvider {
             views.setTextViewText(R.id.summary1, event1.getSummary());
             views.setTextViewText(R.id.salle1, event1.getSalle());
 
-            int numberTask = PersonnalCalendrier.getInstance(context).getLinkedTask(event1).size();
+            int numberTask = PersonnalCalendrier.getInstance(context).getCountTaskOf(event1);
             setNumTask(views, R.id.countTask1, numberTask);
 
         } else {
@@ -122,7 +122,7 @@ public class WidgetCalendar extends AppWidgetProvider {
             views.setTextViewText(R.id.summary2, event2.getSummary());
             views.setTextViewText(R.id.salle2, event2.getSalle());
 
-            int numberTask = PersonnalCalendrier.getInstance(context).getLinkedTask(event2).size();
+            int numberTask = PersonnalCalendrier.getInstance(context).getCountTaskOf(event2);
             setNumTask(views, R.id.countTask2, numberTask);
         } else {
             views.setTextViewText(R.id.debut2, "");
