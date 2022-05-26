@@ -1,13 +1,14 @@
 package com.iutcalendar.alarm;
 
 import android.content.Context;
+import com.iutcalendar.calendrier.CurrentDate;
 
 import java.io.Serializable;
 
 public class AlarmRing implements Serializable {
 
     private final long timeInMillis;
-    private final boolean isActivate;
+    private boolean isActivate;
 
     public AlarmRing(long timeInMillis, boolean isActivate) {
         this.timeInMillis = timeInMillis;
@@ -20,6 +21,10 @@ public class AlarmRing implements Serializable {
 
     public boolean isActivate() {
         return isActivate;
+    }
+
+    public void setActivate(boolean activate) {
+        isActivate = activate;
     }
 
     private String createAlarmId() {
@@ -35,6 +40,12 @@ public class AlarmRing implements Serializable {
 
     public void cancelAlarm(Context context) {
         Alarm.cancelAlarm(context, createAlarmId());
+    }
+
+    public CurrentDate getDateTime() {
+        CurrentDate dateRing = new CurrentDate();
+        dateRing.setTimeInMillis(getTimeInMillis());
+        return dateRing;
     }
 
     @Override

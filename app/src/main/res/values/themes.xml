@@ -28,6 +28,12 @@
         <!--        <item name="android:textColor">@color/text_white</item>-->
 
     </style>
+    <style name="Theme.IUTCalendar.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="Theme.IUTCalendar.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+    <style name="Theme.IUTCalendar.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
 
 </resources>

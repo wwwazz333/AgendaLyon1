@@ -10,7 +10,7 @@ import java.util.*;
 
 public class PersonnalAlarmManager implements Serializable {
 
-    public static PersonnalAlarmManager instance;
+    private static PersonnalAlarmManager instance;
     private HashMap<String, List<AlarmRing>> alarms;
 
     public static PersonnalAlarmManager getInstance(Context context) {
@@ -34,18 +34,6 @@ public class PersonnalAlarmManager implements Serializable {
 
     public static String createDayId(DateCalendrier day) {
         return day.getYear() + ":" + day.get(GregorianCalendar.DAY_OF_YEAR);
-    }
-
-    public static DateCalendrier parseDayId(String id) {
-        String[] couple = id.split(":");
-        DateCalendrier date = new DateCalendrier();
-        date.setYear(Integer.valueOf(couple[0]));
-        date.set(GregorianCalendar.DAY_OF_YEAR, Integer.valueOf(couple[1]));
-        return date;
-    }
-
-    public static String createAlarmId(AlarmRing alarm) {
-        return String.valueOf(alarm.getTimeInMillis());
     }
 
     public boolean add(DateCalendrier day, AlarmRing alarmRing) {
@@ -80,6 +68,18 @@ public class PersonnalAlarmManager implements Serializable {
     private void removeAlarm(Context context, AlarmRing alarmRing, Iterator<AlarmRing> it) {
         alarmRing.cancelAlarm(context);
         it.remove();
+    }
+
+    public void remove(Context context, AlarmRing alarmRing) {
+        for (List<AlarmRing> list : alarms.values()) {
+            Iterator<AlarmRing> it = list.iterator();
+            while (it.hasNext()) {
+                AlarmRing alarm = it.next();
+                if (alarm.equals(alarmRing)) {
+                    removeAlarm(context, alarm, it);
+                }
+            }
+        }
     }
 
     public void removeForDay(Context context, DateCalendrier day) {

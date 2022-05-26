@@ -36,7 +36,7 @@ public class TaskRecycleView extends RecyclerView.Adapter<TaskViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull TaskViewHolder holder, int position) {
-        final int index = viewHolder.getAdapterPosition();
+        final int index = viewHolder.getAbsoluteAdapterPosition();
         Task task = list.get(position);
         viewHolder.text.setText(task.getTxt());
         if (task.isAlarm()) {

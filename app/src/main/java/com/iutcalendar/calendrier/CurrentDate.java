@@ -1,5 +1,9 @@
 package com.iutcalendar.calendrier;
 
+import android.content.Context;
+import com.calendar.iutcalendar.R;
+import com.iutcalendar.settings.SettingsApp;
+
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
@@ -50,6 +54,16 @@ public class CurrentDate extends DateCalendrier {
             tomorrow.run();
         } else {
             other.run();
+        }
+    }
+
+    public String getRelativeDayName(Context context) {
+        if (this.sameDay(new CurrentDate())) {
+            return context.getResources().getString(R.string.today);
+        } else if (this.sameDay(new CurrentDate().addDay(1))) {
+            return context.getResources().getString(R.string.tomorrow);
+        } else {
+            return this.toString(SettingsApp.getLocale());
         }
     }
 

@@ -64,13 +64,14 @@ public class WidgetCalendar extends AppWidgetProvider {
             }
 
             //Label date
-            if (currentDate.sameDay(new CurrentDate())) {
-                views.setTextViewText(R.id.dateLabel, context.getString(R.string.today));
-            } else if (currentDate.sameDay(new CurrentDate().addDay(1))) {
-                views.setTextViewText(R.id.dateLabel, context.getString(R.string.tomorrow));
-            } else {
-                views.setTextViewText(R.id.dateLabel, currentDate.toString());
-            }
+            views.setTextViewText(R.id.dateLabel, currentDate.getRelativeDayName(context));
+//            if (currentDate.sameDay(new CurrentDate())) {
+//                views.setTextViewText(R.id.dateLabel, context.getString(R.string.today));
+//            } else if (currentDate.sameDay(new CurrentDate().addDay(1))) {
+//                views.setTextViewText(R.id.dateLabel, context.getString(R.string.tomorrow));
+//            } else {
+//                views.setTextViewText(R.id.dateLabel, currentDate.toString());
+//            }
 
 
             //open MainActivity via Btn

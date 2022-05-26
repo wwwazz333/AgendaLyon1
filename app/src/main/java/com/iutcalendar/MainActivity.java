@@ -236,17 +236,8 @@ public class MainActivity extends AppCompatActivity {
     public void setCurrDate(CurrentDate newDate) {
         Log.d("Date", "set curr date");
         this.currDate = newDate;
-        newDate.runForDate(() -> {
-            currDateLabel.setText(getResources().getString(R.string.today));
-            Log.d("Date", "today");
-        }, () -> {
-            currDateLabel.setText(getResources().getString(R.string.tomorrow));
-            Log.d("Date", "tomorrow");
-        }, () -> {
-            Log.d("Date", "else");
-            currDateLabel.setText(newDate.toString(SettingsApp.getLocale()));
-        });
 
+        currDateLabel.setText(this.currDate.getRelativeDayName(getBaseContext()));
         setDaysOfWeek();
         updateScreen();
     }
