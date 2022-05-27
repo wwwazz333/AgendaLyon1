@@ -24,26 +24,6 @@ public class SettingsAlarmFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_settings_alarm, container, false);
 
-//        TextView text = view.findViewById(R.id.test);
-//        StringBuilder txt = new StringBuilder();
-//        CurrentDate affichage = new CurrentDate();
-//        for (AlarmRing dateAlarm : PersonnalAlarmManager.getInstance(getContext()).getAllAlarmToList()) {
-//            affichage.setTimeInMillis(dateAlarm.getTimeInMillis());
-//            txt.append(affichage.getRelativeDayName(getContext()))
-//                    .append(" : ")
-//                    .append(affichage.timeToString())
-//                    .append("\n");
-//        }
-       /* if (getContext() != null && Alarm.getAlarm(getContext()) != -1) {
-            DateCalendrier time = new DateCalendrier();
-            time.setTimeInMillis(Alarm.getAlarm(getContext()));
-            text.setText(time.toString());
-        } else {
-            text.setText(R.string.No_alarm);
-        }*/
-//        text.setText(txt.toString());
-
-
         recyclerViewAlarm = view.findViewById(R.id.recycle_alarm);
         updateAlarm();
 

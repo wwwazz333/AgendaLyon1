@@ -113,41 +113,27 @@ public class ForgroundServiceUpdate extends Service {
                 if (!listAlarmForThisDay.isEmpty()) {
                     prevWasActivate = listAlarmForThisDay.get(0).isActivate();
                 }
-                /*Task alarmTaskOfCurrDay = PersonnalCalendrier.getInstance(getApplicationContext()).getAlarmOf(currEvent.getUID());
-                if (alarmTaskOfCurrDay != null) {
-                    prevWasActivate = alarmTaskOfCurrDay.isAlarmActivate();
-                }*/
+
                 //supprimer toutes les alarmes (Tash) pour se jour
                 personnalAlarmManager.removeForDay(getApplicationContext(), dayAnalysed);
-                /*for (EventCalendrier event : events) {
-                    //del tt les alarm du jour (si cours après qui étais premier et qu'il y en à un qui c'est déplacer devant
-                    //del la tache
-                    PersonnalCalendrier.getInstance(getApplicationContext()).removeAllAlarmOf(
-                            getApplicationContext(), event.getUID());
-                    //del l'alarm
-                    Alarm.cancelAlarm(getApplicationContext(), currEvent.getUID());
-                }*/
+
 
                 if (timeAlarmRing > System.currentTimeMillis()) {
                     Log.d("Background", "alarm set");
                     //remet ou met l'alarm si besoin
-                    /*Task taskAlarmToAdd = new Task("Alarm auto at : " + d.timeToString(), currEvent.getUID(), true);
-                    taskAlarmToAdd.setAlarmActivate(prevWasActivate);
-                    PersonnalCalendrier.getInstance(getApplicationContext()).addLinkedTask(taskAlarmToAdd, currEvent);*/
+
 
                     personnalAlarmManager.add(dayAnalysed, new AlarmRing(timeAlarmRing, prevWasActivate));
-                    /*if (prevWasActivate) {
-                        Alarm.setAlarm(getApplicationContext(), timeAlarmRing, currEvent.getUID(), Alarm.START);
-                    }*/
+
 
                 } else {
                     Log.d("Background", "alarm passer => non mise");
                 }
             }
         }
+        personnalAlarmManager.removeUseless(getApplicationContext());
         personnalAlarmManager.setUpAlarms(getApplicationContext());
         personnalAlarmManager.save(getApplicationContext());
-//        PersonnalCalendrier.getInstance(getApplicationContext()).save(getApplicationContext());
     }
 
     private long getAlarmRingTimeBefore() {
