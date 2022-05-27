@@ -47,24 +47,32 @@ public class ForgroundServiceUpdate extends Service {
 
         new Thread(() -> {
             long timerCount = System.currentTimeMillis();
-            String txt = "";
+
+            long read, setal, upmaj;
             calendrier = new Calendrier(FileGlobal.readFile(FileGlobal.getFileDownload(getApplicationContext())));
-            txt += "read cal : " + (System.currentTimeMillis() - timerCount) / 1000 + "s\n";
+            read = (System.currentTimeMillis() - timerCount) / 1000;
             timerCount = System.currentTimeMillis();
 
             setUpAlarm();
-            txt += "alarm : " + (System.currentTimeMillis() - timerCount) / 1000 + "s\n";
+            setal = (System.currentTimeMillis() - timerCount) / 1000;
             timerCount = System.currentTimeMillis();
 
 
             updateFile();
-            txt += "maj : " + (System.currentTimeMillis() - timerCount) / 1000 + "s\n";
+            upmaj = (System.currentTimeMillis() - timerCount) / 1000;
 
 
             calendrier.deleteUselessTask(getApplicationContext());
 
-            new Notif(this, Notif.CHANGE_EVENT_NOTIFICATION_ID, NotificationManager.IMPORTANCE_DEFAULT,
-                    "Tps background", txt, R.drawable.ic_update, null).show();
+            if (read != 0 || setal != 0 || upmaj != 0) {
+                String txt = "";
+                txt += "read cal : " + read + "s\n";
+                txt += "maj : " + setal + "s\n";
+                txt += "alarm : " + upmaj + "s\n";
+                new Notif(this, Notif.CHANGE_EVENT_NOTIFICATION_ID, NotificationManager.IMPORTANCE_DEFAULT,
+                        "Tps background", txt, R.drawable.ic_update, null).show();
+            }
+
 
             stopForeground(true);
             stopSelf();
