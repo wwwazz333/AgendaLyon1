@@ -44,7 +44,7 @@ public class EventRecycleView extends RecyclerView.Adapter<EventViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull EventViewHolder holder, int position) {
-        final int index = viewHolder.getAdapterPosition();
+        final int index = viewHolder.getAbsoluteAdapterPosition();
         EventCalendrier e = list.get(position);
         viewHolder.debut.setText(e.getDate().timeToString());
         viewHolder.fin.setText(e.getDate().addTime(e.getDuree()).timeToString());
