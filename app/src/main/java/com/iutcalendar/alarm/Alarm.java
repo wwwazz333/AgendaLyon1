@@ -17,8 +17,13 @@ import android.os.VibratorManager;
 import android.provider.Settings;
 import android.util.Log;
 import com.calendar.iutcalendar.R;
+import com.iutcalendar.calendrier.Calendrier;
+import com.iutcalendar.calendrier.CurrentDate;
+import com.iutcalendar.calendrier.EventCalendrier;
 import com.iutcalendar.data.DataGlobal;
 import com.iutcalendar.notification.Notif;
+
+import java.util.List;
 
 public class Alarm extends BroadcastReceiver {
     public final static int NONE = 0, STOP = 1, START = 2;
@@ -166,5 +171,54 @@ public class Alarm extends BroadcastReceiver {
             vb = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
         }
         return vb;
+    }
+
+
+    public static void setUpAlarm(Context context, Calendrier calendrier) {
+        //TODO si je le fais que ici sa s'actualise pas hyper rapidement
+
+        PersonnalAlarmManager personnalAlarmManager = PersonnalAlarmManager.getInstance(context);
+
+
+        CurrentDate dayAnalysed = new CurrentDate();
+        for (int dayAfter = 0; dayAfter < 7; dayAfter++) {
+            dayAnalysed = dayAnalysed.addDay(1);
+            List<EventCalendrier> events = calendrier.getEventsOfDay(dayAnalysed);
+
+            if (!events.isEmpty()) {
+                EventCalendrier currEvent = events.get(0);
+                long timeAlarmRing = currEvent.getDate().getTimeInMillis() - DataGlobal.getAlarmRingTimeBefore(context);
+                CurrentDate d = new CurrentDate();
+                d.setTimeInMillis(timeAlarmRing);
+                Log.d("Alarm", "veux mettre alarm à : " + d + " " + d.timeToString());
+
+
+                //sauvgrade si alarme désactivé pour se jour
+                boolean prevWasActivate = true;
+                List<AlarmRing> listAlarmForThisDay = personnalAlarmManager.get(dayAnalysed);
+                if (!listAlarmForThisDay.isEmpty()) {
+                    prevWasActivate = listAlarmForThisDay.get(0).isActivate();
+                }
+
+                //supprimer toutes les alarmes (Tash) pour se jour
+                personnalAlarmManager.removeForDay(context, dayAnalysed);
+
+
+                if (timeAlarmRing > System.currentTimeMillis()) {
+                    Log.d("Alarm", "alarm set");
+                    //remet ou met l'alarm si besoin
+
+
+                    personnalAlarmManager.add(dayAnalysed, new AlarmRing(timeAlarmRing, prevWasActivate));
+
+
+                } else {
+                    Log.d("Alarm", "alarm passer => non mise");
+                }
+            }
+        }
+        personnalAlarmManager.removeUseless(context);
+        personnalAlarmManager.setUpAlarms(context);
+        personnalAlarmManager.save(context);
     }
 }

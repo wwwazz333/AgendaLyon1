@@ -11,6 +11,7 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 import com.calendar.iutcalendar.R;
 import com.iutcalendar.MainActivity;
+import com.iutcalendar.alarm.Alarm;
 import com.iutcalendar.alarm.AlarmRing;
 import com.iutcalendar.alarm.PersonnalAlarmManager;
 import com.iutcalendar.calendrier.Calendrier;
@@ -25,7 +26,7 @@ import com.iutcalendar.notification.Notif;
 import java.util.List;
 
 public class ForgroundServiceUpdate extends Service {
-    private static final long INTERVAL_UPDATE = 20 * 60_000;
+    private static final long INTERVAL_UPDATE = /*20 * */60_000;
 
     private Calendrier calendrier;
 
@@ -34,7 +35,7 @@ public class ForgroundServiceUpdate extends Service {
         Intent intentService = new Intent(context, ForgroundServiceUpdate.class);
         PendingIntent pendingIntent = PendingIntent.getForegroundService(context, 0, intentService, PendingIntent.FLAG_IMMUTABLE);
         AlarmManager am = (AlarmManager) context.getSystemService(ALARM_SERVICE);
-        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + INTERVAL_UPDATE, INTERVAL_UPDATE, pendingIntent);
+        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() /*+ INTERVAL_UPDATE*/, INTERVAL_UPDATE, pendingIntent);
     }
 
     @Override
@@ -53,7 +54,7 @@ public class ForgroundServiceUpdate extends Service {
             read = (System.currentTimeMillis() - timerCount) / 1000;
             timerCount = System.currentTimeMillis();
 
-            setUpAlarm();
+            Alarm.setUpAlarm(getApplicationContext(), calendrier);
             setal = (System.currentTimeMillis() - timerCount) / 1000;
             timerCount = System.currentTimeMillis();
 

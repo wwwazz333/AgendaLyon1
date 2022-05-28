@@ -62,4 +62,8 @@ public class DataGlobal {
     }
 
 
+    public static long getAlarmRingTimeBefore(Context context) {
+        return DataGlobal.getSavedInt(context, DataGlobal.ALARM_RING_TIME_BEFOR) * 60_000L;
+    }
+
 }
