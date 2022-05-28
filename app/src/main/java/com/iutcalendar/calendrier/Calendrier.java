@@ -3,10 +3,12 @@ package com.iutcalendar.calendrier;
 
 import android.content.Context;
 import com.calendar.iutcalendar.R;
+import com.iutcalendar.data.FileGlobal;
 import com.iutcalendar.data.Tuple;
 import com.iutcalendar.task.PersonnalCalendrier;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -146,7 +148,6 @@ public class Calendrier {
                 break;
             } else if (e.getDate().getTimeInMillis() >= date.getTimeInMillis()) {
                 nexts[i++] = e;
-            } else {
             }
         }
         return nexts;
@@ -230,17 +231,12 @@ public class Calendrier {
         return str.length() >= beging.length() && str.startsWith(beging);
     }
 
-    public static void writeCalendarFile(String conentFile, String file_path) throws IOException, InvalideFormatException {
+    public static boolean writeCalendarFile(String conentFile, File fileToWrite) throws IOException, InvalideFormatException {
         if (isValideFormat(conentFile)) {
-            Path p = Paths.get(file_path);
-
-            BufferedWriter buf = Files.newBufferedWriter(p);
-            buf.write(conentFile);
-            buf.close();
+            return FileGlobal.writeFile(conentFile, fileToWrite);
         } else {
             throw new InvalideFormatException("Le format du calendrier n'est pas valide");
         }
-
     }
 
     @Override

@@ -8,16 +8,13 @@ import com.iutcalendar.calendrier.InvalideFormatException;
 import com.iutcalendar.data.DataGlobal;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.nio.channels.FileChannel;
-import java.nio.channels.ReadableByteChannel;
 
 public class FileDownload {
-    private static boolean writingFile = false;
 
     public static InputStream getCalender(String urlCalender) throws IOException {
         Log.d("File", "Downloading file");
@@ -45,10 +42,6 @@ public class FileDownload {
         boolean succes = false;
 
         try { // update du fichier ou création
-            if (writingFile) {
-                throw new InputStreamFileException("fichier déjà en cours d'écriture");
-            }
-            writingFile = true;
             String url = DataGlobal.getSavedPath(context);
             if (url.isEmpty()) {
                 throw new InputStreamFileException("mauvais URL");
@@ -59,9 +52,8 @@ public class FileDownload {
             }
             String conentFile = inputStream2String(inputStream);
 
-            Calendrier.writeCalendarFile(conentFile, file_path);
-            Log.d("File", "fichier enregistré");
-            succes = true;
+            succes = Calendrier.writeCalendarFile(conentFile, new File(file_path));
+            if (succes) Log.d("File", "fichier enregistré");
         } catch (InvalideFormatException e) {
             Log.e("File", "format file : " + e.getMessage());
         } catch (InputStreamFileException e) {
@@ -72,9 +64,9 @@ public class FileDownload {
             Log.e("File", "Erreur update file : " + e.getMessage());
             e.printStackTrace();
         }
-        writingFile = false;
         return succes;
     }
+
     private static final int DEFAULT_BUFFER_SIZE = 8192;
 
     private static String inputStream2String(InputStream is) throws IOException {

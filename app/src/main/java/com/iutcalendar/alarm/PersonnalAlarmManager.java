@@ -17,13 +17,6 @@ public class PersonnalAlarmManager implements Serializable {
         if (instance == null) {
             instance = new PersonnalAlarmManager();
             instance.load(context);
-            Log.d("Alarm", "------------LOAD-------------");
-            for (List<AlarmRing> l : instance.alarms.values()) {
-                for (AlarmRing a : l) {
-                    Log.d("Alarm", a.toString());
-                }
-            }
-            Log.d("Alarm", "-------------------------");
         }
         return instance;
     }
@@ -137,14 +130,9 @@ public class PersonnalAlarmManager implements Serializable {
     }
 
     public void save(Context context) {
-        Log.d("Alarm", "----------SAVE---------------");
-        for (List<AlarmRing> l : alarms.values()) {
-            for (AlarmRing a : l) {
-                Log.d("Alarm", a.toString());
-            }
-        }
-        Log.d("Alarm", "-------------------------");
-        FileOutputStream stream;
+            FileGlobal.writeBinaryFile(alarms, FileGlobal.getFilePersonnalAlarm(context));
+
+       /* FileOutputStream stream;
         try {
             stream = new FileOutputStream(FileGlobal.getFilePersonnalAlarm(context));
         } catch (FileNotFoundException e) {
@@ -159,7 +147,7 @@ public class PersonnalAlarmManager implements Serializable {
             stream.close();
             Log.d("File", "file alarm saved");
         } catch (IOException e) {
-            Log.e("File", "couldn't write in file alarm");
-        }
+
+        }*/
     }
 }

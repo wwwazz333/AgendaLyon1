@@ -157,7 +157,6 @@ public class MainActivity extends AppCompatActivity {
         ForgroundServiceUpdate.start(getApplicationContext());
 
 
-
         update();
 
         Log.d("Global", "MainActivity end");

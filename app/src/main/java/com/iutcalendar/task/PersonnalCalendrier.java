@@ -5,7 +5,10 @@ import android.util.Log;
 import com.iutcalendar.calendrier.EventCalendrier;
 import com.iutcalendar.data.FileGlobal;
 
-import java.io.*;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -131,7 +134,9 @@ public class PersonnalCalendrier {
     }
 
     public void save(Context context) {
-        FileOutputStream stream;
+        FileGlobal.writeBinaryFile(tasks, FileGlobal.getFilePersonnalTask(context));
+
+        /*FileOutputStream stream;
         try {
             stream = new FileOutputStream(FileGlobal.getFilePersonnalTask(context));
         } catch (FileNotFoundException e) {
@@ -147,6 +152,6 @@ public class PersonnalCalendrier {
             Log.d("File", "fileTask saved");
         } catch (IOException e) {
             Log.e("File", "couldn't write in fileTask");
-        }
+        }*/
     }
 }

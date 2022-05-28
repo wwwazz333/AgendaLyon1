@@ -4,10 +4,7 @@ import android.content.Context;
 import android.os.Environment;
 import android.util.Log;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
@@ -35,6 +32,7 @@ public class FileGlobal {
         return new File(getPathDownladDir(context) + "/" + nameFilePersonnalAlarm);
     }
 
+
     public static String readFile(File file) {
         StringBuilder build = new StringBuilder();
 
@@ -60,6 +58,51 @@ public class FileGlobal {
         }
 
         return build.toString();
+    }
+
+    public static boolean writeFile(String contentToWrite, File fileToWrite) throws IOException {
+        File temporaryFile = new File(fileToWrite.getParent() + "/~" + fileToWrite.getName());
+        Path p = Paths.get(temporaryFile.getAbsolutePath());
+
+        BufferedWriter buf = Files.newBufferedWriter(p);
+        buf.write(contentToWrite);
+        buf.close();
+
+        if (temporaryFile.renameTo(fileToWrite)) {
+            return true;
+        } else {
+            Log.e("File", "error rename temporary file");
+            return false;
+        }
+    }
+
+    public static boolean writeBinaryFile(Object objectToWrite, File fileToWrite){
+        File temporaryFile = new File(fileToWrite.getParent() + "/~" + fileToWrite.getName());
+
+        FileOutputStream stream;
+        try {
+            stream = new FileOutputStream(temporaryFile);
+        } catch (FileNotFoundException e) {
+            Log.w("File", "binary file doesn't existe " + e.getMessage());
+            return false;
+        }
+
+        try {
+            ObjectOutputStream out = new ObjectOutputStream(stream);
+            out.writeObject(objectToWrite);
+            out.close();
+            stream.close();
+            Log.d("File", "file " + fileToWrite.getName() + " saved");
+        } catch (IOException e) {
+            Log.e("File", "couldn't write in file " + fileToWrite.getName());
+        }
+
+        if (temporaryFile.renameTo(fileToWrite)) {
+            return true;
+        } else {
+            Log.e("File", "error rename temporary file : " + fileToWrite.getName());
+            return false;
+        }
     }
 }
 

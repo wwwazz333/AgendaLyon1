@@ -25,7 +25,7 @@ import com.iutcalendar.notification.Notif;
 import java.util.List;
 
 public class ForgroundServiceUpdate extends Service {
-    private static final long INTERVAL_UPDATE = 15 * 60_000;
+    private static final long INTERVAL_UPDATE = 20 * 60_000;
 
     private Calendrier calendrier;
 
@@ -79,7 +79,7 @@ public class ForgroundServiceUpdate extends Service {
             Log.d("Background", "end Service");
         }).start();
 
-        return Service.START_STICKY;
+        return Service.START_NOT_STICKY;
     }
 
     @Nullable

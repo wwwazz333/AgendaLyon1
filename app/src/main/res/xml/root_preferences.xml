@@ -71,7 +71,7 @@
                 android:key="alarm_ring_time_before"
                 android:title="Alarme Horaire"
                 android:summary="Définire combien de temps sonné avant le 1er cours (en min)"
-                android:max="300"
+                android:max="240"
                 app:min="5"
                 android:defaultValue="60"
                 app:showSeekBarValue="true"/>
