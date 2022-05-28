@@ -51,13 +51,8 @@ public class EventFragment extends Fragment {
 
             if (fileCal.exists() && getActivity() != null && getActivity() instanceof MainActivity && getContext() != null) {
                 MainActivity mainActivity = ((MainActivity) getActivity());
-                String str = FileGlobal.readFile(fileCal);
 
-                mainActivity.setCalendrier(new Calendrier(str));
-                mainActivity.getCalendrier().deleteUselessTask(getContext());
                 Calendrier cal = mainActivity.getCalendrier();
-
-                mainActivity.checkChanges();
 
                 CurrentDate date = mainActivity.getCurrDate();
 

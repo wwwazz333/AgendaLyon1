@@ -7,12 +7,8 @@ import com.iutcalendar.data.FileGlobal;
 import com.iutcalendar.data.Tuple;
 import com.iutcalendar.task.PersonnalCalendrier;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
 
 public class Calendrier {
@@ -67,8 +63,7 @@ public class Calendrier {
     }
 
     public Calendrier clone() {
-        List<EventCalendrier> n = new ArrayList<>();
-        n.addAll(events);
+        List<EventCalendrier> n = new ArrayList<>(events);
         return new Calendrier(n);
     }
 
@@ -77,6 +72,10 @@ public class Calendrier {
     }
 
     public Calendrier(String txtIcs) {
+        loadFromString(txtIcs);
+    }
+
+    public void loadFromString(String txtIcs) {
         events = new ArrayList<>();
         String[] lines = txtIcs.split(DELIMITER_LINE);
 
@@ -212,7 +211,6 @@ public class Calendrier {
     }
 
     public void deleteUselessTask(Context context) {
-
         LinkedList<String> UIDs = new LinkedList<>();
 
         for (EventCalendrier event : getEvents()) {

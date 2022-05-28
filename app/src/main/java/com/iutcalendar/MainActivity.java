@@ -20,7 +20,6 @@ import com.iutcalendar.calendrier.EventCalendrier;
 import com.iutcalendar.data.DataGlobal;
 import com.iutcalendar.data.FileGlobal;
 import com.iutcalendar.data.Tuple;
-import com.iutcalendar.filedownload.FileDownload;
 import com.iutcalendar.service.ForgroundServiceUpdate;
 import com.iutcalendar.settings.SettingsActivity;
 import com.iutcalendar.settings.SettingsApp;
@@ -171,7 +170,9 @@ public class MainActivity extends AppCompatActivity {
         updating = true;
         startFragment(R.id.animFragment, new ReloadAnimationFragment());//start anim re load
         new Thread(() -> {
-            FileDownload.updateFichier(FileGlobal.getFileDownload(getApplicationContext()).getAbsolutePath(), getApplicationContext());
+            FileGlobal.updateAndGetChange(getApplicationContext(), calendrier, ((context, intent) -> startActivity(intent)));
+
+
             Log.d("Update", String.valueOf(MainActivity.active));
             if (MainActivity.active) {
                 Log.d("Update", "activation");
@@ -181,17 +182,6 @@ public class MainActivity extends AppCompatActivity {
             updating = false;
             Log.d("File", "updated");
         }).start();
-    }
-
-    public void checkChanges() {
-        Log.d("Update", "check change start");
-        List<Tuple<EventCalendrier, Calendrier.InfoChange>> changes = getCalendrier().getChangedEvent(savePrevCalendrier);
-        if (!changes.isEmpty()) {
-            String changesMsg = Calendrier.changeToString(getApplicationContext(), changes);
-            showChangedEvent(changesMsg);
-
-        }
-        savePrevCalendrier = getCalendrier().clone();
     }
 
     private void showChangedEvent(String changes) {
@@ -204,7 +194,6 @@ public class MainActivity extends AppCompatActivity {
 
         alertDialog.setPositiveButton(getString(R.string.ok),
                 (dialog, which) -> dialog.dismiss());
-
 
         alertDialog.show();
     }

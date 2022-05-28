@@ -1,14 +1,25 @@
 package com.iutcalendar.data;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Environment;
 import android.util.Log;
+import com.calendar.iutcalendar.R;
+import com.iutcalendar.MainActivity;
+import com.iutcalendar.calendrier.Calendrier;
+import com.iutcalendar.calendrier.EventCalendrier;
+import com.iutcalendar.event.ChangeEventListener;
+import com.iutcalendar.filedownload.FileDownload;
+import com.iutcalendar.notification.Notif;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 public class FileGlobal {
     public static final String nameFileSave = "savedCal.ics";
@@ -76,7 +87,7 @@ public class FileGlobal {
         }
     }
 
-    public static boolean writeBinaryFile(Object objectToWrite, File fileToWrite){
+    public static boolean writeBinaryFile(Object objectToWrite, File fileToWrite) {
         File temporaryFile = new File(fileToWrite.getParent() + "/~" + fileToWrite.getName());
 
         FileOutputStream stream;
@@ -102,6 +113,37 @@ public class FileGlobal {
         } else {
             Log.e("File", "error rename temporary file : " + fileToWrite.getName());
             return false;
+        }
+    }
+
+    public static void updateAndGetChange(Context context, Calendrier calendrier, ChangeEventListener onChangeListener) {
+        Calendrier prev;
+        if (calendrier != null) {
+            prev = calendrier.clone();
+        } else {
+            prev = new Calendrier(FileGlobal.readFile(FileGlobal.getFileDownload(context)));
+        }
+        FileDownload.updateFichier(FileGlobal.getFileDownload(context).getAbsolutePath(), context);
+
+        Calendrier nouveau;
+        if (calendrier != null) {
+            nouveau = calendrier;
+            nouveau.loadFromString(FileGlobal.readFile(FileGlobal.getFileDownload(context)));
+        } else {
+            nouveau = new Calendrier(FileGlobal.readFile(FileGlobal.getFileDownload(context)));
+        }
+
+        nouveau.deleteUselessTask(context);
+
+        List<Tuple<EventCalendrier, Calendrier.InfoChange>> changes = nouveau.getChangedEvent(prev);
+        if (!changes.isEmpty()) {
+            String changesMsg = Calendrier.changeToString(context, changes);
+
+            //TODO string: message de notif
+            Intent intent = new Intent(context, MainActivity.class);
+            intent.putExtra("changes", changesMsg);
+
+            onChangeListener.ifChange(context, intent);
         }
     }
 }
