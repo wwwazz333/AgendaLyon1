@@ -37,7 +37,6 @@ public class SettingsAlarmFragment extends Fragment {
         recyclerViewAlarm.setAdapter(adapter);
 
         LinearLayoutManager layout = new LinearLayoutManager(getActivity());
-        layout.setReverseLayout(true);//afficher d'abord les alarm les plus récente
         recyclerViewAlarm.setLayoutManager(layout);
         PersonnalAlarmManager.getInstance(getContext()).save(getContext());
         Log.d("Alarm", "updateAlarm : " + PersonnalAlarmManager.getInstance(getContext()).getAllAlarmToList().size());

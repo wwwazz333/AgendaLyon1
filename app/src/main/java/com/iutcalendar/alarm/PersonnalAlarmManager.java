@@ -106,6 +106,7 @@ public class PersonnalAlarmManager implements Serializable {
         for (List<AlarmRing> listAlarm : alarms.values()) {
             liste.addAll(listAlarm);
         }
+        Collections.sort(liste);
         return liste;
     }
 

@@ -5,7 +5,7 @@ import com.iutcalendar.calendrier.CurrentDate;
 
 import java.io.Serializable;
 
-public class AlarmRing implements Serializable {
+public class AlarmRing implements Serializable, Comparable<AlarmRing> {
 
     private final long timeInMillis;
     private boolean isActivate;
@@ -54,5 +54,10 @@ public class AlarmRing implements Serializable {
                 "timeInMillis=" + timeInMillis +
                 ", isActivate=" + isActivate +
                 '}';
+    }
+
+    @Override
+    public int compareTo(AlarmRing alarmRing) {
+        return Long.compare(this.getTimeInMillis(), alarmRing.getTimeInMillis());
     }
 }
