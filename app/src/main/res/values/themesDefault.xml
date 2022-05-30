@@ -16,6 +16,10 @@
 
         <!--        <item name="android:textColor">@color/text_white</item>-->
 
+
+        <item name="android:windowAnimationStyle">@null</item>
+
+
     </style>
     <style name="Theme.IUTCalendarParentActionBar" parent="Theme.MaterialComponents.DayNight">
         <!-- Primary brand color. -->
@@ -31,6 +35,10 @@
         <item name="android:windowBackground">?attr/backgroundColor</item>
 
         <!--        <item name="android:textColor">@color/text_white</item>-->
+
+
+        <item name="android:windowAnimationStyle">@null</item>
+
 
     </style>
 </resources>

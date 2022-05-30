@@ -1,11 +1,11 @@
 package com.iutcalendar.settings;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.os.Build;
+import android.net.Uri;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
@@ -65,5 +65,11 @@ public class SettingsApp {
         theme.resolveAttribute(id, typedValue, true);
         @ColorInt int color = typedValue.data;
         return color;
+    }
+
+    public static void startDisplayOverOtherApp(Context context) {
+        Intent intent = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        intent.setData(Uri.parse("package:" + context.getPackageName()));
+        context.startActivity(intent);
     }
 }

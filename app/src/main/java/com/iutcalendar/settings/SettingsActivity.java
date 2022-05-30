@@ -1,13 +1,11 @@
 package com.iutcalendar.settings;
 
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.MenuItem;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,7 +13,6 @@ import androidx.fragment.app.Fragment;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import com.calendar.iutcalendar.R;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.iutcalendar.data.DataGlobal;
@@ -24,6 +21,8 @@ public class SettingsActivity extends AppCompatActivity implements
         PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
 
     //TODO modifier theme
+
+    private static int countArboressenceFragment = 0;
 
 
     @Override
@@ -39,6 +38,8 @@ public class SettingsActivity extends AppCompatActivity implements
                     .replace(R.id.settings, new SettingsFragment())
                     .commit();
         }
+
+
         ActionBar actionBar = getSupportActionBar();
 
         if (actionBar != null) {
@@ -49,6 +50,7 @@ public class SettingsActivity extends AppCompatActivity implements
     @Override
     public boolean onPreferenceStartFragment(PreferenceFragmentCompat caller, Preference pref) {// pour la redirection vers les sous menu
         if (pref.getFragment() != null) {
+            countArboressenceFragment++;
             final Bundle args = pref.getExtras();
             final Fragment fragment = getSupportFragmentManager().getFragmentFactory().instantiate(
                     getClassLoader(),
@@ -87,5 +89,22 @@ public class SettingsActivity extends AppCompatActivity implements
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
         }
     }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                if (countArboressenceFragment > 0) {
+                    getSupportFragmentManager().popBackStack();
+                    countArboressenceFragment--;
+                } else {
+                    finish();
+                }
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
 }
 

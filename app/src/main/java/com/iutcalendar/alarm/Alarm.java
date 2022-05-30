@@ -163,7 +163,7 @@ public class Alarm extends BroadcastReceiver {
 
 
     private void startRingtion(Context context) {
-        Alarm.ring = RingtoneManager.getRingtone(context, Settings.System.DEFAULT_RINGTONE_URI);
+        Alarm.ring = RingtoneManager.getRingtone(context, Settings.System.DEFAULT_ALARM_ALERT_URI);
         AudioAttributes alarmVoume = new AudioAttributes.Builder()
                 .setUsage(AudioAttributes.USAGE_ALARM)
                 .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
@@ -205,7 +205,6 @@ public class Alarm extends BroadcastReceiver {
 
         CurrentDate dayAnalysed = new CurrentDate();
         for (int dayAfter = 0; dayAfter < 7; dayAfter++) {
-            dayAnalysed = dayAnalysed.addDay(1);
             List<EventCalendrier> events = calendrier.getEventsOfDay(dayAnalysed);
 
             if (!events.isEmpty()) {
@@ -239,6 +238,8 @@ public class Alarm extends BroadcastReceiver {
                     Log.d("Alarm", "alarm passer => non mise");
                 }
             }
+
+            dayAnalysed = dayAnalysed.addDay(1);
         }
         personnalAlarmManager.removeUseless(context);
         personnalAlarmManager.setUpAlarms(context);

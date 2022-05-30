@@ -14,13 +14,11 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import com.calendar.iutcalendar.R;
-import com.iutcalendar.alarm.Alarm;
 import com.iutcalendar.calendrier.Calendrier;
 import com.iutcalendar.calendrier.CurrentDate;
 import com.iutcalendar.calendrier.EventCalendrier;
 import com.iutcalendar.data.DataGlobal;
 import com.iutcalendar.data.FileGlobal;
-import com.iutcalendar.data.Tuple;
 import com.iutcalendar.service.ForgroundServiceUpdate;
 import com.iutcalendar.settings.SettingsActivity;
 import com.iutcalendar.settings.SettingsApp;
@@ -32,7 +30,6 @@ import com.iutcalendar.widget.WidgetCalendar;
 
 import java.io.File;
 import java.util.GregorianCalendar;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private static boolean active = false, updating = false;
@@ -136,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
         if (getIntent().getBooleanExtra("launche_next_event", false)) {
             dateToLaunche.add(GregorianCalendar.MINUTE, WidgetCalendar.DELAY_AFTER_EVENT_PASSED);//pcq l'event s'affiche tjrs au bout de 30min
             EventCalendrier[] es = getCalendrier().getNext2EventAfter(dateToLaunche);
-            if (es.length >= 1) {
+            if (es[0] != null) {
                 dateToLaunche = new CurrentDate(es[0].getDate());
             }
         } else {
@@ -286,7 +283,6 @@ public class MainActivity extends AppCompatActivity {
             findViewById(id).setBackgroundColor(Color.argb(0f, 1.0f, 1.0f, 1.0f));
         }
     }
-
     /*########################################################################
                                     OTHER
      ########################################################################*/

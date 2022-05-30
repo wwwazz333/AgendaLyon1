@@ -33,8 +33,7 @@ public class ForgroundServiceUpdate extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d("Background", "start Service at " + new CurrentDate().timeToString());
-        Notif notif = new Notif(this, Notif.UPDATE_BACKGROUND_NOTIFICATION_ID, NotificationManager.IMPORTANCE_LOW,
-                "maj.", "maj. agenda en arrière plan", R.drawable.ic_update, null);
+        Notif notif = new Notif(this, Notif.UPDATE_BACKGROUND_NOTIFICATION_ID, NotificationManager.IMPORTANCE_LOW, "maj.", "maj. agenda en arrière plan", R.drawable.ic_update, null);
         startForeground(startId, notif.build());
 
 
@@ -56,12 +55,12 @@ public class ForgroundServiceUpdate extends Service {
 
 
 //            if (read != 0 || setal != 0 || upmaj != 0) {
-//                String txt = "";
-//                txt += "read cal : " + read + "s\n";
-//                txt += "maj : " + setal + "s\n";
-//                txt += "alarm : " + upmaj + "s\n";
-//                new Notif(this, Notif.CHANGE_EVENT_NOTIFICATION_ID, NotificationManager.IMPORTANCE_DEFAULT,
-//                        "Tps background", txt, R.drawable.ic_update, null).show();
+//            String txt = "";
+//            txt += "read cal : " + read + "s\n";
+//            txt += "maj : " + setal + "s\n";
+//            txt += "alarm : " + upmaj + "s\n";
+//            new Notif(this, Notif.CHANGE_EVENT_NOTIFICATION_ID, NotificationManager.IMPORTANCE_DEFAULT,
+//                    "Tps background", txt, R.drawable.ic_update, null).show();
 //            }
 
 
@@ -85,11 +84,9 @@ public class ForgroundServiceUpdate extends Service {
 
     private void updateFile() {
         FileGlobal.updateAndGetChange(getApplicationContext(), calendrier, ((context, intent) -> {
-            PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent,
-                    PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE);
+            PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE);
 
-            Notif notif = new Notif(context, Notif.CHANGE_EVENT_NOTIFICATION_ID, NotificationManager.IMPORTANCE_DEFAULT,
-                    context.getResources().getString(R.string.event), "changes : all the changes", R.drawable.ic_edit, pendingIntent);
+            Notif notif = new Notif(context, Notif.CHANGE_EVENT_NOTIFICATION_ID, NotificationManager.IMPORTANCE_DEFAULT, context.getResources().getString(R.string.event), "changes : all the changes", R.drawable.ic_edit, pendingIntent);
             notif.show();
         }));
 

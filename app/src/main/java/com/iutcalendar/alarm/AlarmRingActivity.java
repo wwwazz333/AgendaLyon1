@@ -6,6 +6,7 @@ import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -23,10 +24,15 @@ public class AlarmRingActivity extends AppCompatActivity {
         SettingsApp.adapteTheme(this);
         SettingsApp.setLocale(getResources(), DataGlobal.getLanguage(getApplicationContext()));
 
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
+            Log.d("Test", "here");
             setShowWhenLocked(true);
+            setTurnScreenOn(true);
         } else {
+            Log.d("Test", "not here");
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
         }
 
 
