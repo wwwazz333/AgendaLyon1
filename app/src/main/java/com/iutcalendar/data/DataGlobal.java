@@ -11,6 +11,7 @@ public class DataGlobal {
     public final static String ALARM_ENABELED = "alarme_enable";
 
     public final static String ALARM_RING_TIME_BEFOR = "alarm_ring_time_before";
+    public final static String DEBUGING = "debuging";
 
     public static String getTheme(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context).getString(THEME, "default");
@@ -41,6 +42,14 @@ public class DataGlobal {
 
     public static boolean getSavedBoolean(Context context, String key) {
         return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(key, false);
+    }
+
+    public static void setDebugings(Context context, boolean data) {
+        PreferenceManager.getDefaultSharedPreferences(context).edit().putBoolean(DEBUGING, data).commit();
+    }
+
+    public static boolean isDebug(Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(DEBUGING, false);
     }
 
     //boolean
