@@ -5,7 +5,9 @@
               tools:context="com.iutcalendar.settings.ExplicationSettingsFragment"
               android:paddingHorizontal="10dp"
               android:layout_marginTop="10dp"
-              android:orientation="vertical">
+              android:orientation="vertical"
+              android:divider="?dividerHorizontal"
+              android:showDividers="middle">
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent" android:layout_height="wrap_content">
@@ -27,4 +29,11 @@
                 app:layout_constraintLeft_toLeftOf="@id/textView"
                 android:layout_marginStart="16dp"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+            android:id="@+id/versionLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/version_build"
+            android:layout_gravity="center_horizontal"/>
 </LinearLayout>

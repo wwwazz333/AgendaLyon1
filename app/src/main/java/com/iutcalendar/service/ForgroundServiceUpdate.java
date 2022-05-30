@@ -55,14 +55,14 @@ public class ForgroundServiceUpdate extends Service {
             upmaj = (System.currentTimeMillis() - timerCount) / 1000;
 
 
-            if (read != 0 || setal != 0 || upmaj != 0) {
-                String txt = "";
-                txt += "read cal : " + read + "s\n";
-                txt += "maj : " + setal + "s\n";
-                txt += "alarm : " + upmaj + "s\n";
-                new Notif(this, Notif.CHANGE_EVENT_NOTIFICATION_ID, NotificationManager.IMPORTANCE_DEFAULT,
-                        "Tps background", txt, R.drawable.ic_update, null).show();
-            }
+//            if (read != 0 || setal != 0 || upmaj != 0) {
+//                String txt = "";
+//                txt += "read cal : " + read + "s\n";
+//                txt += "maj : " + setal + "s\n";
+//                txt += "alarm : " + upmaj + "s\n";
+//                new Notif(this, Notif.CHANGE_EVENT_NOTIFICATION_ID, NotificationManager.IMPORTANCE_DEFAULT,
+//                        "Tps background", txt, R.drawable.ic_update, null).show();
+//            }
 
 
             stopForeground(true);

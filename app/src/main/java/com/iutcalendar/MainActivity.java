@@ -14,6 +14,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import com.calendar.iutcalendar.R;
+import com.iutcalendar.alarm.Alarm;
 import com.iutcalendar.calendrier.Calendrier;
 import com.iutcalendar.calendrier.CurrentDate;
 import com.iutcalendar.calendrier.EventCalendrier;
@@ -157,6 +158,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         update();
+
+//        Alarm.setAlarm(getApplicationContext(), System.currentTimeMillis() + 5_000, "test");
 
         Log.d("Global", "MainActivity end");
     }

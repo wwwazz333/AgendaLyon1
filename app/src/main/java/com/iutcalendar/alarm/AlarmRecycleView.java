@@ -43,7 +43,14 @@ public class AlarmRecycleView extends RecyclerView.Adapter<AlarmViewHolder> {
 
         viewHolder.horaire.setText(dateRing.timeToString());
 
-        viewHolder.date.setText(dateRing.getRelativeDayName(viewHolder.view.getContext()));
+
+        String dateAffichage = dateRing.getRelativeDayName(viewHolder.view.getContext());
+        if (Character.isDigit(dateAffichage.charAt(dateAffichage.length()-1))) {
+            viewHolder.date.setText(dateAffichage.substring(0, dateAffichage.length() - 5));//enlerver l'année
+        } else {
+            viewHolder.date.setText(dateAffichage);
+        }
+
 
         viewHolder.isActivateSwitch.setChecked(alarmRing.isActivate());
 

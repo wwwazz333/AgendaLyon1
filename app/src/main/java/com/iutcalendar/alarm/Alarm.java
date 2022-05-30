@@ -25,6 +25,8 @@ import com.iutcalendar.notification.Notif;
 
 import java.util.List;
 
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+
 public class Alarm extends BroadcastReceiver {
     public final static int NONE = 0, STOP = 1, START = 2;
 
@@ -97,6 +99,14 @@ public class Alarm extends BroadcastReceiver {
                     //Notification
                     showNotification(context);
 
+                    //affiche activity to disable alarm
+                    Intent activityAlarm = new Intent(context, AlarmRingActivity.class);
+                    activityAlarm.putExtra("time", new CurrentDate().getTimeInMillis());
+                    activityAlarm.addFlags(FLAG_ACTIVITY_NEW_TASK);
+                    activityAlarm.setAction(Intent.ACTION_MAIN);
+                    activityAlarm.addCategory(Intent.CATEGORY_LAUNCHER);
+                    context.startActivity(activityAlarm);
+
                     Log.d("Alarm", "ringing...");
                 } else {
                     Log.d("Alarm", "alarm n'a pas pu sonner car elle est désactiver");
@@ -105,6 +115,7 @@ public class Alarm extends BroadcastReceiver {
             case Alarm.STOP:
                 stopRington();
                 stopVibration(context);
+                clearNotif(context);
                 break;
             default:
                 Log.d("Alarm", "no action");
@@ -113,13 +124,25 @@ public class Alarm extends BroadcastReceiver {
 
     }
 
-    private void showNotification(Context context) {
-        Intent ai = new Intent(context, Alarm.class);
-        ai.putExtra("action", Alarm.STOP);
-        PendingIntent cancelAlarmIntent = PendingIntent.getBroadcast(context, 0, ai, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+    private void clearNotif(Context context) {
+        Notif.cancelAlarmNotif(context);
+    }
 
-        new Notif(context, Notif.ALARM_NOTIFICATION_ID, NotificationManager.IMPORTANCE_HIGH,
-                "Alarm", "ring", R.drawable.ic_alarm, cancelAlarmIntent).show();
+    private void showNotification(Context context) {
+//        Intent ai = new Intent(context, Alarm.class);
+//        ai.putExtra("action", Alarm.STOP);
+//
+//        PendingIntent cancelAlarmIntent = PendingIntent.getBroadcast(context, 0, ai,
+//                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+
+
+        Intent ai = new Intent(context, AlarmRingActivity.class);
+        PendingIntent cancelAlarmIntent = PendingIntent.getActivity(context, 0, ai, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+
+        Notif notif = new Notif(context, Notif.ALARM_NOTIFICATION_ID, NotificationManager.IMPORTANCE_HIGH,
+                "Alarm", "ring", R.drawable.ic_alarm, cancelAlarmIntent);
+        notif.setOngoing(true);
+        notif.show();
     }
 
     private void startVibration(Context context) {

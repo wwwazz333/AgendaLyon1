@@ -1,8 +1,12 @@
 package com.iutcalendar.settings;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
@@ -21,7 +25,6 @@ public class SettingsActivity extends AppCompatActivity implements
 
     //TODO modifier theme
 
-    FloatingActionButton retourBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,11 +32,6 @@ public class SettingsActivity extends AppCompatActivity implements
         setTheme(R.style.Theme_IUTCalendarActionBar);
         SettingsApp.setLocale(getResources(), DataGlobal.getLanguage(getApplicationContext()));
         setContentView(R.layout.settings_activity);
-
-        retourBtn = findViewById(R.id.btnRetour);
-
-        retourBtn.setOnClickListener(view -> finish());
-
 
         if (savedInstanceState == null) {
             getSupportFragmentManager()

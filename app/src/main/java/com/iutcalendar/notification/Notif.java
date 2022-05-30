@@ -14,15 +14,17 @@ public class Notif extends NotificationCompat.Builder {
     public static final String ALARM_NOTIFICATION_ID = "Alarm notfication";
     private NotificationManager mNotificationManager;
 
+    private final String chanelId;
+
     public Notif(Context context, String chanelId, int importance, String title, String msg, @DrawableRes int icon, PendingIntent pendingItent) {
         super(context, chanelId);
         initChanel(context, chanelId, importance);
+        this.chanelId = chanelId;
         setSmallIcon(icon);
         setContentTitle(title);
         setContentText(msg);
         setAutoCancel(true);
         setContentIntent(pendingItent);
-
     }
 
     public void initChanel(Context context, String chanelId, int importance) {
@@ -37,7 +39,16 @@ public class Notif extends NotificationCompat.Builder {
     }
 
     public void show() {
-        mNotificationManager.notify((int) System.currentTimeMillis(), build());
+        if (chanelId.equals(ALARM_NOTIFICATION_ID)) {
+            mNotificationManager.notify(0, build());
+        } else {
+            mNotificationManager.notify((int) System.currentTimeMillis(), build());
+        }
+
     }
 
+    public static void cancelAlarmNotif(Context context) {
+        NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        mNotificationManager.cancel(0);
+    }
 }

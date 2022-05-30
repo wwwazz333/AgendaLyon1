@@ -28,6 +28,7 @@
         <entry key="app/src/main/res/drawable/ic_simple_ico.xml" value="0.3671875" />
         <entry key="app/src/main/res/drawable/left_arrow.xml" value="0.3671875" />
         <entry key="app/src/main/res/drawable/task_background.xml" value="0.37435897435897436" />
+        <entry key="app/src/main/res/layout/activity_alarm_ring.xml" value="0.35104166666666664" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.5255878284923928" />
         <entry key="app/src/main/res/layout/alarm_card.xml" value="0.5" />
         <entry key="app/src/main/res/layout/blank_fragment.xml" value="0.35104166666666664" />
@@ -51,7 +52,7 @@
         <entry key="app/src/main/res/layout/fragment_u_r_l_setter.xml" value="0.3359375" />
         <entry key="app/src/main/res/layout/fragment_url_setter.xml" value="0.22" />
         <entry key="app/src/main/res/layout/network_security_config.xml" value="0.178125" />
-        <entry key="app/src/main/res/layout/settings_activity.xml" value="0.35104166666666664" />
+        <entry key="app/src/main/res/layout/settings_activity.xml" value="0.30118694362017806" />
         <entry key="app/src/main/res/layout/source_preference.xml" value="0.35" />
         <entry key="app/src/main/res/layout/task_card.xml" value="0.35" />
         <entry key="app/src/main/res/layout/widget_calendar.xml" value="0.33" />

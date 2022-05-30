@@ -1,27 +1,14 @@
-<RelativeLayout
+<LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical">
 
     <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:id="@+id/settings"
             app:layout_constraintTop_toTopOf="parent">
     </FrameLayout>
-
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/btnRetour"
-            android:layout_marginBottom="@dimen/tab_gap"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentBottom="true"
-            android:src="@drawable/ic_close_ico"
-            android:contentDescription="@string/close_settings"
-            android:visibility="invisible"/>
-
-
-</RelativeLayout>
+</LinearLayout>

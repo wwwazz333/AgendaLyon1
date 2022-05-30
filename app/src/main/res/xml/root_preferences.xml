@@ -85,12 +85,7 @@
                 app:fragment="com.iutcalendar.settings.ExplicationSettingsFragment"
                 app:title="@string/Usage"
                 app:summary="@string/Usage_description"/>
-        <Preference
-                app:fragment="com.iutcalendar.settings.InformationAppFragment"
-                app:title="@string/Information"
-                app:summary="@string/InformationSettingsLabel"/>
     </PreferenceCategory>
-
 
 
 </PreferenceScreen>
