@@ -101,10 +101,7 @@ public class Alarm extends BroadcastReceiver {
 
                     //affiche activity to disable alarm
                     Intent activityAlarm = new Intent(context, AlarmRingActivity.class);
-                    activityAlarm.putExtra("time", new CurrentDate().getTimeInMillis());
                     activityAlarm.addFlags(FLAG_ACTIVITY_NEW_TASK);
-                    activityAlarm.setAction(Intent.ACTION_MAIN);
-                    activityAlarm.addCategory(Intent.CATEGORY_LAUNCHER);
                     context.startActivity(activityAlarm);
 
                     Log.d("Alarm", "ringing...");

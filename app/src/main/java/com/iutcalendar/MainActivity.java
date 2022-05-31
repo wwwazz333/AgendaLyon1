@@ -156,6 +156,8 @@ public class MainActivity extends AppCompatActivity {
 
         update();
 
+
+        /*####Testing feature#####*/
 //        Alarm.setAlarm(getApplicationContext(), System.currentTimeMillis() + 5_000, "test");
 
         Log.d("Global", "MainActivity end");
@@ -283,6 +285,7 @@ public class MainActivity extends AppCompatActivity {
             findViewById(id).setBackgroundColor(Color.argb(0f, 1.0f, 1.0f, 1.0f));
         }
     }
+
     /*########################################################################
                                     OTHER
      ########################################################################*/

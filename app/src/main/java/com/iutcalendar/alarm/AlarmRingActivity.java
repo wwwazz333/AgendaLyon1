@@ -12,11 +12,14 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.calendar.iutcalendar.R;
-import com.iutcalendar.calendrier.DateCalendrier;
+import com.iutcalendar.calendrier.CurrentDate;
 import com.iutcalendar.data.DataGlobal;
 import com.iutcalendar.settings.SettingsApp;
 
 public class AlarmRingActivity extends AppCompatActivity {
+
+    private ImageButton stopAlarmBtn;
+    private TextView horaire;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,43 +27,21 @@ public class AlarmRingActivity extends AppCompatActivity {
         SettingsApp.adapteTheme(this);
         SettingsApp.setLocale(getResources(), DataGlobal.getLanguage(getApplicationContext()));
 
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
-            Log.d("Test", "here");
-            setShowWhenLocked(true);
-            setTurnScreenOn(true);
-        } else {
-            Log.d("Test", "not here");
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
-        }
+        //wakeup phone & not unlock needed
+        wakeAndShowActivity();
 
 
         setContentView(R.layout.activity_alarm_ring);
 
 
-        TextView horaire = findViewById(R.id.horaire);
-        ImageButton stopAlarmBtn = findViewById(R.id.stop_alarm_btn);
-
-        long timeAlarm = getIntent().getLongExtra("time", -1);
-        if (timeAlarm != -1) {
-            DateCalendrier time = new DateCalendrier();
-            time.setTimeInMillis(timeAlarm);
-            horaire.setText(time.timeToString());
-        } else {
-            horaire.setText("Time");
-        }
+        horaire = findViewById(R.id.horaire);
+        stopAlarmBtn = findViewById(R.id.stop_alarm_btn);
 
 
-        ObjectAnimator scaleDown = ObjectAnimator.ofPropertyValuesHolder(
-                stopAlarmBtn,
-                PropertyValuesHolder.ofFloat("scaleX", 2f),
-                PropertyValuesHolder.ofFloat("scaleY", 2f)
-        );
-        scaleDown.setDuration(500);
-        scaleDown.setRepeatMode(ValueAnimator.REVERSE);
-        scaleDown.setRepeatCount(ValueAnimator.INFINITE);
-        scaleDown.start();
+        horaire.setText(new CurrentDate().timeToString());
+
+
+        setAnimAlarmBtn();
 
         stopAlarmBtn.setOnClickListener(view -> {
             Intent cancelAlarmIntent = new Intent(getApplicationContext(), Alarm.class);
@@ -70,5 +51,28 @@ public class AlarmRingActivity extends AppCompatActivity {
 
             finish();
         });
+    }
+
+    private void setAnimAlarmBtn() {
+        //Animation Boutton Arret Alarm
+        ObjectAnimator scaleDown = ObjectAnimator.ofPropertyValuesHolder(
+                findViewById(R.id.shadow_btn),
+                PropertyValuesHolder.ofFloat("scaleX", 3f),
+                PropertyValuesHolder.ofFloat("scaleY", 3f)
+        );
+        scaleDown.setDuration(500);
+        scaleDown.setRepeatMode(ValueAnimator.REVERSE);
+        scaleDown.setRepeatCount(ValueAnimator.INFINITE);
+        scaleDown.start();
+    }
+
+    private void wakeAndShowActivity() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
+            setShowWhenLocked(true);
+            setTurnScreenOn(true);
+        } else {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
+        }
     }
 }

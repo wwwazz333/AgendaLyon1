@@ -89,9 +89,6 @@ public class ForgroundServiceUpdate extends Service {
         return null;
     }
 
-    private long getAlarmRingTimeBefore() {
-        return DataGlobal.getSavedInt(getApplicationContext(), DataGlobal.ALARM_RING_TIME_BEFOR) * 60_000L;
-    }
 
     private void updateFile() {
         FileGlobal.updateAndGetChange(getApplicationContext(), calendrier, ((context, intent) -> {
@@ -100,7 +97,5 @@ public class ForgroundServiceUpdate extends Service {
             Notif notif = new Notif(context, Notif.CHANGE_EVENT_NOTIFICATION_ID, NotificationManager.IMPORTANCE_DEFAULT, context.getResources().getString(R.string.event), "changes : all the changes", R.drawable.ic_edit, pendingIntent);
             notif.show();
         }));
-
-
     }
 }
