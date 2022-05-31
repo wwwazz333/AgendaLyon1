@@ -7,6 +7,7 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
+import android.os.PowerManager;
 import android.util.Log;
 import androidx.annotation.Nullable;
 import com.calendar.iutcalendar.R;
@@ -37,6 +38,13 @@ public class ForgroundServiceUpdate extends Service {
         startForeground(startId, notif.build());
 
 
+        //reveil le CPU
+        PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
+        PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
+                "IUTCalendar::majAgenda");
+        wakeLock.acquire(30 * 1_000L /*30s*/);
+
+
         new Thread(() -> {
             long timerCount = System.currentTimeMillis();
 
@@ -64,6 +72,8 @@ public class ForgroundServiceUpdate extends Service {
 //            }
             }
 
+            //Plus besoin du CPU
+            wakeLock.release();
 
             stopForeground(true);
             stopSelf();
