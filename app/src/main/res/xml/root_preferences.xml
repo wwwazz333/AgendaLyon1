@@ -76,6 +76,11 @@
                 android:defaultValue="60"
                 app:showSeekBarValue="true"/>
 
+        <Preference
+                app:fragment="com.iutcalendar.settings.AlarmHoraireFragment"
+                app:title="Horaire Alarms"
+                app:summary="Paramètrage des horaires pour les alarmes"/>
+
 
     </PreferenceCategory>
 

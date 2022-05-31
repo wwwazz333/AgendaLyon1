@@ -35,6 +35,7 @@
         <entry key="app/src/main/res/layout/dialog_event_edit.xml" value="0.33" />
         <entry key="app/src/main/res/layout/event_card.xml" value="0.5" />
         <entry key="app/src/main/res/layout/event_view.xml" value="0.35" />
+        <entry key="app/src/main/res/layout/fragment_alarm_horaire.xml" value="0.35104166666666664" />
         <entry key="app/src/main/res/layout/fragment_blank.xml" value="0.35104166666666664" />
         <entry key="app/src/main/res/layout/fragment_day_of_week.xml" value="0.35104166666666664" />
         <entry key="app/src/main/res/layout/fragment_event.xml" value="0.35104166666666664" />
@@ -60,6 +61,7 @@
         <entry key="app/src/main/res/layout/widget_calendar_black.xml" value="0.33" />
         <entry key="app/src/main/res/layout/widget_calendar_grey.xml" value="0.33" />
         <entry key="app/src/main/res/layout/widget_calendar_light.xml" value="0.35104166666666664" />
+        <entry key="app/src/main/res/menu/menu_action_add_constraint_alarm.xml" value="0.365625" />
         <entry key="app/src/main/res/menu/menu_action_settings_alarm.xml" value="0.3645833333333333" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.36153846153846153" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.36153846153846153" />
