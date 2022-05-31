@@ -23,6 +23,12 @@ public class SettingsAlarmFragment extends Fragment {
     private RecyclerView recyclerViewAlarm;
 
     @Override
+    public void onStart() {
+        updateAlarm();
+        super.onStart();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_settings_alarm, container, false);

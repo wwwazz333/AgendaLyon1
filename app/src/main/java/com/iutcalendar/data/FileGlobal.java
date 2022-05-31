@@ -25,6 +25,7 @@ public class FileGlobal {
     public static final String nameFileSave = "savedCal.ics";
     public static final String nameFilePersonnalTask = "personalTasks.dat";
     public static final String nameFilePersonnalAlarm = "personalAlarms.dat";
+    public static final String nameFileConstraintAlarm = "personalAlarmConstraints.dat";
 
 
     public static String getPathDownladDir(Context context) {
@@ -41,6 +42,9 @@ public class FileGlobal {
 
     public static File getFilePersonnalAlarm(Context context) {
         return new File(getPathDownladDir(context) + "/" + nameFilePersonnalAlarm);
+    }
+    public static File getFileConstraints(Context context) {
+        return new File(getPathDownladDir(context) + "/" + nameFileConstraintAlarm);
     }
 
 

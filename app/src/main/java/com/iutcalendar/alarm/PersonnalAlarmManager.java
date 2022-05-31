@@ -131,23 +131,5 @@ public class PersonnalAlarmManager implements Serializable {
 
     public void save(Context context) {
             FileGlobal.writeBinaryFile(alarms, FileGlobal.getFilePersonnalAlarm(context));
-
-       /* FileOutputStream stream;
-        try {
-            stream = new FileOutputStream(FileGlobal.getFilePersonnalAlarm(context));
-        } catch (FileNotFoundException e) {
-            Log.w("File", "fileTask doesn't existe.");
-            return;
-        }
-
-        try {
-            ObjectOutputStream out = new ObjectOutputStream(stream);
-            out.writeObject(alarms);
-            out.close();
-            stream.close();
-            Log.d("File", "file alarm saved");
-        } catch (IOException e) {
-
-        }*/
     }
 }
