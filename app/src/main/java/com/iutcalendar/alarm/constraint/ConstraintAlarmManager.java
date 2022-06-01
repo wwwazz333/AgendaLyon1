@@ -22,6 +22,7 @@ public class ConstraintAlarmManager implements Serializable {
     }
 
     public ConstraintAlarmManager() {
+        listeConstraint = new LinkedList<>();
     }
 
 

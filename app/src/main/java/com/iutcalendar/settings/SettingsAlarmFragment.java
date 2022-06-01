@@ -1,7 +1,5 @@
 package com.iutcalendar.settings;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.*;
@@ -34,6 +32,8 @@ public class SettingsAlarmFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_settings_alarm, container, false);
 
         recyclerViewAlarm = view.findViewById(R.id.recycle_alarm);
+
+        //TODO update quand arrive sur page pas à avoir à actualiser
         updateAlarm();
 
         return view;

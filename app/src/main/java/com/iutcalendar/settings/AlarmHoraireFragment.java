@@ -1,19 +1,42 @@
 package com.iutcalendar.settings;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.*;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.calendar.iutcalendar.R;
+import com.iutcalendar.alarm.constraint.AlarmConstraintRecycleView;
+import com.iutcalendar.alarm.constraint.ConstraintAlarmManager;
 
 public class AlarmHoraireFragment extends Fragment {
 
+    RecyclerView recyclerViewConstraint;
+    View view;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_alarm_horaire, container, false);
+        view = inflater.inflate(R.layout.fragment_alarm_horaire, container, false);
+        
+        initVaraible();
+        
+        
+        updateConstraint();
         return view;
+    }
+
+    private void initVaraible() {
+        recyclerViewConstraint =view.findViewById(R.id.recycleView);
+    }
+
+    private void updateConstraint(){
+        AlarmConstraintRecycleView adapter = new AlarmConstraintRecycleView(getContext(), getActivity(), ConstraintAlarmManager.getInstance(getContext()).getAllConstraint());
+        recyclerViewConstraint.setAdapter(adapter);
+        recyclerViewConstraint.setLayoutManager(new LinearLayoutManager(getActivity()));
+        Log.d("Constraint", "updateConstraint");
     }
 
     private void addConstraint() {

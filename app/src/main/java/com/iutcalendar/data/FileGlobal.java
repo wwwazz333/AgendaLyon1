@@ -1,18 +1,14 @@
 package com.iutcalendar.data;
 
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Environment;
 import android.util.Log;
-import com.calendar.iutcalendar.R;
 import com.iutcalendar.MainActivity;
 import com.iutcalendar.calendrier.Calendrier;
 import com.iutcalendar.calendrier.EventCalendrier;
 import com.iutcalendar.event.ChangeEventListener;
 import com.iutcalendar.filedownload.FileDownload;
-import com.iutcalendar.notification.Notif;
 
 import java.io.*;
 import java.nio.file.Files;

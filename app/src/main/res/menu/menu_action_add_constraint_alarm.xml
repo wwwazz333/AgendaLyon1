@@ -5,5 +5,5 @@
             android:id="@+id/addBtn"
             android:title=""
             app:showAsAction="always"
-            android:icon="@drawable/ic_add"/>
+            android:icon="@drawable/ic_add_on_primary"/>
 </menu>

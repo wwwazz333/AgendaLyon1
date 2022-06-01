@@ -14,6 +14,9 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import com.calendar.iutcalendar.R;
+import com.iutcalendar.alarm.constraint.ConstraintAlarm;
+import com.iutcalendar.alarm.constraint.ConstraintAlarmManager;
+import com.iutcalendar.alarm.constraint.label_constraint.ConstraintLabelAlarm;
 import com.iutcalendar.calendrier.Calendrier;
 import com.iutcalendar.calendrier.CurrentDate;
 import com.iutcalendar.calendrier.EventCalendrier;
@@ -29,6 +32,7 @@ import com.iutcalendar.task.PersonnalCalendrier;
 import com.iutcalendar.widget.WidgetCalendar;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 public class MainActivity extends AppCompatActivity {
@@ -159,6 +163,35 @@ public class MainActivity extends AppCompatActivity {
 
         /*####Testing feature#####*/
 //        Alarm.setAlarm(getApplicationContext(), System.currentTimeMillis() + 5_000, "test");
+
+        ArrayList<Integer> daysEnabled = new ArrayList<>();
+        daysEnabled.add(GregorianCalendar.MONDAY);
+        daysEnabled.add(GregorianCalendar.THURSDAY);
+        daysEnabled.add(GregorianCalendar.FRIDAY);
+
+
+        ArrayList<ConstraintLabelAlarm> constraints = new ArrayList<>();
+        constraints.add(new ConstraintLabelAlarm(ConstraintLabelAlarm.Containing.MUST_CONTAIN, "SAE"));
+        constraints.add(new ConstraintLabelAlarm(ConstraintLabelAlarm.Containing.MUST_NOT_CONTAIN, "Ascencion"));
+
+
+
+
+
+//        ConstraintAlarmManager.getInstance(getApplicationContext()).addConstraint(new ConstraintAlarm(
+//                7*3600*1000L,
+//                9*3600*1000L,
+//                8*3600*1000L,
+//                daysEnabled,
+//                constraints
+//        ));
+//
+//        ConstraintAlarmManager.getInstance(getApplicationContext()).save(getApplicationContext());
+
+        for(ConstraintAlarm c : ConstraintAlarmManager.getInstance(getApplicationContext()).getAllConstraint()){
+            Log.d("Constraint", c.toString());
+        }
+
 
         Log.d("Global", "MainActivity end");
     }

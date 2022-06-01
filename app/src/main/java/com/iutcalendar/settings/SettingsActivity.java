@@ -24,6 +24,10 @@ public class SettingsActivity extends AppCompatActivity implements
 
     private static int countArboressenceFragment = 0;
 
+    public static void comeBackToMainPageSettings(){
+        countArboressenceFragment = 0;
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

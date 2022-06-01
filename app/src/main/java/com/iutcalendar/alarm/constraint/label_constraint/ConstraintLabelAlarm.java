@@ -1,8 +1,8 @@
-package com.iutcalendar.alarm.constraint;
+package com.iutcalendar.alarm.constraint.label_constraint;
 
 import java.io.Serializable;
 
-public class ConstraintContentAlarm implements Serializable {
+public class ConstraintLabelAlarm implements Serializable {
     private Containing typeDeContraint;
     private String contraintRegex;
 
@@ -13,7 +13,7 @@ public class ConstraintContentAlarm implements Serializable {
         MUST_NOT_BE_EXACTLY,
         NONE
     }
-    public ConstraintContentAlarm(Containing typeDeContraint, String contraintRegex) {
+    public ConstraintLabelAlarm(Containing typeDeContraint, String contraintRegex) {
         this.typeDeContraint = typeDeContraint;
         this.contraintRegex = contraintRegex;
     }

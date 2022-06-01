@@ -20,7 +20,7 @@
     <!--    Exemple-->
     <string name="date_exemple">Dim 24 avril 2022</string>
     <string name="exemple_url" translatable="false">
-        <![CDATA[https://adelb.univ-lyon1.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=xxxxx&projectId=1&amp;calType=ical&firstDate=year-month-day&lastDate=year-month-day]]></string>
+        <![CDATA[http://adelb.univ-lyon1.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=xxxxx&projectId=1&amp;calType=ical&firstDate=year-month-day&lastDate=year-month-day]]></string>
     <string name="exemple_hour" translatable="false">10:00</string>
     <string name="exmple_date" translatable="false">10/05/2022</string>
 
@@ -84,6 +84,9 @@
     <string name="alarm_auto_label">Une alarm automatique vas s\'activé en fonction des préférences</string>
     <string name="Settings_alarms">Paramètre Alarmes</string>
     <string name="settings_alarm_label">Paramètrage des alarmes en fonction des 1er heure de cours</string>
+    <string name="Between">Entre</string>
+    <string name="And">Et</string>
+    <string name="RingHour">Heure Sonnerie</string>
 
 
 </resources>
