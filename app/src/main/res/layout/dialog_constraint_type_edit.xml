@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:padding="@dimen/tab_gap"
+android:orientation="vertical">
+
+    <RadioGroup
+            android:id="@+id/radio_groupe"
+            android:layout_width="wrap_content" android:layout_height="wrap_content">
+
+        <RadioButton
+                android:id="@+id/must_contain"
+
+                android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+        <RadioButton
+                android:id="@+id/must_not_contain"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+        <RadioButton
+                android:id="@+id/must_be_exactly"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+        <RadioButton
+                android:id="@+id/must_not_be_exactly"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+
+
+    </RadioGroup>
+
+    <Button
+            android:id="@+id/submitBtn"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="@string/submit"
+            android:layout_gravity="end"/>
+
+
+</LinearLayout>

@@ -33,9 +33,13 @@ public class AlarmHoraireFragment extends Fragment {
     }
 
     private void updateConstraint(){
-        AlarmConstraintRecycleView adapter = new AlarmConstraintRecycleView(getContext(), getActivity(), ConstraintAlarmManager.getInstance(getContext()).getAllConstraint());
+        AlarmConstraintRecycleView adapter = new AlarmConstraintRecycleView(getContext(), getActivity(),
+                ConstraintAlarmManager.getInstance(getContext()).getAllConstraint(), this::updateConstraint);
         recyclerViewConstraint.setAdapter(adapter);
         recyclerViewConstraint.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        //save si des changement de constraint on été fait
+        ConstraintAlarmManager.getInstance(getContext()).save(getContext());
         Log.d("Constraint", "updateConstraint");
     }
 

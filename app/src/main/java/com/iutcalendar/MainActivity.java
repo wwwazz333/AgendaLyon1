@@ -164,27 +164,24 @@ public class MainActivity extends AppCompatActivity {
         /*####Testing feature#####*/
 //        Alarm.setAlarm(getApplicationContext(), System.currentTimeMillis() + 5_000, "test");
 
+
+        ConstraintAlarm constraintAlarm = new ConstraintAlarm(
+                7*3600*1000L,
+                9*3600*1000L,
+                8*3600*1000L
+        );
+
         ArrayList<Integer> daysEnabled = new ArrayList<>();
         daysEnabled.add(GregorianCalendar.MONDAY);
         daysEnabled.add(GregorianCalendar.THURSDAY);
         daysEnabled.add(GregorianCalendar.FRIDAY);
 
 
-        ArrayList<ConstraintLabelAlarm> constraints = new ArrayList<>();
-        constraints.add(new ConstraintLabelAlarm(ConstraintLabelAlarm.Containing.MUST_CONTAIN, "SAE"));
-        constraints.add(new ConstraintLabelAlarm(ConstraintLabelAlarm.Containing.MUST_NOT_CONTAIN, "Ascencion"));
 
+        constraintAlarm.addConstraint(ConstraintLabelAlarm.Containing.MUST_CONTAIN, "SAE");
+        constraintAlarm.addConstraint(ConstraintLabelAlarm.Containing.MUST_NOT_CONTAIN, "Ascencion");
 
-
-
-
-//        ConstraintAlarmManager.getInstance(getApplicationContext()).addConstraint(new ConstraintAlarm(
-//                7*3600*1000L,
-//                9*3600*1000L,
-//                8*3600*1000L,
-//                daysEnabled,
-//                constraints
-//        ));
+//        ConstraintAlarmManager.getInstance(getApplicationContext()).addConstraint(constraintAlarm);
 //
 //        ConstraintAlarmManager.getInstance(getApplicationContext()).save(getApplicationContext());
 
