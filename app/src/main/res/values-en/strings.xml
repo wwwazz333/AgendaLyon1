@@ -63,4 +63,7 @@
     <string name="alarm_auto_label">an alarm will be activate according to preferences</string>
     <string name="Settings_alarms">Settings Alarms</string>
     <string name="settings_alarm_label">Settings of alarms</string>
+    <string name="Between">Between</string>
+    <string name="And">And</string>
+    <string name="RingHour">Ring Hour</string>
 </resources>
