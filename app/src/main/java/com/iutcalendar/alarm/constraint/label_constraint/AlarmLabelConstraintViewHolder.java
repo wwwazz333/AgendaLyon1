@@ -15,7 +15,6 @@ public class AlarmLabelConstraintViewHolder extends RecyclerView.ViewHolder  {
     TextView constraint;
     ImageButton delBtn;
 
-    Spinner spinner;
 
     public AlarmLabelConstraintViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -26,7 +25,6 @@ public class AlarmLabelConstraintViewHolder extends RecyclerView.ViewHolder  {
         delBtn = itemView.findViewById(R.id.del_btn);
 
 
-        spinner = itemView.findViewById(R.id.spinner);
 
 
 

@@ -33,6 +33,7 @@ public class ConstraintAlarm implements Serializable {
     public ConstraintAlarm(long beging, long end, long alarmAt, ArrayList<Integer> daysEnabled) {
         this(beging, end, alarmAt, daysEnabled, new ArrayList<>());
     }
+
     public ConstraintAlarm(long beging, long end, long alarmAt) {
         this(beging, end, alarmAt, null, new ArrayList<>());
         this.daysEnabled = new ArrayList<>();
@@ -46,6 +47,7 @@ public class ConstraintAlarm implements Serializable {
     public void addConstraint(ConstraintLabelAlarm constraint) {
         constraintLabels.add(constraint);
     }
+
     public void addConstraint(ConstraintLabelAlarm.Containing typeDeContraint, String contraintRegex) {
         constraintLabels.add(new ConstraintLabelAlarm(this, typeDeContraint, contraintRegex));
     }
@@ -94,9 +96,13 @@ public class ConstraintAlarm implements Serializable {
             i++;
         }
     }
-    public void removeConstraint(ConstraintLabelAlarm constraintLabelAlarm){
+
+    public void removeConstraint(ConstraintLabelAlarm constraintLabelAlarm) {
         constraintLabels.remove(constraintLabelAlarm);
     }
+
+
+    private static final String ANY = "(.*)";
 
     public boolean isApplicableTo(EventCalendrier event) {
         long dateEventMillis = event.getDate().getHourInMillis();
@@ -104,29 +110,28 @@ public class ConstraintAlarm implements Serializable {
                 daysEnabled.contains(event.getDate().get(GregorianCalendar.DAY_OF_WEEK))) {
             //check si respect contrainte label
             for (ConstraintLabelAlarm constraint : constraintLabels) {
-                if (!constraint.getContraintRegex().isEmpty()) {
-                    switch (constraint.getTypeDeContraint()) {
-                        case MUST_CONTAIN:
-                            if (!event.getSummary().matches(constraint.getContraintRegex())) {
-                                return false;
-                            }
-                            break;
-                        case MUST_NOT_CONTAIN:
-                            if (event.getSummary().matches(constraint.getContraintRegex())) {
-                                return false;
-                            }
-                            break;
-                        case MUST_BE_EXACTLY:
-                            if (!event.getSummary().equals(constraint.getContraintRegex())) {
-                                return false;
-                            }
-                            break;
-                        case MUST_NOT_BE_EXACTLY:
-                            if (event.getSummary().equals(constraint.getContraintRegex())) {
-                                return false;
-                            }
-                            break;
-                    }
+                switch (constraint.getTypeDeContraint()) {
+                    case MUST_CONTAIN:
+                        if (!event.getSummary().matches(ANY + constraint.getContraintRegex() + ANY)) {
+                            return false;
+                        }
+                        break;
+                    case MUST_NOT_CONTAIN:
+                        if (event.getSummary().matches(ANY + constraint.getContraintRegex() + ANY)) {
+                            return false;
+                        }
+                        break;
+                    case MUST_BE_EXACTLY:
+                        if (!event.getSummary().equals(constraint.getContraintRegex())) {
+                            return false;
+                        }
+                        break;
+                    case MUST_NOT_BE_EXACTLY:
+                        if (event.getSummary().equals(constraint.getContraintRegex())) {
+                            return false;
+                        }
+                        break;
+
                 }
             }
             return true;

@@ -10,7 +10,6 @@ public class DataGlobal {
     public final static String THEME_RES_WIDGET = "theme_widget_selected";
     public final static String ALARM_ENABELED = "alarme_enable";
 
-    public final static String ALARM_RING_TIME_BEFOR = "alarm_ring_time_before";
     public final static String DEBUGING = "debuging";
 
     public static String getTheme(Context context) {
@@ -68,11 +67,6 @@ public class DataGlobal {
 
     public static String getSavedPath(Context context) {
         return getSavedString(context, URL);
-    }
-
-
-    public static long getAlarmRingTimeBefore(Context context) {
-        return DataGlobal.getSavedInt(context, DataGlobal.ALARM_RING_TIME_BEFOR) * 60_000L;
     }
 
 }

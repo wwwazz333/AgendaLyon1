@@ -6,15 +6,18 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TimePicker;
+import android.widget.CheckedTextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.calendar.iutcalendar.R;
+import com.iutcalendar.alarm.AlarmRing;
 import com.iutcalendar.alarm.ClickForUpdateListener;
 import com.iutcalendar.alarm.constraint.label_constraint.AlarmLabelConstraintRecycleView;
+import com.iutcalendar.alarm.constraint.label_constraint.ConstraintLabelAlarm;
 import com.iutcalendar.calendrier.DateCalendrier;
 
+import java.util.GregorianCalendar;
 import java.util.List;
 
 public class AlarmConstraintRecycleView extends RecyclerView.Adapter<AlarmConstraintViewHolder> {
@@ -61,29 +64,61 @@ public class AlarmConstraintRecycleView extends RecyclerView.Adapter<AlarmConstr
 
 
         viewHolder.begingHour.setOnClickListener(view -> {
-            TimePickerDialog timePickerDialog = new TimePickerDialog(context, (view1, hourOfDay, minute) -> {
+            AlarmRing.askTime(context, (view1, hourOfDay, minute) -> {
                 alarmConstraint.setBeging(DateCalendrier.getHourInMillis(hourOfDay, minute));
                 updateListener.update();
-            }, 0, 0, true);
-            timePickerDialog.show();
+            });
         });
         viewHolder.endHour.setOnClickListener(view -> {
-            TimePickerDialog timePickerDialog = new TimePickerDialog(context, (view1, hourOfDay, minute) -> {
+            AlarmRing.askTime(context, (view1, hourOfDay, minute) -> {
                 alarmConstraint.setEnd(DateCalendrier.getHourInMillis(hourOfDay, minute));
                 updateListener.update();
-            }, 0, 0, true);
-            timePickerDialog.show();
+            });
         });
         viewHolder.ringHour.setOnClickListener(view -> {
-            TimePickerDialog timePickerDialog = new TimePickerDialog(context, (view1, hourOfDay, minute) -> {
+            AlarmRing.askTime(context, (view1, hourOfDay, minute) -> {
                 alarmConstraint.setAlarmAt(DateCalendrier.getHourInMillis(hourOfDay, minute));
                 updateListener.update();
-            }, 0, 0, true);
-            timePickerDialog.show();
+            });
         });
 
-        viewHolder.delBtn.setOnClickListener(view ->{
+        viewHolder.delBtn.setOnClickListener(view -> {
             ConstraintAlarmManager.getInstance(context).removeConstraint(position);
+            updateListener.update();
+        });
+
+
+        //setCheckable days
+        initDayCheck(alarmConstraint, viewHolder.monday, GregorianCalendar.MONDAY);
+        initDayCheck(alarmConstraint, viewHolder.tuesday, GregorianCalendar.TUESDAY);
+        initDayCheck(alarmConstraint, viewHolder.wednesday, GregorianCalendar.WEDNESDAY);
+        initDayCheck(alarmConstraint, viewHolder.thursday, GregorianCalendar.THURSDAY);
+        initDayCheck(alarmConstraint, viewHolder.friday, GregorianCalendar.FRIDAY);
+        initDayCheck(alarmConstraint, viewHolder.saturday, GregorianCalendar.SATURDAY);
+        initDayCheck(alarmConstraint, viewHolder.sunday, GregorianCalendar.SUNDAY);
+
+
+        //add label constraint
+        viewHolder.addConstraintBtn.setOnClickListener(view -> {
+            alarmConstraint.addConstraint(ConstraintLabelAlarm.Containing.MUST_CONTAIN, "");
+
+            updateListener.update();
+        });
+    }
+
+    private void initDayCheck(ConstraintAlarm alarmConstraint, CheckedTextView check, int value) {
+        if (alarmConstraint.getDaysEnabled().contains(value)) {
+            check.setChecked(true);
+        }
+
+        check.setOnClickListener(v -> {
+            check.toggle();
+
+            if (check.isChecked())
+                alarmConstraint.getDaysEnabled().add(value);
+            else
+                alarmConstraint.getDaysEnabled().remove(new Integer(value));
+
             updateListener.update();
         });
     }

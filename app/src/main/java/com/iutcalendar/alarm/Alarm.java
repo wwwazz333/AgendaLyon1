@@ -17,8 +17,11 @@ import android.os.VibratorManager;
 import android.provider.Settings;
 import android.util.Log;
 import com.calendar.iutcalendar.R;
+import com.iutcalendar.alarm.constraint.ConstraintAlarm;
+import com.iutcalendar.alarm.constraint.ConstraintAlarmManager;
 import com.iutcalendar.calendrier.Calendrier;
 import com.iutcalendar.calendrier.CurrentDate;
+import com.iutcalendar.calendrier.DateCalendrier;
 import com.iutcalendar.calendrier.EventCalendrier;
 import com.iutcalendar.data.DataGlobal;
 import com.iutcalendar.notification.Notif;
@@ -206,10 +209,6 @@ public class Alarm extends BroadcastReceiver {
 
             if (!events.isEmpty()) {
                 EventCalendrier currEvent = events.get(0);
-                long timeAlarmRing = currEvent.getDate().getTimeInMillis() - DataGlobal.getAlarmRingTimeBefore(context);
-                CurrentDate d = new CurrentDate();
-                d.setTimeInMillis(timeAlarmRing);
-                Log.d("Alarm", "veux mettre alarm à : " + d + " " + d.timeToString());
 
 
                 //sauvgrade si alarme désactivé pour se jour
@@ -223,17 +222,21 @@ public class Alarm extends BroadcastReceiver {
                 personnalAlarmManager.removeForDay(context, dayAnalysed);
 
 
-                if (timeAlarmRing > System.currentTimeMillis()) {
-                    Log.d("Alarm", "alarm set");
-                    //remet ou met l'alarm si besoin
+                Log.d("Alarm", "alarm set");
+                //remet ou met l'alarm si besoin
 
+                for (ConstraintAlarm constraintAlarm : ConstraintAlarmManager.getInstance(context).getAllConstraint()) {
+                    if (constraintAlarm.isApplicableTo(currEvent)) {
 
-                    personnalAlarmManager.add(dayAnalysed, new AlarmRing(timeAlarmRing, prevWasActivate));
+                        DateCalendrier timeAlarmRing = new DateCalendrier(currEvent.getDate());
+                        timeAlarmRing.setHourWithMillis(constraintAlarm.getAlarmAt());
 
+                        Log.d("Constraint", timeAlarmRing.toString());
 
-                } else {
-                    Log.d("Alarm", "alarm passer => non mise");
+                        personnalAlarmManager.add(dayAnalysed, new AlarmRing(timeAlarmRing.getTimeInMillis(), prevWasActivate));
+                    }
                 }
+
             }
 
             dayAnalysed = dayAnalysed.addDay(1);

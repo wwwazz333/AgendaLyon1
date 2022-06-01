@@ -67,15 +67,6 @@
                 app:title="@string/Settings_alarms"
                 app:summary="@string/settings_alarm_label"/>
 
-        <SeekBarPreference
-                android:key="alarm_ring_time_before"
-                android:title="Alarme Horaire"
-                android:summary="Définire combien de temps sonné avant le 1er cours (en min)"
-                android:max="240"
-                app:min="5"
-                android:defaultValue="60"
-                app:showSeekBarValue="true"/>
-
         <Preference
                 app:fragment="com.iutcalendar.settings.AlarmHoraireFragment"
                 app:title="Horaire Alarms"
