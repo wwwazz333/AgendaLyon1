@@ -22,12 +22,6 @@
                 android:defaultValue="true"
         />
 
-        <SwitchPreference
-                app:key="revert_swaping_day"
-                app:title="@string/revert_swipe"
-                app:summary="@string/revert_swipe_description"
-                android:defaultValue="false"
-        />
         <ListPreference
                 android:key="language_selected"
                 android:title="@string/choose_langue"
@@ -63,14 +57,18 @@
 
         </SwitchPreference>
         <Preference
-                app:fragment="com.iutcalendar.settings.SettingsAlarmFragment"
+                app:fragment="com.iutcalendar.settings.AlarmListFragment"
                 app:title="@string/Settings_alarms"
                 app:summary="@string/settings_alarm_label"/>
 
         <Preference
-                app:fragment="com.iutcalendar.settings.AlarmHoraireFragment"
+                app:fragment="com.iutcalendar.settings.AlarmConditionFragment"
                 app:title="@string/Horaire_alarms_auto"
                 app:summary="@string/label_horaire_alarm_auto"/>
+        <Preference
+                app:fragment="com.iutcalendar.settings.AlarmConstraintFragment"
+                app:title="Contraintes Alarmes auto"
+                app:summary="@string/exemple_text"/>
 
 
     </PreferenceCategory>

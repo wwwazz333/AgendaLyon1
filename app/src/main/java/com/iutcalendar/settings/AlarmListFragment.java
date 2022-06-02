@@ -15,7 +15,7 @@ import com.iutcalendar.calendrier.Calendrier;
 import com.iutcalendar.data.FileGlobal;
 
 
-public class SettingsAlarmFragment extends Fragment {
+public class AlarmListFragment extends Fragment {
 
 
     private RecyclerView recyclerViewAlarm;

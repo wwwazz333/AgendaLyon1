@@ -1,9 +1,8 @@
-package com.iutcalendar.alarm.constraint.label_constraint;
+package com.iutcalendar.alarm.condition.label_constraint;
 
 import android.view.View;
-import android.widget.EditText;
+import android.widget.CheckedTextView;
 import android.widget.ImageButton;
-import android.widget.Spinner;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;

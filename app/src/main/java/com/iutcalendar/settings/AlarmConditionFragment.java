@@ -9,13 +9,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.calendar.iutcalendar.R;
 import com.iutcalendar.alarm.AlarmRing;
-import com.iutcalendar.alarm.constraint.AlarmConditionRecycleView;
-import com.iutcalendar.alarm.constraint.AlarmCondtion;
-import com.iutcalendar.alarm.constraint.AlarmConditionManager;
+import com.iutcalendar.alarm.condition.AlarmConditionRecycleView;
+import com.iutcalendar.alarm.condition.AlarmCondtion;
+import com.iutcalendar.alarm.condition.AlarmConditionManager;
 import com.iutcalendar.calendrier.DateCalendrier;
 import com.iutcalendar.dialog.DialogMessage;
 
-public class AlarmHoraireFragment extends Fragment {
+public class AlarmConditionFragment extends Fragment {
 
     RecyclerView recyclerViewConstraint;
     View view;
@@ -23,12 +23,12 @@ public class AlarmHoraireFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_alarm_horaire, container, false);
+        view = inflater.inflate(R.layout.fragment_alarm_condition, container, false);
 
         initVaraible();
 
 
-        updateConstraint();
+        updateConditions();
         return view;
     }
 
@@ -36,40 +36,44 @@ public class AlarmHoraireFragment extends Fragment {
         recyclerViewConstraint = view.findViewById(R.id.recycleView);
     }
 
-    private void updateConstraint() {
-        AlarmConditionRecycleView adapter = new AlarmConditionRecycleView(getContext(), getActivity(),
-                AlarmConditionManager.getInstance(getContext()).getAllConstraint(), this::updateConstraint);
+    private void updateConditions() {
+        AlarmConditionRecycleView adapter = new AlarmConditionRecycleView(getContext(),
+                AlarmConditionManager.getInstance(getContext()).getAllConditions(), this::saveConditions, this::updateConditions);
         recyclerViewConstraint.setAdapter(adapter);
         recyclerViewConstraint.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         //save si des changement de constraint on été fait
-        AlarmConditionManager.getInstance(getContext()).save(getContext());
+        saveConditions();
         Log.d("Constraint", "updateConstraint");
     }
 
-    private void addConstraint() {
+    private void saveConditions() {
+        AlarmConditionManager.getInstance(getContext()).save(getContext());
+    }
+
+    private void addCondition() {
 
         //demande heure début
-        AlarmRing.askTime(getContext(), "Intervale inferieur (compris)", (view, hourOfDayBeging, minuteBeging) -> {
+        AlarmRing.askTime(getContext(), getString(R.string.BorneInf), (view, hourOfDayBeging, minuteBeging) -> {
             long beging = DateCalendrier.getHourInMillis(hourOfDayBeging, minuteBeging);
 
             //demande heure fin
-            AlarmRing.askTime(getContext(), "Intervale supérieur (compris)", (view1, hourOfDayEnd, minuteEnd) -> {
+            AlarmRing.askTime(getContext(), getString(R.string.BorneSup), (view1, hourOfDayEnd, minuteEnd) -> {
                 long end = DateCalendrier.getHourInMillis(hourOfDayEnd, minuteEnd);
 
                 if (beging > end) {
-                    DialogMessage.showWarning(getContext(), "Intervale", "La borne supérieur ne peut pas être plus petite que la borne infèrieur.");
+                    DialogMessage.showWarning(getContext(), getString(R.string.Interval), getString(R.string.born_sup_et_inf_inverser));
                     return;
                 }
 
 
                 //demande heure sonnerie
-                AlarmRing.askTime(getContext(), "Horaire à la quelle faire sonné", (view2, hourOfDayAlarmAt, minuteAlarmAt) -> {
+                AlarmRing.askTime(getContext(), getString(R.string.TimeToRing), (view2, hourOfDayAlarmAt, minuteAlarmAt) -> {
                     long alarmAt = DateCalendrier.getHourInMillis(hourOfDayAlarmAt, minuteAlarmAt);
 
 
-                    AlarmConditionManager.getInstance(getContext()).addConstraint(new AlarmCondtion(beging, end, alarmAt));
-                    updateConstraint();
+                    AlarmConditionManager.getInstance(getContext()).addCondition(new AlarmCondtion(beging, end, alarmAt));
+                    updateConditions();
                 });
             });
         });
@@ -93,10 +97,10 @@ public class AlarmHoraireFragment extends Fragment {
         int id = item.getItemId();
 
         if (id == R.id.addBtn) {
-            addConstraint();
+            addCondition();
 
         } else if (id == R.id.aideBtn) {
-            DialogMessage.showAide(getContext(), "Aide", getString(R.string.aide_conditon_alarm));
+            DialogMessage.showAide(getContext(), getString(R.string.Help), getString(R.string.aide_conditon_alarm));
         }
         return super.onOptionsItemSelected(item);
     }

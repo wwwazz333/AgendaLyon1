@@ -149,22 +149,22 @@
     </LinearLayout>
 
     <!--Obligé de mettre un relativeLayout pour match_parent-->
-    <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/default_padding">
-        <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/listConstraint"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-    </RelativeLayout>
+<!--    <RelativeLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:padding="@dimen/default_padding">-->
+<!--        <androidx.recyclerview.widget.RecyclerView-->
+<!--                android:id="@+id/listConstraint"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"/>-->
+<!--    </RelativeLayout>-->
 
-    <Button
-            android:id="@+id/add_constraint_label"
-            android:layout_width="wrap_content" android:layout_height="wrap_content"
-              android:layout_gravity="center_horizontal"
-              android:text="@string/Ajout_contrainte"
-            app:icon="@drawable/ic_add_on_primary"/>
+<!--    <Button-->
+<!--            android:id="@+id/add_constraint_label"-->
+<!--            android:layout_width="wrap_content" android:layout_height="wrap_content"-->
+<!--              android:layout_gravity="center_horizontal"-->
+<!--              android:text="@string/Ajout_contrainte"-->
+<!--            app:icon="@drawable/ic_add_on_primary"/>-->
 
 
 </LinearLayout>

@@ -17,8 +17,8 @@ import android.os.VibratorManager;
 import android.provider.Settings;
 import android.util.Log;
 import com.calendar.iutcalendar.R;
-import com.iutcalendar.alarm.constraint.AlarmCondtion;
-import com.iutcalendar.alarm.constraint.AlarmConditionManager;
+import com.iutcalendar.alarm.condition.AlarmCondtion;
+import com.iutcalendar.alarm.condition.AlarmConditionManager;
 import com.iutcalendar.calendrier.Calendrier;
 import com.iutcalendar.calendrier.CurrentDate;
 import com.iutcalendar.calendrier.DateCalendrier;
@@ -203,13 +203,23 @@ public class Alarm extends BroadcastReceiver {
 
         PersonnalAlarmManager personnalAlarmManager = PersonnalAlarmManager.getInstance(context);
 
+        AlarmConditionManager alarmConditionManager = AlarmConditionManager.getInstance(context);
+
 
         CurrentDate dayAnalysed = new CurrentDate();
         for (int dayAfter = 0; dayAfter < 7; dayAfter++) {
             List<EventCalendrier> events = calendrier.getEventsOfDay(dayAnalysed);
 
+
             if (!events.isEmpty()) {
                 EventCalendrier currEvent = events.get(0);
+                int i = 0;
+                while (!alarmConditionManager.matchConstraints(currEvent) && i < events.size()) {
+                    currEvent = events.get(i++);
+                }
+                if(i == events.size()){
+                    continue;//peux appliquer aucune alarm pour se jour passe au suivant
+                }
 
 
                 //sauvgrade si alarme désactivé pour se jour
@@ -220,18 +230,15 @@ public class Alarm extends BroadcastReceiver {
                         previouslyDisabledAlarm.add(alarmRing.getTimeInMillis());
                     }
                 }
-//                if (!listAlarmForThisDay.isEmpty()) {
-//                    prevWasActivate = listAlarmForThisDay.get(0).isActivate();
-//                }
 
-                //supprimer toutes les alarmes (Tash) pour se jour
+                //supprimer toutes les alarmes (Tach) pour se jour
                 personnalAlarmManager.removeForDay(context, dayAnalysed);
 
 
                 Log.d("Alarm", "alarm set");
                 //remet ou met l'alarm si besoin
 
-                for (AlarmCondtion constraintAlarm : AlarmConditionManager.getInstance(context).getAllConstraint()) {
+                for (AlarmCondtion constraintAlarm : AlarmConditionManager.getInstance(context).getAllConditions()) {
                     if (constraintAlarm.isApplicableTo(currEvent)) {
 
                         DateCalendrier timeAlarmRing = new DateCalendrier(currEvent.getDate());

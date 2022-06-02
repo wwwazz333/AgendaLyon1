@@ -1,4 +1,4 @@
-package com.iutcalendar.alarm.constraint;
+package com.iutcalendar.alarm.condition;
 
 import android.app.Activity;
 import android.content.Context;
@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.calendar.iutcalendar.R;
 import com.iutcalendar.alarm.AlarmRing;
 import com.iutcalendar.alarm.ClickForUpdateListener;
-import com.iutcalendar.alarm.constraint.label_constraint.AlarmLabelConstraintRecycleView;
-import com.iutcalendar.alarm.constraint.label_constraint.ConstraintLabelAlarm;
+import com.iutcalendar.alarm.condition.label_constraint.AlarmLabelConstraintRecycleView;
+import com.iutcalendar.alarm.condition.label_constraint.AlarmConstraintLabel;
 import com.iutcalendar.calendrier.DateCalendrier;
 
 import java.util.GregorianCalendar;
@@ -23,15 +23,14 @@ public class AlarmConditionRecycleView extends RecyclerView.Adapter<AlarmConditi
 
     List<AlarmCondtion> list;
     AlarmConditionViewHolder viewHolder;
-    Activity activity;
     Context context;
-    ClickForUpdateListener updateListener;
+    ClickForUpdateListener updateListener, reloadListener;
 
-    public AlarmConditionRecycleView(Context context, Activity activity, List<AlarmCondtion> list, ClickForUpdateListener updateListener) {
+    public AlarmConditionRecycleView(Context context, List<AlarmCondtion> list, ClickForUpdateListener updateListener, ClickForUpdateListener reload) {
         this.list = list;
-        this.activity = activity;
         this.context = context;
         this.updateListener = updateListener;
+        this.reloadListener = reload;
     }
 
     @NonNull
@@ -57,11 +56,6 @@ public class AlarmConditionRecycleView extends RecyclerView.Adapter<AlarmConditi
         viewHolder.ringHour.setText(DateCalendrier.timeLongToString(alarmConstraint.getAlarmAt()));
 
 
-        AlarmLabelConstraintRecycleView adapter = new AlarmLabelConstraintRecycleView(context, alarmConstraint.getConstraintLabels(), updateListener);
-        viewHolder.listConstraint.setAdapter(adapter);
-        viewHolder.listConstraint.setLayoutManager(new LinearLayoutManager(activity));
-
-
         viewHolder.begingHour.setOnClickListener(view -> {
             AlarmRing.askTime(context, (view1, hourOfDay, minute) -> {
                 alarmConstraint.setBeging(DateCalendrier.getHourInMillis(hourOfDay, minute));
@@ -82,8 +76,8 @@ public class AlarmConditionRecycleView extends RecyclerView.Adapter<AlarmConditi
         });
 
         viewHolder.delBtn.setOnClickListener(view -> {
-            AlarmConditionManager.getInstance(context).removeConstraint(position);
-            updateListener.update();
+            AlarmConditionManager.getInstance(context).removeCondition(position);
+            reloadListener.update();
         });
 
 
@@ -95,14 +89,6 @@ public class AlarmConditionRecycleView extends RecyclerView.Adapter<AlarmConditi
         initDayCheck(alarmConstraint, viewHolder.friday, GregorianCalendar.FRIDAY);
         initDayCheck(alarmConstraint, viewHolder.saturday, GregorianCalendar.SATURDAY);
         initDayCheck(alarmConstraint, viewHolder.sunday, GregorianCalendar.SUNDAY);
-
-
-        //add label constraint
-        viewHolder.addConstraintBtn.setOnClickListener(view -> {
-            alarmConstraint.addConstraint(ConstraintLabelAlarm.Containing.MUST_CONTAIN, "");
-
-            updateListener.update();
-        });
     }
 
     private void initDayCheck(AlarmCondtion alarmConstraint, CheckedTextView check, int value) {

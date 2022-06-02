@@ -14,11 +14,14 @@
         <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/drawable/underline.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/layout/alarm_card.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/layout/condition_alarm_card.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/layout/constraint_alarm_card.xml" value="0.33" />
         <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/layout/constraint_card.xml" value="0.365625" />
         <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/layout/dialog_constraint_type_edit.xml" value="0.365625" />
         <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/layout/dialog_event_edit.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/layout/event_card.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/layout/fragment_alarm_condition.xml" value="0.18802083333333333" />
+        <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/layout/fragment_alarm_constraint.xml" value="0.18802083333333333" />
         <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/layout/fragment_alarm_horaire.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/layout/fragment_event.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/layout/fragment_url_setter.xml" value="0.18802083333333333" />

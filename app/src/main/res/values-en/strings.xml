@@ -68,22 +68,20 @@
     <string name="RingHour">Ring Hour</string>
     <string name="must_contain">Must contain</string>
     <string name="must_not_contain">Mustn\'t contain</string>
-    <string name="must_be_exactly">Has to be</string>
-    <string name="must_not_be_exactly">Has to be not</string>
     <string name="aide_conditon_alarm">"    An alarm will be set for each CONDITION respected.
 A CONDITION has an interest whose values (lower AND upper) are included.
 As well as a time which corresponds to the hour at which the alarm will sound.
 
     CONTRAINTS are conditions on the title of the event which must either :
-- Contain a regex
-- Not contain a regex
-- Be exactly a string of characters
-- Be exactly NOT a string
-
-Example Regex
-    [must not contain] : ^Pent
-    The alarm will not activate for \"Pentecôte\"…"</string>
+- Contain a string
+- Not contain a string"</string>
     <string name="Ajout_contrainte">Add Constraint</string>
     <string name="Horaire_alarms_auto">Schedule Auto Alarms</string>
     <string name="label_horaire_alarm_auto">Setting conditions for alarm schedules</string>
+    <string name="Help">Help</string>
+    <string name="TimeToRing">Time of day to sound the alarm</string>
+    <string name="BorneSup">Upper Interval (included)</string>
+    <string name="BorneInf">Bottom interval (included)</string>
+    <string name="Interval">Interval</string>
+    <string name="born_sup_et_inf_inverser">The upper bound cannot be smaller than the lower bound.</string>
 </resources>

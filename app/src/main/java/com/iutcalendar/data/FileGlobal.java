@@ -21,6 +21,7 @@ public class FileGlobal {
     public static final String nameFileSave = "savedCal.ics";
     public static final String nameFilePersonnalTask = "personalTasks.dat";
     public static final String nameFilePersonnalAlarm = "personalAlarms.dat";
+    public static final String nameFileConditionAlarm = "personalAlarmConditions.dat";
     public static final String nameFileConstraintAlarm = "personalAlarmConstraints.dat";
 
 
@@ -38,6 +39,9 @@ public class FileGlobal {
 
     public static File getFilePersonnalAlarm(Context context) {
         return new File(getPathDownladDir(context) + "/" + nameFilePersonnalAlarm);
+    }
+    public static File getFileConditions(Context context) {
+        return new File(getPathDownladDir(context) + "/" + nameFileConditionAlarm);
     }
     public static File getFileConstraints(Context context) {
         return new File(getPathDownladDir(context) + "/" + nameFileConstraintAlarm);

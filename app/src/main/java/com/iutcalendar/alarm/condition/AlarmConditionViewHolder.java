@@ -1,4 +1,4 @@
-package com.iutcalendar.alarm.constraint;
+package com.iutcalendar.alarm.condition;
 
 import android.view.View;
 import android.widget.Button;
@@ -13,11 +13,9 @@ public class AlarmConditionViewHolder extends RecyclerView.ViewHolder  {
     View view;
     TextView begingHour, endHour, ringHour;
     ImageButton delBtn;
-    Button addConstraintBtn;
 
     CheckedTextView monday, tuesday, wednesday, thursday, friday, saturday, sunday;
 
-    RecyclerView listConstraint;
 
     public AlarmConditionViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -25,7 +23,7 @@ public class AlarmConditionViewHolder extends RecyclerView.ViewHolder  {
         begingHour = itemView.findViewById(R.id.begingHour);
         endHour = itemView.findViewById(R.id.endHour);
         ringHour = itemView.findViewById(R.id.ringHour);
-        listConstraint = itemView.findViewById(R.id.listConstraint);
+//        listConstraint = itemView.findViewById(R.id.listConstraint);
         delBtn = itemView.findViewById(R.id.del_btn);
 
         monday = itemView.findViewById(R.id.monday);
@@ -37,7 +35,7 @@ public class AlarmConditionViewHolder extends RecyclerView.ViewHolder  {
         sunday = itemView.findViewById(R.id.sunday);
 
 
-        addConstraintBtn = itemView.findViewById(R.id.add_constraint_label);
+//        addConstraintBtn = itemView.findViewById(R.id.add_constraint_label);
 
 
         view = itemView;

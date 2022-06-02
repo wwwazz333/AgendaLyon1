@@ -14,9 +14,6 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import com.calendar.iutcalendar.R;
-import com.iutcalendar.alarm.constraint.AlarmCondtion;
-import com.iutcalendar.alarm.constraint.AlarmConditionManager;
-import com.iutcalendar.alarm.constraint.label_constraint.ConstraintLabelAlarm;
 import com.iutcalendar.calendrier.Calendrier;
 import com.iutcalendar.calendrier.CurrentDate;
 import com.iutcalendar.calendrier.EventCalendrier;
@@ -32,7 +29,6 @@ import com.iutcalendar.task.PersonnalCalendrier;
 import com.iutcalendar.widget.WidgetCalendar;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 public class MainActivity extends AppCompatActivity {
@@ -315,9 +311,6 @@ public class MainActivity extends AppCompatActivity {
         public void onSwipeRight() {
             super.onSwipeRight();
             int sens = -1;
-            if (DataGlobal.getSavedBoolean(getApplicationContext(), "revert_swaping_day")) {
-                sens *= -1;
-            }
             setAnimationDirection(sens);
             setCurrDate(getCurrDate().addDay(sens));
         }
@@ -326,10 +319,7 @@ public class MainActivity extends AppCompatActivity {
         public void onSwipeLeft() {
             super.onSwipeLeft();
             int sens = 1;
-            if (DataGlobal.getSavedBoolean(getApplicationContext(), "revert_swaping_day")) {
-                sens *= -1;
-            }
-            setAnimationDirection(sens);
+            setAnimationDirection(1);
             setCurrDate(getCurrDate().addDay(sens));
         }
 

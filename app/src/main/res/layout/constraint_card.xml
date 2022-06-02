@@ -4,7 +4,8 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:paddingHorizontal="@dimen/default_padding"
-              android:background="@drawable/little_surface_background">
+              android:layout_marginHorizontal="@dimen/default_padding"
+              android:background="@drawable/surface_background">
 
     <TextView
             android:id="@+id/type_constraint"
@@ -12,6 +13,7 @@
             android:layout_gravity="center_vertical"
             android:layout_height="wrap_content"
             android:text="Contien"
+            android:checked="true"
             android:layout_marginEnd="@dimen/tab_gap"/>
     <TextView
             android:id="@+id/constraint"
