@@ -85,67 +85,65 @@
         <CheckedTextView
                 android:id="@+id/monday"
                 android:layout_width="wrap_content"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="@string/Lundi_abv"
-                android:drawableStart="@drawable/checkmark"/>
+                android:drawableBottom="@drawable/checkmark"/>
+        <View android:layout_weight="1" android:layout_width="0dp" android:layout_height="0dp"/>
         <CheckedTextView
                 android:id="@+id/tuesday"
                 android:layout_width="wrap_content"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="@string/Mardi_abv"
-                android:drawableStart="@drawable/checkmark"/>
+                android:drawableBottom="@drawable/checkmark"/>
+        <View android:layout_weight="1" android:layout_width="0dp" android:layout_height="0dp"/>
         <CheckedTextView
                 android:id="@+id/wednesday"
                 android:layout_width="wrap_content"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="@string/Mercredi_abv"
-                android:drawableStart="@drawable/checkmark"/>
+                android:drawableBottom="@drawable/checkmark"/>
+        <View android:layout_weight="1" android:layout_width="0dp" android:layout_height="0dp"/>
         <CheckedTextView
                 android:id="@+id/thursday"
                 android:layout_width="wrap_content"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="@string/Jeudi_abv"
-                android:drawableStart="@drawable/checkmark"/>
+                android:drawableBottom="@drawable/checkmark"/>
+        <View android:layout_weight="1" android:layout_width="0dp" android:layout_height="0dp"/>
         <CheckedTextView
                 android:id="@+id/friday"
                 android:layout_width="wrap_content"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="@string/Vendredi_abv"
-                android:drawableStart="@drawable/checkmark"/>
+                android:drawableBottom="@drawable/checkmark"/>
+        <View android:layout_weight="1" android:layout_width="0dp" android:layout_height="0dp"/>
         <CheckedTextView
                 android:id="@+id/saturday"
                 android:layout_width="wrap_content"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="@string/Samedi_abv"
-                android:drawableStart="@drawable/checkmark"/>
-
+                android:drawableBottom="@drawable/checkmark"/>
+        <View android:layout_weight="1" android:layout_width="0dp" android:layout_height="0dp"/>
         <CheckedTextView
                 android:id="@+id/sunday"
                 android:layout_width="wrap_content"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="@string/Dimanche_abv"
-                android:drawableStart="@drawable/checkmark"/>
+                android:drawableBottom="@drawable/checkmark"/>
 
 
     </LinearLayout>

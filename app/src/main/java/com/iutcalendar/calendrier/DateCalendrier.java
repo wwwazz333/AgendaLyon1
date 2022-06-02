@@ -127,8 +127,7 @@ public class DateCalendrier extends GregorianCalendar {
     }
 
     public static long getHourInMillis(int hour, int minute) {
-        long milis = hour * 3600 * 1000L + minute * 60 * 1000L;
-        return milis;
+        return hour * 3_600_000L + minute * 60_000L;
     }
 
     public void setHourWithMillis(long millis) {
@@ -176,9 +175,10 @@ public class DateCalendrier extends GregorianCalendar {
     }
 
 
-    public static String timeLongToString(long timeMils) {
+    public static String timeLongToString(long timeMillis) {
         DateCalendrier t = new DateCalendrier();
-        t.setTimeInMillis(timeMils);
+        t.setHourWithMillis(timeMillis);
+//        t.setTimeInMillis(timeMillis);
         return t.timeToString();
     }
 }

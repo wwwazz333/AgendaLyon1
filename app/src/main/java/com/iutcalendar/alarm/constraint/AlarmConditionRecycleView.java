@@ -41,7 +41,7 @@ public class AlarmConditionRecycleView extends RecyclerView.Adapter<AlarmConditi
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
-        View eventView = inflater.inflate(R.layout.constraint_alarm_card, parent, false);
+        View eventView = inflater.inflate(R.layout.condition_alarm_card, parent, false);
 
         viewHolder = new AlarmConditionViewHolder(eventView);
         return viewHolder;
