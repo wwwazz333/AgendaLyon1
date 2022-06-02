@@ -89,7 +89,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="Lun"
+                android:text="@string/Lundi_abv"
                 android:drawableStart="@drawable/checkmark"/>
         <CheckedTextView
                 android:id="@+id/tuesday"
@@ -98,7 +98,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="Mar"
+                android:text="@string/Mardi_abv"
                 android:drawableStart="@drawable/checkmark"/>
         <CheckedTextView
                 android:id="@+id/wednesday"
@@ -107,7 +107,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="Mer"
+                android:text="@string/Mercredi_abv"
                 android:drawableStart="@drawable/checkmark"/>
         <CheckedTextView
                 android:id="@+id/thursday"
@@ -116,7 +116,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="Jed"
+                android:text="@string/Jeudi_abv"
                 android:drawableStart="@drawable/checkmark"/>
         <CheckedTextView
                 android:id="@+id/friday"
@@ -125,7 +125,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="Ven"
+                android:text="@string/Vendredi_abv"
                 android:drawableStart="@drawable/checkmark"/>
         <CheckedTextView
                 android:id="@+id/saturday"
@@ -134,7 +134,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="Sam"
+                android:text="@string/Samedi_abv"
                 android:drawableStart="@drawable/checkmark"/>
 
         <CheckedTextView
@@ -144,7 +144,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="Dim"
+                android:text="@string/Dimanche_abv"
                 android:drawableStart="@drawable/checkmark"/>
 
 
@@ -165,7 +165,7 @@
             android:id="@+id/add_constraint_label"
             android:layout_width="wrap_content" android:layout_height="wrap_content"
               android:layout_gravity="center_horizontal"
-              android:text="Ajouté Contrainte"
+              android:text="@string/Ajout_contrainte"
             app:icon="@drawable/ic_add_on_primary"/>
 
 

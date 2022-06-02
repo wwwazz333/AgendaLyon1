@@ -49,6 +49,11 @@ public class AlarmRing implements Serializable, Comparable<AlarmRing> {
         return dateRing;
     }
 
+    public static void askTime(Context context, String title, TimePickerDialog.OnTimeSetListener onTimeSetListener) {
+        TimePickerDialog timePickerDialog = new TimePickerDialog(context, onTimeSetListener, 0, 0, true);
+        timePickerDialog.setTitle(title);
+        timePickerDialog.show();
+    }
     public static void askTime(Context context, TimePickerDialog.OnTimeSetListener onTimeSetListener) {
         TimePickerDialog timePickerDialog = new TimePickerDialog(context, onTimeSetListener, 0, 0, true);
         timePickerDialog.show();

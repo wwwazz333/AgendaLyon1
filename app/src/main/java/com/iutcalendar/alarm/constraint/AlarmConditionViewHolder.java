@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.calendar.iutcalendar.R;
 
-public class AlarmConstraintViewHolder extends RecyclerView.ViewHolder  {
+public class AlarmConditionViewHolder extends RecyclerView.ViewHolder  {
     View view;
     TextView begingHour, endHour, ringHour;
     ImageButton delBtn;
@@ -19,7 +19,7 @@ public class AlarmConstraintViewHolder extends RecyclerView.ViewHolder  {
 
     RecyclerView listConstraint;
 
-    public AlarmConstraintViewHolder(@NonNull View itemView) {
+    public AlarmConditionViewHolder(@NonNull View itemView) {
         super(itemView);
 
         begingHour = itemView.findViewById(R.id.begingHour);

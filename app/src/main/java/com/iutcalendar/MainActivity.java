@@ -14,8 +14,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import com.calendar.iutcalendar.R;
-import com.iutcalendar.alarm.constraint.ConstraintAlarm;
-import com.iutcalendar.alarm.constraint.ConstraintAlarmManager;
+import com.iutcalendar.alarm.constraint.AlarmCondtion;
+import com.iutcalendar.alarm.constraint.AlarmConditionManager;
 import com.iutcalendar.alarm.constraint.label_constraint.ConstraintLabelAlarm;
 import com.iutcalendar.calendrier.Calendrier;
 import com.iutcalendar.calendrier.CurrentDate;
@@ -163,31 +163,6 @@ public class MainActivity extends AppCompatActivity {
 
         /*####Testing feature#####*/
 //        Alarm.setAlarm(getApplicationContext(), System.currentTimeMillis() + 5_000, "test");
-
-
-        ConstraintAlarm constraintAlarm = new ConstraintAlarm(
-                7*3600*1000L,
-                9*3600*1000L,
-                8*3600*1000L
-        );
-
-        ArrayList<Integer> daysEnabled = new ArrayList<>();
-        daysEnabled.add(GregorianCalendar.MONDAY);
-        daysEnabled.add(GregorianCalendar.THURSDAY);
-        daysEnabled.add(GregorianCalendar.FRIDAY);
-
-
-
-        constraintAlarm.addConstraint(ConstraintLabelAlarm.Containing.MUST_CONTAIN, "SAE");
-        constraintAlarm.addConstraint(ConstraintLabelAlarm.Containing.MUST_NOT_CONTAIN, "Ascencion");
-
-//        ConstraintAlarmManager.getInstance(getApplicationContext()).addConstraint(constraintAlarm);
-//
-//        ConstraintAlarmManager.getInstance(getApplicationContext()).save(getApplicationContext());
-
-        for(ConstraintAlarm c : ConstraintAlarmManager.getInstance(getApplicationContext()).getAllConstraint()){
-            Log.d("Constraint", c.toString());
-        }
 
 
         Log.d("Global", "MainActivity end");

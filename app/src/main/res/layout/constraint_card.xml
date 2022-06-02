@@ -3,8 +3,7 @@
               android:orientation="horizontal"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:layout_margin="@dimen/default_padding"
-              android:padding="@dimen/default_padding"
+              android:paddingHorizontal="@dimen/default_padding"
               android:background="@drawable/little_surface_background">
 
     <TextView
@@ -20,7 +19,8 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="SAE"/>
+            android:text="SAE"
+    style="@style/Widget.AppCompat.EditText"/>
     <ImageButton
             android:id="@+id/del_btn"
             android:layout_width="wrap_content" android:layout_height="wrap_content"

@@ -17,8 +17,8 @@ import android.os.VibratorManager;
 import android.provider.Settings;
 import android.util.Log;
 import com.calendar.iutcalendar.R;
-import com.iutcalendar.alarm.constraint.ConstraintAlarm;
-import com.iutcalendar.alarm.constraint.ConstraintAlarmManager;
+import com.iutcalendar.alarm.constraint.AlarmCondtion;
+import com.iutcalendar.alarm.constraint.AlarmConditionManager;
 import com.iutcalendar.calendrier.Calendrier;
 import com.iutcalendar.calendrier.CurrentDate;
 import com.iutcalendar.calendrier.DateCalendrier;
@@ -26,6 +26,7 @@ import com.iutcalendar.calendrier.EventCalendrier;
 import com.iutcalendar.data.DataGlobal;
 import com.iutcalendar.notification.Notif;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
@@ -212,11 +213,16 @@ public class Alarm extends BroadcastReceiver {
 
 
                 //sauvgrade si alarme désactivé pour se jour
-                boolean prevWasActivate = true;
+                List<Long> previouslyDisabledAlarm = new LinkedList<>();
                 List<AlarmRing> listAlarmForThisDay = personnalAlarmManager.get(dayAnalysed);
-                if (!listAlarmForThisDay.isEmpty()) {
-                    prevWasActivate = listAlarmForThisDay.get(0).isActivate();
+                for (AlarmRing alarmRing : listAlarmForThisDay) {
+                    if (!alarmRing.isActivate()) {
+                        previouslyDisabledAlarm.add(alarmRing.getTimeInMillis());
+                    }
                 }
+//                if (!listAlarmForThisDay.isEmpty()) {
+//                    prevWasActivate = listAlarmForThisDay.get(0).isActivate();
+//                }
 
                 //supprimer toutes les alarmes (Tash) pour se jour
                 personnalAlarmManager.removeForDay(context, dayAnalysed);
@@ -225,7 +231,7 @@ public class Alarm extends BroadcastReceiver {
                 Log.d("Alarm", "alarm set");
                 //remet ou met l'alarm si besoin
 
-                for (ConstraintAlarm constraintAlarm : ConstraintAlarmManager.getInstance(context).getAllConstraint()) {
+                for (AlarmCondtion constraintAlarm : AlarmConditionManager.getInstance(context).getAllConstraint()) {
                     if (constraintAlarm.isApplicableTo(currEvent)) {
 
                         DateCalendrier timeAlarmRing = new DateCalendrier(currEvent.getDate());
@@ -233,7 +239,7 @@ public class Alarm extends BroadcastReceiver {
 
                         Log.d("Constraint", timeAlarmRing.toString());
 
-                        personnalAlarmManager.add(dayAnalysed, new AlarmRing(timeAlarmRing.getTimeInMillis(), prevWasActivate));
+                        personnalAlarmManager.add(dayAnalysed, new AlarmRing(timeAlarmRing.getTimeInMillis(), !previouslyDisabledAlarm.contains(timeAlarmRing.getTimeInMillis())));
                     }
                 }
 

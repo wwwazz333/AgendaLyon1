@@ -1,7 +1,6 @@
 package com.iutcalendar.alarm.constraint;
 
 import android.app.Activity;
-import android.app.TimePickerDialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,15 +19,15 @@ import com.iutcalendar.calendrier.DateCalendrier;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-public class AlarmConstraintRecycleView extends RecyclerView.Adapter<AlarmConstraintViewHolder> {
+public class AlarmConditionRecycleView extends RecyclerView.Adapter<AlarmConditionViewHolder> {
 
-    List<ConstraintAlarm> list;
-    AlarmConstraintViewHolder viewHolder;
+    List<AlarmCondtion> list;
+    AlarmConditionViewHolder viewHolder;
     Activity activity;
     Context context;
     ClickForUpdateListener updateListener;
 
-    public AlarmConstraintRecycleView(Context context, Activity activity, List<ConstraintAlarm> list, ClickForUpdateListener updateListener) {
+    public AlarmConditionRecycleView(Context context, Activity activity, List<AlarmCondtion> list, ClickForUpdateListener updateListener) {
         this.list = list;
         this.activity = activity;
         this.context = context;
@@ -37,21 +36,21 @@ public class AlarmConstraintRecycleView extends RecyclerView.Adapter<AlarmConstr
 
     @NonNull
     @Override
-    public AlarmConstraintViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public AlarmConditionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
         View eventView = inflater.inflate(R.layout.constraint_alarm_card, parent, false);
 
-        viewHolder = new AlarmConstraintViewHolder(eventView);
+        viewHolder = new AlarmConditionViewHolder(eventView);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AlarmConstraintViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull AlarmConditionViewHolder holder, int position) {
         final int index = viewHolder.getAbsoluteAdapterPosition();
-        ConstraintAlarm alarmConstraint = list.get(position);
+        AlarmCondtion alarmConstraint = list.get(position);
 
         viewHolder.begingHour.setText(DateCalendrier.timeLongToString(alarmConstraint.getBeging()));
         viewHolder.endHour.setText(DateCalendrier.timeLongToString(alarmConstraint.getEnd()));
@@ -83,7 +82,7 @@ public class AlarmConstraintRecycleView extends RecyclerView.Adapter<AlarmConstr
         });
 
         viewHolder.delBtn.setOnClickListener(view -> {
-            ConstraintAlarmManager.getInstance(context).removeConstraint(position);
+            AlarmConditionManager.getInstance(context).removeConstraint(position);
             updateListener.update();
         });
 
@@ -106,7 +105,7 @@ public class AlarmConstraintRecycleView extends RecyclerView.Adapter<AlarmConstr
         });
     }
 
-    private void initDayCheck(ConstraintAlarm alarmConstraint, CheckedTextView check, int value) {
+    private void initDayCheck(AlarmCondtion alarmConstraint, CheckedTextView check, int value) {
         if (alarmConstraint.getDaysEnabled().contains(value)) {
             check.setChecked(true);
         }

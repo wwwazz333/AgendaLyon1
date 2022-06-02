@@ -48,7 +48,7 @@ public class AlarmLabelConstraintRecycleView extends RecyclerView.Adapter<AlarmL
         final int index = viewHolder.getAbsoluteAdapterPosition();
         ConstraintLabelAlarm constraintLabelAlarm = list.get(position);
 
-        viewHolder.typeConstraint.setText(constraintLabelAlarm.getTypeDeContraint().toString());
+        viewHolder.typeConstraint.setText(constraintLabelAlarm.getTypeDeContraint().toString(context));
         viewHolder.typeConstraint.setOnClickListener(view -> {
             showEditConstraintType(constraintLabelAlarm);
         });

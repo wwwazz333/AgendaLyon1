@@ -1,6 +1,9 @@
 package com.iutcalendar.alarm.constraint.label_constraint;
 
-import com.iutcalendar.alarm.constraint.ConstraintAlarm;
+import android.content.Context;
+import androidx.annotation.NonNull;
+import com.calendar.iutcalendar.R;
+import com.iutcalendar.alarm.constraint.AlarmCondtion;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -8,7 +11,7 @@ import java.util.Objects;
 public class ConstraintLabelAlarm implements Serializable {
     private Containing typeDeContraint;
     private String contraintRegex;
-    private ConstraintAlarm parent;
+    private AlarmCondtion parent;
 
     public enum Containing implements Serializable {
         MUST_CONTAIN,
@@ -18,8 +21,23 @@ public class ConstraintLabelAlarm implements Serializable {
         NONE;
 
 
+
+        public String toString(Context context){
+            switch (this){
+                case MUST_CONTAIN:
+                    return context.getResources().getString(R.string.must_contain);
+                case MUST_NOT_CONTAIN:
+                    return context.getResources().getString(R.string.must_not_contain);
+                case MUST_BE_EXACTLY:
+                    return context.getResources().getString(R.string.must_be_exactly);
+                case MUST_NOT_BE_EXACTLY:
+                    return context.getResources().getString(R.string.must_not_be_exactly);
+                default:
+                    return this.toString();
+            }
+        }
     }
-    public ConstraintLabelAlarm(ConstraintAlarm parent, Containing typeDeContraint, String contraintRegex) {
+    public ConstraintLabelAlarm(AlarmCondtion parent, Containing typeDeContraint, String contraintRegex) {
         this.typeDeContraint = typeDeContraint;
         this.contraintRegex = contraintRegex;
         this.parent = parent;

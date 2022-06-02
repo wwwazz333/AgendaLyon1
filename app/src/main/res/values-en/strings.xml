@@ -61,9 +61,29 @@
     <string name="urlSettingsLabel">URL for calendar\'s update</string>
     <string name="Alarm_auto">Alarms auto</string>
     <string name="alarm_auto_label">an alarm will be activate according to preferences</string>
-    <string name="Settings_alarms">Settings Alarms</string>
-    <string name="settings_alarm_label">Settings of alarms</string>
+    <string name="Settings_alarms">List of alarms</string>
+    <string name="settings_alarm_label">Automatic alarm list</string>
     <string name="Between">Between</string>
     <string name="And">And</string>
     <string name="RingHour">Ring Hour</string>
+    <string name="must_contain">Must contain</string>
+    <string name="must_not_contain">Mustn\'t contain</string>
+    <string name="must_be_exactly">Has to be</string>
+    <string name="must_not_be_exactly">Has to be not</string>
+    <string name="aide_conditon_alarm">"    An alarm will be set for each CONDITION respected.
+A CONDITION has an interest whose values (lower AND upper) are included.
+As well as a time which corresponds to the hour at which the alarm will sound.
+
+    CONTRAINTS are conditions on the title of the event which must either :
+- Contain a regex
+- Not contain a regex
+- Be exactly a string of characters
+- Be exactly NOT a string
+
+Example Regex
+    [must not contain] : ^Pent
+    The alarm will not activate for \"Pentecôte\"…"</string>
+    <string name="Ajout_contrainte">Add Constraint</string>
+    <string name="Horaire_alarms_auto">Schedule Auto Alarms</string>
+    <string name="label_horaire_alarm_auto">Setting conditions for alarm schedules</string>
 </resources>

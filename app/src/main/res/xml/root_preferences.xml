@@ -69,8 +69,8 @@
 
         <Preference
                 app:fragment="com.iutcalendar.settings.AlarmHoraireFragment"
-                app:title="Horaire Alarms"
-                app:summary="Paramètrage des horaires pour les alarmes"/>
+                app:title="@string/Horaire_alarms_auto"
+                app:summary="@string/label_horaire_alarm_auto"/>
 
 
     </PreferenceCategory>

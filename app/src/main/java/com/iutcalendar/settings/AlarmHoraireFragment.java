@@ -1,7 +1,5 @@
 package com.iutcalendar.settings;
 
-import android.app.TimePickerDialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.*;
@@ -11,10 +9,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.calendar.iutcalendar.R;
 import com.iutcalendar.alarm.AlarmRing;
-import com.iutcalendar.alarm.constraint.AlarmConstraintRecycleView;
-import com.iutcalendar.alarm.constraint.ConstraintAlarm;
-import com.iutcalendar.alarm.constraint.ConstraintAlarmManager;
+import com.iutcalendar.alarm.constraint.AlarmConditionRecycleView;
+import com.iutcalendar.alarm.constraint.AlarmCondtion;
+import com.iutcalendar.alarm.constraint.AlarmConditionManager;
 import com.iutcalendar.calendrier.DateCalendrier;
+import com.iutcalendar.dialog.DialogMessage;
 
 public class AlarmHoraireFragment extends Fragment {
 
@@ -38,33 +37,38 @@ public class AlarmHoraireFragment extends Fragment {
     }
 
     private void updateConstraint() {
-        AlarmConstraintRecycleView adapter = new AlarmConstraintRecycleView(getContext(), getActivity(),
-                ConstraintAlarmManager.getInstance(getContext()).getAllConstraint(), this::updateConstraint);
+        AlarmConditionRecycleView adapter = new AlarmConditionRecycleView(getContext(), getActivity(),
+                AlarmConditionManager.getInstance(getContext()).getAllConstraint(), this::updateConstraint);
         recyclerViewConstraint.setAdapter(adapter);
         recyclerViewConstraint.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         //save si des changement de constraint on été fait
-        ConstraintAlarmManager.getInstance(getContext()).save(getContext());
+        AlarmConditionManager.getInstance(getContext()).save(getContext());
         Log.d("Constraint", "updateConstraint");
     }
 
     private void addConstraint() {
 
         //demande heure début
-        AlarmRing.askTime(getContext(), (view, hourOfDayBeging, minuteBeging) -> {
+        AlarmRing.askTime(getContext(), "Intervale inferieur (compris)", (view, hourOfDayBeging, minuteBeging) -> {
             long beging = DateCalendrier.getHourInMillis(hourOfDayBeging, minuteBeging);
 
             //demande heure fin
-            AlarmRing.askTime(getContext(), (view1, hourOfDayEnd, minuteEnd) -> {
+            AlarmRing.askTime(getContext(), "Intervale supérieur (compris)", (view1, hourOfDayEnd, minuteEnd) -> {
                 long end = DateCalendrier.getHourInMillis(hourOfDayEnd, minuteEnd);
+
+                if (beging > end) {
+                    DialogMessage.showWarning(getContext(), "Intervale", "La borne supérieur ne peut pas être plus petite que la borne infèrieur.");
+                    return;
+                }
 
 
                 //demande heure sonnerie
-                AlarmRing.askTime(getContext(), (view2, hourOfDayAlarmAt, minuteAlarmAt) -> {
+                AlarmRing.askTime(getContext(), "Horaire à la quelle faire sonné", (view2, hourOfDayAlarmAt, minuteAlarmAt) -> {
                     long alarmAt = DateCalendrier.getHourInMillis(hourOfDayAlarmAt, minuteAlarmAt);
 
 
-                    ConstraintAlarmManager.getInstance(getContext()).addConstraint(new ConstraintAlarm(beging, end, alarmAt));
+                    AlarmConditionManager.getInstance(getContext()).addConstraint(new AlarmCondtion(beging, end, alarmAt));
                     updateConstraint();
                 });
             });
@@ -81,7 +85,7 @@ public class AlarmHoraireFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_action_add_constraint_alarm, menu);
+        inflater.inflate(R.menu.menu_action_constraint_alarm, menu);
     }
 
     @Override
@@ -91,6 +95,8 @@ public class AlarmHoraireFragment extends Fragment {
         if (id == R.id.addBtn) {
             addConstraint();
 
+        } else if (id == R.id.aideBtn) {
+            DialogMessage.showAide(getContext(), "Aide", getString(R.string.aide_conditon_alarm));
         }
         return super.onOptionsItemSelected(item);
     }

@@ -9,7 +9,7 @@ import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
 
-public class ConstraintAlarm implements Serializable {
+public class AlarmCondtion implements Serializable {
 
     private long beging, end, alarmAt;//les borne sont comprise (hours in millis)
 
@@ -22,7 +22,7 @@ public class ConstraintAlarm implements Serializable {
 
     private List<ConstraintLabelAlarm> constraintLabels;
 
-    public ConstraintAlarm(long beging, long end, long alarmAt, ArrayList<Integer> daysEnabled, List<ConstraintLabelAlarm> constraintLabels) {
+    public AlarmCondtion(long beging, long end, long alarmAt, ArrayList<Integer> daysEnabled, List<ConstraintLabelAlarm> constraintLabels) {
         this.beging = beging;
         this.end = end;
         this.alarmAt = alarmAt;
@@ -30,11 +30,11 @@ public class ConstraintAlarm implements Serializable {
         this.constraintLabels = constraintLabels;
     }
 
-    public ConstraintAlarm(long beging, long end, long alarmAt, ArrayList<Integer> daysEnabled) {
+    public AlarmCondtion(long beging, long end, long alarmAt, ArrayList<Integer> daysEnabled) {
         this(beging, end, alarmAt, daysEnabled, new ArrayList<>());
     }
 
-    public ConstraintAlarm(long beging, long end, long alarmAt) {
+    public AlarmCondtion(long beging, long end, long alarmAt) {
         this(beging, end, alarmAt, null, new ArrayList<>());
         this.daysEnabled = new ArrayList<>();
         daysEnabled.add(GregorianCalendar.MONDAY);

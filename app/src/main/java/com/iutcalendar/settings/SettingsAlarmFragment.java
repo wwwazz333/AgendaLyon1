@@ -20,11 +20,6 @@ public class SettingsAlarmFragment extends Fragment {
 
     private RecyclerView recyclerViewAlarm;
 
-    @Override
-    public void onStart() {
-        updateAlarm();
-        super.onStart();
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -35,20 +30,25 @@ public class SettingsAlarmFragment extends Fragment {
 
         //TODO update quand arrive sur page pas à avoir à actualiser
         updateAlarm();
-
         return view;
     }
 
 
     private void updateAlarm() {
+        Alarm.setUpAlarm(getContext(), new Calendrier(FileGlobal.readFile(FileGlobal.getFileDownload(getContext()))));
+
         AlarmRecycleView adapter = new AlarmRecycleView(
-                PersonnalAlarmManager.getInstance(getContext()).getAllAlarmToList(), this::updateAlarm);
+                PersonnalAlarmManager.getInstance(getContext()).getAllAlarmToList(), this::saveAlarm);
         recyclerViewAlarm.setAdapter(adapter);
 
         LinearLayoutManager layout = new LinearLayoutManager(getActivity());
         recyclerViewAlarm.setLayoutManager(layout);
-        PersonnalAlarmManager.getInstance(getContext()).save(getContext());
+
         Log.d("Alarm", "updateAlarm : " + PersonnalAlarmManager.getInstance(getContext()).getAllAlarmToList().size());
+    }
+
+    private void saveAlarm(){
+        PersonnalAlarmManager.getInstance(getContext()).save(getContext());
     }
 
 
@@ -69,9 +69,7 @@ public class SettingsAlarmFragment extends Fragment {
         int id = item.getItemId();
 
         if (id == R.id.mybutton) {
-            Alarm.setUpAlarm(getContext(), new Calendrier(FileGlobal.readFile(FileGlobal.getFileDownload(getContext()))));
             updateAlarm();
-
         }
         return super.onOptionsItemSelected(item);
     }

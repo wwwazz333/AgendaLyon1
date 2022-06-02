@@ -9,15 +9,16 @@ import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import com.calendar.iutcalendar.R;
 import com.iutcalendar.alarm.ClickForUpdateListener;
-import com.iutcalendar.alarm.constraint.ConstraintAlarm;
 
 public class TypeConstraintEditDialog extends Dialog {
 
     RadioGroup radioGroup;
+    ClickForUpdateListener updateListener;
 
     public TypeConstraintEditDialog(@NonNull Context context, ConstraintLabelAlarm constraintLabelAlarm, ClickForUpdateListener updateListener) {
         super(context);
         setContentView(R.layout.dialog_constraint_type_edit);
+        this.updateListener = updateListener;
 
         radioGroup = findViewById(R.id.radio_groupe);
 
@@ -26,36 +27,17 @@ public class TypeConstraintEditDialog extends Dialog {
         setTextAndSelect(R.id.must_be_exactly, ConstraintLabelAlarm.Containing.MUST_BE_EXACTLY, constraintLabelAlarm);
         setTextAndSelect(R.id.must_not_be_exactly, ConstraintLabelAlarm.Containing.MUST_NOT_BE_EXACTLY, constraintLabelAlarm);
 
-
-        findViewById(R.id.submitBtn).setOnClickListener(view -> {
-            ConstraintLabelAlarm.Containing newType;
-            switch (radioGroup.getCheckedRadioButtonId()) {
-                case R.id.must_contain:
-                    newType = ConstraintLabelAlarm.Containing.MUST_CONTAIN;
-                    break;
-                case R.id.must_not_contain:
-                    newType = ConstraintLabelAlarm.Containing.MUST_NOT_CONTAIN;
-                    break;
-                case R.id.must_be_exactly:
-                    newType = ConstraintLabelAlarm.Containing.MUST_BE_EXACTLY;
-                    break;
-                case R.id.must_not_be_exactly:
-                    newType = ConstraintLabelAlarm.Containing.MUST_NOT_BE_EXACTLY;
-                    break;
-                default:
-                    newType = ConstraintLabelAlarm.Containing.NONE;
-            }
-            constraintLabelAlarm.setTypeDeContraint(newType);
-            updateListener.update();
-            dismiss();
-        });
     }
 
     private void setTextAndSelect(@IdRes int btn, ConstraintLabelAlarm.Containing type, ConstraintLabelAlarm constraintLabelAlarm) {
         RadioButton radio = findViewById(btn);
-        radio.setText(type.toString());
+        radio.setText(type.toString(getContext()));
+        radio.setOnClickListener(view -> {
+            constraintLabelAlarm.setTypeDeContraint(type);
+            updateListener.update();
+            this.dismiss();
+        });
 
-        Log.d("Constraint", String.valueOf(constraintLabelAlarm.getTypeDeContraint().equals(type)));
 
         if (constraintLabelAlarm.getTypeDeContraint().equals(type)) {
             radio.setChecked(true);

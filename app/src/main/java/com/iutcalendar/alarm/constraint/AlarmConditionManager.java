@@ -7,26 +7,26 @@ import com.iutcalendar.data.FileGlobal;
 import java.io.*;
 import java.util.LinkedList;
 
-public class ConstraintAlarmManager implements Serializable {
+public class AlarmConditionManager implements Serializable {
 
-    private LinkedList<ConstraintAlarm> listeConstraint;
+    private LinkedList<AlarmCondtion> listeConstraint;
 
-    private static ConstraintAlarmManager instance;
+    private static AlarmConditionManager instance;
 
-    public static ConstraintAlarmManager getInstance(Context context) {
+    public static AlarmConditionManager getInstance(Context context) {
         if (instance == null) {
-            instance = new ConstraintAlarmManager();
+            instance = new AlarmConditionManager();
             instance.load(context);
         }
         return instance;
     }
 
-    public ConstraintAlarmManager() {
+    public AlarmConditionManager() {
         listeConstraint = new LinkedList<>();
     }
 
 
-    public void addConstraint(ConstraintAlarm constraintAlarm) {
+    public void addConstraint(AlarmCondtion constraintAlarm) {
         listeConstraint.add(constraintAlarm);
     }
 
@@ -34,7 +34,7 @@ public class ConstraintAlarmManager implements Serializable {
         listeConstraint.remove(index);
     }
 
-    public LinkedList<ConstraintAlarm> getAllConstraint(){
+    public LinkedList<AlarmCondtion> getAllConstraint(){
         return listeConstraint;
     }
 
@@ -51,7 +51,7 @@ public class ConstraintAlarmManager implements Serializable {
             ObjectInputStream in = new ObjectInputStream(stream);
             Object obj = in.readObject();
             if (obj instanceof LinkedList) {
-                listeConstraint = (LinkedList<ConstraintAlarm>) obj;
+                listeConstraint = (LinkedList<AlarmCondtion>) obj;
             } else {
                 Log.e("File", "personnal alarm error : wrong type, please delete your personnal alarm file");
             }
