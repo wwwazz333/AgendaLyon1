@@ -23,7 +23,6 @@ import java.util.List;
 public class AlarmLabelConstraintRecycleView extends RecyclerView.Adapter<AlarmLabelConstraintViewHolder> {
 
     List<AlarmConstraintLabel> list;
-    //    AlarmLabelConstraintViewHolder viewHolder;
     Context context;
     ClickForUpdateListener updateListener, reloadListener;
 
@@ -72,7 +71,6 @@ public class AlarmLabelConstraintRecycleView extends RecyclerView.Adapter<AlarmL
             }
         });
         holder.constraint.setSelected(false);
-//        holder.constraint.setOnClickListener(view -> showEditConstraint(holder, constraintLabelAlarm));
 
 
         holder.delBtn.setOnClickListener(view -> {
@@ -80,31 +78,6 @@ public class AlarmLabelConstraintRecycleView extends RecyclerView.Adapter<AlarmL
             reloadListener.update();
         });
 
-    }
-
-
-    private void showEditConstraint(@NonNull AlarmLabelConstraintViewHolder holder, AlarmConstraintLabel constraintLabelAlarm) {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
-        alertDialog.setTitle("Edité contrainte");
-        alertDialog.setMessage("Contrainte");
-
-        final EditText editText = new EditText(context);
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT);
-        editText.setLayoutParams(lp);
-        editText.setText(holder.constraint.getText());
-        alertDialog.setView(editText);
-
-        alertDialog.setPositiveButton(context.getString(R.string.submit),
-                (dialog, which) -> {
-                    constraintLabelAlarm.setConstraintString(editText.getText().toString());
-                    holder.constraint.setText(editText.getText());
-                    updateListener.update();
-                    dialog.dismiss();
-                });
-
-        alertDialog.show();
     }
 
     private void showEditConstraintType(@NonNull AlarmLabelConstraintViewHolder holder, AlarmConstraintLabel constraintLabelAlarm) {

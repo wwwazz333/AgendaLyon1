@@ -22,7 +22,6 @@ import java.util.List;
 public class AlarmConditionRecycleView extends RecyclerView.Adapter<AlarmConditionViewHolder> {
 
     List<AlarmCondtion> list;
-//    AlarmConditionViewHolder viewHolder;
     Context context;
     ClickForUpdateListener updateListener, reloadListener;
 
@@ -43,7 +42,6 @@ public class AlarmConditionRecycleView extends RecyclerView.Adapter<AlarmConditi
         View eventView = inflater.inflate(R.layout.condition_alarm_card, parent, false);
 
         return new AlarmConditionViewHolder(eventView);
-//        return viewHolder;
     }
 
     @Override

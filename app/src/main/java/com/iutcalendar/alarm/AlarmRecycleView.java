@@ -58,8 +58,6 @@ public class AlarmRecycleView extends RecyclerView.Adapter<AlarmViewHolder> {
         } else {
             holder.date.setText(dateAffichage);
         }
-//        holder.date.setText(dateRing.toString());
-
 
         holder.isActivateSwitch.setChecked(alarmRing.isActivate());
 
