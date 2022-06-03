@@ -7,22 +7,28 @@
               android:layout_margin="@dimen/default_padding"
               android:background="@drawable/surface_background">
 
-    <TextView
+    <Button
             android:id="@+id/type_constraint"
             android:layout_width="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_height="wrap_content"
-            android:text="Contien"
+            android:text="@string/must_not_contain"
+            android:textSize="12sp"
+            android:textAllCaps="false"
+            android:layout_margin="0dp"
+            android:padding="@dimen/default_padding"
             android:checked="true"
+
             android:layout_marginEnd="@dimen/tab_gap"/>
-    <TextView
+    <EditText
             android:id="@+id/constraint"
             android:layout_gravity="center_vertical"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="SAE"
-    style="@style/Widget.AppCompat.EditText"/>
+            android:inputType="text"
+            android:imeOptions="actionDone"/>
     <ImageButton
             android:id="@+id/del_btn"
             android:layout_width="wrap_content" android:layout_height="wrap_content"

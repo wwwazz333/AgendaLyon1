@@ -1,12 +1,17 @@
 package com.iutcalendar.alarm.condition.label_constraint;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.calendar.iutcalendar.R;
@@ -18,7 +23,7 @@ import java.util.List;
 public class AlarmLabelConstraintRecycleView extends RecyclerView.Adapter<AlarmLabelConstraintViewHolder> {
 
     List<AlarmConstraintLabel> list;
-//    AlarmLabelConstraintViewHolder viewHolder;
+    //    AlarmLabelConstraintViewHolder viewHolder;
     Context context;
     ClickForUpdateListener updateListener, reloadListener;
 
@@ -49,7 +54,25 @@ public class AlarmLabelConstraintRecycleView extends RecyclerView.Adapter<AlarmL
         holder.typeConstraint.setOnClickListener(view -> showEditConstraintType(holder, constraintLabelAlarm));
 
         holder.constraint.setText(constraintLabelAlarm.getContraintText());
-        holder.constraint.setOnClickListener(view -> showEditConstraint(holder, constraintLabelAlarm));
+        holder.constraint.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                constraintLabelAlarm.setConstraintString(holder.constraint.getText().toString());
+                updateListener.update();
+            }
+        });
+        holder.constraint.setSelected(false);
+//        holder.constraint.setOnClickListener(view -> showEditConstraint(holder, constraintLabelAlarm));
 
 
         holder.delBtn.setOnClickListener(view -> {
@@ -58,6 +81,7 @@ public class AlarmLabelConstraintRecycleView extends RecyclerView.Adapter<AlarmL
         });
 
     }
+
 
     private void showEditConstraint(@NonNull AlarmLabelConstraintViewHolder holder, AlarmConstraintLabel constraintLabelAlarm) {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
