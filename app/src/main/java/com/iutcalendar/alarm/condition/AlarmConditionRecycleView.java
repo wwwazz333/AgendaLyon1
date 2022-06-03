@@ -22,7 +22,7 @@ import java.util.List;
 public class AlarmConditionRecycleView extends RecyclerView.Adapter<AlarmConditionViewHolder> {
 
     List<AlarmCondtion> list;
-    AlarmConditionViewHolder viewHolder;
+//    AlarmConditionViewHolder viewHolder;
     Context context;
     ClickForUpdateListener updateListener, reloadListener;
 
@@ -42,53 +42,52 @@ public class AlarmConditionRecycleView extends RecyclerView.Adapter<AlarmConditi
 
         View eventView = inflater.inflate(R.layout.condition_alarm_card, parent, false);
 
-        viewHolder = new AlarmConditionViewHolder(eventView);
-        return viewHolder;
+        return new AlarmConditionViewHolder(eventView);
+//        return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull AlarmConditionViewHolder holder, int position) {
-        final int index = viewHolder.getAbsoluteAdapterPosition();
         AlarmCondtion alarmConstraint = list.get(position);
 
-        viewHolder.begingHour.setText(DateCalendrier.timeLongToString(alarmConstraint.getBeging()));
-        viewHolder.endHour.setText(DateCalendrier.timeLongToString(alarmConstraint.getEnd()));
-        viewHolder.ringHour.setText(DateCalendrier.timeLongToString(alarmConstraint.getAlarmAt()));
+        holder.begingHour.setText(DateCalendrier.timeLongToString(alarmConstraint.getBeging()));
+        holder.endHour.setText(DateCalendrier.timeLongToString(alarmConstraint.getEnd()));
+        holder.ringHour.setText(DateCalendrier.timeLongToString(alarmConstraint.getAlarmAt()));
 
 
-        viewHolder.begingHour.setOnClickListener(view -> {
+        holder.begingHour.setOnClickListener(view -> {
             AlarmRing.askTime(context, (view1, hourOfDay, minute) -> {
                 alarmConstraint.setBeging(DateCalendrier.getHourInMillis(hourOfDay, minute));
                 updateListener.update();
             });
         });
-        viewHolder.endHour.setOnClickListener(view -> {
+        holder.endHour.setOnClickListener(view -> {
             AlarmRing.askTime(context, (view1, hourOfDay, minute) -> {
                 alarmConstraint.setEnd(DateCalendrier.getHourInMillis(hourOfDay, minute));
                 updateListener.update();
             });
         });
-        viewHolder.ringHour.setOnClickListener(view -> {
+        holder.ringHour.setOnClickListener(view -> {
             AlarmRing.askTime(context, (view1, hourOfDay, minute) -> {
                 alarmConstraint.setAlarmAt(DateCalendrier.getHourInMillis(hourOfDay, minute));
                 updateListener.update();
             });
         });
 
-        viewHolder.delBtn.setOnClickListener(view -> {
+        holder.delBtn.setOnClickListener(view -> {
             AlarmConditionManager.getInstance(context).removeCondition(position);
             reloadListener.update();
         });
 
 
         //setCheckable days
-        initDayCheck(alarmConstraint, viewHolder.monday, GregorianCalendar.MONDAY);
-        initDayCheck(alarmConstraint, viewHolder.tuesday, GregorianCalendar.TUESDAY);
-        initDayCheck(alarmConstraint, viewHolder.wednesday, GregorianCalendar.WEDNESDAY);
-        initDayCheck(alarmConstraint, viewHolder.thursday, GregorianCalendar.THURSDAY);
-        initDayCheck(alarmConstraint, viewHolder.friday, GregorianCalendar.FRIDAY);
-        initDayCheck(alarmConstraint, viewHolder.saturday, GregorianCalendar.SATURDAY);
-        initDayCheck(alarmConstraint, viewHolder.sunday, GregorianCalendar.SUNDAY);
+        initDayCheck(alarmConstraint, holder.monday, GregorianCalendar.MONDAY);
+        initDayCheck(alarmConstraint, holder.tuesday, GregorianCalendar.TUESDAY);
+        initDayCheck(alarmConstraint, holder.wednesday, GregorianCalendar.WEDNESDAY);
+        initDayCheck(alarmConstraint, holder.thursday, GregorianCalendar.THURSDAY);
+        initDayCheck(alarmConstraint, holder.friday, GregorianCalendar.FRIDAY);
+        initDayCheck(alarmConstraint, holder.saturday, GregorianCalendar.SATURDAY);
+        initDayCheck(alarmConstraint, holder.sunday, GregorianCalendar.SUNDAY);
     }
 
     private void initDayCheck(AlarmCondtion alarmConstraint, CheckedTextView check, int value) {
@@ -102,7 +101,7 @@ public class AlarmConditionRecycleView extends RecyclerView.Adapter<AlarmConditi
             if (check.isChecked())
                 alarmConstraint.getDaysEnabled().add(value);
             else
-                alarmConstraint.getDaysEnabled().remove(new Integer(value));
+                alarmConstraint.getDaysEnabled().remove(Integer.valueOf(value));
 
             updateListener.update();
         });

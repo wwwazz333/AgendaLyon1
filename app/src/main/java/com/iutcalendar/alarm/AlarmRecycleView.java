@@ -5,23 +5,23 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.calendar.iutcalendar.R;
 import com.iutcalendar.calendrier.CurrentDate;
+import com.iutcalendar.data.DataGlobal;
 
 import java.util.List;
 
 public class AlarmRecycleView extends RecyclerView.Adapter<AlarmViewHolder> {
 
     List<AlarmRing> list;
-    AlarmViewHolder viewHolder;
     ClickForUpdateListener updateClick;
 
     public AlarmRecycleView(List<AlarmRing> list, ClickForUpdateListener updateClick) {
         this.list = list;
-        Log.d("Alarm", "coutn " + this.getItemCount());
-        
+
         this.updateClick = updateClick;
     }
 
@@ -34,41 +34,42 @@ public class AlarmRecycleView extends RecyclerView.Adapter<AlarmViewHolder> {
 
         View eventView = inflater.inflate(R.layout.alarm_card, parent, false);
 
-        viewHolder = new AlarmViewHolder(eventView);
-
-        return viewHolder;
+        return new AlarmViewHolder(eventView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull AlarmViewHolder holder, int position) {
-        final int index = viewHolder.getAbsoluteAdapterPosition();
         AlarmRing alarmRing = list.get(position);
         CurrentDate dateRing = alarmRing.getDateTime();
 
 
-        viewHolder.view.setOnClickListener(view -> {
-            Log.d("Alarm", list.size() + " -> " + position + " " + dateRing.toString() + " at " + dateRing.timeToString());
-        });
-
-        viewHolder.horaire.setText(dateRing.timeToString());
-
-
-        String dateAffichage = dateRing.getRelativeDayName(viewHolder.view.getContext());
-        if (Character.isDigit(dateAffichage.charAt(dateAffichage.length() - 1))) {
-            viewHolder.date.setText(dateAffichage.substring(0, dateAffichage.length() - 5));//enlerver l'année
-        } else {
-            viewHolder.date.setText(dateAffichage);
+        if(DataGlobal.isDebug(holder.view.getContext())){
+            holder.view.setOnClickListener(view -> {
+                Log.d("Alarm", list.size() + " -> " + position + " " + dateRing.toString() + " at " + dateRing.timeToString());
+                Toast.makeText(view.getContext(), String.valueOf(position), Toast.LENGTH_SHORT).show();
+            });
         }
 
 
-        viewHolder.isActivateSwitch.setChecked(alarmRing.isActivate());
+        holder.horaire.setText(dateRing.timeToString());
 
-        viewHolder.isActivateSwitch.setOnCheckedChangeListener((compoundButton, isChecked) -> {
+        String dateAffichage = dateRing.getRelativeDayName(holder.view.getContext());
+        if (Character.isDigit(dateAffichage.charAt(dateAffichage.length() - 1))) {
+            holder.date.setText(dateAffichage.substring(0, dateAffichage.length() - 5));//enlerver l'année
+        } else {
+            holder.date.setText(dateAffichage);
+        }
+//        holder.date.setText(dateRing.toString());
+
+
+        holder.isActivateSwitch.setChecked(alarmRing.isActivate());
+
+        holder.isActivateSwitch.setOnCheckedChangeListener((compoundButton, isChecked) -> {
             alarmRing.setActivate(isChecked);
             updateClick.update();
         });
 
-        viewHolder.trash.setOnClickListener(view -> {
+        holder.trash.setOnClickListener(view -> {
             PersonnalAlarmManager.getInstance(view.getContext()).remove(view.getContext(), alarmRing);
             updateClick.update();
         });

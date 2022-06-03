@@ -18,7 +18,7 @@ import java.util.List;
 public class AlarmLabelConstraintRecycleView extends RecyclerView.Adapter<AlarmLabelConstraintViewHolder> {
 
     List<AlarmConstraintLabel> list;
-    AlarmLabelConstraintViewHolder viewHolder;
+//    AlarmLabelConstraintViewHolder viewHolder;
     Context context;
     ClickForUpdateListener updateListener, reloadListener;
 
@@ -38,34 +38,28 @@ public class AlarmLabelConstraintRecycleView extends RecyclerView.Adapter<AlarmL
 
         View eventView = inflater.inflate(R.layout.constraint_card, parent, false);
 
-        viewHolder = new AlarmLabelConstraintViewHolder(eventView);
-        return viewHolder;
+        return new AlarmLabelConstraintViewHolder(eventView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull AlarmLabelConstraintViewHolder holder, int position) {
-        final int index = viewHolder.getAbsoluteAdapterPosition();
         AlarmConstraintLabel constraintLabelAlarm = list.get(position);
 
-        viewHolder.typeConstraint.setText(constraintLabelAlarm.getTypeDeContraint().toString(context));
-        viewHolder.typeConstraint.setOnClickListener(view -> {
-            showEditConstraintType(constraintLabelAlarm);
-        });
+        holder.typeConstraint.setText(constraintLabelAlarm.getTypeDeContraint().toString(context));
+        holder.typeConstraint.setOnClickListener(view -> showEditConstraintType(holder, constraintLabelAlarm));
 
-        viewHolder.constraint.setText(constraintLabelAlarm.getContraintText());
-        viewHolder.constraint.setOnClickListener(view -> {
-            showEditConstraint(constraintLabelAlarm);
-        });
+        holder.constraint.setText(constraintLabelAlarm.getContraintText());
+        holder.constraint.setOnClickListener(view -> showEditConstraint(holder, constraintLabelAlarm));
 
 
-        viewHolder.delBtn.setOnClickListener(view -> {
+        holder.delBtn.setOnClickListener(view -> {
             AlarmConditionManager.getInstance(context).removeConstraint(constraintLabelAlarm);
             reloadListener.update();
         });
 
     }
 
-    private void showEditConstraint(AlarmConstraintLabel constraintLabelAlarm) {
+    private void showEditConstraint(@NonNull AlarmLabelConstraintViewHolder holder, AlarmConstraintLabel constraintLabelAlarm) {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
         alertDialog.setTitle("Edité contrainte");
         alertDialog.setMessage("Contrainte");
@@ -75,13 +69,13 @@ public class AlarmLabelConstraintRecycleView extends RecyclerView.Adapter<AlarmL
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT);
         editText.setLayoutParams(lp);
-        editText.setText(viewHolder.constraint.getText());
+        editText.setText(holder.constraint.getText());
         alertDialog.setView(editText);
 
         alertDialog.setPositiveButton(context.getString(R.string.submit),
                 (dialog, which) -> {
                     constraintLabelAlarm.setConstraintString(editText.getText().toString());
-                    viewHolder.constraint.setText(editText.getText());
+                    holder.constraint.setText(editText.getText());
                     updateListener.update();
                     dialog.dismiss();
                 });
@@ -89,16 +83,16 @@ public class AlarmLabelConstraintRecycleView extends RecyclerView.Adapter<AlarmL
         alertDialog.show();
     }
 
-    private void showEditConstraintType(AlarmConstraintLabel constraintLabelAlarm) {
+    private void showEditConstraintType(@NonNull AlarmLabelConstraintViewHolder holder, AlarmConstraintLabel constraintLabelAlarm) {
         AlarmConstraintLabel.Containing type;
-        if (viewHolder.typeConstraint.getText().toString().equals(AlarmConstraintLabel.Containing.MUST_CONTAIN.toString(context))) {
+        if (holder.typeConstraint.getText().toString().equals(AlarmConstraintLabel.Containing.MUST_CONTAIN.toString(context))) {
             type = AlarmConstraintLabel.Containing.MUST_NOT_CONTAIN;
         } else {
             type = AlarmConstraintLabel.Containing.MUST_CONTAIN;
         }
 
         constraintLabelAlarm.setTypeDeContraint(type);
-        viewHolder.typeConstraint.setText(type.toString(context));
+        holder.typeConstraint.setText(type.toString(context));
         updateListener.update();
 
     }

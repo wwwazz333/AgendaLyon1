@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.calendar.iutcalendar.R;
 import com.iutcalendar.alarm.Alarm;
 import com.iutcalendar.alarm.AlarmRecycleView;
-import com.iutcalendar.alarm.AlarmRing;
 import com.iutcalendar.alarm.PersonnalAlarmManager;
 import com.iutcalendar.calendrier.Calendrier;
 import com.iutcalendar.data.FileGlobal;
@@ -25,11 +24,10 @@ public class AlarmListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_settings_alarm, container, false);
+        View view = inflater.inflate(R.layout.fragment_alarm_list, container, false);
 
         recyclerViewAlarm = view.findViewById(R.id.recycle_alarm);
 
-        //TODO update quand arrive sur page pas à avoir à actualiser
         updateAlarm();
         return view;
     }
