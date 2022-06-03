@@ -85,10 +85,10 @@ public class AlarmLabelConstraintRecycleView extends RecyclerView.Adapter<AlarmL
 
     private void showEditConstraintType(@NonNull AlarmLabelConstraintViewHolder holder, AlarmConstraintLabel constraintLabelAlarm) {
         AlarmConstraintLabel.Containing type;
-        if (holder.typeConstraint.getText().toString().equals(AlarmConstraintLabel.Containing.MUST_CONTAIN.toString(context))) {
-            type = AlarmConstraintLabel.Containing.MUST_NOT_CONTAIN;
+        if (holder.typeConstraint.getText().toString().equals(AlarmConstraintLabel.Containing.MUST_NOT_CONTAIN.toString(context))) {
+            type = AlarmConstraintLabel.Containing.MUST_NOT_BE_EXACTLY;
         } else {
-            type = AlarmConstraintLabel.Containing.MUST_CONTAIN;
+            type = AlarmConstraintLabel.Containing.MUST_NOT_CONTAIN;
         }
 
         constraintLabelAlarm.setTypeDeContraint(type);

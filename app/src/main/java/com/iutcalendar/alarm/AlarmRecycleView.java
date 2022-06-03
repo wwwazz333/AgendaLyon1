@@ -21,7 +21,6 @@ public class AlarmRecycleView extends RecyclerView.Adapter<AlarmViewHolder> {
 
     public AlarmRecycleView(List<AlarmRing> list, ClickForUpdateListener updateClick) {
         this.list = list;
-
         this.updateClick = updateClick;
     }
 

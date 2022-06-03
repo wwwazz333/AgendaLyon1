@@ -85,5 +85,6 @@ Ainsi qu'une horaire qui correspond à l'heure à l'aquelle l'alarm va sonnée.
     <string name="Interval">Intervale</string>
     <string name="born_sup_et_inf_inverser">La borne supérieur ne peut pas être plus petite que la borne infèrieur.
     </string>
+    <string name="must_not_be_exactly">N\'est pas</string>
 
 </resources>

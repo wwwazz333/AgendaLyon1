@@ -7,7 +7,6 @@ import com.iutcalendar.calendrier.EventCalendrier;
 import com.iutcalendar.data.FileGlobal;
 
 import java.io.*;
-import java.util.GregorianCalendar;
 import java.util.LinkedList;
 
 public class AlarmConditionManager implements Serializable {
@@ -61,18 +60,10 @@ public class AlarmConditionManager implements Serializable {
     public boolean matchConstraints(EventCalendrier event) {
         //check si respect toutes les contraintes label
         for (AlarmConstraintLabel constraint : getAllConstraints()) {
-            switch (constraint.getTypeDeContraint()) {
-                case MUST_CONTAIN:
-                    if (!event.getSummary().contains(constraint.getContraintText())) {
-                        return false;
-                    }
-                    break;
-                case MUST_NOT_CONTAIN:
-                    if (event.getSummary().contains(constraint.getContraintText())) {
-                        return false;
-                    }
-                    break;
+            if(!constraint.matchWith(event)){
+                return false;
             }
+
         }
         return true;
     }

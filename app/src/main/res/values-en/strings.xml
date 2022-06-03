@@ -84,4 +84,5 @@ As well as a time which corresponds to the hour at which the alarm will sound.
     <string name="BorneInf">Bottom interval (included)</string>
     <string name="Interval">Interval</string>
     <string name="born_sup_et_inf_inverser">The upper bound cannot be smaller than the lower bound.</string>
+    <string name="must_not_be_exactly">Is not</string>
 </resources>

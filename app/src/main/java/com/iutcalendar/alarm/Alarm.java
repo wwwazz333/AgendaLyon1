@@ -17,8 +17,8 @@ import android.os.VibratorManager;
 import android.provider.Settings;
 import android.util.Log;
 import com.calendar.iutcalendar.R;
-import com.iutcalendar.alarm.condition.AlarmCondtion;
 import com.iutcalendar.alarm.condition.AlarmConditionManager;
+import com.iutcalendar.alarm.condition.AlarmCondtion;
 import com.iutcalendar.calendrier.Calendrier;
 import com.iutcalendar.calendrier.CurrentDate;
 import com.iutcalendar.calendrier.DateCalendrier;
@@ -207,22 +207,13 @@ public class Alarm extends BroadcastReceiver {
 
 
         CurrentDate dayAnalysed = new CurrentDate();
+        Log.d("Constraint", alarmConditionManager.getAllConstraints().toString());
+        Log.d("Constraint", personnalAlarmManager.getAllAlarmToList().toString());
         for (int dayAfter = 0; dayAfter < 7; dayAfter++) {
             List<EventCalendrier> events = calendrier.getEventsOfDay(dayAnalysed);
 
 
             if (!events.isEmpty()) {
-                EventCalendrier currEvent = events.get(0);
-                int i = 0;
-                while (!alarmConditionManager.matchConstraints(currEvent) && i < events.size()) {
-                    currEvent = events.get(i++);
-                }
-                if (i == events.size()) {
-                    continue;//peux appliquer aucune alarm pour se jour passe au suivant
-                }
-                Log.d("Alarm", currEvent.getSummary());
-
-
                 //sauvgrade si alarme désactivé pour se jour
                 List<Long> previouslyDisabledAlarm = new LinkedList<>();
                 List<AlarmRing> listAlarmForThisDay = personnalAlarmManager.get(dayAnalysed);
@@ -236,18 +227,28 @@ public class Alarm extends BroadcastReceiver {
                 personnalAlarmManager.removeForDay(context, dayAnalysed);
 
 
-                //remet ou met l'alarm si besoin
+                EventCalendrier currEvent;
+                int i = 0;
+                Log.d("Constraint", "--------------------debut-------------------");
+                do {
+                    currEvent = events.get(i);
+                    Log.d("Constraint", currEvent.getSummary() + " : " + alarmConditionManager.matchConstraints(currEvent));
+                    i++;
+                } while (i < events.size() && !alarmConditionManager.matchConstraints(currEvent));
+                Log.d("Constraint", "--------------------fin-------------------");
+                if (alarmConditionManager.matchConstraints(currEvent)) {
+                    //remet ou met l'alarm si besoin
 
 
-                DateCalendrier timeAlarmRing = new DateCalendrier(currEvent.getDate());
-                for (AlarmCondtion constraintAlarm : AlarmConditionManager.getInstance(context).getAllConditions()) {
-                    if (constraintAlarm.isApplicableTo(currEvent)) {
-                        timeAlarmRing.setHourWithMillis(constraintAlarm.getAlarmAt());
-                        personnalAlarmManager.add(dayAnalysed, new AlarmRing(timeAlarmRing.getTimeInMillis(),
-                                !previouslyDisabledAlarm.contains(timeAlarmRing.getTimeInMillis())));
+                    DateCalendrier timeAlarmRing = new DateCalendrier(currEvent.getDate());
+                    for (AlarmCondtion alarmCondtion : AlarmConditionManager.getInstance(context).getAllConditions()) {
+                        if (alarmCondtion.isApplicableTo(currEvent)) {
+                            timeAlarmRing.setHourWithMillis(alarmCondtion.getAlarmAt());
+                            personnalAlarmManager.add(dayAnalysed, new AlarmRing(timeAlarmRing.getTimeInMillis(),
+                                    !previouslyDisabledAlarm.contains(timeAlarmRing.getTimeInMillis())));
+                        }
                     }
                 }
-
             }
 
             dayAnalysed = dayAnalysed.addDay(1);

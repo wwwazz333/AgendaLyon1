@@ -107,6 +107,7 @@
     <string name="Interval">Intervale</string>
     <string name="born_sup_et_inf_inverser">La borne supérieur ne peut pas être plus petite que la borne infèrieur.
     </string>
+    <string name="must_not_be_exactly">N\'est pas</string>
     <!-- TODO: Remove or change this placeholder text -->
 
 
