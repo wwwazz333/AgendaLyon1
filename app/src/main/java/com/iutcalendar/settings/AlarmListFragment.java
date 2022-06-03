@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.calendar.iutcalendar.R;
 import com.iutcalendar.alarm.Alarm;
 import com.iutcalendar.alarm.AlarmRecycleView;
+import com.iutcalendar.alarm.AlarmRing;
 import com.iutcalendar.alarm.PersonnalAlarmManager;
 import com.iutcalendar.calendrier.Calendrier;
 import com.iutcalendar.data.FileGlobal;
@@ -37,6 +38,7 @@ public class AlarmListFragment extends Fragment {
     private void updateAlarm() {
         Alarm.setUpAlarm(getContext(), new Calendrier(FileGlobal.readFile(FileGlobal.getFileDownload(getContext()))));
 
+
         AlarmRecycleView adapter = new AlarmRecycleView(
                 PersonnalAlarmManager.getInstance(getContext()).getAllAlarmToList(), this::saveAlarm);
         recyclerViewAlarm.setAdapter(adapter);
@@ -44,6 +46,7 @@ public class AlarmListFragment extends Fragment {
         LinearLayoutManager layout = new LinearLayoutManager(getActivity());
         recyclerViewAlarm.setLayoutManager(layout);
 
+        saveAlarm();
         Log.d("Alarm", "updateAlarm : " + PersonnalAlarmManager.getInstance(getContext()).getAllAlarmToList().size());
     }
 

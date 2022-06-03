@@ -131,11 +131,12 @@ public class DateCalendrier extends GregorianCalendar {
     }
 
     public void setHourWithMillis(long millis) {
-        int hour = (int) (millis / (3600 * 1000L));
-        millis -= hour * 3600 * 1000L;
-        int minute = (int) (millis / (60 * 1000L));
+        millis = millis / 1_000;//en seconds
+        int minuteInSec = (int) (millis % 3600);
+        millis -= minuteInSec;
+        int hour = (int) (millis / (3600));
         setHour(hour);
-        setMinute(minute);
+        setMinute(minuteInSec / 60);
     }
 
     @Override

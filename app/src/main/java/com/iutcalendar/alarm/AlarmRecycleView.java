@@ -1,6 +1,7 @@
 package com.iutcalendar.alarm;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,8 @@ public class AlarmRecycleView extends RecyclerView.Adapter<AlarmViewHolder> {
 
     public AlarmRecycleView(List<AlarmRing> list, ClickForUpdateListener updateClick) {
         this.list = list;
+        Log.d("Alarm", "coutn " + this.getItemCount());
+        
         this.updateClick = updateClick;
     }
 
@@ -32,6 +35,7 @@ public class AlarmRecycleView extends RecyclerView.Adapter<AlarmViewHolder> {
         View eventView = inflater.inflate(R.layout.alarm_card, parent, false);
 
         viewHolder = new AlarmViewHolder(eventView);
+
         return viewHolder;
     }
 
@@ -41,11 +45,16 @@ public class AlarmRecycleView extends RecyclerView.Adapter<AlarmViewHolder> {
         AlarmRing alarmRing = list.get(position);
         CurrentDate dateRing = alarmRing.getDateTime();
 
+
+        viewHolder.view.setOnClickListener(view -> {
+            Log.d("Alarm", list.size() + " -> " + position + " " + dateRing.toString() + " at " + dateRing.timeToString());
+        });
+
         viewHolder.horaire.setText(dateRing.timeToString());
 
 
         String dateAffichage = dateRing.getRelativeDayName(viewHolder.view.getContext());
-        if (Character.isDigit(dateAffichage.charAt(dateAffichage.length()-1))) {
+        if (Character.isDigit(dateAffichage.charAt(dateAffichage.length() - 1))) {
             viewHolder.date.setText(dateAffichage.substring(0, dateAffichage.length() - 5));//enlerver l'année
         } else {
             viewHolder.date.setText(dateAffichage);

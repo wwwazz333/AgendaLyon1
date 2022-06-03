@@ -94,8 +94,8 @@ public class PersonnalAlarmManager implements Serializable {
         }
     }
 
-    public LinkedList<AlarmRing> getAllAlarmToList() {
-        LinkedList<AlarmRing> liste = new LinkedList<>();
+    public ArrayList<AlarmRing> getAllAlarmToList() {
+        ArrayList<AlarmRing> liste = new ArrayList<>();
         for (List<AlarmRing> listAlarm : alarms.values()) {
             liste.addAll(listAlarm);
         }

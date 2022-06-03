@@ -68,7 +68,7 @@
         <Preference
                 app:fragment="com.iutcalendar.settings.AlarmConstraintFragment"
                 app:title="Contraintes Alarmes auto"
-                app:summary="@string/exemple_text"/>
+                app:summary="Paramètrage des contraintes pour les alarmes"/>
 
 
     </PreferenceCategory>

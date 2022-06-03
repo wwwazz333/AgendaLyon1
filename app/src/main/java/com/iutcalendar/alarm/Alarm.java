@@ -217,9 +217,10 @@ public class Alarm extends BroadcastReceiver {
                 while (!alarmConditionManager.matchConstraints(currEvent) && i < events.size()) {
                     currEvent = events.get(i++);
                 }
-                if(i == events.size()){
+                if (i == events.size()) {
                     continue;//peux appliquer aucune alarm pour se jour passe au suivant
                 }
+                Log.d("Alarm", currEvent.getSummary());
 
 
                 //sauvgrade si alarme désactivé pour se jour
@@ -235,18 +236,15 @@ public class Alarm extends BroadcastReceiver {
                 personnalAlarmManager.removeForDay(context, dayAnalysed);
 
 
-                Log.d("Alarm", "alarm set");
                 //remet ou met l'alarm si besoin
 
+
+                DateCalendrier timeAlarmRing = new DateCalendrier(currEvent.getDate());
                 for (AlarmCondtion constraintAlarm : AlarmConditionManager.getInstance(context).getAllConditions()) {
                     if (constraintAlarm.isApplicableTo(currEvent)) {
-
-                        DateCalendrier timeAlarmRing = new DateCalendrier(currEvent.getDate());
                         timeAlarmRing.setHourWithMillis(constraintAlarm.getAlarmAt());
-
-                        Log.d("Constraint", timeAlarmRing.toString());
-
-                        personnalAlarmManager.add(dayAnalysed, new AlarmRing(timeAlarmRing.getTimeInMillis(), !previouslyDisabledAlarm.contains(timeAlarmRing.getTimeInMillis())));
+                        personnalAlarmManager.add(dayAnalysed, new AlarmRing(timeAlarmRing.getTimeInMillis(),
+                                !previouslyDisabledAlarm.contains(timeAlarmRing.getTimeInMillis())));
                     }
                 }
 
