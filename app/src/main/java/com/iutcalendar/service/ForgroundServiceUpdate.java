@@ -21,6 +21,8 @@ import com.iutcalendar.notification.Notif;
 public class ForgroundServiceUpdate extends Service {
     private static final long INTERVAL_UPDATE = 20 * 60_000;
 
+    private static final String TAG_WAKE_LOCK = "IUTCalendar::majAgenda";
+
     private Calendrier calendrier;
 
 
@@ -38,14 +40,16 @@ public class ForgroundServiceUpdate extends Service {
         startForeground(startId, notif.build());
 
 
-        //reveil le CPU
-        PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
-        PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
-                "IUTCalendar::majAgenda");
-        wakeLock.acquire(30 * 1_000L /*30s*/);
+
 
 
         new Thread(() -> {
+            //reveil le CPU
+            PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
+            PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, TAG_WAKE_LOCK);
+            wakeLock.acquire(30 * 1_000L /*30s*/);
+
+
             long timerCount = System.currentTimeMillis();
 
             long read, setal, upmaj;
