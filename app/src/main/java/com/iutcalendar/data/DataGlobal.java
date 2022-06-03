@@ -9,6 +9,8 @@ public class DataGlobal {
     public final static String THEME = "theme_selected";
     public final static String THEME_RES_WIDGET = "theme_widget_selected";
     public final static String ALARM_ENABELED = "alarme_enable";
+    public final static String FERIER_DAY_DISABELED = "jour_ferier_disabled";
+
 
     public final static String DEBUGING = "debuging";
 

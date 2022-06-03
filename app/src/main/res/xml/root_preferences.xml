@@ -53,9 +53,13 @@
                 android:key="alarme_enable"
                 android:title="@string/Alarm_auto"
                 android:summaryOn="@string/alarm_auto_label"
-                android:defaultValue="false">
-
-        </SwitchPreference>
+                android:defaultValue="false"/>
+        <SwitchPreference
+                android:key="jour_ferier_disabled"
+                android:title="Jours fériés"
+                android:summaryOff="les alarms activé pour les jours fériés"
+                android:summaryOn="les alarms sont désactivé pour les jours fériés (cours de 8h)"
+                android:defaultValue="true"/>
         <Preference
                 app:fragment="com.iutcalendar.settings.AlarmListFragment"
                 app:title="@string/Settings_alarms"

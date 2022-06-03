@@ -226,29 +226,27 @@ public class Alarm extends BroadcastReceiver {
                 //supprimer toutes les alarmes (Tach) pour se jour
                 personnalAlarmManager.removeForDay(context, dayAnalysed);
 
+                EventCalendrier currEvent = events.get(0);
+                if (currEvent.getDuree().getHour() < 8 || !DataGlobal.getSavedBoolean(context, DataGlobal.FERIER_DAY_DISABELED)) {
+                    int i = 0;
+                    do {
+                        currEvent = events.get(i);
+                        i++;
+                    } while (i < events.size() && !alarmConditionManager.matchConstraints(currEvent));
+                    if (alarmConditionManager.matchConstraints(currEvent)) {
+                        //remet ou met l'alarm si besoin
 
-                EventCalendrier currEvent;
-                int i = 0;
-                Log.d("Constraint", "--------------------debut-------------------");
-                do {
-                    currEvent = events.get(i);
-                    Log.d("Constraint", currEvent.getSummary() + " : " + alarmConditionManager.matchConstraints(currEvent));
-                    i++;
-                } while (i < events.size() && !alarmConditionManager.matchConstraints(currEvent));
-                Log.d("Constraint", "--------------------fin-------------------");
-                if (alarmConditionManager.matchConstraints(currEvent)) {
-                    //remet ou met l'alarm si besoin
-
-
-                    DateCalendrier timeAlarmRing = new DateCalendrier(currEvent.getDate());
-                    for (AlarmCondtion alarmCondtion : AlarmConditionManager.getInstance(context).getAllConditions()) {
-                        if (alarmCondtion.isApplicableTo(currEvent)) {
-                            timeAlarmRing.setHourWithMillis(alarmCondtion.getAlarmAt());
-                            personnalAlarmManager.add(dayAnalysed, new AlarmRing(timeAlarmRing.getTimeInMillis(),
-                                    !previouslyDisabledAlarm.contains(timeAlarmRing.getTimeInMillis())));
+                        DateCalendrier timeAlarmRing = new DateCalendrier(currEvent.getDate());
+                        for (AlarmCondtion alarmCondtion : AlarmConditionManager.getInstance(context).getAllConditions()) {
+                            if (alarmCondtion.isApplicableTo(currEvent)) {
+                                timeAlarmRing.setHourWithMillis(alarmCondtion.getAlarmAt());
+                                personnalAlarmManager.add(dayAnalysed, new AlarmRing(timeAlarmRing.getTimeInMillis(),
+                                        !previouslyDisabledAlarm.contains(timeAlarmRing.getTimeInMillis())));
+                            }
                         }
                     }
                 }
+
             }
 
             dayAnalysed = dayAnalysed.addDay(1);
