@@ -160,12 +160,6 @@ public class MainActivity extends AppCompatActivity {
         /*####Testing feature#####*/
 //        Alarm.setAlarm(getApplicationContext(), System.currentTimeMillis() + 5_000, "test");
 
-        Log.d("Constraint", "1 : " + "Pentecôte".contains("Pente"));
-
-        Log.d("Constraint", "2 : " + "Pentecôte".contains("nte"));
-
-        Log.d("Constraint", "3 : " + !"SAE".contains("Pente"));
-
         Log.d("Global", "MainActivity end");
     }
 
@@ -211,7 +205,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void updateEvent() {
-        startFragment(R.id.frameLayout, new EventFragment());
+        startFragment(R.id.frameLayout, new EventFragment(getCalendrier(), getCurrDate(),
+                FileGlobal.getFileDownload(getApplicationContext())));
     }
 
     /*########################################################################

@@ -28,35 +28,42 @@ import java.util.List;
 public class EventFragment extends Fragment {
 
 
+    private Calendrier calendrier;
+    private CurrentDate date;
+    private File fileUpdate;
+
     public EventFragment() {
         // Required empty public constructor
+    }
+
+    public EventFragment(Calendrier calendrier, CurrentDate date, File fileUpdate) {
+        this.calendrier = calendrier;
+        this.date = date;
+        this.fileUpdate = fileUpdate;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_event, container, false);
-        LinearLayout layout = view.findViewById(R.id.mainLayout);
 
         RecyclerView recycleView = view.findViewById(R.id.recycleView);
         if (getActivity() != null) {
 
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
-
-            File fileCal = FileGlobal.getFileDownload(getContext());
+//            File fileCal = FileGlobal.getFileDownload(getContext());
 
             TextView update = view.findViewById(R.id.updateText);
 
 
-            if (fileCal.exists() && getActivity() != null && getActivity() instanceof MainActivity && getContext() != null) {
+            if (fileUpdate.exists() && getActivity() != null && getActivity() instanceof MainActivity && getContext() != null) {
                 MainActivity mainActivity = ((MainActivity) getActivity());
 
-                Calendrier cal = mainActivity.getCalendrier();
+//                Calendrier cal = mainActivity.getCalendrier();
 
-                CurrentDate date = mainActivity.getCurrDate();
+//                CurrentDate date = mainActivity.getCurrDate();
 
-                List<EventCalendrier> eventToday = cal.getEventsOfDay(date);
+                List<EventCalendrier> eventToday = calendrier.getEventsOfDay(date);
 
                 for (EventCalendrier e : eventToday) {
                     Log.d("Date", e.toString());
@@ -77,13 +84,13 @@ public class EventFragment extends Fragment {
                 if (PreferenceManager.getDefaultSharedPreferences(getContext()).getBoolean("show_update", true)) {
                     //affichage dernière maj
                     CurrentDate dateLastEdit = new CurrentDate();
-                    dateLastEdit.setTimeInMillis(fileCal.lastModified());
+                    dateLastEdit.setTimeInMillis(fileUpdate.lastModified());
                     dateLastEdit.runForDate(() -> update.setText(getResources().getString(R.string.last_update,
-                            new SimpleDateFormat("HH:mm", SettingsApp.getLocale()).format(fileCal.lastModified())
+                            new SimpleDateFormat("HH:mm", SettingsApp.getLocale()).format(fileUpdate.lastModified())
                     )), () -> update.setText(getResources().getString(R.string.last_update,
                             "error" //impossible que last_update soit demain
                     )), () -> update.setText(getResources().getString(R.string.last_update,
-                            new SimpleDateFormat("dd/MM/yyyy HH:mm", SettingsApp.getLocale()).format(fileCal.lastModified())
+                            new SimpleDateFormat("dd/MM/yyyy HH:mm", SettingsApp.getLocale()).format(fileUpdate.lastModified())
                     )));
 
                 }
