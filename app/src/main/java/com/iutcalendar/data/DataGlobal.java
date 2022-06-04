@@ -3,7 +3,12 @@ package com.iutcalendar.data;
 import android.content.Context;
 import androidx.preference.PreferenceManager;
 
+import java.util.GregorianCalendar;
+
 public class DataGlobal {
+
+    public final static int[] DAYS_OF_WEEK = new int[]{GregorianCalendar.MONDAY, GregorianCalendar.TUESDAY, GregorianCalendar.WEDNESDAY,
+            GregorianCalendar.THURSDAY, GregorianCalendar.FRIDAY, GregorianCalendar.SATURDAY, GregorianCalendar.SUNDAY};
     public final static String URL = "url_path";
     public final static String LANGUAGUE = "language_selected";
     public final static String THEME = "theme_selected";

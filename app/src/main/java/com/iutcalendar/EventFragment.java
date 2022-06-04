@@ -19,6 +19,7 @@ import com.iutcalendar.data.FileGlobal;
 import com.iutcalendar.event.ClickListener;
 import com.iutcalendar.event.DialogPopupEvent;
 import com.iutcalendar.event.EventRecycleView;
+import com.iutcalendar.mainpage.PageEventActivity;
 import com.iutcalendar.settings.SettingsApp;
 
 import java.io.File;
@@ -56,8 +57,9 @@ public class EventFragment extends Fragment {
             TextView update = view.findViewById(R.id.updateText);
 
 
-            if (fileUpdate.exists() && getActivity() != null && getActivity() instanceof MainActivity && getContext() != null) {
-                MainActivity mainActivity = ((MainActivity) getActivity());
+
+            if (fileUpdate.exists() && getActivity() != null && getActivity() instanceof PageEventActivity && getContext() != null) {
+                PageEventActivity mainActivity = ((PageEventActivity) getActivity());
 
 //                Calendrier cal = mainActivity.getCalendrier();
 
@@ -76,7 +78,7 @@ public class EventFragment extends Fragment {
                     dialog.show();
                 };
 
-                EventRecycleView adapter = new EventRecycleView(eventToday, getActivity().getApplication(), listener, mainActivity.getGesutreDaily());
+                EventRecycleView adapter = new EventRecycleView(eventToday, getActivity().getApplication(), listener);
                 recycleView.setAdapter(adapter);
                 recycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
 

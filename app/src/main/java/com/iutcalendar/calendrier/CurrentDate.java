@@ -2,6 +2,7 @@ package com.iutcalendar.calendrier;
 
 import android.content.Context;
 import com.calendar.iutcalendar.R;
+import com.iutcalendar.data.DataGlobal;
 import com.iutcalendar.settings.SettingsApp;
 
 import java.util.GregorianCalendar;
@@ -18,19 +19,34 @@ public class CurrentDate extends DateCalendrier {
         super(other);
     }
 
+    public void set(DateCalendrier other) {
+        setYear(other.getYear());
+        setDay(other.getDay());
+        setMonth(other.getMonth());
+        setHour(other.getHour());
+        setMinute(other.getMinute());
+    }
+
     public CurrentDate(int day, int month, int year, int hour, int minute) {
         super(day, month, year, hour, minute);
     }
 
+    /**
+     *
+     * @param day lun 0, mar 1, ..., dim 6
+     * @return la date du joure de la semaine
+     */
     public CurrentDate getDateOfDayOfWeek(int day) {
-        int currDayOfWeek = get(GregorianCalendar.DAY_OF_WEEK);
+        return addDay(day-getPosDayOfWeek());
+    }
 
-        set(GregorianCalendar.DAY_OF_WEEK, day);
-
-        CurrentDate date = new CurrentDate(this);
-
-        set(GregorianCalendar.DAY_OF_WEEK, currDayOfWeek);
-        return date;
+    public int getPosDayOfWeek() {
+        for (int i = 0; i < DataGlobal.DAYS_OF_WEEK.length; i++) {
+            if (get(GregorianCalendar.DAY_OF_WEEK) == DataGlobal.DAYS_OF_WEEK[i]) {
+                return i;
+            }
+        }
+        return -1;//normalement impossible
     }
 
     public CurrentDate nextWeek() {
@@ -66,6 +82,8 @@ public class CurrentDate extends DateCalendrier {
             return this.toString(SettingsApp.getLocale());
         }
     }
+
+
 
 
     @Override

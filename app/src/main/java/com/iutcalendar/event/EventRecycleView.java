@@ -20,14 +20,12 @@ public class EventRecycleView extends RecyclerView.Adapter<EventViewHolder> {
     EventViewHolder viewHolder;
 
     Context context;
-    GestureEventManager gestureEventManager;
     ClickListener clickListener;
 
-    public EventRecycleView(List<EventCalendrier> list, Context context, ClickListener clickListener, GestureEventManager eventManager) {
+    public EventRecycleView(List<EventCalendrier> list, Context context, ClickListener clickListener) {
         this.list = list;
         this.context = context;
         this.clickListener = clickListener;
-        this.gestureEventManager = eventManager;
     }
 
     @NonNull
@@ -68,19 +66,16 @@ public class EventRecycleView extends RecyclerView.Adapter<EventViewHolder> {
             @Override
             public void onSwipeRight() {
                 super.onSwipeRight();
-                gestureEventManager.onSwipeRight();
             }
 
             @Override
             public void onSwipeLeft() {
                 super.onSwipeLeft();
-                gestureEventManager.onSwipeLeft();
             }
 
             @Override
             public void onSwipeDown() {
                 super.onSwipeDown();
-                gestureEventManager.onSwipeDown();
             }
         }));
     }
