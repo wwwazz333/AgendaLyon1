@@ -1,29 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:context="com.iutcalendar.EventFragment">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              tools:context="com.iutcalendar.EventFragment"
 
-    <LinearLayout
-            android:id="@+id/mainLayout"
+              android:id="@+id/mainLayout"
+              android:divider="?android:dividerVertical"
+              android:showDividers="middle"
+              android:orientation="vertical">
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefresh"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:divider="?android:dividerVertical"
-            android:showDividers="middle"
-            android:orientation="vertical">
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycleView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        <TextView
-                android:id="@+id/updateText"
-                android:text="@string/date_exemple"
-                android:textColor="?colorOnSurface"
-                android:textSize="18sp"
-                android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"/>
-    </LinearLayout>
+                android:layout_height="0dp"/>
 
-</ScrollView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    <TextView
+            android:id="@+id/updateText"
+            android:text="@string/date_exemple"
+            android:textColor="?colorOnSurface"
+            android:textSize="18sp"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"/>
+
+
+</LinearLayout>

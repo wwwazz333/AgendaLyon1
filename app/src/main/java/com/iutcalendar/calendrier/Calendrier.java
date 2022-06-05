@@ -120,6 +120,16 @@ public class Calendrier {
 
         return new Calendrier(eventsOfWeek);
     }
+    public List<DateCalendrier> getDateDays(){
+        List<DateCalendrier> dateDays = new LinkedList<>();
+
+        for(EventCalendrier e : getEvents()){
+            if(dateDays.isEmpty() || !dateDays.get(dateDays.size()-1).sameDay(e.getDate())){
+                dateDays.add(e.getDate());
+            }
+        }
+        return dateDays;
+    }
 
     public List<EventCalendrier> getEventsOfDay(DateCalendrier date) {
         LinkedList<EventCalendrier> eventsOfDay = new LinkedList<>();

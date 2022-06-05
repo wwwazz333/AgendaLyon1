@@ -46,6 +46,9 @@ dependencies {
 
     implementation 'com.journeyapps:zxing-android-embedded:3.6.0'
     implementation 'com.google.zxing:core:3.3.3'
+
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+
 }
 allprojects {
     gradle.projectsEvaluated {

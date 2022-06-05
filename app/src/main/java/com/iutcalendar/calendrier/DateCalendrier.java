@@ -1,7 +1,5 @@
 package com.iutcalendar.calendrier;
 
-import com.iutcalendar.data.DataGlobal;
-
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoField;
@@ -56,7 +54,18 @@ public class DateCalendrier extends GregorianCalendar {
         setHour(getHour() + offset / 3600);
     }
 
+    public int createId() {
+        return getYear() * 1000 + get(GregorianCalendar.DAY_OF_YEAR);
+    }
 
+    public static DateCalendrier getDayOfId(int id) {
+        int year = id / 1000;
+        int day = id % 1000;
+        DateCalendrier date = new DateCalendrier();
+        date.set(GregorianCalendar.DAY_OF_YEAR, day);
+        date.setYear(year);
+        return date;
+    }
 
     public int getDayOfYear() {
         return get(GregorianCalendar.DAY_OF_YEAR);
@@ -171,8 +180,6 @@ public class DateCalendrier extends GregorianCalendar {
 
         return get(GregorianCalendar.DAY_OF_YEAR) == other.get(GregorianCalendar.DAY_OF_YEAR) && getYear() == other.getYear();
     }
-
-
 
 
     @Override

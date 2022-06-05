@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -43,6 +44,11 @@ public class PageEventActivity extends AppCompatActivity {
 
     private ViewPager viewPager;
 
+    private SectionsPagerAdapter sectionsPagerAdapter;
+
+    public SectionsPagerAdapter getSectionsPagerAdapter() {
+        return sectionsPagerAdapter;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,13 +83,9 @@ public class PageEventActivity extends AppCompatActivity {
         }
 
 
-
-
-        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager(), getCalendrier(), getCurrDate());
         viewPager = binding.viewPager;
+        sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager(), getCalendrier(), getCurrDate());
         viewPager.setAdapter(sectionsPagerAdapter);
-
-        viewPager.setCurrentItem(getCurrDate().getPosDayOfWeek());
 
         setCurrDate(dateToLaunche);
 
@@ -96,7 +98,8 @@ public class PageEventActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 Log.d("Page", "new page : " + position);
-                setCurrDate(getCurrDate().getDateOfDayOfWeek(position));
+                if (position != getCurrDate().getPosDayOfWeek())
+                    setCurrDate(getCurrDate().getDateOfDayOfWeek(position));
             }
 
             @Override
@@ -142,7 +145,6 @@ public class PageEventActivity extends AppCompatActivity {
         setOnclicDay(binding.dimancheNum, 6);
 
 
-
         //affiche la dialog si ouvert depuis notification (changmenents)
         String changements = getIntent().getStringExtra("changes");
         if (changements != null) {
@@ -156,10 +158,7 @@ public class PageEventActivity extends AppCompatActivity {
         ForgroundServiceUpdate.start(getApplicationContext());
 
 
-
-
-
-//        update();
+        update();
 
 
         /*####Testing feature#####*/
@@ -179,6 +178,10 @@ public class PageEventActivity extends AppCompatActivity {
         dayOfWeek = findViewById(R.id.dayOfWeek);
     }
 
+
+    public static boolean isActive() {
+        return active;
+    }
 
     @Override
     public void onResume() {
@@ -236,8 +239,13 @@ public class PageEventActivity extends AppCompatActivity {
     }
 
     public void updateEvent() {
-//        startFragment(R.id.frameLayout, new EventFragment(getCalendrier(), getCurrDate(),
-//                FileGlobal.getFileDownload(getApplicationContext())));
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                sectionsPagerAdapter.notifyDataSetChanged();
+            }
+        });
+
     }
 
     /*########################################################################
@@ -257,12 +265,17 @@ public class PageEventActivity extends AppCompatActivity {
     public void setCurrDate(CurrentDate newDate) {
         Log.d("Date", "set curr date");
 
+
         this.currDate.set(newDate);
 
         currDateLabel.setText(this.currDate.getRelativeDayName(getBaseContext()));
         viewPager.setCurrentItem(currDate.getPosDayOfWeek());
+
+
         setDaysOfWeek();
         updateScreen();
+
+
     }
 
 
