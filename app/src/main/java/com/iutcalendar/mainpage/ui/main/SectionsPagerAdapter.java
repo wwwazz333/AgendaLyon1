@@ -9,11 +9,8 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import com.iutcalendar.EventFragment;
 import com.iutcalendar.calendrier.Calendrier;
 import com.iutcalendar.calendrier.CurrentDate;
-import com.iutcalendar.calendrier.DateCalendrier;
 import com.iutcalendar.data.DataGlobal;
 import com.iutcalendar.data.FileGlobal;
-
-import java.util.GregorianCalendar;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
@@ -30,20 +27,23 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         mContext = context;
         this.calendrier = calendrier;
         this.dateCalendrier = dateCalendrier;
+        Log.d("Page", "end createion");
     }
 
     @Override
     public Fragment getItem(int position) {
         // getItem is called to instantiate the fragment for the given page.
         // Return a PlaceholderFragment (defined as a static inner class below).
-        Log.d("Postition", String.valueOf(position));
 
+        Log.d("Position", "curr : " + dateCalendrier.toString());
         CurrentDate dateToLaunche = new CurrentDate(dateCalendrier).getDateOfDayOfWeek(position);
-        Log.d("Postition", dateToLaunche.toString());
+        Log.d("Position", dateToLaunche.toString() + " at " + position);
 
 
-        return new EventFragment(calendrier, dateToLaunche, FileGlobal.getFileDownload(mContext));
+        return new EventFragment(calendrier, dateCalendrier, position, FileGlobal.getFileDownload(mContext));
     }
+
+
 
     @Nullable
     @Override

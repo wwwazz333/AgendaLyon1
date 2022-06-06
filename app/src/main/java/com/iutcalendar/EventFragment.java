@@ -1,6 +1,9 @@
 package com.iutcalendar;
 
+import android.app.Activity;
+import android.app.Application;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,19 +38,41 @@ public class EventFragment extends Fragment {
 
     private EventRecycleView adapter;
     private RecyclerView recycleView;
+    private int position;
+
+
+    private Activity activity;
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
 
     public EventFragment() {
         // Required empty public constructor
     }
 
-    public EventFragment(Calendrier calendrier, CurrentDate date, File fileUpdate) {
+    public EventFragment(Calendrier calendrier, CurrentDate date, int position, File fileUpdate) {
         this.calendrier = calendrier;
         this.date = date;
         this.fileUpdate = fileUpdate;
+        this.position = position;
     }
 
-    private void updateRecycleView() {
-        List<EventCalendrier> eventToday = calendrier.getEventsOfDay(date);
+    public void updateRecycleViewOnThread() {
+        Log.d("Event", String.valueOf(getActivity()==null));
+        if(activity != null){
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                updateRecycleView();
+            }
+        });}
+
+
+    }
+
+    public void updateRecycleView() {
+        List<EventCalendrier> eventToday = calendrier.getEventsOfDay(new CurrentDate(date).getDateOfDayOfWeek(position));
 
         ClickListener listener = index -> {//Event on click Event
             EventCalendrier ev = eventToday.get(index);
@@ -73,13 +98,12 @@ public class EventFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_event, container, false);
 
         recycleView = view.findViewById(R.id.recycleView);
+        activity = getActivity();
 
 
         if (getActivity() != null && getActivity() instanceof PageEventActivity) {
             PageEventActivity mainActivity = ((PageEventActivity) getActivity());
 
-
-//            File fileCal = FileGlobal.getFileDownload(getContext());
 
             TextView update = view.findViewById(R.id.updateText);
 

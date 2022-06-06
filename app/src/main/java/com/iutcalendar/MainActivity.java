@@ -94,8 +94,6 @@ public class MainActivity extends AppCompatActivity {
         dayOfWeek.setOnTouchListener(new TouchGestureListener(getApplicationContext(), new GestureWeekListener()));
 
         //Day
-        actionView.setOnTouchListener(new TouchGestureListener(getApplicationContext(), new GestureDayListener()));
-        frameLayout.setOnTouchListener(new TouchGestureListener(getApplicationContext(), new GestureDayListener()));
 
 
         //---------------Button---------------
@@ -207,8 +205,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void updateEvent() {
-        startFragment(R.id.frameLayout, new EventFragment(getCalendrier(), getCurrDate(),
-                FileGlobal.getFileDownload(getApplicationContext())));
+//        startFragment(R.id.frameLayout, new EventFragment(getCalendrier(), getCurrDate(),
+//                FileGlobal.getFileDownload(getApplicationContext())));
     }
 
     /*########################################################################
@@ -302,35 +300,6 @@ public class MainActivity extends AppCompatActivity {
     /*########################################################################
                                     GESTION EVENT
      ########################################################################*/
-    private class GestureDayListener extends GestureEventManager {
-
-        @Override
-        protected void onClick() {
-            super.onClick();
-        }
-
-        @Override
-        public void onSwipeRight() {
-            super.onSwipeRight();
-            int sens = -1;
-            setAnimationDirection(sens);
-            setCurrDate(getCurrDate().addDay(sens));
-        }
-
-        @Override
-        public void onSwipeLeft() {
-            super.onSwipeLeft();
-            int sens = 1;
-            setAnimationDirection(1);
-            setCurrDate(getCurrDate().addDay(sens));
-        }
-
-        @Override
-        public void onSwipeDown() {
-            super.onSwipeDown();
-            update();
-        }
-    }
 
     private class GestureWeekListener extends GestureEventManager {
 
@@ -363,10 +332,6 @@ public class MainActivity extends AppCompatActivity {
                 setCurrDate(getCurrDate().prevWeek());
             }
         }
-    }
-
-    public GestureEventManager getGesutreDaily() {
-        return new GestureDayListener();
     }
 
 

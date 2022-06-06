@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -86,6 +85,8 @@ public class PageEventActivity extends AppCompatActivity {
         viewPager = binding.viewPager;
         sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager(), getCalendrier(), getCurrDate());
         viewPager.setAdapter(sectionsPagerAdapter);
+        viewPager.addOnPageChangeListener(new PageChangeWeekListener(this));
+
 
         setCurrDate(dateToLaunche);
 
@@ -239,12 +240,12 @@ public class PageEventActivity extends AppCompatActivity {
     }
 
     public void updateEvent() {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                sectionsPagerAdapter.notifyDataSetChanged();
-            }
-        });
+//        runOnUiThread(new Runnable() {
+//            @Override
+//            public void run() {
+//                sectionsPagerAdapter.notifyDataSetChanged();
+//            }
+//        });
 
     }
 
@@ -266,16 +267,27 @@ public class PageEventActivity extends AppCompatActivity {
         Log.d("Date", "set curr date");
 
 
+        if (!this.currDate.sameWeek(newDate)) {
+            Log.d("Date", "change week");
+            this.currDate.set(newDate);
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    sectionsPagerAdapter = new SectionsPagerAdapter(getApplicationContext(), getSupportFragmentManager(), getCalendrier(), getCurrDate());
+                    viewPager.setAdapter(sectionsPagerAdapter);
+                }
+            });
+
+        }
+
+
         this.currDate.set(newDate);
 
-        currDateLabel.setText(this.currDate.getRelativeDayName(getBaseContext()));
-        viewPager.setCurrentItem(currDate.getPosDayOfWeek());
-
+        currDateLabel.setText(currDate.getRelativeDayName(getBaseContext()));
+//        viewPager.setCurrentItem(currDate.getPosDayOfWeek());
 
         setDaysOfWeek();
         updateScreen();
-
-
     }
 
 
@@ -326,7 +338,6 @@ public class PageEventActivity extends AppCompatActivity {
 
 
         if (getCurrDate().getDay() == getCurrDate().getDateOfDayOfWeek(day).getDay()) {
-            Log.d("Date", "here");
             numDay.setBackgroundColor(Color.parseColor("#FFC41442"));
         } else if (getCurrDate().getDateOfDayOfWeek(day).sameDay(new CurrentDate())) {
             numDay.setBackgroundColor(Color.parseColor("#88C41442"));
@@ -344,6 +355,41 @@ public class PageEventActivity extends AppCompatActivity {
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
     }
 
+    public void switchToPrevWeek() {
+        int sens = -1;
+
+        setAnimationDirection(sens);
+        setCurrDate(getCurrDate().prevWeek());
+    }
+
+    public void switchToPrevWeekAlt() {
+        int sens = -1;
+
+
+        setAnimationDirection(sens);
+        setCurrDate(getCurrDate().prevWeek());
+
+//        setCurrDate(getCurrDate().getDateOfDayOfWeek(6));
+    }
+
+    public void switchToNextWeek() {
+        int sens = -1;
+
+
+        setAnimationDirection(sens);
+        setCurrDate(getCurrDate().nextWeek());
+    }
+
+    public void switchToNextWeekAlt() {
+        int sens = -1;
+
+
+        setAnimationDirection(sens);
+        setCurrDate(getCurrDate().prevWeek());
+
+//        setCurrDate(getCurrDate().getDateOfDayOfWeek(0));
+    }
+
 
     /*########################################################################
                                     GESTION EVENT
@@ -354,31 +400,13 @@ public class PageEventActivity extends AppCompatActivity {
         @Override
         public void onSwipeRight() {
             super.onSwipeRight();
-            int sens = -1;
-            if (DataGlobal.getSavedBoolean(getApplicationContext(), "revert_swaping_day")) {
-                sens *= -1;
-            }
-            setAnimationDirection(sens);
-            if (sens > 0) {
-                setCurrDate(getCurrDate().nextWeek());
-            } else {
-                setCurrDate(getCurrDate().prevWeek());
-            }
+            switchToPrevWeek();
         }
 
         @Override
         public void onSwipeLeft() {
             super.onSwipeLeft();
-            int sens = 1;
-            if (DataGlobal.getSavedBoolean(getApplicationContext(), "revert_swaping_day")) {
-                sens *= -1;
-            }
-            setAnimationDirection(sens);
-            if (sens > 0) {
-                setCurrDate(getCurrDate().nextWeek());
-            } else {
-                setCurrDate(getCurrDate().prevWeek());
-            }
+            switchToNextWeek();
         }
     }
 

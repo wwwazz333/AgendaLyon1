@@ -32,12 +32,11 @@ public class CurrentDate extends DateCalendrier {
     }
 
     /**
-     *
      * @param day lun 0, mar 1, ..., dim 6
      * @return la date du joure de la semaine
      */
     public CurrentDate getDateOfDayOfWeek(int day) {
-        return addDay(day-getPosDayOfWeek());
+        return addDay(day - getPosDayOfWeek());
     }
 
     public int getPosDayOfWeek() {
@@ -84,6 +83,12 @@ public class CurrentDate extends DateCalendrier {
     }
 
 
+    public boolean sameWeek(CurrentDate other) {
+        if (getYear() != other.getYear()) {
+            return false;
+        }
+        return other.getDayOfYear() >= getDateOfDayOfWeek(0).getDayOfYear() && other.getDayOfYear() <= getDateOfDayOfWeek(6).getDayOfYear();
+    }
 
 
     @Override
