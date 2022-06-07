@@ -56,19 +56,6 @@ public class EventFragment extends Fragment {
         this.fileUpdate = fileUpdate;
     }
 
-    public void updateRecycleViewOnThread() {
-        Log.d("Event", String.valueOf(getActivity()==null));
-        if(activity != null){
-        activity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                updateRecycleView();
-            }
-        });}
-
-
-    }
-
     public void updateRecycleView() {
         List<EventCalendrier> eventToday = calendrier.getEventsOfDay(date);
 
@@ -110,6 +97,7 @@ public class EventFragment extends Fragment {
                 @Override
                 public void onRefresh() {
                     new Thread(() -> {
+                        Log.d("Update", "by swaping");
                         FileGlobal.updateAndGetChange(getContext(), calendrier, ((context, intent) -> startActivity(intent)));
 
 

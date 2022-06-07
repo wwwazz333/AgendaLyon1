@@ -15,7 +15,6 @@ import com.calendar.iutcalendar.R;
 import com.calendar.iutcalendar.databinding.ActivityPageEventBinding;
 import com.iutcalendar.calendrier.Calendrier;
 import com.iutcalendar.calendrier.CurrentDate;
-import com.iutcalendar.calendrier.DateCalendrier;
 import com.iutcalendar.calendrier.EventCalendrier;
 import com.iutcalendar.data.DataGlobal;
 import com.iutcalendar.data.FileGlobal;
@@ -271,9 +270,11 @@ public class PageEventActivity extends AppCompatActivity {
         this.currDate.set(newDate);
 
         currDateLabel.setText(currDate.getRelativeDayName(getBaseContext()));
-        int pos = getCalendrier().getFirstDay().getNbrDayTo(newDate);
-        Log.d("Position", "offset : " + pos);
-        viewPager.setCurrentItem(pos);
+        if (getCalendrier().getFirstDay() != null) {
+            int pos = getCalendrier().getFirstDay().getNbrDayTo(newDate);
+            Log.d("Position", "offset : " + pos);
+            viewPager.setCurrentItem(pos);
+        }
 
         setDaysOfWeek();
         updateScreen();

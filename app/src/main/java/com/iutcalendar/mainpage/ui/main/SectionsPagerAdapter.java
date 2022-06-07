@@ -31,20 +31,24 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         this.dateCalendrier = dateCalendrier;
         Log.d("Page", "end création SectionPagerAdapter");
 
-        this.countDay = calendrier.getFirstDay().getNbrDayTo(calendrier.getLastDay());
+        if (calendrier == null || calendrier.getFirstDay() == null) {
+            this.countDay = 1;
+        } else
+            this.countDay = calendrier.getFirstDay().getNbrDayTo(calendrier.getLastDay());
     }
 
     @Override
     public Fragment getItem(int position) {
         // getItem is called to instantiate the fragment for the given page.
         // Return a PlaceholderFragment (defined as a static inner class below).
+        if (calendrier.getFirstDay() != null) {
+            Log.d("Position", "curr : " + dateCalendrier.toString());
+            CurrentDate dateToLaunche = new CurrentDate(calendrier.getFirstDay()).addDay(position);
+            Log.d("Position", dateToLaunche.toString() + " at " + position);
 
-        Log.d("Position", "curr : " + dateCalendrier.toString());
-        CurrentDate dateToLaunche = new CurrentDate(calendrier.getFirstDay()).addDay(position);
-        Log.d("Position", dateToLaunche.toString() + " at " + position);
 
-
-        return new EventFragment(calendrier, dateToLaunche, FileGlobal.getFileDownload(mContext));
+            return new EventFragment(calendrier, dateToLaunche, FileGlobal.getFileDownload(mContext));
+        } else return new EventFragment(calendrier, new CurrentDate(), FileGlobal.getFileDownload(mContext));
     }
 
 

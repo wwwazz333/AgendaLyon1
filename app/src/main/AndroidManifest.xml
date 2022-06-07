@@ -25,7 +25,6 @@
         <activity
                 android:name="com.iutcalendar.mainpage.PageEventActivity"
                 android:exported="true"
-                android:label="@string/title_activity_page_event"
                 android:theme="@style/Theme.IUTCalendar.NoActionBar">
 
 
