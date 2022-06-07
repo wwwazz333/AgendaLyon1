@@ -67,6 +67,18 @@ public class Calendrier {
         return new Calendrier(n);
     }
 
+    public DateCalendrier getFirstDay() {
+        if (getEvents().isEmpty()) return null;
+        return getEvents().get(0).getDate();
+    }
+
+    public DateCalendrier getLastDay() {
+        if (getEvents().isEmpty()) return null;
+        return getEvents().get(getEvents().size() - 1).getDate();
+    }
+
+
+
     public Calendrier(List<EventCalendrier> events) {
         setEvent(events);
     }
@@ -120,11 +132,12 @@ public class Calendrier {
 
         return new Calendrier(eventsOfWeek);
     }
-    public List<DateCalendrier> getDateDays(){
+
+    public List<DateCalendrier> getDateDays() {
         List<DateCalendrier> dateDays = new LinkedList<>();
 
-        for(EventCalendrier e : getEvents()){
-            if(dateDays.isEmpty() || !dateDays.get(dateDays.size()-1).sameDay(e.getDate())){
+        for (EventCalendrier e : getEvents()) {
+            if (dateDays.isEmpty() || !dateDays.get(dateDays.size() - 1).sameDay(e.getDate())) {
                 dateDays.add(e.getDate());
             }
         }

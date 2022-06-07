@@ -22,12 +22,16 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     private final Calendrier calendrier;
     private final CurrentDate dateCalendrier;
 
+    private final int countDay;
+
     public SectionsPagerAdapter(Context context, FragmentManager fm, Calendrier calendrier, CurrentDate dateCalendrier) {
         super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         mContext = context;
         this.calendrier = calendrier;
         this.dateCalendrier = dateCalendrier;
-        Log.d("Page", "end createion");
+        Log.d("Page", "end création SectionPagerAdapter");
+
+        this.countDay = calendrier.getFirstDay().getNbrDayTo(calendrier.getLastDay());
     }
 
     @Override
@@ -36,13 +40,12 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         // Return a PlaceholderFragment (defined as a static inner class below).
 
         Log.d("Position", "curr : " + dateCalendrier.toString());
-        CurrentDate dateToLaunche = new CurrentDate(dateCalendrier).getDateOfDayOfWeek(position);
+        CurrentDate dateToLaunche = new CurrentDate(calendrier.getFirstDay()).addDay(position);
         Log.d("Position", dateToLaunche.toString() + " at " + position);
 
 
-        return new EventFragment(calendrier, dateCalendrier, position, FileGlobal.getFileDownload(mContext));
+        return new EventFragment(calendrier, dateToLaunche, FileGlobal.getFileDownload(mContext));
     }
-
 
 
     @Nullable
@@ -53,6 +56,6 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return DataGlobal.DAYS_OF_WEEK.length;
+        return countDay;
     }
 }

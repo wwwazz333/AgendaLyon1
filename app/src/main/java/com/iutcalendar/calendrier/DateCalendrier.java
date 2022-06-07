@@ -1,5 +1,7 @@
 package com.iutcalendar.calendrier;
 
+import android.util.Log;
+
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoField;
@@ -54,6 +56,10 @@ public class DateCalendrier extends GregorianCalendar {
         setHour(getHour() + offset / 3600);
     }
 
+    public static boolean isYearBisextil(int year) {
+        DateCalendrier d = new DateCalendrier(1, 3, year, 12, 0);
+        return d.getDayOfYear() == 61;
+    }
 
 
     public int getDayOfYear() {
@@ -153,6 +159,12 @@ public class DateCalendrier extends GregorianCalendar {
     public String toString() {
         return getDay() + "/" + getMonth() + "/" + getYear() + " " +
                 getHour() + ":" + getMinute();
+    }
+
+
+    public int getNbrDayTo(DateCalendrier other) {
+        int nbrDayInYear = (DateCalendrier.isYearBisextil(getYear())) ? 366 : 365;
+        return (other.getYear() - getYear()) * nbrDayInYear + other.getDayOfYear() - getDayOfYear();
     }
 
     public boolean sameDay(Object obj) {

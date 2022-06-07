@@ -15,6 +15,7 @@ import com.calendar.iutcalendar.R;
 import com.calendar.iutcalendar.databinding.ActivityPageEventBinding;
 import com.iutcalendar.calendrier.Calendrier;
 import com.iutcalendar.calendrier.CurrentDate;
+import com.iutcalendar.calendrier.DateCalendrier;
 import com.iutcalendar.calendrier.EventCalendrier;
 import com.iutcalendar.data.DataGlobal;
 import com.iutcalendar.data.FileGlobal;
@@ -85,7 +86,7 @@ public class PageEventActivity extends AppCompatActivity {
         viewPager = binding.viewPager;
         sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager(), getCalendrier(), getCurrDate());
         viewPager.setAdapter(sectionsPagerAdapter);
-        viewPager.addOnPageChangeListener(new PageChangeWeekListener(this));
+//        viewPager.addOnPageChangeListener(new PageChangeWeekListener(this));
 
 
         setCurrDate(dateToLaunche);
@@ -99,8 +100,7 @@ public class PageEventActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 Log.d("Page", "new page : " + position);
-                if (position != getCurrDate().getPosDayOfWeek())
-                    setCurrDate(getCurrDate().getDateOfDayOfWeek(position));
+                setCurrDate(new CurrentDate(getCalendrier().getFirstDay()).addDay(position));
             }
 
             @Override
@@ -164,6 +164,7 @@ public class PageEventActivity extends AppCompatActivity {
 
         /*####Testing feature#####*/
 //        Alarm.setAlarm(getApplicationContext(), System.currentTimeMillis() + 5_000, "test");
+        Log.d("Date", "first date : " + getCalendrier().getFirstDay());
 
         Log.d("Global", "PageEventActivity end");
     }
@@ -267,24 +268,12 @@ public class PageEventActivity extends AppCompatActivity {
         Log.d("Date", "set curr date");
 
 
-        if (!this.currDate.sameWeek(newDate)) {
-            Log.d("Date", "change week");
-            this.currDate.set(newDate);
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    sectionsPagerAdapter = new SectionsPagerAdapter(getApplicationContext(), getSupportFragmentManager(), getCalendrier(), getCurrDate());
-                    viewPager.setAdapter(sectionsPagerAdapter);
-                }
-            });
-
-        }
-
-
         this.currDate.set(newDate);
 
         currDateLabel.setText(currDate.getRelativeDayName(getBaseContext()));
-//        viewPager.setCurrentItem(currDate.getPosDayOfWeek());
+        int pos = getCalendrier().getFirstDay().getNbrDayTo(newDate);
+        Log.d("Position", "offset : " + pos);
+        viewPager.setCurrentItem(pos);
 
         setDaysOfWeek();
         updateScreen();
@@ -362,32 +351,13 @@ public class PageEventActivity extends AppCompatActivity {
         setCurrDate(getCurrDate().prevWeek());
     }
 
-    public void switchToPrevWeekAlt() {
-        int sens = -1;
-
-
-        setAnimationDirection(sens);
-        setCurrDate(getCurrDate().prevWeek());
-
-//        setCurrDate(getCurrDate().getDateOfDayOfWeek(6));
-    }
-
     public void switchToNextWeek() {
         int sens = -1;
 
 
         setAnimationDirection(sens);
         setCurrDate(getCurrDate().nextWeek());
-    }
 
-    public void switchToNextWeekAlt() {
-        int sens = -1;
-
-
-        setAnimationDirection(sens);
-        setCurrDate(getCurrDate().prevWeek());
-
-//        setCurrDate(getCurrDate().getDateOfDayOfWeek(0));
     }
 
 

@@ -38,7 +38,6 @@ public class EventFragment extends Fragment {
 
     private EventRecycleView adapter;
     private RecyclerView recycleView;
-    private int position;
 
 
     private Activity activity;
@@ -51,11 +50,10 @@ public class EventFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public EventFragment(Calendrier calendrier, CurrentDate date, int position, File fileUpdate) {
+    public EventFragment(Calendrier calendrier, CurrentDate date, File fileUpdate) {
         this.calendrier = calendrier;
         this.date = date;
         this.fileUpdate = fileUpdate;
-        this.position = position;
     }
 
     public void updateRecycleViewOnThread() {
@@ -72,7 +70,7 @@ public class EventFragment extends Fragment {
     }
 
     public void updateRecycleView() {
-        List<EventCalendrier> eventToday = calendrier.getEventsOfDay(new CurrentDate(date).getDateOfDayOfWeek(position));
+        List<EventCalendrier> eventToday = calendrier.getEventsOfDay(date);
 
         ClickListener listener = index -> {//Event on click Event
             EventCalendrier ev = eventToday.get(index);
