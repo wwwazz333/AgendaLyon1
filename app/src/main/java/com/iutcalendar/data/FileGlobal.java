@@ -4,11 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Environment;
 import android.util.Log;
-import com.iutcalendar.MainActivity;
 import com.iutcalendar.calendrier.Calendrier;
 import com.iutcalendar.calendrier.EventCalendrier;
 import com.iutcalendar.event.ChangeEventListener;
 import com.iutcalendar.filedownload.FileDownload;
+import com.iutcalendar.mainpage.PageEventActivity;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -144,7 +144,7 @@ public class FileGlobal {
             String changesMsg = Calendrier.changeToString(context, changes);
 
             //TODO string: message de notif
-            Intent intent = new Intent(context, MainActivity.class);
+            Intent intent = new Intent(context, PageEventActivity.class);
             intent.putExtra("changes", changesMsg);
 
             onChangeListener.ifChange(context, intent);

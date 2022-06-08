@@ -362,7 +362,7 @@ public class PageEventActivity extends AppCompatActivity {
 
 
         setAnimationDirection(sens);
-        if (getCurrDate().prevWeek().compareTo(getCalendrier().getLastDay()) <= 0) {
+        if (getCurrDate().nextWeek().compareTo(getCalendrier().getLastDay()) <= 0) {
             setCurrDate(getCurrDate().nextWeek());
         } else {
             setCurrDate(new CurrentDate(getCalendrier().getLastDay()));

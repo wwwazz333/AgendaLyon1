@@ -11,12 +11,12 @@ import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 import com.calendar.iutcalendar.R;
-import com.iutcalendar.MainActivity;
 import com.iutcalendar.calendrier.Calendrier;
 import com.iutcalendar.calendrier.CurrentDate;
 import com.iutcalendar.calendrier.EventCalendrier;
 import com.iutcalendar.data.DataGlobal;
 import com.iutcalendar.data.FileGlobal;
+import com.iutcalendar.mainpage.PageEventActivity;
 import com.iutcalendar.settings.SettingsApp;
 import com.iutcalendar.task.PersonnalCalendrier;
 
@@ -75,7 +75,7 @@ public class WidgetCalendar extends AppWidgetProvider {
 
 
             //open MainActivity via Btn
-            Intent intentActvity = new Intent(context, MainActivity.class);
+            Intent intentActvity = new Intent(context, PageEventActivity.class);
             intentActvity.putExtra("launche_next_event", true);
             views.setOnClickPendingIntent(R.id.openBtn,
                     PendingIntent.getActivity(context, 0, intentActvity, PendingIntent.FLAG_IMMUTABLE));

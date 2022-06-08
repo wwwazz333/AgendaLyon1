@@ -1,7 +1,5 @@
 package com.iutcalendar;
 
-import android.app.Activity;
-import android.app.Application;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -36,11 +34,9 @@ public class EventFragment extends Fragment {
     private File fileUpdate;
     private SwipeRefreshLayout swipeRefreshLayout;
 
-    private EventRecycleView adapter;
     private RecyclerView recycleView;
 
 
-    private Activity activity;
     @Override
     public void onResume() {
         super.onResume();
@@ -57,23 +53,21 @@ public class EventFragment extends Fragment {
     }
 
     public void updateRecycleView() {
-        List<EventCalendrier> eventToday = calendrier.getEventsOfDay(date);
+        if (getActivity() != null) {
+            List<EventCalendrier> eventToday = calendrier.getEventsOfDay(date);
 
-        ClickListener listener = index -> {//Event on click Event
-            EventCalendrier ev = eventToday.get(index);
-            DialogPopupEvent dialog = new DialogPopupEvent(getContext(), ev, getActivity(), () -> {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        updateRecycleView();
-                    }
-                });
-            });
-            dialog.show();
-        };
+            ClickListener listener = index -> {//Event on click Event
+                if (getContext() != null && getActivity() != null) {
+                    EventCalendrier ev = eventToday.get(index);
+                    DialogPopupEvent dialog = new DialogPopupEvent(getContext(), ev, getActivity(), () -> getActivity().runOnUiThread(this::updateRecycleView));
+                    dialog.show();
+                }
+            };
 
-        EventRecycleView adapter = new EventRecycleView(eventToday, getActivity().getApplication(), listener);
-        recycleView.setAdapter(adapter);
+            EventRecycleView adapter = new EventRecycleView(eventToday, getActivity().getApplication(), listener);
+            recycleView.setAdapter(adapter);
+        }
+
     }
 
 
@@ -83,7 +77,6 @@ public class EventFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_event, container, false);
 
         recycleView = view.findViewById(R.id.recycleView);
-        activity = getActivity();
 
 
         if (getActivity() != null && getActivity() instanceof PageEventActivity) {
@@ -101,23 +94,25 @@ public class EventFragment extends Fragment {
                         FileGlobal.updateAndGetChange(getContext(), calendrier, ((context, intent) -> startActivity(intent)));
 
 
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (PageEventActivity.isActive()) {
-                                    updateRecycleView();
-                                    mainActivity.updateScreen();
+                        if (getActivity() != null) {
+                            getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (PageEventActivity.isActive()) {
+                                        updateRecycleView();
+                                        mainActivity.updateScreen();
+                                    }
+                                    swipeRefreshLayout.setRefreshing(false);
                                 }
-                                swipeRefreshLayout.setRefreshing(false);
-                            }
-                        });
+                            });
+                        }
 
                     }).start();
                 }
             });
 
 
-            if (fileUpdate.exists() && getContext() != null) {
+            if (calendrier != null && fileUpdate.exists() && getContext() != null) {
 
 
                 updateRecycleView();

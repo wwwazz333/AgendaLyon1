@@ -41,7 +41,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         // getItem is called to instantiate the fragment for the given page.
         // Return a PlaceholderFragment (defined as a static inner class below).
-        if (calendrier.getFirstDay() != null) {
+        if (calendrier != null && calendrier.getFirstDay() != null) {
             Log.d("Position", "curr : " + dateCalendrier.toString());
             CurrentDate dateToLaunche = new CurrentDate(calendrier.getFirstDay()).addDay(position);
             Log.d("Position", dateToLaunche.toString() + " at " + position);

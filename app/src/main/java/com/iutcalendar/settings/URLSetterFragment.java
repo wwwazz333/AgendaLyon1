@@ -45,7 +45,9 @@ public class URLSetterFragment extends Fragment {
             if (!prevURL.equals(input.getText().toString())) {
                 FileGlobal.getFileDownload(getContext()).delete();
                 DataGlobal.savePath(getContext(), input.getText().toString());
-                FileDownload.updateFichier(FileGlobal.getFileDownload(getContext()).getAbsolutePath(), getContext());
+
+                new Thread(() -> FileDownload.updateFichier(FileGlobal.getFileDownload(getContext()).getAbsolutePath(), getContext())).start();
+
             }
             SettingsActivity.comeBackToMainPageSettings();
             getParentFragmentManager().popBackStackImmediate();
