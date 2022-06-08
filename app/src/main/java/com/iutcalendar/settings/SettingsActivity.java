@@ -90,19 +90,31 @@ public class SettingsActivity extends AppCompatActivity implements
     }
 
     public static class SettingsFragment extends PreferenceFragmentCompat {
+        SwitchPreference switchComplex;
+
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
-            SwitchPreference switchComplex = findPreference("complex_alarm_settings");
+            switchComplex = findPreference("complex_alarm_settings");
             if (switchComplex != null) {
-                boolean complexAlarmes = switchComplex.isChecked();
-
-                findPreference("liste_alarmes").setEnabled(complexAlarmes);
-                findPreference("horaire_alarmes").setEnabled(complexAlarmes);
-                findPreference("contrainte_alarmes").setEnabled(complexAlarmes);
-
-                findPreference("time_before_ring").setEnabled(!complexAlarmes);
+                setAlarmComplexity(switchComplex.isChecked());
             }
+            switchComplex.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(@NonNull Preference preference, Object newValue) {
+                    setAlarmComplexity((boolean) newValue);
+                    return true;
+                }
+            });
+        }
+
+        private void setAlarmComplexity(boolean complex) {
+            findPreference("liste_alarmes").setEnabled(complex);
+            findPreference("horaire_alarmes").setEnabled(complex);
+            findPreference("contrainte_alarmes").setEnabled(complex);
+
+            findPreference("time_before_ring").setEnabled(!complex);
+
         }
     }
 
