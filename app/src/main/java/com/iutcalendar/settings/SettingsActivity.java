@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
+import androidx.preference.SwitchPreference;
 import com.calendar.iutcalendar.R;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -24,7 +25,7 @@ public class SettingsActivity extends AppCompatActivity implements
 
     private static int countArboressenceFragment = 0;
 
-    public static void comeBackToMainPageSettings(){
+    public static void comeBackToMainPageSettings() {
         countArboressenceFragment = 0;
     }
 
@@ -49,6 +50,7 @@ public class SettingsActivity extends AppCompatActivity implements
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+
     }
 
     @Override
@@ -91,6 +93,16 @@ public class SettingsActivity extends AppCompatActivity implements
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
+            SwitchPreference switchComplex = findPreference("complex_alarm_settings");
+            if (switchComplex != null) {
+                boolean complexAlarmes = switchComplex.isChecked();
+
+                findPreference("liste_alarmes").setEnabled(complexAlarmes);
+                findPreference("horaire_alarmes").setEnabled(complexAlarmes);
+                findPreference("contrainte_alarmes").setEnabled(complexAlarmes);
+
+                findPreference("time_before_ring").setEnabled(!complexAlarmes);
+            }
         }
     }
 

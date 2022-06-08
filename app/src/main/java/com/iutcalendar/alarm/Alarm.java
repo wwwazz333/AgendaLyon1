@@ -227,7 +227,7 @@ public class Alarm extends BroadcastReceiver {
                 personnalAlarmManager.removeForDay(context, dayAnalysed);
 
                 EventCalendrier currEvent = events.get(0);
-                if (currEvent.getDuree().getHour() < 8 || !DataGlobal.getSavedBoolean(context, DataGlobal.FERIER_DAY_DISABELED)) {
+                if (currEvent.getDuree().getHour() < 8 || DataGlobal.getSavedBoolean(context, DataGlobal.FERIER_DAY_ENABELED)) {
                     int i = 0;
                     do {
                         currEvent = events.get(i);
