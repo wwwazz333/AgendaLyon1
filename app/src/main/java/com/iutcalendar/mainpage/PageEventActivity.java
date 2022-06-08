@@ -349,7 +349,12 @@ public class PageEventActivity extends AppCompatActivity {
         int sens = -1;
 
         setAnimationDirection(sens);
-        setCurrDate(getCurrDate().prevWeek());
+        if (getCurrDate().prevWeek().compareTo(getCalendrier().getFirstDay()) >= 0) {
+            setCurrDate(getCurrDate().prevWeek());
+        } else {
+            setCurrDate(new CurrentDate(getCalendrier().getFirstDay()));
+        }
+
     }
 
     public void switchToNextWeek() {
@@ -357,7 +362,11 @@ public class PageEventActivity extends AppCompatActivity {
 
 
         setAnimationDirection(sens);
-        setCurrDate(getCurrDate().nextWeek());
+        if (getCurrDate().prevWeek().compareTo(getCalendrier().getLastDay()) <= 0) {
+            setCurrDate(getCurrDate().nextWeek());
+        } else {
+            setCurrDate(new CurrentDate(getCalendrier().getLastDay()));
+        }
 
     }
 
