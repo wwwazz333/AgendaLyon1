@@ -237,12 +237,20 @@ public class Alarm extends BroadcastReceiver {
                         //remet ou met l'alarm si besoin
 
                         DateCalendrier timeAlarmRing = new DateCalendrier(currEvent.getDate());
-                        for (AlarmCondtion alarmCondtion : AlarmConditionManager.getInstance(context).getAllConditions()) {
-                            if (alarmCondtion.isApplicableTo(currEvent)) {
-                                timeAlarmRing.setHourWithMillis(alarmCondtion.getAlarmAt());
-                                personnalAlarmManager.add(dayAnalysed, new AlarmRing(timeAlarmRing.getTimeInMillis(),
-                                        !previouslyDisabledAlarm.contains(timeAlarmRing.getTimeInMillis())));
+                        if (DataGlobal.getSavedBoolean(context, DataGlobal.COMPLEX_ALARM_SETTINGS)) {
+                            for (AlarmCondtion alarmCondtion : AlarmConditionManager.getInstance(context).getAllConditions()) {
+                                if (alarmCondtion.isApplicableTo(currEvent)) {
+                                    timeAlarmRing.setHourWithMillis(alarmCondtion.getAlarmAt());
+                                    personnalAlarmManager.add(dayAnalysed, new AlarmRing(timeAlarmRing.getTimeInMillis(),
+                                            !previouslyDisabledAlarm.contains(timeAlarmRing.getTimeInMillis())));
+                                }
                             }
+                        } else {
+
+                            timeAlarmRing.setTimeInMillis(timeAlarmRing.getTimeInMillis() - DataGlobal.getSavedInt(context, DataGlobal.TIME_BEFORE_RING) * 60L * 1000L);
+                            Log.d("Alarm", timeAlarmRing.toString());
+                            personnalAlarmManager.add(dayAnalysed, new AlarmRing(timeAlarmRing.getTimeInMillis(),
+                                    !previouslyDisabledAlarm.contains(timeAlarmRing.getTimeInMillis())));
                         }
                     }
                 }

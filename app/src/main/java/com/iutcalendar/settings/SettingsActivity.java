@@ -95,7 +95,7 @@ public class SettingsActivity extends AppCompatActivity implements
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
-            switchComplex = findPreference("complex_alarm_settings");
+            switchComplex = findPreference(DataGlobal.COMPLEX_ALARM_SETTINGS);
             if (switchComplex != null) {
                 setAlarmComplexity(switchComplex.isChecked());
             }

@@ -15,6 +15,9 @@ public class DataGlobal {
     public final static String THEME_RES_WIDGET = "theme_widget_selected";
     public final static String ALARM_ENABELED = "alarme_enable";
     public final static String FERIER_DAY_ENABELED = "jour_ferier_enabled";
+    public final static String COMPLEX_ALARM_SETTINGS = "complex_alarm_settings";
+    public final static String TIME_BEFORE_RING = "time_before_ring";
+
 
 
     public final static String DEBUGING = "debuging";
