@@ -109,12 +109,12 @@ public class SettingsActivity extends AppCompatActivity implements
         }
 
         private void setAlarmComplexity(boolean complex) {
-            findPreference("liste_alarmes").setEnabled(complex);
             findPreference("horaire_alarmes").setEnabled(complex);
             findPreference("contrainte_alarmes").setEnabled(complex);
-
             findPreference("time_before_ring").setEnabled(!complex);
-
+            findPreference("horaire_alarmes").setVisible(complex);
+            findPreference("contrainte_alarmes").setVisible(complex);
+            findPreference("time_before_ring").setVisible(!complex);
         }
     }
 

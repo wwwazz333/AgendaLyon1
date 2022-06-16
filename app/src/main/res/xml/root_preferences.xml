@@ -61,6 +61,12 @@
                 android:summaryOff="les alarms sont désactivé pour les jours fériés (cours de 8h)"
                 android:summaryOn="les alarms sont activé pour les jours fériés"
                 android:defaultValue="false"/>
+
+        <Preference
+                android:key="liste_alarmes"
+                app:fragment="com.iutcalendar.settings.AlarmListFragment"
+                app:title="@string/Settings_alarms"
+                app:summary="@string/settings_alarm_label"/>
         <SwitchPreference
                 android:key="complex_alarm_settings"
                 android:title="Alarmes avancées"
@@ -76,11 +82,7 @@
                 android:defaultValue="60"
                 app:min="5"
                 android:max="300"/>
-        <Preference
-                android:key="liste_alarmes"
-                app:fragment="com.iutcalendar.settings.AlarmListFragment"
-                app:title="@string/Settings_alarms"
-                app:summary="@string/settings_alarm_label"/>
+
 
         <Preference
                 android:key="horaire_alarmes"
