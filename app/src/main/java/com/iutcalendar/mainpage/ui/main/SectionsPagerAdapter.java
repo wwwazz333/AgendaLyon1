@@ -34,7 +34,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         if (calendrier == null || calendrier.getFirstDay() == null) {
             this.countDay = 1;
         } else
-            this.countDay = calendrier.getFirstDay().getNbrDayTo(calendrier.getLastDay());
+            this.countDay = calendrier.getFirstDay().getNbrDayTo(calendrier.getLastDay())+1;
     }
 
     @Override
