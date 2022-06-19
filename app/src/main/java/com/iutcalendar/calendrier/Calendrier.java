@@ -2,6 +2,7 @@ package com.iutcalendar.calendrier;
 
 
 import android.content.Context;
+import android.util.Log;
 import com.calendar.iutcalendar.R;
 import com.iutcalendar.data.FileGlobal;
 import com.iutcalendar.data.Tuple;
@@ -76,7 +77,6 @@ public class Calendrier {
         if (getEvents().isEmpty()) return null;
         return getEvents().get(getEvents().size() - 1).getDate();
     }
-
 
 
     public Calendrier(List<EventCalendrier> events) {
@@ -239,12 +239,17 @@ public class Calendrier {
         for (EventCalendrier event : getEvents()) {
             UIDs.add(event.getUID());
         }
-        for (String UID : PersonnalCalendrier.getInstance(context).getKeys()) {
+        Log.d("Task", PersonnalCalendrier.getInstance(context).getKeys().toString());
+        Iterator<String> it = PersonnalCalendrier.getInstance(context).getKeys().iterator();
+        while(it.hasNext()){
+            String UID = it.next();
             if (!UIDs.contains(UID)) {//alors on doit suprrimé les tache lié à cette UID (vieux UID)
-                PersonnalCalendrier.getInstance(context).removeAllLinkedTask(context, UID);
+                PersonnalCalendrier.getInstance(context).removeAllLinkedTask(context, UID, it);
             }
         }
+
         PersonnalCalendrier.getInstance(context).save(context);
+
     }
 
     public static boolean isValideFormat(String str) {

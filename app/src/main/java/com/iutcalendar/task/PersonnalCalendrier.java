@@ -9,10 +9,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 
 public class PersonnalCalendrier {
@@ -64,11 +61,17 @@ public class PersonnalCalendrier {
         return this.tasks.getOrDefault(linkedToUID, new LinkedList<>());
     }
 
-    public void removeAllLinkedTask(Context context, String linkedToUID) {
+    /**
+     * supprime les tasks attacher à un evenement
+     * @param context le context
+     * @param linkedToUID L'UID de l'event auquelle sont attacher les tasks
+     * @param iterator l'iterator qui permet de parcourir les tasks liée
+     */
+    public void removeAllLinkedTask(Context context, String linkedToUID, Iterator<String> iterator) {
         for (Task task : getLinkedTask(linkedToUID)) {
             task.destroy(context);
         }
-        this.tasks.remove(linkedToUID);
+        iterator.remove();
     }
 
     public void removeAllAlarmOf(Context context, String linkedToUID) {
