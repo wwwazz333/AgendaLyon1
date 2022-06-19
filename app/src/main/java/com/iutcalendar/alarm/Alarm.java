@@ -26,6 +26,7 @@ import com.iutcalendar.calendrier.EventCalendrier;
 import com.iutcalendar.data.DataGlobal;
 import com.iutcalendar.notification.Notif;
 
+import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -207,9 +208,11 @@ public class Alarm extends BroadcastReceiver {
 
 
         CurrentDate dayAnalysed = new CurrentDate();
+
         Log.d("Constraint", alarmConditionManager.getAllConstraints().toString());
         Log.d("Constraint", personnalAlarmManager.getAllAlarmToList().toString());
         for (int dayAfter = 0; dayAfter < 7; dayAfter++) {
+            Log.d("Alarm", "day analysed " + dayAnalysed);
             List<EventCalendrier> events = calendrier.getEventsOfDay(dayAnalysed);
 
 
@@ -237,7 +240,7 @@ public class Alarm extends BroadcastReceiver {
                         //remet ou met l'alarm si besoin
 
                         DateCalendrier timeAlarmRing = new DateCalendrier(currEvent.getDate());
-                        if (DataGlobal.getSavedBoolean(context, DataGlobal.COMPLEX_ALARM_SETTINGS)) {
+                        if (DataGlobal.getSavedBoolean(context, DataGlobal.COMPLEX_ALARM_SETTINGS)) {//mode alarmes de type comples
                             for (AlarmCondtion alarmCondtion : AlarmConditionManager.getInstance(context).getAllConditions()) {
                                 if (alarmCondtion.isApplicableTo(currEvent)) {
                                     timeAlarmRing.setHourWithMillis(alarmCondtion.getAlarmAt());
@@ -245,12 +248,13 @@ public class Alarm extends BroadcastReceiver {
                                             !previouslyDisabledAlarm.contains(timeAlarmRing.getTimeInMillis())));
                                 }
                             }
-                        } else {
+                        } else {//mode alarmes de type simple
 
                             timeAlarmRing.setTimeInMillis(timeAlarmRing.getTimeInMillis() - DataGlobal.getSavedInt(context, DataGlobal.TIME_BEFORE_RING) * 60L * 1000L);
-                            Log.d("Alarm", timeAlarmRing.toString());
-                            personnalAlarmManager.add(dayAnalysed, new AlarmRing(timeAlarmRing.getTimeInMillis(),
-                                    !previouslyDisabledAlarm.contains(timeAlarmRing.getTimeInMillis())));
+                            if (DataGlobal.getActivatedDays(context).contains(timeAlarmRing.get(GregorianCalendar.DAY_OF_WEEK))) {
+                                personnalAlarmManager.add(dayAnalysed, new AlarmRing(timeAlarmRing.getTimeInMillis(),
+                                        !previouslyDisabledAlarm.contains(timeAlarmRing.getTimeInMillis())));
+                            }
                         }
                     }
                 }

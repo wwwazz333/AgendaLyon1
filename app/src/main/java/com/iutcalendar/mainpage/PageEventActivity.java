@@ -266,12 +266,13 @@ public class PageEventActivity extends AppCompatActivity {
     public void setCurrDate(CurrentDate newDate) {
         Log.d("Date", "set curr date");
 
-        if (newDate.compareTo(getCalendrier().getFirstDay()) < 0) {
-            newDate = new CurrentDate(getCalendrier().getFirstDay());
-        } else if (newDate.compareTo(getCalendrier().getLastDay()) > 0) {
-            newDate = new CurrentDate(getCalendrier().getLastDay());
+        if (getCalendrier() != null && getCalendrier().getFirstDay() != null && getCalendrier().getLastDay() != null) {
+            if (newDate.compareTo(getCalendrier().getFirstDay()) < 0) {
+                newDate = new CurrentDate(getCalendrier().getFirstDay());
+            } else if (newDate.compareTo(getCalendrier().getLastDay()) > 0) {
+                newDate = new CurrentDate(getCalendrier().getLastDay());
+            }
         }
-
 
         this.currDate.set(newDate);
 
@@ -356,7 +357,7 @@ public class PageEventActivity extends AppCompatActivity {
 
         setAnimationDirection(sens);
 //        if (getCurrDate().prevWeek().compareTo(getCalendrier().getFirstDay()) >= 0) {
-            setCurrDate(getCurrDate().prevWeek());
+        setCurrDate(getCurrDate().prevWeek());
 //        } else {
 //            setCurrDate(new CurrentDate(getCalendrier().getFirstDay()));
 //        }
@@ -369,7 +370,7 @@ public class PageEventActivity extends AppCompatActivity {
 
         setAnimationDirection(sens);
 //        if (getCurrDate().nextWeek().compareTo(getCalendrier().getLastDay()) <= 0) {
-            setCurrDate(getCurrDate().nextWeek());
+        setCurrDate(getCurrDate().nextWeek());
 //        } else {
 //            setCurrDate(new CurrentDate(getCalendrier().getLastDay()));
 //        }

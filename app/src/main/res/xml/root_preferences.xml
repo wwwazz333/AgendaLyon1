@@ -83,6 +83,15 @@
                 app:min="5"
                 android:max="300"/>
 
+        <MultiSelectListPreference
+                android:key="activated_days"
+                android:title="Les jours d'activation"
+                android:dialogTitle="Jours d'activation"
+                android:summary="Les jours où les alarmes automatique seront activé"
+                android:entryValues="@array/values_days"
+                android:entries="@array/names_days"
+                android:defaultValue="@array/default_days"/>
+
 
         <Preference
                 android:key="horaire_alarmes"

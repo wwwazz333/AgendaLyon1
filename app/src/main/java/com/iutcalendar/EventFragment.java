@@ -53,7 +53,7 @@ public class EventFragment extends Fragment {
     }
 
     public void updateRecycleView() {
-        if (getActivity() != null) {
+        if (getActivity() != null && calendrier != null) {
             List<EventCalendrier> eventToday = calendrier.getEventsOfDay(date);
 
             ClickListener listener = index -> {//Event on click Event

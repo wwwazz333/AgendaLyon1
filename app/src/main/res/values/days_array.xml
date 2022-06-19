@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="names_days">
+        <item>@string/Lundi_abv</item>
+        <item>@string/Mardi_abv</item>
+        <item>@string/Mercredi_abv</item>
+        <item>@string/Jeudi_abv</item>
+        <item>@string/Vendredi_abv</item>
+        <item>@string/Samedi_abv</item>
+        <item>@string/Dimanche_abv</item>
+    </string-array>
+
+    <string-array name="values_days">
+        <item>monday</item>
+        <item>tuesday</item>
+        <item>wednesday</item>
+        <item>thursday</item>
+        <item>friday</item>
+        <item>saturday</item>
+        <item>sunday</item>
+    </string-array>
+
+    <string-array name="empty_array"/>
+    <string-array name="default_days">
+        <item>monday</item>
+        <item>tuesday</item>
+        <item>wednesday</item>
+        <item>thursday</item>
+        <item>friday</item>
+    </string-array>
+</resources>

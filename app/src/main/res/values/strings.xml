@@ -108,11 +108,6 @@
     <string name="born_sup_et_inf_inverser">La borne supérieur ne peut pas être plus petite que la borne infèrieur.
     </string>
     <string name="must_not_be_exactly">N\'est pas</string>
-    <string name="title_activity_page_calendar">PageCalendarActivity</string>
-    <string name="tab_text_1">Tab 1</string>
-    <string name="tab_text_2">Tab 2</string>
-    <string name="title_activity_page_event">pageEventActivity</string>
-    <!-- TODO: Remove or change this placeholder text -->
 
 
 </resources>

@@ -1,9 +1,13 @@
 package com.iutcalendar.data;
 
 import android.content.Context;
+import android.util.ArraySet;
 import androidx.preference.PreferenceManager;
 
 import java.util.GregorianCalendar;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
 
 public class DataGlobal {
 
@@ -18,6 +22,7 @@ public class DataGlobal {
     public final static String COMPLEX_ALARM_SETTINGS = "complex_alarm_settings";
     public final static String TIME_BEFORE_RING = "time_before_ring";
 
+    public final static String ACTIVATED_DAYS = "activated_days";
 
 
     public final static String DEBUGING = "debuging";
@@ -79,4 +84,39 @@ public class DataGlobal {
         return getSavedString(context, URL);
     }
 
+
+    public static List<Integer> getActivatedDays(Context context) {
+        Set<String> acitvatedSet = PreferenceManager.getDefaultSharedPreferences(context).getStringSet(ACTIVATED_DAYS, new ArraySet<>());
+        List<Integer> activatedDays = new LinkedList<>();
+        for (String day : acitvatedSet) {
+            int dayToAdd = -1;
+            switch (day) {
+                case "monday":
+                    dayToAdd = GregorianCalendar.MONDAY;
+                    break;
+                case "tuesday":
+                    dayToAdd = GregorianCalendar.TUESDAY;
+                    break;
+                case "wednesday":
+                    dayToAdd = GregorianCalendar.WEDNESDAY;
+                    break;
+                case "thursday":
+                    dayToAdd = GregorianCalendar.THURSDAY;
+                    break;
+                case "friday":
+                    dayToAdd = GregorianCalendar.FRIDAY;
+                    break;
+                case "saturday":
+                    dayToAdd = GregorianCalendar.SATURDAY;
+                    break;
+                case "sunday":
+                    dayToAdd = GregorianCalendar.SUNDAY;
+                    break;
+            }
+            activatedDays.add(dayToAdd);
+
+        }
+        return activatedDays;
+
+    }
 }

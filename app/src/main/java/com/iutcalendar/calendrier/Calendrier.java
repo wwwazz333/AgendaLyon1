@@ -239,7 +239,6 @@ public class Calendrier {
         for (EventCalendrier event : getEvents()) {
             UIDs.add(event.getUID());
         }
-        Log.d("Task", PersonnalCalendrier.getInstance(context).getKeys().toString());
         Iterator<String> it = PersonnalCalendrier.getInstance(context).getKeys().iterator();
         while(it.hasNext()){
             String UID = it.next();
