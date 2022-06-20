@@ -162,6 +162,7 @@ public class PageEventActivity extends AppCompatActivity {
 
 
         /*####Testing feature#####*/
+        Log.d("Test", "H20\\,H21\\,S21".replace("\\,", " "));
     }
 
 
