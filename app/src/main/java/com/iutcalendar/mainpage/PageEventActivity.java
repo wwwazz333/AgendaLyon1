@@ -162,10 +162,6 @@ public class PageEventActivity extends AppCompatActivity {
 
 
         /*####Testing feature#####*/
-//        Alarm.setAlarm(getApplicationContext(), System.currentTimeMillis() + 5_000, "test");
-        Log.d("Date", "first date : " + getCalendrier().getFirstDay());
-
-        Log.d("Global", "PageEventActivity end");
     }
 
 
@@ -187,7 +183,6 @@ public class PageEventActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        updateScreen();
         active = true;
     }
 
@@ -213,7 +208,6 @@ public class PageEventActivity extends AppCompatActivity {
             Log.d("Update", String.valueOf(PageEventActivity.active));
             if (PageEventActivity.active) {
                 Log.d("Update", "activation");
-                updateScreen();
             }
             //arret animation re load
             updating = false;
@@ -232,21 +226,6 @@ public class PageEventActivity extends AppCompatActivity {
         alertDialog.setPositiveButton(getString(R.string.ok), (dialog, which) -> dialog.dismiss());
 
         alertDialog.show();
-    }
-
-
-    public void updateScreen() {
-        updateEvent();
-    }
-
-    public void updateEvent() {
-//        runOnUiThread(new Runnable() {
-//            @Override
-//            public void run() {
-//                sectionsPagerAdapter.notifyDataSetChanged();
-//            }
-//        });
-
     }
 
     /*########################################################################
@@ -284,7 +263,6 @@ public class PageEventActivity extends AppCompatActivity {
         }
 
         setDaysOfWeek();
-        updateScreen();
     }
 
 

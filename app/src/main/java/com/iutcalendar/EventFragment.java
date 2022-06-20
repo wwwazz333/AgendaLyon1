@@ -100,7 +100,6 @@ public class EventFragment extends Fragment {
                                 public void run() {
                                     if (PageEventActivity.isActive()) {
                                         updateRecycleView();
-                                        mainActivity.updateScreen();
                                     }
                                     swipeRefreshLayout.setRefreshing(false);
                                 }
