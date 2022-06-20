@@ -40,9 +40,11 @@ public class FileGlobal {
     public static File getFilePersonnalAlarm(Context context) {
         return new File(getPathDownladDir(context) + "/" + nameFilePersonnalAlarm);
     }
+
     public static File getFileConditions(Context context) {
         return new File(getPathDownladDir(context) + "/" + nameFileConditionAlarm);
     }
+
     public static File getFileConstraints(Context context) {
         return new File(getPathDownladDir(context) + "/" + nameFileConstraintAlarm);
     }
@@ -118,6 +120,33 @@ public class FileGlobal {
             Log.e("File", "error rename temporary file : " + fileToWrite.getName());
             return false;
         }
+    }
+
+    public static <T> T loadBinaryFile(File fileToRead) {
+        FileInputStream stream;
+        T readingObject = null;
+        try {
+            stream = new FileInputStream(fileToRead);
+        } catch (FileNotFoundException e) {
+            Log.w("File", fileToRead.getName() + " doesn't existe.");
+            return null;
+        }
+        try {
+            ObjectInputStream in = new ObjectInputStream(stream);
+            Object obj = in.readObject();
+            if (obj != null) {
+                readingObject = (T) obj;
+            } else {
+                Log.e("File", fileToRead.getName() + " error : wrong type, please delete " + fileToRead.getName());
+            }
+
+            Log.d("File", fileToRead.getName() + " loaded");
+        } catch (IOException e) {
+            Log.e("File", e.getMessage());
+        } catch (ClassNotFoundException e) {
+            Log.e("File", "class non trouvé pour " + fileToRead.getName() + " : " + e.getMessage());
+        }
+        return readingObject;
     }
 
     public static void updateAndGetChange(Context context, Calendrier calendrier, ChangeEventListener onChangeListener) {

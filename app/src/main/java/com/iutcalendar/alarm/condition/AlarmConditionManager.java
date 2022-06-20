@@ -6,7 +6,7 @@ import com.iutcalendar.alarm.condition.label_constraint.AlarmConstraintLabel;
 import com.iutcalendar.calendrier.EventCalendrier;
 import com.iutcalendar.data.FileGlobal;
 
-import java.io.*;
+import java.io.Serializable;
 import java.util.LinkedList;
 
 public class AlarmConditionManager implements Serializable {
@@ -49,6 +49,7 @@ public class AlarmConditionManager implements Serializable {
     public void removeConstraint(int index) {
         listConstraint.remove(index);
     }
+
     public void removeConstraint(AlarmConstraintLabel alarmConstraintLabel) {
         listConstraint.remove(alarmConstraintLabel);
     }
@@ -60,7 +61,7 @@ public class AlarmConditionManager implements Serializable {
     public boolean matchConstraints(EventCalendrier event) {
         //check si respect toutes les contraintes label
         for (AlarmConstraintLabel constraint : getAllConstraints()) {
-            if(!constraint.matchWith(event)){
+            if (!constraint.matchWith(event)) {
                 return false;
             }
 
@@ -70,50 +71,17 @@ public class AlarmConditionManager implements Serializable {
 
 
     public void load(Context context) {
-        FileInputStream stream;
-        try {
-            stream = new FileInputStream(FileGlobal.getFileConditions(context));
-        } catch (FileNotFoundException e) {
-            Log.w("File", "fileTask doesn't existe.");
-            return;
-        }
-        try {
-            ObjectInputStream in = new ObjectInputStream(stream);
-            Object obj = in.readObject();
-            if (obj instanceof LinkedList) {
-                listCondition = (LinkedList<AlarmCondtion>) obj;
-            } else {
-                Log.e("File", "personnal alarm error : wrong type, please delete your personnal alarm file");
-            }
-
-            Log.d("File", "file alarm loaded");
-        } catch (IOException e) {
-            Log.e("File", e.getMessage());
-        } catch (ClassNotFoundException e) {
-            Log.e("File", "class non trouvé pour alarmManager : " + e.getMessage());
+        listCondition = FileGlobal.loadBinaryFile(FileGlobal.getFileConditions(context));
+        if (listCondition == null) {
+            Log.i("Condition", "listCondition is null");
+            listCondition = new LinkedList<>();
         }
 
+        listConstraint = FileGlobal.loadBinaryFile(FileGlobal.getFileConstraints(context));
 
-        try {
-            stream = new FileInputStream(FileGlobal.getFileConstraints(context));
-        } catch (FileNotFoundException e) {
-            Log.w("File", FileGlobal.getFileConstraints(context).getName() + " doesn't existe.");
-            return;
-        }
-        try {
-            ObjectInputStream in = new ObjectInputStream(stream);
-            Object obj = in.readObject();
-            if (obj instanceof LinkedList) {
-                listConstraint = (LinkedList<AlarmConstraintLabel>) obj;
-            } else {
-                Log.e("File", "personnal alarm error : wrong type, please delete your personnal constraints alarm file");
-            }
-
-            Log.d("File", "file alarm loaded");
-        } catch (IOException e) {
-            Log.e("File", e.getMessage());
-        } catch (ClassNotFoundException e) {
-            Log.e("File", "class non trouvé pour alarmManager : " + e.getMessage());
+        if (listConstraint == null) {
+            Log.i("Constraint", "listConstraint is null");
+            listConstraint = new LinkedList<>();
         }
 
     }

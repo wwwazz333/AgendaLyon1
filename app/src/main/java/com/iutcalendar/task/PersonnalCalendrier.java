@@ -111,50 +111,13 @@ public class PersonnalCalendrier {
 
 
     public void load(Context context) {
-        FileInputStream stream;
-        try {
-            stream = new FileInputStream(FileGlobal.getFilePersonnalTask(context));
-        } catch (FileNotFoundException e) {
-            Log.w("File", "fileTask doesn't existe.");
-            return;
+        tasks = FileGlobal.loadBinaryFile(FileGlobal.getFilePersonnalTask(context));
+        if(tasks == null){
+            tasks = new HashMap<>();
         }
-        try {
-            ObjectInputStream in = new ObjectInputStream(stream);
-            Object obj = in.readObject();
-            if (obj instanceof HashMap) {
-                tasks = (HashMap<String, List<Task>>) obj;
-            } else {
-                Log.e("File", "personnal task error : wrong type, please delete your personnal task file");
-            }
-
-            Log.d("File", "file task loaded");
-        } catch (IOException e) {
-            Log.e("File", e.getMessage());
-        } catch (ClassNotFoundException e) {
-            Log.e("File", "class non trouvé pour personnalCalendrier : " + e.getMessage());
-        }
-
     }
 
     public void save(Context context) {
         FileGlobal.writeBinaryFile(tasks, FileGlobal.getFilePersonnalTask(context));
-
-        /*FileOutputStream stream;
-        try {
-            stream = new FileOutputStream(FileGlobal.getFilePersonnalTask(context));
-        } catch (FileNotFoundException e) {
-            Log.w("File", "fileTask doesn't existe.");
-            return;
-        }
-
-        try {
-            ObjectOutputStream out = new ObjectOutputStream(stream);
-            out.writeObject(tasks);
-            out.close();
-            stream.close();
-            Log.d("File", "fileTask saved");
-        } catch (IOException e) {
-            Log.e("File", "couldn't write in fileTask");
-        }*/
     }
 }

@@ -5,7 +5,7 @@ import android.util.Log;
 import com.iutcalendar.calendrier.DateCalendrier;
 import com.iutcalendar.data.FileGlobal;
 
-import java.io.*;
+import java.io.Serializable;
 import java.util.*;
 
 public class PersonnalAlarmManager implements Serializable {
@@ -104,32 +104,13 @@ public class PersonnalAlarmManager implements Serializable {
     }
 
     public void load(Context context) {
-        FileInputStream stream;
-        try {
-            stream = new FileInputStream(FileGlobal.getFilePersonnalAlarm(context));
-        } catch (FileNotFoundException e) {
-            Log.w("File", "fileTask doesn't existe.");
-            return;
+        alarms = FileGlobal.loadBinaryFile(FileGlobal.getFilePersonnalAlarm(context));
+        if (alarms == null) {
+            alarms = new HashMap<>();
         }
-        try {
-            ObjectInputStream in = new ObjectInputStream(stream);
-            Object obj = in.readObject();
-            if (obj instanceof HashMap) {
-                alarms = (HashMap<String, List<AlarmRing>>) obj;
-            } else {
-                Log.e("File", "personnal alarm error : wrong type, please delete your personnal alarm file");
-            }
-
-            Log.d("File", "file alarm loaded");
-        } catch (IOException e) {
-            Log.e("File", e.getMessage());
-        } catch (ClassNotFoundException e) {
-            Log.e("File", "class non trouvé pour personnalCalendrier : " + e.getMessage());
-        }
-
     }
 
     public void save(Context context) {
-            FileGlobal.writeBinaryFile(alarms, FileGlobal.getFilePersonnalAlarm(context));
+        FileGlobal.writeBinaryFile(alarms, FileGlobal.getFilePersonnalAlarm(context));
     }
 }
