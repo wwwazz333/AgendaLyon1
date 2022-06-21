@@ -85,7 +85,6 @@ public class PageEventActivity extends AppCompatActivity {
         viewPager = binding.viewPager;
         sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager(), getCalendrier(), getCurrDate());
         viewPager.setAdapter(sectionsPagerAdapter);
-//        viewPager.addOnPageChangeListener(new PageChangeWeekListener(this));
 
 
         setCurrDate(dateToLaunche);
@@ -162,7 +161,6 @@ public class PageEventActivity extends AppCompatActivity {
 
 
         /*####Testing feature#####*/
-        Log.d("Test", "H20\\,H21\\,S21".replace("\\,", " "));
     }
 
 
@@ -205,13 +203,15 @@ public class PageEventActivity extends AppCompatActivity {
         new Thread(() -> {
             FileGlobal.updateAndGetChange(getApplicationContext(), calendrier, ((context, intent) -> startActivity(intent)));
 
+//            runOnUiThread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    sectionsPagerAdapter = new SectionsPagerAdapter(getApplicationContext(), getSupportFragmentManager(), getCalendrier(), getCurrDate());
+//                    viewPager.setAdapter(sectionsPagerAdapter);
+//                }
+//            });
 
-            Log.d("Update", String.valueOf(PageEventActivity.active));
-            if (PageEventActivity.active) {
-                Log.d("Update", "activation");
-            }
-            //arret animation re load
-            updating = false;
+            
             Log.d("File", "updated");
         }).start();
     }

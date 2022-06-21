@@ -33,6 +33,7 @@ public class EventFragment extends Fragment {
     private CurrentDate date;
     private File fileUpdate;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private TextView update;
 
     private RecyclerView recycleView;
 
@@ -44,12 +45,21 @@ public class EventFragment extends Fragment {
 
     public EventFragment() {
         // Required empty public constructor
+        Log.d("Update", "constructor");
     }
 
     public EventFragment(Calendrier calendrier, CurrentDate date, File fileUpdate) {
         this.calendrier = calendrier;
         this.date = date;
         this.fileUpdate = fileUpdate;
+    }
+
+    public void updateUI() {
+        if (PageEventActivity.isActive()) {
+            updateRecycleView();
+        }
+        swipeRefreshLayout.setRefreshing(false);
+        updateLabel();
     }
 
     public void updateRecycleView() {
@@ -67,23 +77,39 @@ public class EventFragment extends Fragment {
             EventRecycleView adapter = new EventRecycleView(eventToday, getActivity().getApplication(), listener);
             recycleView.setAdapter(adapter);
         }
+    }
 
+    public void updateLabel() {
+
+        if (calendrier != null && getContext() != null && FileGlobal.getFileDownload(getContext()).exists() &&
+                PreferenceManager.getDefaultSharedPreferences(getContext()).getBoolean("show_update", true)) {
+            //affichage dernière maj
+            CurrentDate dateLastEdit = new CurrentDate();
+            dateLastEdit.setTimeInMillis(fileUpdate.lastModified());
+            dateLastEdit.runForDate(() -> update.setText(getResources().getString(R.string.last_update,
+                    new SimpleDateFormat("HH:mm", SettingsApp.getLocale()).format(fileUpdate.lastModified())
+            )), () -> update.setText(getResources().getString(R.string.last_update,
+                    "error" //impossible que last_update soit demain
+            )), () -> update.setText(getResources().getString(R.string.last_update,
+                    new SimpleDateFormat("dd/MM/yyyy HH:mm", SettingsApp.getLocale()).format(fileUpdate.lastModified())
+            )));
+        } else {
+            update.setText(R.string.no_last_update);
+        }
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.d("Update", "cocou");
         View view = inflater.inflate(R.layout.fragment_event, container, false);
 
         recycleView = view.findViewById(R.id.recycleView);
+        update = view.findViewById(R.id.updateText);
 
 
         if (getActivity() != null && getActivity() instanceof PageEventActivity) {
-            PageEventActivity mainActivity = ((PageEventActivity) getActivity());
-
-
-            TextView update = view.findViewById(R.id.updateText);
 
             swipeRefreshLayout = view.findViewById(R.id.swipeRefresh);
             swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -93,47 +119,17 @@ public class EventFragment extends Fragment {
                         Log.d("Update", "by swaping");
                         FileGlobal.updateAndGetChange(getContext(), calendrier, ((context, intent) -> startActivity(intent)));
 
-
                         if (getActivity() != null) {
-                            getActivity().runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    if (PageEventActivity.isActive()) {
-                                        updateRecycleView();
-                                    }
-                                    swipeRefreshLayout.setRefreshing(false);
-                                }
-                            });
+                            getActivity().runOnUiThread(() -> updateUI());
                         }
 
                     }).start();
                 }
             });
+            recycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+            updateUI();
 
-            if (calendrier != null && fileUpdate.exists() && getContext() != null) {
-
-
-                updateRecycleView();
-                recycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-
-                if (PreferenceManager.getDefaultSharedPreferences(getContext()).getBoolean("show_update", true)) {
-                    //affichage dernière maj
-                    CurrentDate dateLastEdit = new CurrentDate();
-                    dateLastEdit.setTimeInMillis(fileUpdate.lastModified());
-                    dateLastEdit.runForDate(() -> update.setText(getResources().getString(R.string.last_update,
-                            new SimpleDateFormat("HH:mm", SettingsApp.getLocale()).format(fileUpdate.lastModified())
-                    )), () -> update.setText(getResources().getString(R.string.last_update,
-                            "error" //impossible que last_update soit demain
-                    )), () -> update.setText(getResources().getString(R.string.last_update,
-                            new SimpleDateFormat("dd/MM/yyyy HH:mm", SettingsApp.getLocale()).format(fileUpdate.lastModified())
-                    )));
-
-                }
-            } else {
-                update.setText(R.string.no_last_update);
-            }
         }
 
         return view;

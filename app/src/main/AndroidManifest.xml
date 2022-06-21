@@ -52,10 +52,9 @@
                     android:resource="@xml/widget_calendar_info"/>
         </receiver>
 
-        <service
+        <receiver
                 android:name="com.iutcalendar.service.ForgroundServiceUpdate"
-                android:enabled="true"
-                android:exported="false"/>
+                android:enabled="true"/>
 
         <receiver
                 android:name="com.iutcalendar.service.StartForgroundServiceOnBoot"
