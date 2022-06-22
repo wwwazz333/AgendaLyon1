@@ -1,0 +1,44 @@
+package com.iutcalendar.event.changement;
+
+import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import com.calendar.iutcalendar.R;
+import com.iutcalendar.data.DataGlobal;
+import com.iutcalendar.menu.MenuItemClickActivities;
+import com.iutcalendar.settings.SettingsApp;
+
+public class EventChangementHistoryActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        SettingsApp.adapteTheme(this, true);
+        SettingsApp.setLocale(getResources(), DataGlobal.getLanguage(getApplicationContext()));
+        setContentView(R.layout.activity_event_changement_history);
+
+        RecyclerView recyclerView = findViewById(R.id.recycleView);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        Log.d("History", EventChangmentManager.getInstance(getApplicationContext()).getChangmentList().toString());
+        recyclerView.setAdapter(new EventChangmentRecycleView(getApplicationContext(), EventChangmentManager.getInstance(getApplicationContext()).getChangmentList()));
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        return new MenuItemClickActivities(this).onMenuItemClick(item);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.popup_menu_activities, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+}

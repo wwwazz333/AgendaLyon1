@@ -1,15 +1,16 @@
 package com.iutcalendar.mainpage;
 
 import android.app.AlertDialog;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.PopupMenu;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -21,10 +22,10 @@ import com.iutcalendar.calendrier.CurrentDate;
 import com.iutcalendar.calendrier.EventCalendrier;
 import com.iutcalendar.data.DataGlobal;
 import com.iutcalendar.data.FileGlobal;
+import com.iutcalendar.event.changement.EventChangmentManager;
 import com.iutcalendar.mainpage.ui.main.SectionsPagerAdapter;
 import com.iutcalendar.menu.MenuItemClickActivities;
 import com.iutcalendar.service.ForgroundServiceUpdate;
-import com.iutcalendar.settings.SettingsActivity;
 import com.iutcalendar.settings.SettingsApp;
 import com.iutcalendar.swiping.GestureEventManager;
 import com.iutcalendar.swiping.TouchGestureListener;
@@ -48,16 +49,18 @@ public class PageEventActivity extends AppCompatActivity {
     private ViewPager viewPager;
 
     private SectionsPagerAdapter sectionsPagerAdapter;
+    private ActionBar actionBar;
 
     public SectionsPagerAdapter getSectionsPagerAdapter() {
         return sectionsPagerAdapter;
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d("Global", "PageEventActivity start");
-        SettingsApp.adapteTheme(this);
+        SettingsApp.adapteTheme(this, true);
         SettingsApp.setLocale(getResources(), DataGlobal.getLanguage(getApplicationContext()));
         setContentView(R.layout.activity_page_event);
 
@@ -68,6 +71,8 @@ public class PageEventActivity extends AppCompatActivity {
 
         initVariable();
         PersonnalCalendrier.getInstance(getApplicationContext());
+
+        initActionBar();
 
         //init Calendrier
         File fileCal = FileGlobal.getFileDownload(getApplicationContext());
@@ -160,10 +165,9 @@ public class PageEventActivity extends AppCompatActivity {
 
         update();
 
-        findViewById(R.id.menu_option).setOnClickListener(this::showPopup);
-
 
         /*####Testing feature#####*/
+        Log.d("History", "main : " + EventChangmentManager.getInstance(getApplicationContext()).getChangmentList());
     }
 
 
@@ -172,9 +176,17 @@ public class PageEventActivity extends AppCompatActivity {
 
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
-        currDateLabel = findViewById(R.id.currDateLabel);
         nameDayLayout = findViewById(R.id.nameDayLayout);
         dayOfWeek = findViewById(R.id.dayOfWeek);
+    }
+
+    private void initActionBar() {
+        actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+            actionBar.setCustomView(R.layout.action_bar_main_page);
+            currDateLabel = actionBar.getCustomView().findViewById(R.id.title);
+        }
     }
 
 
@@ -192,14 +204,6 @@ public class PageEventActivity extends AppCompatActivity {
     public void onPause() {
         super.onPause();
         active = false;
-    }
-
-    public void showPopup(View v) {
-        PopupMenu popup = new PopupMenu(this, v);
-        popup.setOnMenuItemClickListener(new MenuItemClickActivities(this));
-
-        popup.inflate(R.menu.popup_menu_activities);
-        popup.show();
     }
 
 
@@ -386,6 +390,21 @@ public class PageEventActivity extends AppCompatActivity {
             super.onSwipeLeft();
             switchToNextWeek();
         }
+    }
+
+    /*########################################################################
+                                    ACTION BAR
+     ########################################################################*/
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        return new MenuItemClickActivities(this).onMenuItemClick(item);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.popup_menu_activities, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
 }

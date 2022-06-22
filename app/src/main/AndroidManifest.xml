@@ -20,16 +20,17 @@
             android:largeHeap="true"
             android:networkSecurityConfig="@xml/network_security_config"
             android:roundIcon="@mipmap/ic_launcher_round"
+            android:screenOrientation="portrait"
             android:supportsRtl="true"
-            android:theme="@style/Theme.IUTCalendar"
-            android:screenOrientation="portrait">
+            android:theme="@style/Theme.IUTCalendar">
+        <activity
+                android:name="com.iutcalendar.event.changement.EventChangementHistoryActivity"
+                android:exported="true"/>
         <activity
                 android:name="com.iutcalendar.mainpage.PageEventActivity"
                 android:exported="true"
-                android:theme="@style/Theme.IUTCalendar.NoActionBar"
-                android:screenOrientation="portrait">
-
-
+                android:screenOrientation="portrait"
+                android:theme="@style/Theme.IUTCalendar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -63,8 +64,7 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
             </intent-filter>
         </receiver>
-        <receiver
-                android:name="com.iutcalendar.alarm.Alarm">
+        <receiver android:name="com.iutcalendar.alarm.Alarm">
         </receiver>
 
         <activity

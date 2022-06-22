@@ -35,14 +35,28 @@ public class SettingsApp {
     }
 
     public static void adapteTheme(Context context) {
+        adapteTheme(context, false);
+    }
+
+    public static void adapteTheme(Context context, boolean actionBar) {
         String t = DataGlobal.getTheme(context);
         Log.d("Theme", t);
-        if (t.equals("black")) {
-            context.setTheme(R.style.Theme_IUTCalendarNight);
-        } else if (t.equals("light")) {
-            context.setTheme(R.style.Theme_IUTCalendarLight);
+        if (actionBar) {
+            if (t.equals("black")) {
+                context.setTheme(R.style.Theme_IUTCalendarNightActionBar);
+            } else if (t.equals("light")) {
+                context.setTheme(R.style.Theme_IUTCalendarLightActionBar);
+            } else {
+                context.setTheme(R.style.Theme_IUTCalendarActionBar);
+            }
         } else {
-            context.setTheme(R.style.Theme_IUTCalendar);
+            if (t.equals("black")) {
+                context.setTheme(R.style.Theme_IUTCalendarNight);
+            } else if (t.equals("light")) {
+                context.setTheme(R.style.Theme_IUTCalendarLight);
+            } else {
+                context.setTheme(R.style.Theme_IUTCalendar);
+            }
         }
     }
 

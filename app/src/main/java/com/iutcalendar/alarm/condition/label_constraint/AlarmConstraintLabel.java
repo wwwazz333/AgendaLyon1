@@ -15,12 +15,12 @@ public class AlarmConstraintLabel implements Serializable {
     public boolean matchWith(EventCalendrier event) {
         switch (getTypeDeContraint()) {
             case MUST_NOT_CONTAIN:
-                if (event.getSummary().contains(getContraintText())) {
+                if (event.getNameEvent().contains(getContraintText())) {
                     return false;
                 }
                 break;
             case MUST_NOT_BE_EXACTLY:
-                if (event.getSummary().equals(getContraintText())) {
+                if (event.getNameEvent().equals(getContraintText())) {
                     return false;
                 }
                 break;

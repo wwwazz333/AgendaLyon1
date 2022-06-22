@@ -41,6 +41,8 @@ public class URLSetterFragment extends Fragment {
         });
 
         final String prevURL = input.getText().toString();
+
+        SettingsActivity parentActivity = (SettingsActivity) getActivity();
         valide.setOnClickListener(v -> {
             if (!prevURL.equals(input.getText().toString())) {
                 FileGlobal.getFileDownload(getContext()).delete();
@@ -49,10 +51,13 @@ public class URLSetterFragment extends Fragment {
                 new Thread(() -> FileDownload.updateFichier(FileGlobal.getFileDownload(getContext()).getAbsolutePath(), getContext())).start();
 
             }
-            SettingsActivity.comeBackToMainPageSettings();
+            parentActivity.comeBackToMainPageSettings();
             getParentFragmentManager().popBackStackImmediate();
         });
-        cancel.setOnClickListener(v -> getParentFragmentManager().popBackStackImmediate());
+        cancel.setOnClickListener(v -> {
+            parentActivity.comeBackToMainPageSettings();
+            getParentFragmentManager().popBackStackImmediate();
+        });
 
         return view;
     }

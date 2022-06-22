@@ -91,11 +91,7 @@ public class CurrentDate extends DateCalendrier {
     }
 
 
-    @Override
-    public String toString() {
-        return getDisplayName(GregorianCalendar.DAY_OF_WEEK, GregorianCalendar.SHORT, Locale.FRANCE) + " " +
-                fillWithZeroBefore(getDay()) + "/" + fillWithZeroBefore(getMonth()) + "/" + getYear();
-    }
+
 
     public String toString(Locale location) {
         if (location.equals(new Locale("en"))) {

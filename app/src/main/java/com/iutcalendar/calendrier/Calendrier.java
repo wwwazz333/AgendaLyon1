@@ -2,10 +2,8 @@ package com.iutcalendar.calendrier;
 
 
 import android.content.Context;
-import android.util.Log;
-import com.calendar.iutcalendar.R;
 import com.iutcalendar.data.FileGlobal;
-import com.iutcalendar.data.Tuple;
+import com.iutcalendar.event.changement.EventChangment;
 import com.iutcalendar.task.PersonnalCalendrier;
 
 import java.io.File;
@@ -13,48 +11,6 @@ import java.io.IOException;
 import java.util.*;
 
 public class Calendrier {
-    public enum Change {
-        ADD,
-        DELETE,
-        MOVE,
-        NONE;
-
-
-        public String toString(Context context) {
-            if (equals(Calendrier.Change.ADD)) {
-                return context.getString(R.string.Added);
-            } else if (equals(Calendrier.Change.DELETE)) {
-                return context.getString(R.string.Deleted);
-            } else if (equals(Calendrier.Change.MOVE)) {
-                return context.getString(R.string.Moved);
-            }
-            return toString();
-        }
-    }
-
-    public static class InfoChange {
-        private final Change changement;
-        private final DateCalendrier prevDate;
-        private final DateCalendrier newDate;
-
-        public InfoChange(Change changement, DateCalendrier prevDate, DateCalendrier newDate) {
-            this.changement = changement;
-            this.prevDate = prevDate;
-            this.newDate = newDate;
-        }
-
-        public Change getChangement() {
-            return changement;
-        }
-
-        public DateCalendrier getPrevDate() {
-            return prevDate;
-        }
-
-        public DateCalendrier getNewDate() {
-            return newDate;
-        }
-    }
 
     static private final String DELIMITER_LINE = "\n(?=[A-Z])";
     private List<EventCalendrier> events;
@@ -175,22 +131,7 @@ public class Calendrier {
         return nexts;
     }
 
-    public static String changeToString(Context context, List<Tuple<EventCalendrier, Calendrier.InfoChange>> changes) {
-        StringBuilder msg = new StringBuilder();
 
-        for (Tuple<EventCalendrier, Calendrier.InfoChange> tuple : changes) {
-            String action = tuple.second.getChangement().toString(context);
-            msg.append(action).append(" : ").append(tuple.first.getSummary()).append(" : ");
-            if (tuple.second.getPrevDate() != null) {
-                msg.append(tuple.second.getPrevDate().toString());
-            }
-            if (tuple.second.getNewDate() != null) {
-                msg.append(" -> ").append(tuple.second.getNewDate().toString());
-            }
-            msg.append('\n');
-        }
-        return msg.toString();
-    }
 
     @Override
     public String toString() {
@@ -209,28 +150,44 @@ public class Calendrier {
         return Objects.equals(events, that.events);
     }
 
-    public List<Tuple<EventCalendrier, InfoChange>> getChangedEvent(Calendrier prevCal) {
+    public List<EventChangment> getChangedEvent(Calendrier prevCal) {
         //FIXME optimize
-        List<Tuple<EventCalendrier, InfoChange>> changed = new ArrayList<>();
+        List<EventChangment> changed = new ArrayList<>();
         EventCalendrier ev;
         for (EventCalendrier e : this.getEvents()) {
             int index = prevCal.getEvents().indexOf(e);
             if (index == -1) {
-                changed.add(new Tuple<>(e, new InfoChange(Change.ADD, null, e.getDate())));
+                changed.add(new EventChangment(e, new EventChangment.InfoChange(EventChangment.Change.ADD, null, e.getDate())));
             } else {
                 ev = prevCal.getEvents().get(index);
                 if (!e.getDate().equals(ev.getDate())) {
-                    changed.add(new Tuple<>(e, new InfoChange(Change.MOVE, ev.getDate(), e.getDate())));
+                    changed.add(new EventChangment(e, new EventChangment.InfoChange(EventChangment.Change.MOVE, ev.getDate(), e.getDate())));
                 }
             }
         }
         for (EventCalendrier e : prevCal.getEvents()) {
             int index = this.getEvents().indexOf(e);
             if (index == -1) {
-                changed.add(new Tuple<>(e, new InfoChange(Change.DELETE, e.getDate(), null)));
+                changed.add(new EventChangment(e, new EventChangment.InfoChange(EventChangment.Change.DELETE, e.getDate(), null)));
             }
         }
         return changed;
+    }
+    public static String changeToString(Context context, List<EventChangment> changes) {
+        StringBuilder msg = new StringBuilder();
+
+        for (EventChangment tuple : changes) {
+            String action = tuple.getInfoChange().getChangement().toString(context);
+            msg.append(action).append(" : ").append(tuple.getEventChanged().getNameEvent()).append(" : ");
+            if (tuple.getInfoChange().getPrevDate() != null) {
+                msg.append(tuple.getInfoChange().getPrevDate().toString());
+            }
+            if (tuple.getInfoChange().getNewDate() != null) {
+                msg.append(" -> ").append(tuple.getInfoChange().getNewDate().toString());
+            }
+            msg.append('\n');
+        }
+        return msg.toString();
     }
 
     public void deleteUselessTask(Context context) {
@@ -240,7 +197,7 @@ public class Calendrier {
             UIDs.add(event.getUID());
         }
         Iterator<String> it = PersonnalCalendrier.getInstance(context).getKeys().iterator();
-        while(it.hasNext()){
+        while (it.hasNext()) {
             String UID = it.next();
             if (!UIDs.contains(UID)) {//alors on doit suprrimé les tache lié à cette UID (vieux UID)
                 PersonnalCalendrier.getInstance(context).removeAllLinkedTask(context, UID, it);

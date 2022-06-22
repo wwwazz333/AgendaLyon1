@@ -2,11 +2,12 @@ package com.iutcalendar.calendrier;
 
 import android.util.Log;
 
+import java.io.Serializable;
 import java.util.GregorianCalendar;
 import java.util.Objects;
 
-public class EventCalendrier implements Comparable<EventCalendrier> {
-    private String summary;
+public class EventCalendrier implements Comparable<EventCalendrier>, Serializable {
+    private String nameEvent;
     private String salle;
     private String description;
     private DateCalendrier debut;
@@ -18,7 +19,7 @@ public class EventCalendrier implements Comparable<EventCalendrier> {
         this.debut = null;
         this.dureeH = 0;
         this.dureeM = 0;
-        this.summary = "";
+        this.nameEvent = "";
         this.salle = "";
         this.description = "";
         this.UID = "";
@@ -28,7 +29,7 @@ public class EventCalendrier implements Comparable<EventCalendrier> {
         this.debut = debut;
         this.dureeH = dureeH;
         this.dureeM = dureeM;
-        this.summary = summary;
+        this.nameEvent = summary;
         this.salle = salle;
         this.description = description;
         this.UID = UID;
@@ -42,8 +43,8 @@ public class EventCalendrier implements Comparable<EventCalendrier> {
         return debut;
     }
 
-    public String getSummary() {
-        return summary;
+    public String getNameEvent() {
+        return nameEvent;
     }
 
     public String getSalle() {
@@ -61,7 +62,7 @@ public class EventCalendrier implements Comparable<EventCalendrier> {
     @Override
     public EventCalendrier clone() throws CloneNotSupportedException {
         super.clone();
-        return new EventCalendrier(debut, dureeH, dureeM, summary, salle, description, UID);
+        return new EventCalendrier(debut, dureeH, dureeM, nameEvent, salle, description, UID);
     }
 
     public void parseLine(String str) {
@@ -79,7 +80,7 @@ public class EventCalendrier implements Comparable<EventCalendrier> {
             dureeH = fin.get(GregorianCalendar.HOUR_OF_DAY);
             dureeM = fin.get(GregorianCalendar.MINUTE);
         } else if (title.equals("SUMMARY")) {
-            summary = splited[1];
+            nameEvent = splited[1];
         } else if (title.equals("LOCATION")) {
             salle = splited[1];
         } else if (title.equals("DESCRIPTION")) {
@@ -125,7 +126,7 @@ public class EventCalendrier implements Comparable<EventCalendrier> {
 
     @Override
     public String toString() {
-        return debut.toString() + " " + dureeH + ":" + dureeM + " : " + getSummary();
+        return debut.toString() + " " + dureeH + ":" + dureeM + " : " + getNameEvent();
     }
 
     @Override

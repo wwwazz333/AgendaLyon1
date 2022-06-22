@@ -42,7 +42,7 @@ public class DialogPopupEvent extends Dialog {
         String timeDebut = relatedEvent.getDate().timeToString();
         String timeFin = relatedEvent.getDate().addTime(relatedEvent.getDuree()).timeToString();
 
-        this.title.setText(relatedEvent.getSummary());
+        this.title.setText(relatedEvent.getNameEvent());
         this.summary.setText(relatedEvent.getDescription());
         this.salle.setText(relatedEvent.getSalle().replace("\\,", ", "));
 

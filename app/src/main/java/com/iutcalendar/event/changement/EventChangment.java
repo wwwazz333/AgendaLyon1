@@ -1,13 +1,17 @@
-package com.iutcalendar.calendrier;
+package com.iutcalendar.event.changement;
 
 import android.content.Context;
 import com.calendar.iutcalendar.R;
+import com.iutcalendar.calendrier.DateCalendrier;
+import com.iutcalendar.calendrier.EventCalendrier;
 
 import java.io.Serializable;
 
 public class EventChangment implements Serializable {
-    private InfoChange infoChange;
-    private EventCalendrier copyEventChanged;
+    private final InfoChange infoChange;
+    private final EventCalendrier eventChanged;
+
+    private final DateCalendrier dateOfTheChangement;
 
     public enum Change {
         ADD,
@@ -28,7 +32,7 @@ public class EventChangment implements Serializable {
         }
     }
 
-    public static class InfoChange {
+    public static class InfoChange implements Serializable {
         private final Change changement;
         private final DateCalendrier prevDate;
         private final DateCalendrier newDate;
@@ -54,14 +58,20 @@ public class EventChangment implements Serializable {
 
     public EventChangment(EventCalendrier copyEventChanged, InfoChange infoChange) {
         this.infoChange = infoChange;
-        this.copyEventChanged = copyEventChanged;
+        this.eventChanged = copyEventChanged;
+
+        this.dateOfTheChangement = new DateCalendrier();
     }
 
     public InfoChange getInfoChange() {
         return infoChange;
     }
 
-    public EventCalendrier getCopyEventChanged() {
-        return copyEventChanged;
+    public EventCalendrier getEventChanged() {
+        return eventChanged;
+    }
+
+    public DateCalendrier getDateOfTheChangement() {
+        return dateOfTheChangement;
     }
 }

@@ -15,5 +15,21 @@
         <!--        <item name="android:textColor">@color/text_white</item>-->
     </style>
 
+    <style name="Theme.IUTCalendarNightActionBar" parent="Theme.IUTCalendarParent">
+        <item name="colorSecondaryVariant">@color/red</item>
+        <item name="colorOnSecondary">@color/white</item> <!--Logo sur btn floating-->
+        <!-- Customize your theme here. -->
+
+        <!--        <item name="colorOnBackground">@color/green</item>-->
+        <item name="colorSurface">@color/grey</item> <!-- Card background just au dessus de bg-->
+        <item name="colorOnSurface">@color/white</item>
+
+        <item name="backgroundColor">@color/black</item>
+        <item name="colorOnBackground">@color/white</item>
+
+
+        <!--        <item name="android:textColor">@color/text_white</item>-->
+    </style>
+
 
 </resources>

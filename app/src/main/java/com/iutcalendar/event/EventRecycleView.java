@@ -47,7 +47,7 @@ public class EventRecycleView extends RecyclerView.Adapter<EventViewHolder> {
         EventCalendrier e = list.get(position);
         viewHolder.debut.setText(e.getDate().timeToString());
         viewHolder.fin.setText(e.getDate().addTime(e.getDuree()).timeToString());
-        viewHolder.summary.setText(e.getSummary());
+        viewHolder.summary.setText(e.getNameEvent());
         viewHolder.salle.setText(e.getSalle().replace("\\,", "\n"));
 
 

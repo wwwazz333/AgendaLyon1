@@ -1,11 +1,10 @@
 package com.iutcalendar.calendrier;
 
-import android.util.Log;
-
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoField;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
 public class DateCalendrier extends GregorianCalendar {
 
@@ -157,8 +156,8 @@ public class DateCalendrier extends GregorianCalendar {
 
     @Override
     public String toString() {
-        return getDay() + "/" + getMonth() + "/" + getYear() + " " +
-                getHour() + ":" + getMinute();
+        return getDisplayName(GregorianCalendar.DAY_OF_WEEK, GregorianCalendar.SHORT, Locale.FRANCE) + " " +
+                fillWithZeroBefore(getDay()) + "/" + fillWithZeroBefore(getMonth()) + "/" + getYear();
     }
 
 

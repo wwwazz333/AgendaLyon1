@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.MenuItem;
 import android.widget.PopupMenu;
 import com.calendar.iutcalendar.R;
+import com.iutcalendar.event.changement.EventChangementHistoryActivity;
 import com.iutcalendar.mainpage.PageEventActivity;
 import com.iutcalendar.settings.SettingsActivity;
 
@@ -27,7 +28,7 @@ public class MenuItemClickActivities implements MenuItem.OnMenuItemClickListener
                 intent = new Intent(context, SettingsActivity.class);
                 break;
             case R.id.history:
-                intent = new Intent(context, SettingsActivity.class);
+                intent = new Intent(context, EventChangementHistoryActivity.class);
                 break;
             default:
                 return false;

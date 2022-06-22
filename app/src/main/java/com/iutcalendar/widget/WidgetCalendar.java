@@ -96,7 +96,7 @@ public class WidgetCalendar extends AppWidgetProvider {
         if (event1 != null) {
             views.setTextViewText(R.id.debut1, event1.getDate().timeToString());
             views.setTextViewText(R.id.fin1, event1.getDate().addTime(event1.getDuree()).timeToString());
-            views.setTextViewText(R.id.summary1, event1.getSummary());
+            views.setTextViewText(R.id.summary1, event1.getNameEvent());
             views.setTextViewText(R.id.salle1, event1.getSalle().replace("\\,", " "));
 
             int numberTask = PersonnalCalendrier.getInstance(context).getCountTaskOf(event1);
@@ -112,7 +112,7 @@ public class WidgetCalendar extends AppWidgetProvider {
         if (event2 != null) {
             views.setTextViewText(R.id.debut2, event2.getDate().timeToString());
             views.setTextViewText(R.id.fin2, event2.getDate().addTime(event2.getDuree()).timeToString());
-            views.setTextViewText(R.id.summary2, event2.getSummary());
+            views.setTextViewText(R.id.summary2, event2.getNameEvent());
             views.setTextViewText(R.id.salle2, event2.getSalle().replace("\\,", " "));
 
             int numberTask = PersonnalCalendrier.getInstance(context).getCountTaskOf(event2);

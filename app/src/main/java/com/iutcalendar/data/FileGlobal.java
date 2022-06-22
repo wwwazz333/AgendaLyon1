@@ -5,8 +5,9 @@ import android.content.Intent;
 import android.os.Environment;
 import android.util.Log;
 import com.iutcalendar.calendrier.Calendrier;
-import com.iutcalendar.calendrier.EventCalendrier;
 import com.iutcalendar.event.ChangeEventListener;
+import com.iutcalendar.event.changement.EventChangment;
+import com.iutcalendar.event.changement.EventChangmentManager;
 import com.iutcalendar.filedownload.FileDownload;
 import com.iutcalendar.mainpage.PageEventActivity;
 
@@ -18,35 +19,40 @@ import java.nio.file.Paths;
 import java.util.List;
 
 public class FileGlobal {
-    public static final String nameFileSave = "savedCal.ics";
-    public static final String nameFilePersonnalTask = "personalTasks.dat";
-    public static final String nameFilePersonnalAlarm = "personalAlarms.dat";
-    public static final String nameFileConditionAlarm = "personalAlarmConditions.dat";
-    public static final String nameFileConstraintAlarm = "personalAlarmConstraints.dat";
+    public static final String SAVED_CAL = "savedCal.ics";
+    public static final String PERSONAL_TASKS = "personalTasks.dat";
+    public static final String PERSONAL_ALARMS = "personalAlarms.dat";
+    public static final String PERSONAL_ALARM_CONDITIONS = "personalAlarmConditions.dat";
+    public static final String PERSONAL_ALARM_CONSTRAINTS = "personalAlarmConstraints.dat";
+    public static final String CHANGEMENT_EVENT = "changementEvent.dat";
 
 
     public static String getPathDownladDir(Context context) {
         return context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath();
     }
 
+    public static File getFile(Context context, String whichFile) {
+        return new File(getPathDownladDir(context) + "/" + whichFile);
+    }
+
     public static File getFileDownload(Context context) {
-        return new File(getPathDownladDir(context) + "/" + nameFileSave);
+        return getFile(context, SAVED_CAL);
     }
 
     public static File getFilePersonnalTask(Context context) {
-        return new File(getPathDownladDir(context) + "/" + nameFilePersonnalTask);
+        return getFile(context, PERSONAL_TASKS);
     }
 
     public static File getFilePersonnalAlarm(Context context) {
-        return new File(getPathDownladDir(context) + "/" + nameFilePersonnalAlarm);
+        return getFile(context, PERSONAL_ALARMS);
     }
 
     public static File getFileConditions(Context context) {
-        return new File(getPathDownladDir(context) + "/" + nameFileConditionAlarm);
+        return getFile(context, PERSONAL_ALARM_CONDITIONS);
     }
 
     public static File getFileConstraints(Context context) {
-        return new File(getPathDownladDir(context) + "/" + nameFileConstraintAlarm);
+        return getFile(context, PERSONAL_ALARM_CONSTRAINTS);
     }
 
 
@@ -168,7 +174,11 @@ public class FileGlobal {
 
         nouveau.deleteUselessTask(context);
 
-        List<Tuple<EventCalendrier, Calendrier.InfoChange>> changes = nouveau.getChangedEvent(prev);
+        List<EventChangment> changes = nouveau.getChangedEvent(prev);
+        //sauvgarde l'historique des changements
+        EventChangmentManager.getInstance(context).getChangmentList().addAll(changes);
+        EventChangmentManager.getInstance(context).save(context);
+
         if (!changes.isEmpty()) {
             String changesMsg = Calendrier.changeToString(context, changes);
 
