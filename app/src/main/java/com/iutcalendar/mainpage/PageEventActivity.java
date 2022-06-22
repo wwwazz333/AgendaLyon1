@@ -165,7 +165,6 @@ public class PageEventActivity extends AppCompatActivity {
 
         update();
 
-
         /*####Testing feature#####*/
     }
 
