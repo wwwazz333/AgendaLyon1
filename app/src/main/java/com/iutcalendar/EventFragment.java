@@ -19,6 +19,7 @@ import com.iutcalendar.data.FileGlobal;
 import com.iutcalendar.event.ClickListener;
 import com.iutcalendar.event.DialogPopupEvent;
 import com.iutcalendar.event.EventRecycleView;
+import com.iutcalendar.filedownload.FileDownload;
 import com.iutcalendar.mainpage.PageEventActivity;
 import com.iutcalendar.settings.SettingsApp;
 
@@ -80,9 +81,10 @@ public class EventFragment extends Fragment {
     }
 
     public void updateLabel() {
-
+        if (update == null) return;
         if (calendrier != null && getContext() != null && FileGlobal.getFileDownload(getContext()).exists() &&
-                PreferenceManager.getDefaultSharedPreferences(getContext()).getBoolean("show_update", true)) {
+                PreferenceManager.getDefaultSharedPreferences(getContext()).getBoolean("show_update", true) &&
+                fileUpdate != null) {
             //affichage dernière maj
             CurrentDate dateLastEdit = new CurrentDate();
             dateLastEdit.setTimeInMillis(fileUpdate.lastModified());
@@ -130,6 +132,12 @@ public class EventFragment extends Fragment {
 
             updateUI();
 
+
+            FileDownload.addOnUpdateListener(() -> {
+                if (getActivity() != null) {
+                    getActivity().runOnUiThread(this::updateUI);
+                }
+            });
         }
 
         return view;

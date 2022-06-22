@@ -167,7 +167,6 @@ public class PageEventActivity extends AppCompatActivity {
 
 
         /*####Testing feature#####*/
-        Log.d("History", "main : " + EventChangmentManager.getInstance(getApplicationContext()).getChangmentList());
     }
 
 
@@ -217,15 +216,6 @@ public class PageEventActivity extends AppCompatActivity {
         //start anim re load
         new Thread(() -> {
             FileGlobal.updateAndGetChange(getApplicationContext(), calendrier, ((context, intent) -> startActivity(intent)));
-
-//            runOnUiThread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    sectionsPagerAdapter = new SectionsPagerAdapter(getApplicationContext(), getSupportFragmentManager(), getCalendrier(), getCurrDate());
-//                    viewPager.setAdapter(sectionsPagerAdapter);
-//                }
-//            });
-
 
             Log.d("File", "updated");
         }).start();

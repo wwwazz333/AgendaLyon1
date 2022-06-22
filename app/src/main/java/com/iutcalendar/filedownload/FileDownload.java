@@ -13,8 +13,22 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.LinkedList;
+import java.util.List;
 
 public class FileDownload {
+
+    private static final List<OnUpdateListener> onUpdateListenerList = new LinkedList<>();
+
+    public static void addOnUpdateListener(OnUpdateListener onUpdateListener) {
+        onUpdateListenerList.add(onUpdateListener);
+    }
+
+    private static void callOnUpdateListener() {
+        for (OnUpdateListener updateListener : onUpdateListenerList) {
+            if (updateListener != null) updateListener.update();
+        }
+    }
 
     public static InputStream getCalender(String urlCalender) throws IOException {
         Log.d("File", "Downloading file");
@@ -64,6 +78,8 @@ public class FileDownload {
             Log.e("File", "Erreur update file : " + e.getMessage());
             e.printStackTrace();
         }
+
+        callOnUpdateListener();
         return succes;
     }
 

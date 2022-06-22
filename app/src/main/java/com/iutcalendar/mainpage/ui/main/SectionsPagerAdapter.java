@@ -11,6 +11,10 @@ import com.iutcalendar.calendrier.Calendrier;
 import com.iutcalendar.calendrier.CurrentDate;
 import com.iutcalendar.data.DataGlobal;
 import com.iutcalendar.data.FileGlobal;
+import com.iutcalendar.event.UpdateListener;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
@@ -34,21 +38,20 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         if (calendrier == null || calendrier.getFirstDay() == null) {
             this.countDay = 1;
         } else
-            this.countDay = calendrier.getFirstDay().getNbrDayTo(calendrier.getLastDay())+1;
+            this.countDay = calendrier.getFirstDay().getNbrDayTo(calendrier.getLastDay()) + 1;
     }
 
     @Override
     public Fragment getItem(int position) {
+        CurrentDate dateToLaunche;
         if (calendrier != null && calendrier.getFirstDay() != null) {
-            Log.d("Position", "curr : " + dateCalendrier.toString());
-            CurrentDate dateToLaunche = new CurrentDate(calendrier.getFirstDay()).addDay(position);
-            Log.d("Position", dateToLaunche.toString() + " at " + position);
-
-
-            return new EventFragment(calendrier, dateToLaunche, FileGlobal.getFileDownload(mContext));
-        } else return new EventFragment(calendrier, new CurrentDate(), FileGlobal.getFileDownload(mContext));
+            dateToLaunche = new CurrentDate(calendrier.getFirstDay()).addDay(position);
+        } else {
+            dateToLaunche = new CurrentDate();
+        }
+        EventFragment eventFragment = new EventFragment(calendrier, dateToLaunche, FileGlobal.getFileDownload(mContext));
+        return eventFragment;
     }
-
 
     @Nullable
     @Override
