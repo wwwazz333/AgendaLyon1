@@ -5,7 +5,10 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -19,6 +22,7 @@ import com.iutcalendar.calendrier.EventCalendrier;
 import com.iutcalendar.data.DataGlobal;
 import com.iutcalendar.data.FileGlobal;
 import com.iutcalendar.mainpage.ui.main.SectionsPagerAdapter;
+import com.iutcalendar.menu.MenuItemClickActivities;
 import com.iutcalendar.service.ForgroundServiceUpdate;
 import com.iutcalendar.settings.SettingsActivity;
 import com.iutcalendar.settings.SettingsApp;
@@ -56,6 +60,7 @@ public class PageEventActivity extends AppCompatActivity {
         SettingsApp.adapteTheme(this);
         SettingsApp.setLocale(getResources(), DataGlobal.getLanguage(getApplicationContext()));
         setContentView(R.layout.activity_page_event);
+
 
         binding = ActivityPageEventBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -119,10 +124,6 @@ public class PageEventActivity extends AppCompatActivity {
 
         //---------------Button---------------
         currDateLabel.setOnClickListener(view -> setCurrDate(new CurrentDate()));
-        findViewById(R.id.settingsBtn).setOnClickListener(view -> {
-            Intent intent = new Intent(this, SettingsActivity.class);
-            startActivity(intent);
-        });
 
 
         //Click on day
@@ -159,6 +160,8 @@ public class PageEventActivity extends AppCompatActivity {
 
         update();
 
+        findViewById(R.id.menu_option).setOnClickListener(this::showPopup);
+
 
         /*####Testing feature#####*/
     }
@@ -191,6 +194,14 @@ public class PageEventActivity extends AppCompatActivity {
         active = false;
     }
 
+    public void showPopup(View v) {
+        PopupMenu popup = new PopupMenu(this, v);
+        popup.setOnMenuItemClickListener(new MenuItemClickActivities(this));
+
+        popup.inflate(R.menu.popup_menu_activities);
+        popup.show();
+    }
+
 
     /*########################################################################
                                      UPDATE
@@ -211,7 +222,7 @@ public class PageEventActivity extends AppCompatActivity {
 //                }
 //            });
 
-            
+
             Log.d("File", "updated");
         }).start();
     }
@@ -257,7 +268,8 @@ public class PageEventActivity extends AppCompatActivity {
         this.currDate.set(newDate);
 
         currDateLabel.setText(currDate.getRelativeDayName(getBaseContext()));
-        if (getCalendrier().getFirstDay() != null) {
+
+        if (getCalendrier() != null && getCalendrier().getFirstDay() != null) {
             int pos = getCalendrier().getFirstDay().getNbrDayTo(newDate);
             Log.d("Position", "offset : " + pos);
             viewPager.setCurrentItem(pos);

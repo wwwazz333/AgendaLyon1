@@ -8,11 +8,14 @@
         <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/drawable/checkmark.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/drawable/checkmark_top.xml" value="0.203125" />
         <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/drawable/event_background.xml" value="0.3769230769230769" />
+        <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/drawable/ic_3dots.xml" value="0.3758974358974359" />
         <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/drawable/ic_add.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/drawable/ic_add_onPrimary.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/drawable/ic_add_on_primary.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/drawable/ic_menu.xml" value="0.3769230769230769" />
         <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/drawable/task_background.xml" value="0.3769230769230769" />
         <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/drawable/underline.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/layout/activity_alarm_ring.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/layout/activity_page_event.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/layout/alarm_card.xml" value="0.36666666666666664" />
@@ -28,7 +31,10 @@
         <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/layout/fragment_event.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/layout/fragment_settings_alarm.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/layout/fragment_url_setter.xml" value="0.18802083333333333" />
+        <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/layout/settings_activity.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/menu/menu.xml" value="0.3802083333333333" />
         <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/menu/menu_action_add_constraint_alarm.xml" value="0.20260416666666667" />
+        <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/menu/menu_action_constraint_alarm.xml" value="0.38125" />
         <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/xml/root_preferences.xml" value="0.33" />
         <entry key="app/src/main/res/drawable-v21/app_widget_background.xml" value="0.3671875" />
         <entry key="app/src/main/res/drawable-v21/app_widget_inner_view_background.xml" value="0.3671875" />

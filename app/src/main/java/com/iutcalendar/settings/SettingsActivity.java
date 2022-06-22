@@ -2,9 +2,12 @@ package com.iutcalendar.settings;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
+import android.util.Log;
+import android.view.*;
 import android.widget.EditText;
+import android.widget.PopupMenu;
 import android.widget.Toast;
+import android.widget.Toolbar;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
@@ -17,6 +20,7 @@ import com.calendar.iutcalendar.R;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.iutcalendar.data.DataGlobal;
+import com.iutcalendar.menu.MenuItemClickActivities;
 
 public class SettingsActivity extends AppCompatActivity implements
         PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
@@ -36,6 +40,8 @@ public class SettingsActivity extends AppCompatActivity implements
         setTheme(R.style.Theme_IUTCalendarActionBar);
         SettingsApp.setLocale(getResources(), DataGlobal.getLanguage(getApplicationContext()));
         setContentView(R.layout.settings_activity);
+
+
 
         if (savedInstanceState == null) {
             getSupportFragmentManager()
@@ -131,11 +137,19 @@ public class SettingsActivity extends AppCompatActivity implements
                 } else {
                     finish();
                 }
-                return true;
+                break;
+            default:
+                return new MenuItemClickActivities(this).onMenuItemClick(item);
+
         }
         return super.onOptionsItemSelected(item);
     }
 
-
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.popup_menu_activities, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 }
 
