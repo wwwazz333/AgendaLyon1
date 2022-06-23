@@ -13,6 +13,25 @@ public class EventChangment implements Serializable {
 
     private final DateCalendrier dateOfTheChangement;
 
+    public EventChangment(EventCalendrier copyEventChanged, InfoChange infoChange) {
+        this.infoChange = infoChange;
+        this.eventChanged = copyEventChanged;
+
+        this.dateOfTheChangement = new DateCalendrier();
+    }
+
+    public InfoChange getInfoChange() {
+        return infoChange;
+    }
+
+    public EventCalendrier getEventChanged() {
+        return eventChanged;
+    }
+
+    public DateCalendrier getDateOfTheChangement() {
+        return dateOfTheChangement;
+    }
+
     public enum Change {
         ADD,
         DELETE,
@@ -54,24 +73,5 @@ public class EventChangment implements Serializable {
         public DateCalendrier getNewDate() {
             return newDate;
         }
-    }
-
-    public EventChangment(EventCalendrier copyEventChanged, InfoChange infoChange) {
-        this.infoChange = infoChange;
-        this.eventChanged = copyEventChanged;
-
-        this.dateOfTheChangement = new DateCalendrier();
-    }
-
-    public InfoChange getInfoChange() {
-        return infoChange;
-    }
-
-    public EventCalendrier getEventChanged() {
-        return eventChanged;
-    }
-
-    public DateCalendrier getDateOfTheChangement() {
-        return dateOfTheChangement;
     }
 }

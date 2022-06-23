@@ -108,6 +108,14 @@
     <string name="born_sup_et_inf_inverser">La borne supérieur ne peut pas être plus petite que la borne infèrieur.
     </string>
     <string name="must_not_be_exactly">N\'est pas</string>
+    <string name="alarme">Alarme</string>
+    <string name="stop_alarme">stop alarme</string>
+    <string name="poubelle">Poubelle</string>
+    <string name="d_plac">Déplacé</string>
+    <string name="exemple_event_name">Maths</string>
+    <string name="le">le</string>
+    <string name="From">Du</string>
+    <string name="To">Au</string>
 
 
 </resources>

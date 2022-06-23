@@ -19,6 +19,7 @@ import java.util.List;
 public class FileDownload {
 
     private static final List<OnUpdateListener> onUpdateListenerList = new LinkedList<>();
+    private static final int DEFAULT_BUFFER_SIZE = 8192;
 
     public static void addOnUpdateListener(OnUpdateListener onUpdateListener) {
         onUpdateListenerList.add(onUpdateListener);
@@ -82,8 +83,6 @@ public class FileDownload {
         callOnUpdateListener();
         return succes;
     }
-
-    private static final int DEFAULT_BUFFER_SIZE = 8192;
 
     private static String inputStream2String(InputStream is) throws IOException {
         ByteArrayOutputStream result = new ByteArrayOutputStream();

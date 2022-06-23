@@ -19,11 +19,11 @@ import com.iutcalendar.task.TaskRecycleView;
 public class DialogPopupEvent extends Dialog {
     private final EventCalendrier relatedEvent;
     private final Activity activity;
+    private final UpdateListener whenFinish;
     private TextView title, summary, salle, horaire, duree;
     private Button okBtn;
     private ImageButton addBtn;
     private RecyclerView recyclerViewTask;
-    private final UpdateListener whenFinish;
 
     public DialogPopupEvent(@NonNull Context context, EventCalendrier eventClicked, Activity activity, UpdateListener whenFinish) {
         super(context);

@@ -46,6 +46,22 @@ public class DateCalendrier extends GregorianCalendar {
         return s;
     }
 
+    public static boolean isYearBisextil(int year) {
+        DateCalendrier d = new DateCalendrier(1, 3, year, 12, 0);
+        return d.getDayOfYear() == 61;
+    }
+
+    public static long getHourInMillis(int hour, int minute) {
+        return hour * 3_600_000L + minute * 60_000L;
+    }
+
+    public static String timeLongToString(long timeMillis) {
+        DateCalendrier t = new DateCalendrier();
+        t.setHourWithMillis(timeMillis);
+//        t.setTimeInMillis(timeMillis);
+        return t.timeToString();
+    }
+
     /**
      * le décalage est appliquer à la lecture du fichier uniquement
      * par la suite toutes les date aurons le bons décalage.
@@ -54,12 +70,6 @@ public class DateCalendrier extends GregorianCalendar {
         int offset = ZonedDateTime.of(getYear(), getMonth(), getDay(), getHour(), getMinute(), 0, 0, ZoneId.systemDefault()).get(ChronoField.OFFSET_SECONDS);
         setHour(getHour() + offset / 3600);
     }
-
-    public static boolean isYearBisextil(int year) {
-        DateCalendrier d = new DateCalendrier(1, 3, year, 12, 0);
-        return d.getDayOfYear() == 61;
-    }
-
 
     public int getDayOfYear() {
         return get(GregorianCalendar.DAY_OF_YEAR);
@@ -141,10 +151,6 @@ public class DateCalendrier extends GregorianCalendar {
         return DateCalendrier.getHourInMillis(getHour(), getMinute());
     }
 
-    public static long getHourInMillis(int hour, int minute) {
-        return hour * 3_600_000L + minute * 60_000L;
-    }
-
     public void setHourWithMillis(long millis) {
         millis = millis / 1_000;//en seconds
         int minuteInSec = (int) (millis % 3600);
@@ -159,7 +165,6 @@ public class DateCalendrier extends GregorianCalendar {
         return getDisplayName(GregorianCalendar.DAY_OF_WEEK, GregorianCalendar.SHORT, Locale.FRANCE) + " " +
                 fillWithZeroBefore(getDay()) + "/" + fillWithZeroBefore(getMonth()) + "/" + getYear();
     }
-
 
     public int getNbrDayTo(DateCalendrier other) {
         int nbrDayInYear = (DateCalendrier.isYearBisextil(getYear())) ? 366 : 365;
@@ -181,7 +186,6 @@ public class DateCalendrier extends GregorianCalendar {
         return get(GregorianCalendar.DAY_OF_YEAR) == other.get(GregorianCalendar.DAY_OF_YEAR) && getYear() == other.getYear();
     }
 
-
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -195,13 +199,5 @@ public class DateCalendrier extends GregorianCalendar {
         }
         final DateCalendrier other = (DateCalendrier) obj;
         return this.getTimeInMillis() == other.getTimeInMillis();
-    }
-
-
-    public static String timeLongToString(long timeMillis) {
-        DateCalendrier t = new DateCalendrier();
-        t.setHourWithMillis(timeMillis);
-//        t.setTimeInMillis(timeMillis);
-        return t.timeToString();
     }
 }

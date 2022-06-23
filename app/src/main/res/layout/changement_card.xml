@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-        android:id="@+id/globalLayout"
         xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/globalLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -13,7 +13,7 @@
     <TextView
             android:id="@+id/nameEvent"
             android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:text="Maths"
+            android:text="@string/exemple_event_name"
             android:layout_gravity="center"
             style="@style/TitleText"/>
     <LinearLayout
@@ -22,11 +22,12 @@
         <TextView
                 android:id="@+id/actionLabel"
                 android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:text="Déplacé"
+                android:text="@string/d_plac"
                 style="@style/subTitle"/>
         <TextView
                 android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:text=" le "/>
+                android:text="@string/le"
+                android:paddingHorizontal="@dimen/default_padding"/>
         <TextView
                 android:id="@+id/actionDate"
                 android:layout_width="0dp" android:layout_height="wrap_content"
@@ -42,7 +43,7 @@
         <TextView
                 android:id="@+id/fromLabel"
                 android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:text="Du"/>
+                android:text="@string/From"/>
         <View android:layout_width="@dimen/tab_gap" android:layout_height="match_parent"/>
         <TextView
                 android:id="@+id/fromDate"
@@ -60,7 +61,7 @@
         <TextView
                 android:id="@+id/toLabel"
                 android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:text="Au"/>
+                android:text="@string/To"/>
         <View android:layout_width="@dimen/tab_gap" android:layout_height="match_parent"/>
         <TextView
                 android:id="@+id/toDate"

@@ -12,7 +12,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 import com.calendar.iutcalendar.R;
@@ -36,8 +35,8 @@ import java.util.GregorianCalendar;
 
 public class PageEventActivity extends AppCompatActivity {
 
-    private ActivityPageEventBinding binding;
     private static boolean active = false, updating = false;
+    private ActivityPageEventBinding binding;
     private FragmentTransaction fragmentTransaction;
     private CurrentDate currDate;
     private TextView currDateLabel;
@@ -47,13 +46,9 @@ public class PageEventActivity extends AppCompatActivity {
 
     private ViewPager viewPager;
 
-    private SectionsPagerAdapter sectionsPagerAdapter;
-    private ActionBar actionBar;
-
-    public SectionsPagerAdapter getSectionsPagerAdapter() {
-        return sectionsPagerAdapter;
+    public static boolean isActive() {
+        return active;
     }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,8 +56,6 @@ public class PageEventActivity extends AppCompatActivity {
         Log.d("Global", "PageEventActivity start");
         SettingsApp.adapteTheme(this);
         SettingsApp.setLocale(getResources(), DataGlobal.getLanguage(getApplicationContext()));
-        setContentView(R.layout.activity_page_event);
-
 
         binding = ActivityPageEventBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -74,79 +67,21 @@ public class PageEventActivity extends AppCompatActivity {
         initActionBar();
 
         //init Calendrier
-        File fileCal = FileGlobal.getFileDownload(getApplicationContext());
-        String str = FileGlobal.readFile(fileCal);
-        setCalendrier(new Calendrier(str));
-
-        CurrentDate dateToLaunche = new CurrentDate();
-        Log.d("Widget", "main : " + getIntent().getBooleanExtra("launche_next_event", false));
-        if (getIntent().getBooleanExtra("launche_next_event", false)) {
-            dateToLaunche.add(GregorianCalendar.MINUTE, WidgetCalendar.DELAY_AFTER_EVENT_PASSED);//pcq l'event s'affiche tjrs au bout de 30min
-            EventCalendrier[] es = getCalendrier().getNext2EventAfter(dateToLaunche);
-            if (es[0] != null) {
-                dateToLaunche = new CurrentDate(es[0].getDate());
-            }
-        } else {
-            Log.d("Widget", "default date");
-        }
+        initCalendar();
 
 
-        viewPager = binding.viewPager;
-        sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager(), getCalendrier(), getCurrDate());
-        viewPager.setAdapter(sectionsPagerAdapter);
+        CurrentDate dateToLaunche = getDateToLaunchAtFirst();
+
+        initPageViewEvent();
 
 
         setCurrDate(dateToLaunche);
 
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                Log.d("Page", "new page : " + position);
-                setCurrDate(new CurrentDate(getCalendrier().getFirstDay()).addDay(position));
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
-
-        //---------------Gesture swipe---------------
-        //Week
-        int childCount = nameDayLayout.getChildCount();
-        for (int i = 0; i < childCount; i++) {
-            nameDayLayout.getChildAt(i).setOnTouchListener(new TouchGestureListener(getApplicationContext(), new PageEventActivity.GestureWeekListener()));
-        }
-        nameDayLayout.setOnTouchListener(new TouchGestureListener(getApplicationContext(), new PageEventActivity.GestureWeekListener()));
-        dayOfWeek.setOnTouchListener(new TouchGestureListener(getApplicationContext(), new PageEventActivity.GestureWeekListener()));
+        initGestureSwipeWeek();
 
 
-        //---------------Button---------------
-        currDateLabel.setOnClickListener(view -> setCurrDate(new CurrentDate()));
-
-
-        //Click on day
-        setOnclicDay(binding.dayLundi, 0);
-        setOnclicDay(binding.dayMardi, 1);
-        setOnclicDay(binding.dayMercredi, 2);
-        setOnclicDay(binding.dayJeudi, 3);
-        setOnclicDay(binding.dayVendredi, 4);
-        setOnclicDay(binding.daySamedi, 5);
-        setOnclicDay(binding.dayDimanche, 6);
-
-
-        setOnclicDay(binding.lundiNum, 0);
-        setOnclicDay(binding.mardiNum, 1);
-        setOnclicDay(binding.mercrediNum, 2);
-        setOnclicDay(binding.jeudiNum, 3);
-        setOnclicDay(binding.vendrediNum, 4);
-        setOnclicDay(binding.samediNum, 5);
-        setOnclicDay(binding.dimancheNum, 6);
+        initAllOnClickEvents();
 
 
         //affiche la dialog si ouvert depuis notification (changmenents)
@@ -167,28 +102,109 @@ public class PageEventActivity extends AppCompatActivity {
         /*####Testing feature#####*/
     }
 
+    /**
+     * init all on click events
+     */
+    private void initAllOnClickEvents() {
+        //back to current date
+        currDateLabel.setOnClickListener(view -> setCurrDate(new CurrentDate()));
+
+
+        //Click on day
+        setOnClickDay(binding.dayLundi, 0);
+        setOnClickDay(binding.dayMardi, 1);
+        setOnClickDay(binding.dayMercredi, 2);
+        setOnClickDay(binding.dayJeudi, 3);
+        setOnClickDay(binding.dayVendredi, 4);
+        setOnClickDay(binding.daySamedi, 5);
+        setOnClickDay(binding.dayDimanche, 6);
+
+
+        setOnClickDay(binding.lundiNum, 0);
+        setOnClickDay(binding.mardiNum, 1);
+        setOnClickDay(binding.mercrediNum, 2);
+        setOnClickDay(binding.jeudiNum, 3);
+        setOnClickDay(binding.vendrediNum, 4);
+        setOnClickDay(binding.samediNum, 5);
+        setOnClickDay(binding.dimancheNum, 6);
+    }
+
+    /**
+     * init gesture to switch between weeks
+     */
+    private void initGestureSwipeWeek() {
+        int childCount = nameDayLayout.getChildCount();
+        for (int i = 0; i < childCount; i++) {
+            nameDayLayout.getChildAt(i).setOnTouchListener(new TouchGestureListener(getApplicationContext(), new PageEventActivity.GestureWeekListener()));
+        }
+        nameDayLayout.setOnTouchListener(new TouchGestureListener(getApplicationContext(), new PageEventActivity.GestureWeekListener()));
+        dayOfWeek.setOnTouchListener(new TouchGestureListener(getApplicationContext(), new PageEventActivity.GestureWeekListener()));
+    }
+
+    /**
+     * init viewPager and sectionsPagerAdapter to see events
+     */
+    private void initPageViewEvent() {
+        viewPager = binding.viewPager;
+        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager(), getCalendrier());
+        viewPager.setAdapter(sectionsPagerAdapter);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                Log.d("Page", "new page : " + position);
+                setCurrDate(new CurrentDate(getCalendrier().getFirstDay()).addDay(position));
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
+    }
+
+    /**
+     * @return the date the activity has to be launch
+     */
+    private CurrentDate getDateToLaunchAtFirst() {
+        CurrentDate dateToLaunche = new CurrentDate();
+        Log.d("Widget", "main : " + getIntent().getBooleanExtra("launche_next_event", false));
+        if (getIntent().getBooleanExtra("launche_next_event", false)) {
+            dateToLaunche.add(GregorianCalendar.MINUTE, WidgetCalendar.DELAY_AFTER_EVENT_PASSED);//pcq l'event s'affiche tjrs au bout de 30min
+            EventCalendrier[] es = getCalendrier().getNext2EventAfter(dateToLaunche);
+            if (es[0] != null) {
+                dateToLaunche = new CurrentDate(es[0].getDate());
+            }
+        } else {
+            Log.d("Widget", "default date");
+        }
+        return dateToLaunche;
+    }
+
+    private void initCalendar() {
+        File fileCal = FileGlobal.getFileDownload(getApplicationContext());
+        String str = FileGlobal.readFile(fileCal);
+        setCalendrier(new Calendrier(str));
+    }
 
     private void initVariable() {
         this.currDate = new CurrentDate();
 
-        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        this.fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
-        nameDayLayout = findViewById(R.id.nameDayLayout);
-        dayOfWeek = findViewById(R.id.dayOfWeek);
+        this.nameDayLayout = findViewById(R.id.nameDayLayout);
+        this.dayOfWeek = findViewById(R.id.dayOfWeek);
     }
 
     private void initActionBar() {
-        actionBar = getSupportActionBar();
+        ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
             actionBar.setCustomView(R.layout.action_bar_main_page);
             currDateLabel = actionBar.getCustomView().findViewById(R.id.title);
         }
-    }
-
-
-    public static boolean isActive() {
-        return active;
     }
 
     @Override
@@ -207,11 +223,14 @@ public class PageEventActivity extends AppCompatActivity {
     /*########################################################################
                                      UPDATE
     ########################################################################*/
+
+    /**
+     * update the calendar file
+     */
     public void update() {
         Log.d("Update", "start");
         if (updating) return;
         updating = true;
-        //start anim re load
         new Thread(() -> {
             FileGlobal.updateAndGetChange(getApplicationContext(), calendrier, ((context, intent) -> startActivity(intent)));
 
@@ -233,19 +252,12 @@ public class PageEventActivity extends AppCompatActivity {
     }
 
     /*########################################################################
-                                    GETTERS
+                               GETTERS & SETTERS
     ########################################################################*/
     public CurrentDate getCurrDate() {
         return this.currDate;
     }
 
-    public Calendrier getCalendrier() {
-        return calendrier;
-    }
-
-    /*########################################################################
-                                        SETTERS
-      ########################################################################*/
     public void setCurrDate(CurrentDate newDate) {
         Log.d("Date", "set curr date");
 
@@ -270,6 +282,9 @@ public class PageEventActivity extends AppCompatActivity {
         setDaysOfWeek();
     }
 
+    public Calendrier getCalendrier() {
+        return calendrier;
+    }
 
     public void setCalendrier(Calendrier calendrier) {
         this.calendrier = calendrier;
@@ -302,8 +317,8 @@ public class PageEventActivity extends AppCompatActivity {
         }
     }
 
-    private void setOnclicDay(TextView dayClicked, int day) {
-        dayClicked.setOnTouchListener(new TouchGestureListener(getApplicationContext(), new PageEventActivity.GestureWeekListener() {
+    private void setOnClickDay(TextView dayClicked, int day) {
+        if(dayClicked != null) dayClicked.setOnTouchListener(new TouchGestureListener(getApplicationContext(), new PageEventActivity.GestureWeekListener() {
             @Override
             protected void onClick() {
                 setCurrDate(currDate.getDateOfDayOfWeek(day));
@@ -313,6 +328,11 @@ public class PageEventActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * met les numéro des jours et leur couleur de fond adapté
+     * @param numDay le label du jour
+     * @param day son numéro de la semaine
+     */
     public void setNumOfMonthAndSelected(TextView numDay, int day) {
         numDay.setText(String.valueOf(getCurrDate().getDateOfDayOfWeek(day).getDay()));
 
@@ -327,37 +347,36 @@ public class PageEventActivity extends AppCompatActivity {
     }
 
     /*########################################################################
-                                    OTHER
+                                    NAVIGATION WEEKS
      ########################################################################*/
-    public void startFragment(int id, Fragment fragment) {
-        fragmentTransaction.replace(id, fragment);
-        fragmentTransaction.commit();
-        fragmentTransaction = getSupportFragmentManager().beginTransaction();
-    }
 
     public void switchToPrevWeek() {
         int sens = -1;
 
         setAnimationDirection(sens);
-//        if (getCurrDate().prevWeek().compareTo(getCalendrier().getFirstDay()) >= 0) {
         setCurrDate(getCurrDate().prevWeek());
-//        } else {
-//            setCurrDate(new CurrentDate(getCalendrier().getFirstDay()));
-//        }
-
     }
 
     public void switchToNextWeek() {
         int sens = -1;
 
-
         setAnimationDirection(sens);
-//        if (getCurrDate().nextWeek().compareTo(getCalendrier().getLastDay()) <= 0) {
         setCurrDate(getCurrDate().nextWeek());
-//        } else {
-//            setCurrDate(new CurrentDate(getCalendrier().getLastDay()));
-//        }
+    }
 
+    /*########################################################################
+                                    ACTION BAR
+     ########################################################################*/
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        return new MenuItemClickActivities(this).onMenuItemClick(item);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.popup_menu_activities, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
 
@@ -379,20 +398,4 @@ public class PageEventActivity extends AppCompatActivity {
             switchToNextWeek();
         }
     }
-
-    /*########################################################################
-                                    ACTION BAR
-     ########################################################################*/
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        return new MenuItemClickActivities(this).onMenuItemClick(item);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.popup_menu_activities, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
 }

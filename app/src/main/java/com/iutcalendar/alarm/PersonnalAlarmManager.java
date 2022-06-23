@@ -13,16 +13,16 @@ public class PersonnalAlarmManager implements Serializable {
     private static PersonnalAlarmManager instance;
     private HashMap<String, List<AlarmRing>> alarms;
 
+    public PersonnalAlarmManager() {
+        alarms = new HashMap<>();
+    }
+
     public static PersonnalAlarmManager getInstance(Context context) {
         if (instance == null) {
             instance = new PersonnalAlarmManager();
             instance.load(context);
         }
         return instance;
-    }
-
-    public PersonnalAlarmManager() {
-        alarms = new HashMap<>();
     }
 
     public static String createDayId(DateCalendrier day) {
@@ -51,11 +51,11 @@ public class PersonnalAlarmManager implements Serializable {
     }
 
     /**
-     * @param day
+     * @param day le jour où doivent sonné les alarms qu'on retourne
      * @return le timeMillis de l'alarm correspondant à l'event ou -1 si pas d'alarm
      */
     public List<AlarmRing> get(DateCalendrier day) {
-        return alarms.getOrDefault(createDayId(day), new LinkedList<AlarmRing>());
+        return alarms.getOrDefault(createDayId(day), new LinkedList<>());
     }
 
     private void removeAlarm(Context context, AlarmRing alarmRing, Iterator<AlarmRing> it) {

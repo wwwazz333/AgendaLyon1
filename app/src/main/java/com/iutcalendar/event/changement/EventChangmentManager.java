@@ -8,9 +8,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class EventChangmentManager {
-    private List<EventChangment> changmentList;
     private static EventChangmentManager instance;
-
+    private List<EventChangment> changmentList;
 
     public static EventChangmentManager getInstance(Context context) {
         if (instance == null) {

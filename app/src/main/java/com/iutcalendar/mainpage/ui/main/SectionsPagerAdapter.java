@@ -6,7 +6,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-import com.iutcalendar.EventFragment;
+import com.iutcalendar.event.EventFragment;
 import com.iutcalendar.calendrier.Calendrier;
 import com.iutcalendar.calendrier.CurrentDate;
 import com.iutcalendar.data.DataGlobal;
@@ -20,15 +20,13 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     private final Context mContext;
     private final Calendrier calendrier;
-    private final CurrentDate dateCalendrier;
 
     private final int countDay;
 
-    public SectionsPagerAdapter(Context context, FragmentManager fm, Calendrier calendrier, CurrentDate dateCalendrier) {
+    public SectionsPagerAdapter(Context context, FragmentManager fm, Calendrier calendrier) {
         super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         mContext = context;
         this.calendrier = calendrier;
-        this.dateCalendrier = dateCalendrier;
         Log.d("Page", "end création SectionPagerAdapter");
 
         if (calendrier == null || calendrier.getFirstDay() == null) {

@@ -11,10 +11,14 @@ import java.util.LinkedList;
 
 public class AlarmConditionManager implements Serializable {
 
+    private static AlarmConditionManager instance;
     private LinkedList<AlarmCondtion> listCondition;
     private LinkedList<AlarmConstraintLabel> listConstraint;
 
-    private static AlarmConditionManager instance;
+    public AlarmConditionManager() {
+        listCondition = new LinkedList<>();
+        listConstraint = new LinkedList<>();
+    }
 
     public static AlarmConditionManager getInstance(Context context) {
         if (instance == null) {
@@ -23,12 +27,6 @@ public class AlarmConditionManager implements Serializable {
         }
         return instance;
     }
-
-    public AlarmConditionManager() {
-        listCondition = new LinkedList<>();
-        listConstraint = new LinkedList<>();
-    }
-
 
     public void addCondition(AlarmCondtion constraintAlarm) {
         listCondition.add(constraintAlarm);
@@ -83,7 +81,6 @@ public class AlarmConditionManager implements Serializable {
             Log.i("Constraint", "listConstraint is null");
             listConstraint = new LinkedList<>();
         }
-
     }
 
     public void save(Context context) {

@@ -8,14 +8,13 @@ import java.util.GregorianCalendar;
 
 public class AlarmCondtion implements Serializable {
 
-    private long beging, end, alarmAt;//les borne sont comprise (hours in millis)
-
     /**
      * contien les jour ou l'alarm s'active
      *
      * @exmple GregorianCalendar.MONDAY
      */
     private final ArrayList<Integer> daysEnabled;
+    private long beging, end, alarmAt;//les borne sont comprise (hours in millis)
 
 
     public AlarmCondtion(long beging, long end, long alarmAt, ArrayList<Integer> daysEnabled) {
@@ -39,24 +38,24 @@ public class AlarmCondtion implements Serializable {
         return alarmAt;
     }
 
-    public long getBeging() {
-        return beging;
+    public void setAlarmAt(long alarmAt) {
+        this.alarmAt = alarmAt;
     }
 
-    public long getEnd() {
-        return end;
+    public long getBeging() {
+        return beging;
     }
 
     public void setBeging(long beging) {
         this.beging = beging;
     }
 
-    public void setEnd(long end) {
-        this.end = end;
+    public long getEnd() {
+        return end;
     }
 
-    public void setAlarmAt(long alarmAt) {
-        this.alarmAt = alarmAt;
+    public void setEnd(long end) {
+        this.end = end;
     }
 
     public ArrayList<Integer> getDaysEnabled() {

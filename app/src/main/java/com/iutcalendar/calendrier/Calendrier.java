@@ -15,6 +15,44 @@ public class Calendrier {
     static private final String DELIMITER_LINE = "\n(?=[A-Z])";
     private List<EventCalendrier> events;
 
+    public Calendrier(List<EventCalendrier> events) {
+        setEvent(events);
+    }
+
+    public Calendrier(String txtIcs) {
+        loadFromString(txtIcs);
+    }
+
+    public static String changeToString(Context context, List<EventChangment> changes) {
+        StringBuilder msg = new StringBuilder();
+
+        for (EventChangment tuple : changes) {
+            String action = tuple.getInfoChange().getChangement().toString(context);
+            msg.append(action).append(" : ").append(tuple.getEventChanged().getNameEvent()).append(" : ");
+            if (tuple.getInfoChange().getPrevDate() != null) {
+                msg.append(tuple.getInfoChange().getPrevDate().toString());
+            }
+            if (tuple.getInfoChange().getNewDate() != null) {
+                msg.append(" -> ").append(tuple.getInfoChange().getNewDate().toString());
+            }
+            msg.append('\n');
+        }
+        return msg.toString();
+    }
+
+    public static boolean isValideFormat(String str) {
+        final String beging = "BEGIN:VCALENDAR";
+        return str.length() >= beging.length() && str.startsWith(beging);
+    }
+
+    public static boolean writeCalendarFile(String conentFile, File fileToWrite) throws IOException, InvalideFormatException {
+        if (isValideFormat(conentFile)) {
+            return FileGlobal.writeFile(conentFile, fileToWrite);
+        } else {
+            throw new InvalideFormatException("Le format du calendrier n'est pas valide");
+        }
+    }
+
     public List<EventCalendrier> getEvents() {
         return events;
     }
@@ -32,15 +70,6 @@ public class Calendrier {
     public DateCalendrier getLastDay() {
         if (getEvents().isEmpty()) return null;
         return getEvents().get(getEvents().size() - 1).getDate();
-    }
-
-
-    public Calendrier(List<EventCalendrier> events) {
-        setEvent(events);
-    }
-
-    public Calendrier(String txtIcs) {
-        loadFromString(txtIcs);
     }
 
     public void loadFromString(String txtIcs) {
@@ -75,7 +104,6 @@ public class Calendrier {
         this.events = events;
         Collections.sort(events);
     }
-
 
     public Calendrier getCalOfWeek(int weekNum) {
         LinkedList<EventCalendrier> eventsOfWeek = new LinkedList<>();
@@ -131,7 +159,6 @@ public class Calendrier {
         return nexts;
     }
 
-
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
@@ -173,23 +200,6 @@ public class Calendrier {
         return changed;
     }
 
-    public static String changeToString(Context context, List<EventChangment> changes) {
-        StringBuilder msg = new StringBuilder();
-
-        for (EventChangment tuple : changes) {
-            String action = tuple.getInfoChange().getChangement().toString(context);
-            msg.append(action).append(" : ").append(tuple.getEventChanged().getNameEvent()).append(" : ");
-            if (tuple.getInfoChange().getPrevDate() != null) {
-                msg.append(tuple.getInfoChange().getPrevDate().toString());
-            }
-            if (tuple.getInfoChange().getNewDate() != null) {
-                msg.append(" -> ").append(tuple.getInfoChange().getNewDate().toString());
-            }
-            msg.append('\n');
-        }
-        return msg.toString();
-    }
-
     public void deleteUselessTask(Context context) {
         LinkedList<String> UIDs = new LinkedList<>();
 
@@ -206,19 +216,6 @@ public class Calendrier {
 
         PersonnalCalendrier.getInstance(context).save(context);
 
-    }
-
-    public static boolean isValideFormat(String str) {
-        final String beging = "BEGIN:VCALENDAR";
-        return str.length() >= beging.length() && str.startsWith(beging);
-    }
-
-    public static boolean writeCalendarFile(String conentFile, File fileToWrite) throws IOException, InvalideFormatException {
-        if (isValideFormat(conentFile)) {
-            return FileGlobal.writeFile(conentFile, fileToWrite);
-        } else {
-            throw new InvalideFormatException("Le format du calendrier n'est pas valide");
-        }
     }
 
     @Override

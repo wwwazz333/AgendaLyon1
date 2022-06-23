@@ -1,4 +1,4 @@
-package com.iutcalendar;
+package com.iutcalendar.event;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -39,11 +39,6 @@ public class EventFragment extends Fragment {
     private RecyclerView recycleView;
 
 
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
-
     public EventFragment() {
         // Required empty public constructor
         Log.d("Update", "constructor");
@@ -53,6 +48,11 @@ public class EventFragment extends Fragment {
         this.calendrier = calendrier;
         this.date = date;
         this.fileUpdate = fileUpdate;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     public void updateUI() {

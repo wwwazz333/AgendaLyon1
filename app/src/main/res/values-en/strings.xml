@@ -86,4 +86,12 @@
     <string name="Interval">Interval</string>
     <string name="born_sup_et_inf_inverser">The upper bound cannot be smaller than the lower bound.</string>
     <string name="must_not_be_exactly">Is not</string>
+    <string name="exemple_event_name">Maths</string>
+    <string name="alarme">Alarm</string>
+    <string name="stop_alarme">stop alarm</string>
+    <string name="poubelle">Trash</string>
+    <string name="d_plac">Moved</string>
+    <string name="le">on</string>
+    <string name="From">From</string>
+    <string name="To">To</string>
 </resources>

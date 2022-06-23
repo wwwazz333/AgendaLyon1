@@ -12,6 +12,11 @@ public class AlarmConstraintLabel implements Serializable {
     private Containing typeDeContraint;
     private String constraintString;
 
+    public AlarmConstraintLabel(Containing typeDeContraint, String constraintString) {
+        this.typeDeContraint = typeDeContraint;
+        this.constraintString = constraintString;
+    }
+
     public boolean matchWith(EventCalendrier event) {
         switch (getTypeDeContraint()) {
             case MUST_NOT_CONTAIN:
@@ -28,39 +33,16 @@ public class AlarmConstraintLabel implements Serializable {
         return true;
     }
 
-    public enum Containing implements Serializable {
-        MUST_NOT_CONTAIN,
-        MUST_NOT_BE_EXACTLY,
-        NONE;
-
-        public String toString(Context context) {
-            switch (this) {
-                case MUST_NOT_CONTAIN:
-                    return context.getResources().getString(R.string.must_not_contain);
-                case MUST_NOT_BE_EXACTLY:
-                    return context.getResources().getString(R.string.must_not_be_exactly);
-                default:
-                    return this.toString();
-            }
-        }
-    }
-
-    public AlarmConstraintLabel(Containing typeDeContraint, String constraintString) {
-        this.typeDeContraint = typeDeContraint;
-        this.constraintString = constraintString;
-    }
-
-
     public Containing getTypeDeContraint() {
         return typeDeContraint;
     }
 
-    public String getContraintText() {
-        return constraintString;
-    }
-
     public void setTypeDeContraint(Containing typeDeContraint) {
         this.typeDeContraint = typeDeContraint;
+    }
+
+    public String getContraintText() {
+        return constraintString;
     }
 
     public void setConstraintString(String constraintString) {
@@ -84,5 +66,22 @@ public class AlarmConstraintLabel implements Serializable {
     @Override
     public String toString() {
         return typeDeContraint + " : " + constraintString;
+    }
+
+    public enum Containing implements Serializable {
+        MUST_NOT_CONTAIN,
+        MUST_NOT_BE_EXACTLY,
+        NONE;
+
+        public String toString(Context context) {
+            switch (this) {
+                case MUST_NOT_CONTAIN:
+                    return context.getResources().getString(R.string.must_not_contain);
+                case MUST_NOT_BE_EXACTLY:
+                    return context.getResources().getString(R.string.must_not_be_exactly);
+                default:
+                    return this.toString();
+            }
+        }
     }
 }

@@ -22,8 +22,8 @@ import com.iutcalendar.data.DataGlobal;
 import com.iutcalendar.menu.MenuItemClickActivities;
 
 public class SettingsActivity extends AppCompatActivity implements PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
-    private ActionBar actionBar;
     private static int countArboressenceFragment = 0;
+    private ActionBar actionBar;
 
     public void comeBackToMainPageSettings() {
         countArboressenceFragment = 0;
@@ -87,6 +87,31 @@ public class SettingsActivity extends AppCompatActivity implements PreferenceFra
         }
     }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            getSupportFragmentManager().popBackStack();
+            countArboressenceFragment--;
+        } else {
+            return new MenuItemClickActivities(this).onMenuItemClick(item);
+        }
+        updateActionBar();
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.popup_menu_activities, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    private void updateActionBar() {
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(countArboressenceFragment != 0);
+        }
+    }
+
     public static class SettingsFragment extends PreferenceFragmentCompat {
         SwitchPreference switchComplex;
 
@@ -122,31 +147,6 @@ public class SettingsActivity extends AppCompatActivity implements PreferenceFra
             findPreference("time_before_ring").setVisible(!complex);
             findPreference("activated_days").setEnabled(!complex);
             findPreference("activated_days").setVisible(!complex);
-        }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            getSupportFragmentManager().popBackStack();
-            countArboressenceFragment--;
-        } else {
-            return new MenuItemClickActivities(this).onMenuItemClick(item);
-        }
-        updateActionBar();
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.popup_menu_activities, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    private void updateActionBar() {
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(countArboressenceFragment != 0);
         }
     }
 }

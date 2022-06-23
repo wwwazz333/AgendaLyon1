@@ -10,7 +10,6 @@ import java.util.Locale;
 
 public class CurrentDate extends DateCalendrier {
 
-
     public CurrentDate() {
         super();
     }
@@ -19,16 +18,16 @@ public class CurrentDate extends DateCalendrier {
         super(other);
     }
 
+    public CurrentDate(int day, int month, int year, int hour, int minute) {
+        super(day, month, year, hour, minute);
+    }
+
     public void set(DateCalendrier other) {
         setYear(other.getYear());
         setDay(other.getDay());
         setMonth(other.getMonth());
         setHour(other.getHour());
         setMinute(other.getMinute());
-    }
-
-    public CurrentDate(int day, int month, int year, int hour, int minute) {
-        super(day, month, year, hour, minute);
     }
 
     /**

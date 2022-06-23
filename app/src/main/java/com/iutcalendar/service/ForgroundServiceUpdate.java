@@ -36,8 +36,6 @@ public class ForgroundServiceUpdate extends Service/*BroadcastReceiver*/ {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d("Background", "start Service at " + new CurrentDate().timeToString());
-//        Notif notif = new Notif(this, Notif.UPDATE_BACKGROUND_NOTIFICATION_ID, NotificationManager.IMPORTANCE_LOW, "maj.", "maj. agenda en arrière plan automatique", R.drawable.ic_update, null);
-//        startForeground(startId, notif.build());
 
 
         new Thread(() -> {
@@ -64,14 +62,12 @@ public class ForgroundServiceUpdate extends Service/*BroadcastReceiver*/ {
                 upmaj = (System.currentTimeMillis() - timerCount) / 1000;
 
                 if (DataGlobal.isDebug(getApplicationContext())) {
-//            if (read != 0 || setal != 0 || upmaj != 0) {
                     String txt = "";
                     txt += "read cal : " + read + "s\n";
                     txt += "maj : " + setal + "s\n";
                     txt += "alarm : " + upmaj + "s\n";
                     new Notif(this, Notif.CHANGE_EVENT_NOTIFICATION_ID, NotificationManager.IMPORTANCE_DEFAULT,
                             "Tps background", txt, R.drawable.ic_update, null).show();
-//            }
                 }
             } else {
                 new Notif(this, Notif.CHANGE_EVENT_NOTIFICATION_ID, NotificationManager.IMPORTANCE_DEFAULT,
@@ -82,8 +78,6 @@ public class ForgroundServiceUpdate extends Service/*BroadcastReceiver*/ {
             //Plus besoin du CPU
             wakeLock.release();
 
-//            stopForeground(true);
-//            stopSelf();
             Log.d("Background", "end Service");
         }).start();
 
@@ -105,40 +99,4 @@ public class ForgroundServiceUpdate extends Service/*BroadcastReceiver*/ {
             notif.show();
         }));
     }
-
-//    @Override
-//    public void onReceive(Context context, Intent intent) {
-//        Log.d("Background", "start");
-////        new Notif(context, Notif.CHANGE_EVENT_NOTIFICATION_ID, NotificationManager.IMPORTANCE_DEFAULT,
-////                "background", "start", R.drawable.ic_update, null).show();
-//        new Thread(() -> {
-//
-//            long timerCount = System.currentTimeMillis();
-//
-//            long read, setal, upmaj;
-//            calendrier = new Calendrier(FileGlobal.readFile(FileGlobal.getFileDownload(context)));
-//            read = (System.currentTimeMillis() - timerCount) / 1000;
-//            timerCount = System.currentTimeMillis();
-//
-//            Alarm.setUpAlarm(context, calendrier);
-//            setal = (System.currentTimeMillis() - timerCount) / 1000;
-//            timerCount = System.currentTimeMillis();
-//
-//
-//            updateFile(context);
-//            upmaj = (System.currentTimeMillis() - timerCount) / 1000;
-//
-//            if (DataGlobal.isDebug(context)) {
-//                String txt = "";
-//                txt += "read cal : " + read + "s\n";
-//                txt += "maj : " + setal + "s\n";
-//                txt += "alarm : " + upmaj + "s\n";
-//                new Notif(context, Notif.CHANGE_EVENT_NOTIFICATION_ID, NotificationManager.IMPORTANCE_DEFAULT,
-//                        "Tps background", txt, R.drawable.ic_update, null).show();
-//            }
-//
-//
-//            Log.d("Background", "end Service");
-//        }).start();
-//    }
 }
