@@ -114,6 +114,13 @@
                 app:title="@string/Usage"
                 app:summary="@string/Usage_description"/>
     </PreferenceCategory>
+    <PreferenceCategory app:title="@string/Contact"
+                        android:icon="@drawable/ic_contact">
+        <Preference
+                app:fragment="com.iutcalendar.settings.ContactFragment"
+                app:title="@string/Contact"
+                app:summary="Me contacter"/>
+    </PreferenceCategory>
 
 
 </PreferenceScreen>

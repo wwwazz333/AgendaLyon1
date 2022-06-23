@@ -16,6 +16,11 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 import com.calendar.iutcalendar.R;
 import com.calendar.iutcalendar.databinding.ActivityPageEventBinding;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.iutcalendar.calendrier.Calendrier;
 import com.iutcalendar.calendrier.CurrentDate;
 import com.iutcalendar.calendrier.EventCalendrier;
@@ -99,7 +104,20 @@ public class PageEventActivity extends AppCompatActivity {
 
         update();
 
+        initAds();
         /*####Testing feature#####*/
+    }
+
+    private void initAds() {
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+
+        AdView mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 
     /**
@@ -318,20 +336,22 @@ public class PageEventActivity extends AppCompatActivity {
     }
 
     private void setOnClickDay(TextView dayClicked, int day) {
-        if(dayClicked != null) dayClicked.setOnTouchListener(new TouchGestureListener(getApplicationContext(), new PageEventActivity.GestureWeekListener() {
-            @Override
-            protected void onClick() {
-                setCurrDate(currDate.getDateOfDayOfWeek(day));
-                super.onClick();
-            }
-        }));
+        if (dayClicked != null)
+            dayClicked.setOnTouchListener(new TouchGestureListener(getApplicationContext(), new PageEventActivity.GestureWeekListener() {
+                @Override
+                protected void onClick() {
+                    setCurrDate(currDate.getDateOfDayOfWeek(day));
+                    super.onClick();
+                }
+            }));
 
     }
 
     /**
      * met les numéro des jours et leur couleur de fond adapté
+     *
      * @param numDay le label du jour
-     * @param day son numéro de la semaine
+     * @param day    son numéro de la semaine
      */
     public void setNumOfMonthAndSelected(TextView numDay, int day) {
         numDay.setText(String.valueOf(getCurrDate().getDateOfDayOfWeek(day).getDay()));

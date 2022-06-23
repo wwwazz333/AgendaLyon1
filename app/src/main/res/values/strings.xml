@@ -89,9 +89,10 @@
     <string name="RingHour">Heure Sonnerie</string>
     <string name="aide_conditon_alarm">"Une alarm sera placé pour chaques CONDITION respecter.
 
-Une CONDITION possède un intérvale dont les valeurs (inférieur ET supérieur) sont comprises.
+        Une CONDITION possède un intérvale dont les valeurs (inférieur ET supérieur) sont comprises.
 
-Ainsi qu'une horaire qui correspond à l'heure à l'aquelle l'alarme va sonner."</string>
+        Ainsi qu'une horaire qui correspond à l'heure à l'aquelle l'alarme va sonner."
+    </string>
     <string name="must_contain">Doit contenir</string>
     <string name="must_not_contain">Ne doit pas contenir</string>
     <string name="Ajout_contrainte">Ajouté Contrainte</string>
@@ -102,7 +103,8 @@ Ainsi qu'une horaire qui correspond à l'heure à l'aquelle l'alarme va sonner."
     <string name="BorneSup">Intervale supérieur (compris)</string>
     <string name="BorneInf">Intervale inferieur (compris)</string>
     <string name="Interval">Intervale</string>
-    <string name="born_sup_et_inf_inverser">La borne supérieure ne peut pas être plus petite que la borne infèrieur.</string>
+    <string name="born_sup_et_inf_inverser">La borne supérieure ne peut pas être plus petite que la borne infèrieur.
+    </string>
     <string name="must_not_be_exactly">N\'est pas</string>
     <string name="alarme">Alarme</string>
     <string name="stop_alarme">stop alarme</string>
@@ -118,7 +120,8 @@ Ainsi qu'une horaire qui correspond à l'heure à l'aquelle l'alarme va sonner."
     <string name="publicHolidaysDescriptionOff">Les alarms sont désactivé pour les jours fériés (cours de 8h)</string>
     <string name="publicHolidaysDescriptionOn">Les alarms sont activé pour les jours fériés</string>
     <string name="AlarmesComplex">Alarmes avancées</string>
-    <string name="alarmesComplexOff">"L'alarme est placès un temps pré-déterminé avant le 1er cours de la journée.\n "</string>
+    <string name="alarmesComplexOff">"L'alarme est placès un temps pré-déterminé avant le 1er cours de la journée.\n "
+    </string>
     <string name="alarmesComplexOn">Les alarmes sont placès en fonction des intervales de temps prédéfinie (Horaire
         Alarmes auto) et avec des contraintes (Contraintes Alarmes)
     </string>
@@ -129,9 +132,11 @@ Ainsi qu'une horaire qui correspond à l'heure à l'aquelle l'alarme va sonner."
     <string name="ConstraintAlarms">Contraintes Alarmes</string>
     <string name="ConstraintAlarmsDescription">Paramètrage des contraintes pour les alarmes</string>
     <string name="aid_constraint_alarm">
-"Les CONTRAINTES sont des conditions sur le titre de l\'évenement qui doit soit
-- Contenire une chaine de caractères
-- Ne pas contenire une chaine de caractères"</string>
+        "Les CONTRAINTES sont des conditions sur le titre de l\'évenement qui doit soit
+        - Contenire une chaine de caractères
+        - Ne pas contenire une chaine de caractères"
+    </string>
+    <string name="Contact" translatable="false">Contact</string>
 
 
 </resources>

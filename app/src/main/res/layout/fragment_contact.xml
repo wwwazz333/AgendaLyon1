@@ -1,0 +1,42 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              tools:context="com.iutcalendar.settings.ContactFragment"
+              android:orientation="vertical">
+
+
+    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:orientation="horizontal"
+                  android:layout_marginStart="@dimen/tab_gap">
+        <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                   android:src="@drawable/ic_email"
+                   android:layout_gravity="center"
+                   android:foregroundGravity="center"/>
+
+        <TextView
+                android:text="wwwazz333@gmail.com"
+                android:autoLink="email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                android:layout_marginStart="@dimen/tab_gap"/>
+    </LinearLayout>
+    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:orientation="horizontal"
+                  android:layout_marginStart="@dimen/tab_gap">
+        <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                   android:src="@drawable/ic_github"
+                   android:layout_gravity="center"
+                   android:foregroundGravity="center"/>
+        <TextView
+                android:text="https://github.com/wwwazz333/IUTCalendar"
+                android:autoLink="web"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                android:layout_marginStart="@dimen/tab_gap"/>
+    </LinearLayout>
+
+
+</LinearLayout>

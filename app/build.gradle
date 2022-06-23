@@ -47,7 +47,12 @@ dependencies {
     implementation 'com.journeyapps:zxing-android-embedded:3.6.0'
     implementation 'com.google.zxing:core:3.3.3'
 
+    //update swipe
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+
+    //ads
+    implementation 'com.google.android.gms:play-services-ads:21.0.0'
+
 
 }
 allprojects {
