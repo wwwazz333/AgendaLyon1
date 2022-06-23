@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.calendar.iutcalendar">
+          package="com.univlyon1.tools.agenda">
 
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
@@ -26,7 +26,7 @@
 
         <meta-data
                 android:name="com.google.android.gms.ads.APPLICATION_ID"
-                android:value="ca-app-pub-6387363746339296~2645913204"/>
+                android:value="ca-app-pub-5948550134102575~7748128275"/>
 
         <activity
                 android:name="com.iutcalendar.mainpage.PageEventActivity"

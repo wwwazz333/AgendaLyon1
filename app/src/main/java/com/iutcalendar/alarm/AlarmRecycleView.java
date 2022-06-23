@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.calendar.iutcalendar.R;
+import com.univlyon1.tools.agenda.R;
 import com.iutcalendar.calendrier.CurrentDate;
 import com.iutcalendar.data.DataGlobal;
 

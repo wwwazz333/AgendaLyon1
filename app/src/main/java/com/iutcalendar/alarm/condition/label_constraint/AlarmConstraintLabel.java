@@ -2,7 +2,7 @@ package com.iutcalendar.alarm.condition.label_constraint;
 
 import android.content.Context;
 import androidx.annotation.NonNull;
-import com.calendar.iutcalendar.R;
+import com.univlyon1.tools.agenda.R;
 import com.iutcalendar.calendrier.EventCalendrier;
 
 import java.io.Serializable;

@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.calendar.iutcalendar.R;
+import com.univlyon1.tools.agenda.R;
 import com.iutcalendar.alarm.Alarm;
 import com.iutcalendar.alarm.AlarmRecycleView;
 import com.iutcalendar.alarm.PersonnalAlarmManager;

@@ -9,7 +9,7 @@ import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.calendar.iutcalendar.R;
+import com.univlyon1.tools.agenda.R;
 import com.iutcalendar.calendrier.EventCalendrier;
 import com.iutcalendar.task.ClickListener;
 import com.iutcalendar.task.PersonnalCalendrier;

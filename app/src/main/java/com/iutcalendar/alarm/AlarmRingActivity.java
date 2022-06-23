@@ -10,7 +10,7 @@ import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
-import com.calendar.iutcalendar.R;
+import com.univlyon1.tools.agenda.R;
 import com.iutcalendar.calendrier.CurrentDate;
 import com.iutcalendar.data.DataGlobal;
 import com.iutcalendar.settings.SettingsApp;

@@ -16,7 +16,6 @@ import android.os.Vibrator;
 import android.os.VibratorManager;
 import android.provider.Settings;
 import android.util.Log;
-import com.calendar.iutcalendar.R;
 import com.iutcalendar.alarm.condition.AlarmConditionManager;
 import com.iutcalendar.alarm.condition.AlarmCondtion;
 import com.iutcalendar.calendrier.Calendrier;
@@ -25,6 +24,7 @@ import com.iutcalendar.calendrier.DateCalendrier;
 import com.iutcalendar.calendrier.EventCalendrier;
 import com.iutcalendar.data.DataGlobal;
 import com.iutcalendar.notification.Notif;
+import com.univlyon1.tools.agenda.R;
 
 import java.util.GregorianCalendar;
 import java.util.LinkedList;

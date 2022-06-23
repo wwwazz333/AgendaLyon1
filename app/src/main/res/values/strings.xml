@@ -1,5 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:locale="fr">
-    <string name="app_name">IUTCalendar</string>
+    <string name="app_name" translatable="false">Agenda Lyon1</string>
     <string name="title_activity_settings">Paramètre</string>
 
     <!--    Basique-->

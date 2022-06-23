@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.calendar.iutcalendar.R;
+import com.univlyon1.tools.agenda.R;
 
 import java.util.List;
 

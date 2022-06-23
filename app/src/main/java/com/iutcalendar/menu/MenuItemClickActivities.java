@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.MenuItem;
 import android.widget.PopupMenu;
-import com.calendar.iutcalendar.R;
+import com.univlyon1.tools.agenda.R;
 import com.iutcalendar.event.changement.EventChangementHistoryActivity;
 import com.iutcalendar.mainpage.PageEventActivity;
 import com.iutcalendar.settings.SettingsActivity;

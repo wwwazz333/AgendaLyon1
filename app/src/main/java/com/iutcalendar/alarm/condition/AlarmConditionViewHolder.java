@@ -6,7 +6,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.calendar.iutcalendar.R;
+import com.univlyon1.tools.agenda.R;
 
 public class AlarmConditionViewHolder extends RecyclerView.ViewHolder {
     View view;

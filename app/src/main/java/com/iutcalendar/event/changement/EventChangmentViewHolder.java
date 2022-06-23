@@ -5,7 +5,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.calendar.iutcalendar.R;
+import com.univlyon1.tools.agenda.R;
 
 public class EventChangmentViewHolder extends RecyclerView.ViewHolder {
     TextView name, action, actionDate, fromLabel, fromDate, toLabel, toDate;

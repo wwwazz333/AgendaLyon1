@@ -14,8 +14,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
-import com.calendar.iutcalendar.R;
-import com.calendar.iutcalendar.databinding.ActivityPageEventBinding;
+import com.univlyon1.tools.agenda.R;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
@@ -34,6 +33,7 @@ import com.iutcalendar.swiping.GestureEventManager;
 import com.iutcalendar.swiping.TouchGestureListener;
 import com.iutcalendar.task.PersonnalCalendrier;
 import com.iutcalendar.widget.WidgetCalendar;
+import com.univlyon1.tools.agenda.databinding.ActivityPageEventBinding;
 
 import java.io.File;
 import java.util.GregorianCalendar;

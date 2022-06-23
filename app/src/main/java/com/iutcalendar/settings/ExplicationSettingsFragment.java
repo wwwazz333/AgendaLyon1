@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.fragment.app.Fragment;
-import com.calendar.iutcalendar.R;
+import com.univlyon1.tools.agenda.R;
 import com.iutcalendar.data.DataGlobal;
 
 public class ExplicationSettingsFragment extends Fragment {

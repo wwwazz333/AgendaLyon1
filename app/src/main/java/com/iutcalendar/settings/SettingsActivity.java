@@ -16,7 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreference;
-import com.calendar.iutcalendar.R;
+import com.univlyon1.tools.agenda.R;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.iutcalendar.data.DataGlobal;

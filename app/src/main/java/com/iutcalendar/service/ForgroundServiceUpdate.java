@@ -10,7 +10,7 @@ import android.os.IBinder;
 import android.os.PowerManager;
 import android.util.Log;
 import androidx.annotation.Nullable;
-import com.calendar.iutcalendar.R;
+import com.univlyon1.tools.agenda.R;
 import com.iutcalendar.alarm.Alarm;
 import com.iutcalendar.calendrier.Calendrier;
 import com.iutcalendar.calendrier.CurrentDate;

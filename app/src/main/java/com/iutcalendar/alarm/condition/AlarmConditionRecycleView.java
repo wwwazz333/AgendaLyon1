@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.CheckedTextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.calendar.iutcalendar.R;
+import com.univlyon1.tools.agenda.R;
 import com.iutcalendar.alarm.AlarmRing;
 import com.iutcalendar.alarm.ClickForUpdateListener;
 import com.iutcalendar.calendrier.DateCalendrier;

@@ -1,7 +1,7 @@
 package com.iutcalendar.calendrier;
 
 import android.content.Context;
-import com.calendar.iutcalendar.R;
+import com.univlyon1.tools.agenda.R;
 import com.iutcalendar.data.DataGlobal;
 import com.iutcalendar.settings.SettingsApp;
 

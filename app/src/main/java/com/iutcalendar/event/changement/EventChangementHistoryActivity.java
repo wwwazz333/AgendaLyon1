@@ -11,7 +11,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.calendar.iutcalendar.R;
+import com.univlyon1.tools.agenda.R;
 import com.iutcalendar.data.DataGlobal;
 import com.iutcalendar.mainpage.PageEventActivity;
 import com.iutcalendar.menu.MenuItemClickActivities;

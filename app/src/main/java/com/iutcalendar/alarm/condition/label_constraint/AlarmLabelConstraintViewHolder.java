@@ -6,7 +6,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.calendar.iutcalendar.R;
+import com.univlyon1.tools.agenda.R;
 
 public class AlarmLabelConstraintViewHolder extends RecyclerView.ViewHolder {
     View view;

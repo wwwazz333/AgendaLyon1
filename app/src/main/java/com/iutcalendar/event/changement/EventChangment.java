@@ -1,7 +1,7 @@
 package com.iutcalendar.event.changement;
 
 import android.content.Context;
-import com.calendar.iutcalendar.R;
+import com.univlyon1.tools.agenda.R;
 import com.iutcalendar.calendrier.DateCalendrier;
 import com.iutcalendar.calendrier.EventCalendrier;
 

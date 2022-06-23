@@ -2,7 +2,7 @@ package com.iutcalendar.dialog;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import com.calendar.iutcalendar.R;
+import com.univlyon1.tools.agenda.R;
 
 public class DialogMessage {
 

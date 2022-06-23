@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import androidx.fragment.app.Fragment;
-import com.calendar.iutcalendar.R;
+import com.univlyon1.tools.agenda.R;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.iutcalendar.data.DataGlobal;
 import com.iutcalendar.data.FileGlobal;

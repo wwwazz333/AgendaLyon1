@@ -12,7 +12,7 @@ import android.util.TypedValue;
 import androidx.annotation.ColorInt;
 import androidx.annotation.LayoutRes;
 import androidx.appcompat.app.AppCompatDelegate;
-import com.calendar.iutcalendar.R;
+import com.univlyon1.tools.agenda.R;
 import com.iutcalendar.data.DataGlobal;
 
 import java.util.Locale;
