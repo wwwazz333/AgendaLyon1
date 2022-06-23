@@ -22,7 +22,7 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:screenOrientation="portrait"
             android:supportsRtl="true"
-            android:theme="@style/Theme.IUTCalendar">
+            android:theme="@style/Theme.IUTCalendarActionBar">
         <activity
                 android:name="com.iutcalendar.event.changement.EventChangementHistoryActivity"
                 android:exported="true"/>
@@ -30,7 +30,7 @@
                 android:name="com.iutcalendar.mainpage.PageEventActivity"
                 android:exported="true"
                 android:screenOrientation="portrait"
-                android:theme="@style/Theme.IUTCalendar">
+                android:theme="@style/Theme.IUTCalendarActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

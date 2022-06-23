@@ -11,6 +11,7 @@ import android.util.Log;
 import android.util.TypedValue;
 import androidx.annotation.ColorInt;
 import androidx.annotation.LayoutRes;
+import androidx.appcompat.app.AppCompatDelegate;
 import com.calendar.iutcalendar.R;
 import com.iutcalendar.data.DataGlobal;
 
@@ -34,30 +35,27 @@ public class SettingsApp {
         return currLocale;
     }
 
-    public static void adapteTheme(Context context) {
-        adapteTheme(context, false);
-    }
 
-    public static void adapteTheme(Context context, boolean actionBar) {
+    public static void adapteTheme(Context context) {
         String t = DataGlobal.getTheme(context);
         Log.d("Theme", t);
-        if (actionBar) {
-            if (t.equals("black")) {
-                context.setTheme(R.style.Theme_IUTCalendarNightActionBar);
-            } else if (t.equals("light")) {
-                context.setTheme(R.style.Theme_IUTCalendarLightActionBar);
-            } else {
-                context.setTheme(R.style.Theme_IUTCalendarActionBar);
-            }
+        if (t.equals("black")) {
+            AppCompatDelegate
+                    .setDefaultNightMode(
+                            AppCompatDelegate
+                                    .MODE_NIGHT_YES);
+        } else if (t.equals("light")) {
+            AppCompatDelegate
+                    .setDefaultNightMode(
+                            AppCompatDelegate
+                                    .MODE_NIGHT_NO);
         } else {
-            if (t.equals("black")) {
-                context.setTheme(R.style.Theme_IUTCalendarNight);
-            } else if (t.equals("light")) {
-                context.setTheme(R.style.Theme_IUTCalendarLight);
-            } else {
-                context.setTheme(R.style.Theme_IUTCalendar);
-            }
+            AppCompatDelegate
+                    .setDefaultNightMode(
+                            AppCompatDelegate
+                                    .MODE_NIGHT_FOLLOW_SYSTEM);
         }
+
     }
 
     public static @LayoutRes int getLayoutResWidget(Context context) {

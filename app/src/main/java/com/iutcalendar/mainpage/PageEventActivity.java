@@ -60,7 +60,7 @@ public class PageEventActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d("Global", "PageEventActivity start");
-        SettingsApp.adapteTheme(this, true);
+        SettingsApp.adapteTheme(this);
         SettingsApp.setLocale(getResources(), DataGlobal.getLanguage(getApplicationContext()));
         setContentView(R.layout.activity_page_event);
 

@@ -14,12 +14,15 @@ import com.iutcalendar.data.DataGlobal;
 import com.iutcalendar.menu.MenuItemClickActivities;
 import com.iutcalendar.settings.SettingsApp;
 
+import java.util.Collections;
+import java.util.List;
+
 public class EventChangementHistoryActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SettingsApp.adapteTheme(this, true);
+        SettingsApp.adapteTheme(this);
         SettingsApp.setLocale(getResources(), DataGlobal.getLanguage(getApplicationContext()));
         setContentView(R.layout.activity_event_changement_history);
 
@@ -27,7 +30,9 @@ public class EventChangementHistoryActivity extends AppCompatActivity {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         Log.d("History", EventChangmentManager.getInstance(getApplicationContext()).getChangmentList().toString());
-        recyclerView.setAdapter(new EventChangmentRecycleView(getApplicationContext(), EventChangmentManager.getInstance(getApplicationContext()).getChangmentList()));
+        List<EventChangment> eventChangmentList = EventChangmentManager.getInstance(getApplicationContext()).getChangmentList();
+        Collections.reverse(eventChangmentList);
+        recyclerView.setAdapter(new EventChangmentRecycleView(getApplicationContext(), eventChangmentList));
     }
 
     @Override
