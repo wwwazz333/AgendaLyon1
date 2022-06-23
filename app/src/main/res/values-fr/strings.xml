@@ -68,14 +68,11 @@
     <string name="RingHour">Heure Sonnerie</string>
     <string name="must_contain">Doit contenir</string>
     <string name="must_not_contain">Ne doit pas contenir</string>
-    <string name="aide_conditon_alarm">" Une alarm sera placé pour chaques CONDITION respecter.
-        Une CONDITION possède un intérvale dont les valeurs (inférieur ET supérieur) sont comprises.
-        Ainsi qu'une horaire qui correspond à l'heure à l'aquelle l'alarm va sonnée.
+    <string name="aide_conditon_alarm">"Une alarm sera placé pour chaques CONDITION respecter.
 
-        Les CONTRAINTES sont des condition sur le titre de l'évenement qui doit soit :
-        - Contenire une Chaine de caractères
-        - Ne pas contenire une Chaine de caractères"
-    </string>
+Une CONDITION possède un intérvale dont les valeurs (inférieur ET supérieur) sont comprises.
+
+Ainsi qu'une horaire qui correspond à l'heure à l'aquelle l'alarme va sonner."</string>
     <string name="Ajout_contrainte">Ajouté Contrainte</string>
     <string name="Horaire_alarms_auto">Horaire Alarms auto</string>
     <string name="label_horaire_alarm_auto">Paramètrage des conditions pour les horaires des alarmes</string>
@@ -84,8 +81,7 @@
     <string name="BorneSup">Intervale supérieur (compris)</string>
     <string name="BorneInf">Intervale inferieur (compris)</string>
     <string name="Interval">Intervale</string>
-    <string name="born_sup_et_inf_inverser">La borne supérieur ne peut pas être plus petite que la borne infèrieur.
-    </string>
+    <string name="born_sup_et_inf_inverser">La borne supérieur ne peut pas être plus petite que la borne infèrieur.</string>
     <string name="must_not_be_exactly">N\'est pas</string>
     <string name="alarme">Alarme</string>
     <string name="stop_alarme">stop alarme</string>
@@ -109,5 +105,9 @@
     <string name="activatedDaysDescription">Les jours de la semaine où les alarmes automatique seront activé</string>
     <string name="ConstraintAlarms">Contraintes Alarmes</string>
     <string name="ConstraintAlarmsDescription">Paramètrage des contraintes pour les alarmes</string>
+    <string name="aid_constraint_alarm">
+"Les CONTRAINTES sont des conditions sur le titre de l\'évenement qui doit soit
+- Contenire une chaine de caractères
+- Ne pas contenire une chaine de caractères"</string>
 
 </resources>

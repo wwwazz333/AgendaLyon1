@@ -68,14 +68,12 @@
     <string name="RingHour">Ring Hour</string>
     <string name="must_contain">Must contain</string>
     <string name="must_not_contain">Mustn\'t contain</string>
-    <string name="aide_conditon_alarm">" An alarm will be set for each CONDITION respected.
-        A CONDITION has an interest whose values (lower AND upper) are included.
-        As well as a time which corresponds to the hour at which the alarm will sound.
+    <string name="aide_conditon_alarm">
+"An alarm will be set for each CONDITION respected.
 
-        CONTRAINTS are conditions on the title of the event which must either :
-        - Contain a string
-        - Not contain a string"
-    </string>
+A CONDITION has an interest whose values (lower AND upper) are included.
+
+As well as a time which corresponds to the hour at which the alarm will sound."</string>
     <string name="Ajout_contrainte">Add Constraint</string>
     <string name="Horaire_alarms_auto">Schedule Auto Alarms</string>
     <string name="label_horaire_alarm_auto">Setting conditions for alarm schedules</string>
@@ -110,4 +108,8 @@
     <string name="activatedDaysDescription">The days of the week when the automatic alarms will be activated</string>
     <string name="ConstraintAlarmsDescription">Setting constraints for alarms</string>
     <string name="ConstraintAlarms">Constraints Alarms</string>
+    <string name="aid_constraint_alarm">
+"CONTRAINTS are conditions on the event title which must either
+- Contain a string of characters
+- Not contain a string of characters"</string>
 </resources>

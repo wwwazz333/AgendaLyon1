@@ -74,7 +74,7 @@ public class AlarmConstraintFragment extends Fragment {
             addConstraint();
 
         } else if (id == R.id.aideBtn) {
-            DialogMessage.showAide(getContext(), getString(R.string.Help), getString(R.string.aide_conditon_alarm));
+            DialogMessage.showAide(getContext(), getString(R.string.Help), getString(R.string.aid_constraint_alarm));
         }
         return super.onOptionsItemSelected(item);
     }

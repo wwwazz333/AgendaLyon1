@@ -1,5 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+              xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               tools:context="com.iutcalendar.settings.ExplicationSettingsFragment"
@@ -9,26 +9,132 @@
               android:divider="?dividerHorizontal"
               android:showDividers="middle">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent" android:layout_height="wrap_content">
+    <LinearLayout
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="vertical">
         <TextView
                 android:text="@string/General"
                 style="@style/TitleText"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/textView"
-                android:textStyle="bold"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"/>
+                android:layout_height="wrap_content"
+                android:textStyle="bold"/>
+        <TextView
+                android:text="Cette application vous permet de consulter votre agenda universitaire sur votre téléphone, vous pourez ainsi être notifié d'un changemenet dans votre emploi du temps, vous pourez retrouvez tous les changement dans l'historique."
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                android:layout_marginStart="@dimen/tab_gap"/>
+    </LinearLayout>
+    <LinearLayout
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="vertical">
+        <TextView
+                android:text="Pour Commencer"
+                style="@style/TitleText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"/>
+        <TextView
+                android:text="Il vous faut liée cette application à votre emplois du temps, pour se faire rendez vous sur 'edt.univ-lyon1.fr/', vous devrez vous connecter puis exporter l'emplois du temps désirer. Ensuite vous pouvez tapez l'url proposer dans la rubrique URL des paramètres ou tous simplement utiliser le QR code."
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                android:layout_marginStart="@dimen/tab_gap"/>
+    </LinearLayout>
+    <LinearLayout
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="vertical">
+        <TextView
+                android:text="@string/Alarm_auto"
+                style="@style/TitleText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"/>
+        <TextView
+                android:text="Vous pouvez activé les alarmes automatique, c'est un réveil qui s'adapte en fonction de votre 1er heure de cours (elles sont générer à l'avance pour les 7 prochain jours). Il y a 2 moyens de les paramètrer."
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                android:layout_marginStart="@dimen/tab_gap"/>
+        <TextView
+                android:text="Manière simplifié"
+                style="@style/subTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"/>
+        <TextView
+                android:text="Le reveil sonnera à une durée fixe avant la 1er heure de cours. cette durée est déterminié en minutes par la slide bar intitulé Horaire Sonnerie."
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                android:layout_marginStart="@dimen/tab_gap"/>
+        <TextView
+                android:text="Vous pourez aussi déterminié les jours où les alarmes pourons s'activé ou non, avec le paramétre 'Jours activé'"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                android:layout_marginStart="@dimen/tab_gap"/>
+        <TextView
+                android:text="Manière avancé"
+                style="@style/subTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"/>
+        <TextView
+                android:text="@string/Horaire_alarms_auto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"/>
+        <TextView
+                android:text=""
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                android:layout_marginStart="@dimen/tab_gap"/>
+        <TextView
+                android:text="@string/ConstraintAlarms"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"/>
+        <TextView
+                android:text=""
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                android:layout_marginStart="@dimen/tab_gap"/>
+    </LinearLayout>
+    <LinearLayout
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="vertical">
+        <TextView
+                android:text="Widget"
+                style="@style/TitleText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"/>
         <TextView
                 android:text="@string/exemple_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView2"
-                app:layout_constraintTop_toBottomOf="@id/textView"
-                android:layout_marginTop="4dp"
-                app:layout_constraintLeft_toLeftOf="@id/textView"
-                android:layout_marginStart="16dp"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                android:layout_marginTop="@dimen/default_padding"
+                android:layout_marginStart="@dimen/tab_gap"/>
+    </LinearLayout>
+    <LinearLayout
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="vertical">
+        <TextView
+                android:text="Contact"
+                style="@style/TitleText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"/>
+        <TextView
+                android:text="@string/exemple_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                android:layout_marginStart="@dimen/tab_gap"/>
+    </LinearLayout>
 
     <TextView
             android:id="@+id/versionLabel"
