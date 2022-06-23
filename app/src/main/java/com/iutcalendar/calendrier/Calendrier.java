@@ -132,7 +132,6 @@ public class Calendrier {
     }
 
 
-
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
@@ -173,6 +172,7 @@ public class Calendrier {
         }
         return changed;
     }
+
     public static String changeToString(Context context, List<EventChangment> changes) {
         StringBuilder msg = new StringBuilder();
 

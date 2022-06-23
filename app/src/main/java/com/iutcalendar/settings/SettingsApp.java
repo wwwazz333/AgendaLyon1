@@ -38,13 +38,17 @@ public class SettingsApp {
 
     public static void adapteTheme(Context context) {
         String t = DataGlobal.getTheme(context);
-        Log.d("Theme", t);
-        if (t.equals("black")) {
+        adapteTheme(t);
+    }
+
+    public static void adapteTheme(String theme) {
+        Log.d("Theme", theme);
+        if (theme.equals("black")) {
             AppCompatDelegate
                     .setDefaultNightMode(
                             AppCompatDelegate
                                     .MODE_NIGHT_YES);
-        } else if (t.equals("light")) {
+        } else if (theme.equals("light")) {
             AppCompatDelegate
                     .setDefaultNightMode(
                             AppCompatDelegate
@@ -55,7 +59,6 @@ public class SettingsApp {
                             AppCompatDelegate
                                     .MODE_NIGHT_FOLLOW_SYSTEM);
         }
-
     }
 
     public static @LayoutRes int getLayoutResWidget(Context context) {

@@ -1,14 +1,9 @@
 package com.iutcalendar.task;
 
 import android.content.Context;
-import android.util.Log;
 import com.iutcalendar.calendrier.EventCalendrier;
 import com.iutcalendar.data.FileGlobal;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.util.*;
 
 
@@ -63,9 +58,10 @@ public class PersonnalCalendrier {
 
     /**
      * supprime les tasks attacher à un evenement
-     * @param context le context
+     *
+     * @param context     le context
      * @param linkedToUID L'UID de l'event auquelle sont attacher les tasks
-     * @param iterator l'iterator qui permet de parcourir les tasks liée
+     * @param iterator    l'iterator qui permet de parcourir les tasks liée
      */
     public void removeAllLinkedTask(Context context, String linkedToUID, Iterator<String> iterator) {
         for (Task task : getLinkedTask(linkedToUID)) {
@@ -112,7 +108,7 @@ public class PersonnalCalendrier {
 
     public void load(Context context) {
         tasks = FileGlobal.loadBinaryFile(FileGlobal.getFilePersonnalTask(context));
-        if(tasks == null){
+        if (tasks == null) {
             tasks = new HashMap<>();
         }
     }

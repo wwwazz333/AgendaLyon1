@@ -9,9 +9,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.calendar.iutcalendar.R;
 import com.iutcalendar.alarm.AlarmRing;
+import com.iutcalendar.alarm.condition.AlarmConditionManager;
 import com.iutcalendar.alarm.condition.AlarmConditionRecycleView;
 import com.iutcalendar.alarm.condition.AlarmCondtion;
-import com.iutcalendar.alarm.condition.AlarmConditionManager;
 import com.iutcalendar.calendrier.DateCalendrier;
 import com.iutcalendar.dialog.DialogMessage;
 

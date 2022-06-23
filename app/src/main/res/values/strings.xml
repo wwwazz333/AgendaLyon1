@@ -73,7 +73,7 @@
     <string name="Moved">Déplacé</string>
     <string name="No_events">Aucun événements</string>
     <string name="Theme">Thème</string>
-    <string name="themeLabelSettings">Changer de thème (redémarrer l\'application)</string>
+    <string name="themeLabelSettings">Changer de thème</string>
     <string name="No_alarm">Aucune alarme</string>
     <string name="WidgetTheme">Thème Widget</string>
     <string name="themeWidgetLabelSettings">Changer le thème du widget (s\'applique après actualisation)</string>

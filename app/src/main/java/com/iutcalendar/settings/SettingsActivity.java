@@ -21,10 +21,7 @@ import com.google.zxing.integration.android.IntentResult;
 import com.iutcalendar.data.DataGlobal;
 import com.iutcalendar.menu.MenuItemClickActivities;
 
-public class SettingsActivity extends AppCompatActivity implements
-        PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
-
-    //TODO modifier theme
+public class SettingsActivity extends AppCompatActivity implements PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
     private ActionBar actionBar;
     private static int countArboressenceFragment = 0;
 
@@ -99,14 +96,20 @@ public class SettingsActivity extends AppCompatActivity implements
             switchComplex = findPreference(DataGlobal.COMPLEX_ALARM_SETTINGS);
             if (switchComplex != null) {
                 setAlarmComplexity(switchComplex.isChecked());
-            }
-            switchComplex.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(@NonNull Preference preference, Object newValue) {
+
+                switchComplex.setOnPreferenceChangeListener((preference, newValue) -> {
                     setAlarmComplexity((boolean) newValue);
                     return true;
-                }
-            });
+                });
+            }
+
+            Preference themeSelectedPref = findPreference("theme_selected");
+            if (themeSelectedPref != null) {
+                themeSelectedPref.setOnPreferenceChangeListener((preference, newValue) -> {
+                    SettingsApp.adapteTheme(String.valueOf(newValue));
+                    return true;
+                });
+            }
         }
 
         private void setAlarmComplexity(boolean complex) {
@@ -124,14 +127,11 @@ public class SettingsActivity extends AppCompatActivity implements
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                getSupportFragmentManager().popBackStack();
-                countArboressenceFragment--;
-                break;
-            default:
-                return new MenuItemClickActivities(this).onMenuItemClick(item);
-
+        if (item.getItemId() == android.R.id.home) {
+            getSupportFragmentManager().popBackStack();
+            countArboressenceFragment--;
+        } else {
+            return new MenuItemClickActivities(this).onMenuItemClick(item);
         }
         updateActionBar();
         return super.onOptionsItemSelected(item);

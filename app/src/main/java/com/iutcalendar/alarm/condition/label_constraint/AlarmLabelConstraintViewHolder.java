@@ -1,12 +1,14 @@
 package com.iutcalendar.alarm.condition.label_constraint;
 
 import android.view.View;
-import android.widget.*;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.calendar.iutcalendar.R;
 
-public class AlarmLabelConstraintViewHolder extends RecyclerView.ViewHolder  {
+public class AlarmLabelConstraintViewHolder extends RecyclerView.ViewHolder {
     View view;
     Button typeConstraint;
     EditText constraint;

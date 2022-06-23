@@ -1,19 +1,15 @@
 package com.iutcalendar.alarm.condition;
 
-import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckedTextView;
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.calendar.iutcalendar.R;
 import com.iutcalendar.alarm.AlarmRing;
 import com.iutcalendar.alarm.ClickForUpdateListener;
-import com.iutcalendar.alarm.condition.label_constraint.AlarmLabelConstraintRecycleView;
-import com.iutcalendar.alarm.condition.label_constraint.AlarmConstraintLabel;
 import com.iutcalendar.calendrier.DateCalendrier;
 
 import java.util.GregorianCalendar;

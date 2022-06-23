@@ -91,8 +91,6 @@ public class CurrentDate extends DateCalendrier {
     }
 
 
-
-
     public String toString(Locale location) {
         if (location.equals(new Locale("en"))) {
             return getDisplayName(GregorianCalendar.DAY_OF_WEEK, GregorianCalendar.SHORT, location) + " " +

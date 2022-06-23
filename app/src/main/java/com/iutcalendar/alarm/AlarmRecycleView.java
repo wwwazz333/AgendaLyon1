@@ -42,7 +42,7 @@ public class AlarmRecycleView extends RecyclerView.Adapter<AlarmViewHolder> {
         CurrentDate dateRing = alarmRing.getDateTime();
 
 
-        if(DataGlobal.isDebug(holder.view.getContext())){
+        if (DataGlobal.isDebug(holder.view.getContext())) {
             holder.view.setOnClickListener(view -> {
                 Log.d("Alarm", list.size() + " -> " + position + " " + dateRing.toString() + " at " + dateRing.timeToString());
                 Toast.makeText(view.getContext(), String.valueOf(position), Toast.LENGTH_SHORT).show();

@@ -11,10 +11,6 @@ import com.iutcalendar.calendrier.Calendrier;
 import com.iutcalendar.calendrier.CurrentDate;
 import com.iutcalendar.data.DataGlobal;
 import com.iutcalendar.data.FileGlobal;
-import com.iutcalendar.event.UpdateListener;
-
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to

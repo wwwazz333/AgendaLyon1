@@ -48,7 +48,7 @@ public class AlarmListFragment extends Fragment {
         Log.d("Alarm", "updateAlarm : " + PersonnalAlarmManager.getInstance(getContext()).getAllAlarmToList().size());
     }
 
-    private void saveAlarm(){
+    private void saveAlarm() {
         PersonnalAlarmManager.getInstance(getContext()).save(getContext());
     }
 

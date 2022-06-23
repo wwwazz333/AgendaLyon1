@@ -1,13 +1,10 @@
 package com.iutcalendar.alarm.condition;
 
-import com.iutcalendar.alarm.condition.label_constraint.AlarmConstraintLabel;
 import com.iutcalendar.calendrier.EventCalendrier;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
-import java.util.Iterator;
-import java.util.List;
 
 public class AlarmCondtion implements Serializable {
 

@@ -1,7 +1,6 @@
 package com.iutcalendar.alarm.condition;
 
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckedTextView;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -9,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.calendar.iutcalendar.R;
 
-public class AlarmConditionViewHolder extends RecyclerView.ViewHolder  {
+public class AlarmConditionViewHolder extends RecyclerView.ViewHolder {
     View view;
     TextView begingHour, endHour, ringHour;
     ImageButton delBtn;
