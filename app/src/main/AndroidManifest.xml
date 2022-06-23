@@ -26,7 +26,7 @@
 
         <meta-data
                 android:name="com.google.android.gms.ads.APPLICATION_ID"
-                android:value="ca-app-pub-4226885300548833~9135299937"/>
+                android:value="ca-app-pub-6387363746339296~2645913204"/>
 
         <activity
                 android:name="com.iutcalendar.mainpage.PageEventActivity"
