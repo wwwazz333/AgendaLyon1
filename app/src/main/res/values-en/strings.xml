@@ -94,4 +94,6 @@
     <string name="le">on</string>
     <string name="From">From</string>
     <string name="To">To</string>
+    <string name="Calendar">Calendar</string>
+    <string name="History">History</string>
 </resources>

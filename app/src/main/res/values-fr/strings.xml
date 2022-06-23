@@ -95,5 +95,7 @@
     <string name="le">le</string>
     <string name="From">Du</string>
     <string name="To">Au</string>
+    <string name="Calendar">Calendrier</string>
+    <string name="History">Historique</string>
 
 </resources>
