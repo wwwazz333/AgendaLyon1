@@ -1,5 +1,6 @@
 package com.iutcalendar.event.changement;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.calendar.iutcalendar.R;
 import com.iutcalendar.data.DataGlobal;
+import com.iutcalendar.mainpage.PageEventActivity;
 import com.iutcalendar.menu.MenuItemClickActivities;
 import com.iutcalendar.settings.SettingsApp;
 
@@ -51,5 +53,12 @@ public class EventChangementHistoryActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.popup_menu_activities, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(this, PageEventActivity.class);
+        startActivity(intent);
     }
 }

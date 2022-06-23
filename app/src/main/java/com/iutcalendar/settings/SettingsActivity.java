@@ -2,6 +2,7 @@ package com.iutcalendar.settings;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -19,17 +20,31 @@ import com.calendar.iutcalendar.R;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.iutcalendar.data.DataGlobal;
+import com.iutcalendar.mainpage.PageEventActivity;
 import com.iutcalendar.menu.MenuItemClickActivities;
 
 public class SettingsActivity extends AppCompatActivity implements PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
     private static int countArboressenceFragment = 0;
     private ActionBar actionBar;
 
+    public void incressCountArboressenceFragment() {
+        countArboressenceFragment++;
+        updateActionBar();
+    }
+
+    public void decressCountArboressenceFragment() {
+        countArboressenceFragment--;
+        updateActionBar();
+    }
+
     public void comeBackToMainPageSettings() {
         countArboressenceFragment = 0;
         updateActionBar();
     }
 
+    private boolean isMainRoot() {
+        return countArboressenceFragment == 0;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,13 +63,13 @@ public class SettingsActivity extends AppCompatActivity implements PreferenceFra
 
 
         actionBar = getSupportActionBar();
-        updateActionBar();
+        comeBackToMainPageSettings();
     }
 
     @Override
     public boolean onPreferenceStartFragment(PreferenceFragmentCompat caller, Preference pref) {// pour la redirection vers les sous menu
         if (pref.getFragment() != null) {
-            countArboressenceFragment++;
+            incressCountArboressenceFragment();
             updateActionBar();
             final Bundle args = pref.getExtras();
             final Fragment fragment = getSupportFragmentManager().getFragmentFactory().instantiate(
@@ -91,7 +106,7 @@ public class SettingsActivity extends AppCompatActivity implements PreferenceFra
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             getSupportFragmentManager().popBackStack();
-            countArboressenceFragment--;
+            decressCountArboressenceFragment();
         } else {
             return new MenuItemClickActivities(this).onMenuItemClick(item);
         }
@@ -109,8 +124,22 @@ public class SettingsActivity extends AppCompatActivity implements PreferenceFra
     private void updateActionBar() {
         if (actionBar != null) {
             actionBar.setTitle(getString(R.string.Settings));
-            actionBar.setDisplayHomeAsUpEnabled(countArboressenceFragment != 0);
+            actionBar.setDisplayHomeAsUpEnabled(!isMainRoot());
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Log.d("Back", String.valueOf(countArboressenceFragment));
+        if (isMainRoot()) {
+            Intent intent = new Intent(this, PageEventActivity.class);
+            finish();
+            startActivity(intent);
+        }else{
+            decressCountArboressenceFragment();
+        }
+
     }
 
     public static class SettingsFragment extends PreferenceFragmentCompat {
