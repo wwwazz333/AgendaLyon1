@@ -16,9 +16,6 @@ import com.iutcalendar.calendrier.Calendrier;
 import com.iutcalendar.calendrier.CurrentDate;
 import com.iutcalendar.calendrier.EventCalendrier;
 import com.iutcalendar.data.FileGlobal;
-import com.iutcalendar.event.ClickListener;
-import com.iutcalendar.event.DialogPopupEvent;
-import com.iutcalendar.event.EventRecycleView;
 import com.iutcalendar.filedownload.FileDownload;
 import com.iutcalendar.mainpage.PageEventActivity;
 import com.iutcalendar.settings.SettingsApp;
@@ -81,23 +78,26 @@ public class EventFragment extends Fragment {
     }
 
     public void updateLabel() {
-        if (update == null) return;
-        if (calendrier != null && getContext() != null && FileGlobal.getFileDownload(getContext()).exists() &&
-                PreferenceManager.getDefaultSharedPreferences(getContext()).getBoolean("show_update", true) &&
-                fileUpdate != null) {
-            //affichage dernière maj
-            CurrentDate dateLastEdit = new CurrentDate();
-            dateLastEdit.setTimeInMillis(fileUpdate.lastModified());
-            dateLastEdit.runForDate(() -> update.setText(getResources().getString(R.string.last_update,
-                    new SimpleDateFormat("HH:mm", SettingsApp.getLocale()).format(fileUpdate.lastModified())
-            )), () -> update.setText(getResources().getString(R.string.last_update,
-                    "error" //impossible que last_update soit demain
-            )), () -> update.setText(getResources().getString(R.string.last_update,
-                    new SimpleDateFormat("dd/MM/yyyy HH:mm", SettingsApp.getLocale()).format(fileUpdate.lastModified())
-            )));
+        if (update == null && getContext() != null) return;
+        if (PreferenceManager.getDefaultSharedPreferences(getContext()).getBoolean("show_update", true)) {
+            if (calendrier != null && getContext() != null && fileUpdate != null && FileGlobal.getFileDownload(getContext()).exists()) {
+                //affichage dernière maj
+                CurrentDate dateLastEdit = new CurrentDate();
+                dateLastEdit.setTimeInMillis(fileUpdate.lastModified());
+                dateLastEdit.runForDate(() -> update.setText(getResources().getString(R.string.last_update,
+                        new SimpleDateFormat("HH:mm", SettingsApp.getLocale()).format(fileUpdate.lastModified())
+                )), () -> update.setText(getResources().getString(R.string.last_update,
+                        "error" //impossible que last_update soit demain
+                )), () -> update.setText(getResources().getString(R.string.last_update,
+                        new SimpleDateFormat("dd/MM/yyyy HH:mm", SettingsApp.getLocale()).format(fileUpdate.lastModified())
+                )));
+            } else {
+                update.setText(R.string.no_last_update);
+            }
         } else {
-            update.setText(R.string.no_last_update);
+            update.setText("");
         }
+
     }
 
 
