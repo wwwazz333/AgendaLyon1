@@ -51,7 +51,7 @@ public class EventChangementHistoryActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.popup_menu_activities, menu);
+        inflater.inflate(R.menu.menu_activities, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
