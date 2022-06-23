@@ -13,14 +13,13 @@
     <string name="today">Aujourd\'hui</string>
 
     <!--    Déscription-->
-    <string name="app_widget_description">Widget pour consulté les 2 prochain évenements (maj. au clique)</string>
+    <string name="app_widget_description">Widget pour consulter les 2 prochains évenements (maj. au clique)</string>
     <string name="task_add_btn_label">bouton d\'ajout de tache</string>
 
 
     <!--    Exemple-->
     <string name="date_exemple">Dim 24 avril 2022</string>
-    <string name="exemple_url" translatable="false">
-        <![CDATA[http://adelb.univ-lyon1.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=xxxxx&projectId=1&amp;calType=ical&firstDate=year-month-day&lastDate=year-month-day]]></string>
+    <string name="exemple_url" translatable="false"><![CDATA[http://adelb.univ-lyon1.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=xxxxx&projectId=1&amp;calType=ical&firstDate=year-month-day&lastDate=year-month-day]]></string>
     <string name="exemple_hour" translatable="false">10:00</string>
     <string name="exmple_date" translatable="false">10/05/2022</string>
 
@@ -45,9 +44,7 @@
     <string name="Vendredi_abv">Ven</string>
     <string name="Samedi_abv">Sam</string>
     <string name="Dimanche_abv">Dim</string>
-    <string name="exemple_text" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-        eiusmod tempor incididunt ut labore et dolore magna aliqua.
-    </string>
+    <string name="exemple_text" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
     <string name="Duration">Durée</string>
     <string name="General">Général</string>
     <string name="Reload">Recharger</string>
@@ -87,11 +84,12 @@
     <string name="Between">Entre</string>
     <string name="And">Et</string>
     <string name="RingHour">Heure Sonnerie</string>
-    <string name="aide_conditon_alarm">"Une alarm sera placé pour chaques CONDITION respecter.
+    <string name="aide_conditon_alarm">
+"Une alarm sera placé pour chaques CONDITION respecter.
 
-        Une CONDITION possède un intérvale dont les valeurs (inférieur ET supérieur) sont comprises.
+Une CONDITION possède un intérvale dont les valeurs (inférieur ET supérieur) sont comprises.
 
-        Ainsi qu'une horaire qui correspond à l'heure à l'aquelle l'alarme va sonner."
+Ainsi qu'une horaire qui correspond à l'heure à l'aquelle l'alarme va sonner."
     </string>
     <string name="must_contain">Doit contenir</string>
     <string name="must_not_contain">Ne doit pas contenir</string>
@@ -103,8 +101,7 @@
     <string name="BorneSup">Intervale supérieur (compris)</string>
     <string name="BorneInf">Intervale inferieur (compris)</string>
     <string name="Interval">Intervale</string>
-    <string name="born_sup_et_inf_inverser">La borne supérieure ne peut pas être plus petite que la borne infèrieur.
-    </string>
+    <string name="born_sup_et_inf_inverser">La borne supérieure ne peut pas être plus petite que la borne infèrieur.</string>
     <string name="must_not_be_exactly">N\'est pas</string>
     <string name="alarme">Alarme</string>
     <string name="stop_alarme">stop alarme</string>
@@ -120,23 +117,42 @@
     <string name="publicHolidaysDescriptionOff">Les alarms sont désactivé pour les jours fériés (cours de 8h)</string>
     <string name="publicHolidaysDescriptionOn">Les alarms sont activé pour les jours fériés</string>
     <string name="AlarmesComplex">Alarmes avancées</string>
-    <string name="alarmesComplexOff">"L'alarme est placès un temps pré-déterminé avant le 1er cours de la journée.\n "
-    </string>
-    <string name="alarmesComplexOn">Les alarmes sont placès en fonction des intervales de temps prédéfinie (Horaire
-        Alarmes auto) et avec des contraintes (Contraintes Alarmes)
-    </string>
+    <string name="alarmesComplexOff">"L'alarme est placès un temps prédéterminé avant le 1er cours de la journée.\n"</string>
+    <string name="alarmesComplexOn">Les alarmes sont placès en fonction des intervales de temps prédéfinie (Horaires Alarmes auto) et avec des contraintes (Contraintes Alarmes)</string>
     <string name="HoraireSonnerie">Horaire Sonnerie</string>
     <string name="HoraireSonnerieDescription">Horaire de la sonnerie relative au 1er cours de la journée</string>
     <string name="ActivatedDays">Jours activé</string>
-    <string name="activatedDaysDescription">Les jours de la semaine où les alarmes automatique seront activé</string>
+    <string name="activatedDaysDescription">Les jours de la semaine où les alarmes automatiques seront activé</string>
     <string name="ConstraintAlarms">Contraintes Alarmes</string>
     <string name="ConstraintAlarmsDescription">Paramètrage des contraintes pour les alarmes</string>
     <string name="aid_constraint_alarm">
-        "Les CONTRAINTES sont des conditions sur le titre de l\'évenement qui doit soit
-        - Contenire une chaine de caractères
-        - Ne pas contenire une chaine de caractères"
+"Les CONTRAINTES sont des conditions sur le titre de l\'évenement qui doit soit
+
+- Contenire une chaine de caractères
+- Ne pas contenire une chaine de caractères"
     </string>
     <string name="Contact" translatable="false">Contact</string>
-
+    <string name="presentationGeneral">"Cette application vous permet de consulter votre agenda universitaire sur votre téléphone, vous pourez ainsi être notifié d\'un changemenet dans votre emploi du temps, vous pourez retrouvez tous les changements dans l\'historique."</string>
+    <string name="ForStarted">Pour Commencer</string>
+    <string name="commencer1">"Il vous faut lier cette application à votre emploi du temps, pour se faire rendez-vous sur :"</string>
+    <string name="lien_edt" translatable="false">edt.univ-lyon1.fr/</string>
+    <string name="commencer2">Vous devrez vous connecter puis exporter l\'emplois du temps désirer.</string>
+    <string name="commencer3">Ensuite vous pouvez taper l\'url proposer dans la section URL des paramètres ou tous simplement utiliser le QR code.</string>
+    <string name="alarm_auto_aide1">Vous pouvez activer les alarmes automatiques, c\'est un réveil qui s\'adapte en fonction de votre 1re heure de cours (elles sont généré à l\'avance pour les 7 prochain jours).</string>
+    <string name="alarm_auto_aide2">Il y a 2 moyens de les paramètrer.</string>
+    <string name="ManiereSimplifie">Manière simplifié</string>
+    <string name="maniereSimplifierAide1">Le reveil sonnera à une durée fixe avant la 1re heure de cours. Cette durée est déterminié en minutes par la slide bar intitulé Horaire Sonnerie.</string>
+    <string name="maniereSimplifierAide2">Vous pourez aussi déterminié les jours où les alarmes pourons s\'activé ou non, avec le paramétre \'Jours activé\'</string>
+    <string name="ManiereAvancer">Manière avancé</string>
+    <string name="alarmesAutoAide1">Cette section permet d\'ajouté des alarmes qui devrons respecter des conditions, qui sont :</string>
+    <string name="alamresAutoAide2">le début du 1er cours de la journée doit être dans l\'interval et doit être un des jours sélectionné pour ces alarmes, alors l\'alarmes sonnera à l\'heure indiqué.</string>
+    <string name="alamresAutoAide3">Avec la Manière avancée il est ainsi possible de mettre plusieurs alarmes à des horaires différente</string>
+    <string name="ConstraintAlarmsAide1">Les contrainte sont valables pour toutes les alamres configurer dans la section précédente. Ce sont des contraintes sur le nom de la matière. Les 2 contraintes possibles sont :</string>
+    <string name="ConstraintAlarmsAide2">Ne doit pas contenir une chaine de caractère</string>
+    <string name="ConstraintAlarmsAide3">Et l\'autre est N\'est pas, soit qui ne doit pas être exactement la chaine de caractère (attention aux majuscules dans les 2 cas).</string>
+    <string name="widget">Widget</string>
+    <string name="widgetAide1">Vous pouvez changer sont theme (blanc, noire, gris) dans les paramètre.</string>
+    <string name="widgetAide2">Il affiche les 2 prochains cours (s\'il sont dans la même journée). Un cours affiché un certain temps après son commencement puis le widget affichera les suivants.</string>
+    <string name="widgetAide3">Il s\'actualise seul fréquemment, mais vous pouvez clicker dessus pour l\'actualiser manuellement.</string>
 
 </resources>

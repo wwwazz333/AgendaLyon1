@@ -99,9 +99,7 @@ As well as a time which corresponds to the hour at which the alarm will sound."<
     <string name="publicHolidaysDescriptionOn">Alarms are activated for public holidays</string>
     <string name="AlarmesComplex">Complex alarms</string>
     <string name="alarmesComplexOff">The alarm is set a pre-determined time before the first class of the day.</string>
-    <string name="alarmesComplexOn">The alarms are placed according to predefined time intervals (Schedule Auto Alarms)
-        and with constraints (Constraints Alarms)
-    </string>
+    <string name="alarmesComplexOn">The alarms are placed according to predefined time intervals (Schedule Auto Alarms) and with constraints (Constraints Alarms)</string>
     <string name="HoraireSonnerie">Time Ringing</string>
     <string name="HoraireSonnerieDescription">Ringing time for the first class of the day</string>
     <string name="ActivatedDays">Activated days</string>
@@ -110,6 +108,28 @@ As well as a time which corresponds to the hour at which the alarm will sound."<
     <string name="ConstraintAlarms">Constraints Alarms</string>
     <string name="aid_constraint_alarm">
 "CONTRAINTS are conditions on the event title which must either
+
 - Contain a string of characters
 - Not contain a string of characters"</string>
+    <string name="presentationGeneral">This application allows you to consult your university calendar on your phone, you can be notified of a change in your schedule, you can find all changes in the history.</string>
+    <string name="ForStarted">Getting Started</string>
+    <string name="commencer1">You need to link this application to your schedule, to do so go to :</string>
+    <string name="commencer2">You will need to log in and then export the desired schedule.</string>
+    <string name="commencer3">Then you can type the url proposed in the URL section of the parameters or simply use the simply use the QR code.</string>
+    <string name="alarm_auto_aide1">You can activate the automatic alarms, it is an alarm clock which adapts itself according to your 1st hour of course (they are generated in advance for the next 7 days).</string>
+    <string name="alarm_auto_aide2">There are 2 ways to set them up.</string>
+    <string name="ManiereSimplifie">Simplified way</string>
+    <string name="maniereSimplifierAide1">The alarm clock will ring at a fixed time before the first hour of class. determined in minutes by the slide bar titled Alarm Clock.</string>
+    <string name="maniereSimplifierAide2">You can also determine the days when the alarms will be activated or not, with the \'Days activated\' setting.</string>
+    <string name="ManiereAvancer">Advanced way</string>
+    <string name="alarmesAutoAide1">"This section allows you to add alarms that must meet certain conditions, which are :"</string>
+    <string name="alamresAutoAide2">"the beginning of the first class of the day must be in the interval and must be one of the days selected for this alarm, then the alarm will ring at the time indicated."</string>
+    <string name="alamresAutoAide3">"With the Advanced Way it is possible to set several alarms at different times"</string>
+    <string name="ConstraintAlarmsAide1">"The constraints are valid for all the alarms configured in the previous section. They are constraints on the name of the material. The 2 possible constraints are :"</string>
+    <string name="ConstraintAlarmsAide2">Must not contain a string</string>
+    <string name="ConstraintAlarmsAide3">"And the other is Not, which must not be exactly the string (beware of capitalization in both cases)."</string>
+    <string name="widget">"Home Widget"</string>
+    <string name="widgetAide1">You can change its theme (white, black, gray) in the settings.</string>
+    <string name="widgetAide2">"It displays the next 2 courses (if they are in the same day). A course will be displayed for a while after it starts and then the widget will display the next ones."</string>
+    <string name="widgetAide3">"It updates itself frequently, but you can click on it to update it manually."</string>
 </resources>
