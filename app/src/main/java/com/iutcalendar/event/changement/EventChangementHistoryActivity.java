@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -32,7 +33,12 @@ public class EventChangementHistoryActivity extends AppCompatActivity {
         Log.d("History", EventChangmentManager.getInstance(getApplicationContext()).getChangmentList().toString());
         List<EventChangment> eventChangmentList = EventChangmentManager.getInstance(getApplicationContext()).getChangmentList();
         Collections.reverse(eventChangmentList);
-        recyclerView.setAdapter(new EventChangmentRecycleView(getApplicationContext(), eventChangmentList));
+        recyclerView.setAdapter(new EventChangmentRecycleView(this, eventChangmentList));
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setTitle(getString(R.string.History));
+        }
     }
 
     @Override

@@ -108,6 +108,7 @@ public class SettingsActivity extends AppCompatActivity implements PreferenceFra
 
     private void updateActionBar() {
         if (actionBar != null) {
+            actionBar.setTitle(getString(R.string.Settings));
             actionBar.setDisplayHomeAsUpEnabled(countArboressenceFragment != 0);
         }
     }
@@ -128,10 +129,22 @@ public class SettingsActivity extends AppCompatActivity implements PreferenceFra
                 });
             }
 
-            Preference themeSelectedPref = findPreference("theme_selected");
+            Preference themeSelectedPref = findPreference(DataGlobal.THEME);
             if (themeSelectedPref != null) {
                 themeSelectedPref.setOnPreferenceChangeListener((preference, newValue) -> {
                     SettingsApp.adapteTheme(String.valueOf(newValue));
+
+                    reloadActivity();
+                    return true;
+                });
+            }
+
+            Preference languageSelectedPref = findPreference(DataGlobal.LANGUAGUE);
+            if (languageSelectedPref != null) {
+                languageSelectedPref.setOnPreferenceChangeListener((preference, newValue) -> {
+                    DataGlobal.save(getContext(), DataGlobal.LANGUAGUE, String.valueOf(newValue));
+
+                    reloadActivity();
                     return true;
                 });
             }
@@ -147,6 +160,15 @@ public class SettingsActivity extends AppCompatActivity implements PreferenceFra
             findPreference("time_before_ring").setVisible(!complex);
             findPreference("activated_days").setEnabled(!complex);
             findPreference("activated_days").setVisible(!complex);
+        }
+
+        private void reloadActivity() {
+            if (getActivity() != null) {
+                getActivity().finish();
+                getActivity().overridePendingTransition(0, 0);
+                startActivity(getActivity().getIntent());
+                getActivity().overridePendingTransition(0, 0);
+            }
         }
     }
 }

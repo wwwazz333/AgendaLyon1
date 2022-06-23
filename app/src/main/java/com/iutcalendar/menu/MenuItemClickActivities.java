@@ -1,5 +1,6 @@
 package com.iutcalendar.menu;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.MenuItem;
@@ -12,9 +13,11 @@ import com.iutcalendar.settings.SettingsActivity;
 public class MenuItemClickActivities implements MenuItem.OnMenuItemClickListener, PopupMenu.OnMenuItemClickListener {
 
     private final Context context;
+    private final Activity activity;
 
     public MenuItemClickActivities(Context context) {
         this.context = context;
+        this.activity = (Activity) context;
     }
 
     @Override
@@ -33,6 +36,7 @@ public class MenuItemClickActivities implements MenuItem.OnMenuItemClickListener
             default:
                 return false;
         }
+        activity.finish();
         context.startActivity(intent);
         return true;
     }

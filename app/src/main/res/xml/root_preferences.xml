@@ -57,9 +57,9 @@
                 android:defaultValue="false"/>
         <SwitchPreference
                 android:key="jour_ferier_enabled"
-                android:title="Jours fériés"
-                android:summaryOff="les alarms sont désactivé pour les jours fériés (cours de 8h)"
-                android:summaryOn="les alarms sont activé pour les jours fériés"
+                android:title="@string/PublicHolidays"
+                android:summaryOff="@string/publicHolidaysDescriptionOff"
+                android:summaryOn="@string/publicHolidaysDescriptionOn"
                 android:defaultValue="false"/>
 
         <Preference
@@ -69,15 +69,15 @@
                 app:summary="@string/settings_alarm_label"/>
         <SwitchPreference
                 android:key="complex_alarm_settings"
-                android:title="Alarmes avancées"
-                android:summaryOff="L'alarme est placès un temps pré-déterminé avant le 1er cour de la journée."
-                android:summaryOn="Les alarmes sont placès selon des intervale de temps prédéfinie (Horaire Alarm auto) et avec des contraintes (Contraintes alarmes)"
+                android:title="@string/AlarmesComplex"
+                android:summaryOff="@string/alarmesComplexOff"
+                android:summaryOn="@string/alarmesComplexOn"
                 android:defaultValue="false"/>
 
         <SeekBarPreference
                 android:key="time_before_ring"
-                android:title="Horaire Sonnerie"
-                android:summary="Horaire de la sonnerie relative au 1er cour de la journé"
+                android:title="@string/HoraireSonnerie"
+                android:summary="@string/HoraireSonnerieDescription"
                 app:showSeekBarValue="true"
                 android:defaultValue="60"
                 app:min="5"
@@ -85,9 +85,9 @@
 
         <MultiSelectListPreference
                 android:key="activated_days"
-                android:title="Les jours d'activation"
-                android:dialogTitle="Jours d'activation"
-                android:summary="Les jours où les alarmes automatique seront activé"
+                android:title="@string/ActivatedDays"
+                android:dialogTitle="@string/ActivatedDays"
+                android:summary="@string/activatedDaysDescription"
                 android:entryValues="@array/values_days"
                 android:entries="@array/names_days"
                 android:defaultValue="@array/default_days"/>
@@ -101,8 +101,8 @@
         <Preference
                 android:key="contrainte_alarmes"
                 app:fragment="com.iutcalendar.settings.AlarmConstraintFragment"
-                app:title="Contraintes Alarmes"
-                app:summary="Paramètrage des contraintes pour les alarmes"/>
+                app:title="@string/ConstraintAlarms"
+                app:summary="@string/ConstraintAlarmsDescription"/>
 
 
     </PreferenceCategory>

@@ -40,7 +40,7 @@
     <string name="summer_offset">Summer offset</string>
     <string name="summer_offset_description">Do the summer offset</string>
     <string name="choose_langue">Language</string>
-    <string name="choose_langue_description">Choose language (restart the app)</string>
+    <string name="choose_langue_description">Choose language</string>
     <string name="Feature">Feature</string>
     <string name="Usage">Usages</string>
     <string name="Usage_description">Help about how to use the app</string>
@@ -96,4 +96,18 @@
     <string name="To">To</string>
     <string name="Calendar">Calendar</string>
     <string name="History">History</string>
+    <string name="PublicHolidays">Public holidays</string>
+    <string name="publicHolidaysDescriptionOff">Alarms are deactivated for public holidays (8 hours class)</string>
+    <string name="publicHolidaysDescriptionOn">Alarms are activated for public holidays</string>
+    <string name="AlarmesComplex">Complex alarms</string>
+    <string name="alarmesComplexOff">The alarm is set a pre-determined time before the first class of the day.</string>
+    <string name="alarmesComplexOn">The alarms are placed according to predefined time intervals (Schedule Auto Alarms)
+        and with constraints (Constraints Alarms)
+    </string>
+    <string name="HoraireSonnerie">Time Ringing</string>
+    <string name="HoraireSonnerieDescription">Ringing time for the first class of the day</string>
+    <string name="ActivatedDays">Activated days</string>
+    <string name="activatedDaysDescription">The days of the week when the automatic alarms will be activated</string>
+    <string name="ConstraintAlarmsDescription">Setting constraints for alarms</string>
+    <string name="ConstraintAlarms">Constraints Alarms</string>
 </resources>

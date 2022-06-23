@@ -63,7 +63,7 @@
     <string name="summer_offset">Heure d\'été</string>
     <string name="summer_offset_description">Applique le décallager pour l\'heure d\'été</string>
     <string name="choose_langue">Langue</string>
-    <string name="choose_langue_description">Changer la langue (redémarrer l\'application)</string>
+    <string name="choose_langue_description">Changer la langue</string>
     <string name="Feature">Fonctionnalité</string>
     <string name="Usage">Utilisations</string>
     <string name="Usage_description">Aide pour utiliser toutes les fonctionnalité de cette application</string>
@@ -118,6 +118,20 @@
     <string name="To">Au</string>
     <string name="Calendar">Calendrier</string>
     <string name="History">Historique</string>
+    <string name="PublicHolidays">Jours fériés</string>
+    <string name="publicHolidaysDescriptionOff">Les alarms sont désactivé pour les jours fériés (cours de 8h)</string>
+    <string name="publicHolidaysDescriptionOn">Les alarms sont activé pour les jours fériés</string>
+    <string name="AlarmesComplex">Alarmes avancées</string>
+    <string name="alarmesComplexOff">"L'alarme est placès un temps pré-déterminé avant le 1er cours de la journée.\n "</string>
+    <string name="alarmesComplexOn">Les alarmes sont placès en fonction des intervales de temps prédéfinie (Horaire
+        Alarmes auto) et avec des contraintes (Contraintes Alarmes)
+    </string>
+    <string name="HoraireSonnerie">Horaire Sonnerie</string>
+    <string name="HoraireSonnerieDescription">Horaire de la sonnerie relative au 1er cours de la journée</string>
+    <string name="ActivatedDays">Jours activé</string>
+    <string name="activatedDaysDescription">Les jours de la semaine où les alarmes automatique seront activé</string>
+    <string name="ConstraintAlarms">Contraintes Alarmes</string>
+    <string name="ConstraintAlarmsDescription">Paramètrage des contraintes pour les alarmes</string>
 
 
 </resources>
