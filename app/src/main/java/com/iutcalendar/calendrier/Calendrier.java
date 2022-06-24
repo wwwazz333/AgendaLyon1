@@ -131,11 +131,19 @@ public class Calendrier {
     public List<EventCalendrier> getEventsOfDay(DateCalendrier date) {
         LinkedList<EventCalendrier> eventsOfDay = new LinkedList<>();
         if (date != null && events != null) {
-            for (EventCalendrier ev : events) {
-                if (ev.getDate().getDay() == date.getDay() && ev.getDate().getMonth() == date.getMonth() && ev.getDate().getYear() == date.getYear()) {
+            Iterator<EventCalendrier> it = events.iterator();
+            while(it.hasNext()){
+                EventCalendrier ev = it.next();
+
+                if (ev != null && ev.getDate().getDay() == date.getDay() && ev.getDate().getMonth() == date.getMonth() && ev.getDate().getYear() == date.getYear()) {
                     eventsOfDay.add(ev);
                 }
             }
+//            for (EventCalendrier ev : events) {
+//                if (ev.getDate().getDay() == date.getDay() && ev.getDate().getMonth() == date.getMonth() && ev.getDate().getYear() == date.getYear()) {
+//                    eventsOfDay.add(ev);
+//                }
+//            }
         }
 
         return eventsOfDay;

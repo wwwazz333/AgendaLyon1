@@ -11,14 +11,13 @@ import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import com.univlyon1.tools.agenda.R;
 import com.iutcalendar.calendrier.Calendrier;
 import com.iutcalendar.calendrier.CurrentDate;
 import com.iutcalendar.calendrier.EventCalendrier;
 import com.iutcalendar.data.FileGlobal;
-import com.iutcalendar.filedownload.FileDownload;
 import com.iutcalendar.mainpage.PageEventActivity;
 import com.iutcalendar.settings.SettingsApp;
+import com.univlyon1.tools.agenda.R;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -55,9 +54,10 @@ public class EventFragment extends Fragment {
     public void updateUI() {
         if (PageEventActivity.isActive()) {
             updateRecycleView();
+            updateLabel();
         }
         swipeRefreshLayout.setRefreshing(false);
-        updateLabel();
+
     }
 
     public void updateRecycleView() {
@@ -78,10 +78,10 @@ public class EventFragment extends Fragment {
     }
 
     public void updateLabel() {
-        if (update == null && getContext() != null) return;
-        if (PreferenceManager.getDefaultSharedPreferences(getContext()).getBoolean("show_update", true)) {
+        if (update == null) return;
+        if (getContext() != null && PreferenceManager.getDefaultSharedPreferences(getContext()).getBoolean("show_update", true)) {
             if (calendrier != null && getContext() != null && fileUpdate != null && FileGlobal.getFileDownload(getContext()).exists()) {
-                //affichage dernière maj
+                //affichage la dernière maj
                 CurrentDate dateLastEdit = new CurrentDate();
                 dateLastEdit.setTimeInMillis(fileUpdate.lastModified());
                 dateLastEdit.runForDate(() -> update.setText(getResources().getString(R.string.last_update,
@@ -104,7 +104,7 @@ public class EventFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.d("Update", "cocou");
+        Log.d("Event", "creation fragment event");
         View view = inflater.inflate(R.layout.fragment_event, container, false);
 
         recycleView = view.findViewById(R.id.recycleView);
@@ -112,32 +112,12 @@ public class EventFragment extends Fragment {
 
 
         if (getActivity() != null && getActivity() instanceof PageEventActivity) {
-
+            PageEventActivity parentActivity = (PageEventActivity) getActivity();
             swipeRefreshLayout = view.findViewById(R.id.swipeRefresh);
-            swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-                @Override
-                public void onRefresh() {
-                    new Thread(() -> {
-                        Log.d("Update", "by swaping");
-                        FileGlobal.updateAndGetChange(getContext(), calendrier, ((context, intent) -> startActivity(intent)));
-
-                        if (getActivity() != null) {
-                            getActivity().runOnUiThread(() -> updateUI());
-                        }
-
-                    }).start();
-                }
-            });
+            swipeRefreshLayout.setOnRefreshListener(() -> parentActivity.update(() -> swipeRefreshLayout.setRefreshing(false)));
             recycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
             updateUI();
-
-
-            FileDownload.addOnUpdateListener(() -> {
-                if (getActivity() != null) {
-                    getActivity().runOnUiThread(this::updateUI);
-                }
-            });
         }
 
         return view;

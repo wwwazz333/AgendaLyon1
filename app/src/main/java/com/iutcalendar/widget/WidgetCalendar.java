@@ -69,7 +69,7 @@ public class WidgetCalendar extends AppWidgetProvider {
             //open MainActivity via Btn
             views.setTextViewText(R.id.openBtn, context.getString(R.string.open));
             Intent intentActvity = new Intent(context, PageEventActivity.class);
-            intentActvity.putExtra("launche_next_event", true);
+            intentActvity.putExtra("launch_next_event", true);
             views.setOnClickPendingIntent(R.id.openBtn,
                     PendingIntent.getActivity(context, 0, intentActvity, PendingIntent.FLAG_IMMUTABLE));
 

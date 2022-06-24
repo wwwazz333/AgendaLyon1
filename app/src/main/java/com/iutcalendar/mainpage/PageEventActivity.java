@@ -14,12 +14,9 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
-import com.univlyon1.tools.agenda.R;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.initialization.InitializationStatus;
-import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.iutcalendar.calendrier.Calendrier;
 import com.iutcalendar.calendrier.CurrentDate;
 import com.iutcalendar.calendrier.EventCalendrier;
@@ -33,6 +30,7 @@ import com.iutcalendar.swiping.GestureEventManager;
 import com.iutcalendar.swiping.TouchGestureListener;
 import com.iutcalendar.task.PersonnalCalendrier;
 import com.iutcalendar.widget.WidgetCalendar;
+import com.univlyon1.tools.agenda.R;
 import com.univlyon1.tools.agenda.databinding.ActivityPageEventBinding;
 
 import java.io.File;
@@ -75,12 +73,12 @@ public class PageEventActivity extends AppCompatActivity {
         initCalendar();
 
 
-        CurrentDate dateToLaunche = getDateToLaunchAtFirst();
+        CurrentDate dateToLaunch = getDateToLaunchAtFirst();
 
         initPageViewEvent();
 
 
-        setCurrDate(dateToLaunche);
+        setCurrDate(dateToLaunch);
 
 
         initGestureSwipeWeek();
@@ -89,7 +87,7 @@ public class PageEventActivity extends AppCompatActivity {
         initAllOnClickEvents();
 
 
-        //affiche la dialog si ouvert depuis notification (changmenents)
+        //affiche la dialog si ouverte depuis notification (changements)
         String changements = getIntent().getStringExtra("changes");
         if (changements != null) {
             Log.d("Extra", changements);
@@ -98,21 +96,18 @@ public class PageEventActivity extends AppCompatActivity {
             Log.d("Extra", "no changes");
         }
 
-        //démare le service d'arrière plan avec interval
+        //démarre le service d'arrière-plan avec interval
         ForgroundServiceUpdate.start(getApplicationContext());
 
-
-        update();
+        //update
+        update(null);
 
         initAds();
         /*####Testing feature#####*/
     }
 
     private void initAds() {
-        MobileAds.initialize(this, new OnInitializationCompleteListener() {
-            @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {
-            }
+        MobileAds.initialize(this, initializationStatus -> {
         });
 
         AdView mAdView = findViewById(R.id.adView);
@@ -187,18 +182,18 @@ public class PageEventActivity extends AppCompatActivity {
      * @return the date the activity has to be launch
      */
     private CurrentDate getDateToLaunchAtFirst() {
-        CurrentDate dateToLaunche = new CurrentDate();
-        Log.d("Widget", "main : " + getIntent().getBooleanExtra("launche_next_event", false));
-        if (getIntent().getBooleanExtra("launche_next_event", false)) {
-            dateToLaunche.add(GregorianCalendar.MINUTE, WidgetCalendar.DELAY_AFTER_EVENT_PASSED);//pcq l'event s'affiche tjrs au bout de 30min
-            EventCalendrier[] es = getCalendrier().getNext2EventAfter(dateToLaunche);
+        CurrentDate dateToLaunch = new CurrentDate();
+        Log.d("Widget", "main : " + getIntent().getBooleanExtra("launch_next_event", false));
+        if (getIntent().getBooleanExtra("launch_next_event", false)) {
+            dateToLaunch.add(GregorianCalendar.MINUTE, WidgetCalendar.DELAY_AFTER_EVENT_PASSED);//pcq l'event s'affiche toujours au bout de 30min
+            EventCalendrier[] es = getCalendrier().getNext2EventAfter(dateToLaunch);
             if (es[0] != null) {
-                dateToLaunche = new CurrentDate(es[0].getDate());
+                dateToLaunch = new CurrentDate(es[0].getDate());
             }
         } else {
             Log.d("Widget", "default date");
         }
-        return dateToLaunche;
+        return dateToLaunch;
     }
 
     private void initCalendar() {
@@ -242,18 +237,30 @@ public class PageEventActivity extends AppCompatActivity {
                                      UPDATE
     ########################################################################*/
 
+
     /**
      * update the calendar file
+     *
+     * @param onFinishListener est toujours appelé à la fin de la méthode
      */
-    public void update() {
-        Log.d("Update", "start");
-        if (updating) return;
-        updating = true;
-        new Thread(() -> {
-            FileGlobal.updateAndGetChange(getApplicationContext(), calendrier, ((context, intent) -> startActivity(intent)));
+    public void update(OnFinishListener onFinishListener) {
+        if (!updating) {
+            Log.d("Update", "start");
+            updating = true;
+            new Thread(() -> {
+                FileGlobal.updateAndGetChange(getApplicationContext(), calendrier, ((context, intent) -> startActivity(intent)));
 
-            Log.d("File", "updated");
-        }).start();
+                runOnUiThread(() -> {
+                    initPageViewEvent();
+                    setCurrDate(getCurrDate());
+                });
+
+                updating = false;
+                Log.d("Update", "end");
+            }).start();
+        }
+        if (onFinishListener != null) onFinishListener.finished();
+
     }
 
     private void showChangedEvent(String changes) {
@@ -348,7 +355,7 @@ public class PageEventActivity extends AppCompatActivity {
     }
 
     /**
-     * met les numéro des jours et leur couleur de fond adapté
+     * met les numéros des jours et leur couleur de fond adapté
      *
      * @param numDay le label du jour
      * @param day    son numéro de la semaine

@@ -74,14 +74,6 @@ public class SettingsApp {
     }
 
 
-    public static @ColorInt int getColor(int id, Activity activity) {
-        TypedValue typedValue = new TypedValue();
-        Resources.Theme theme = activity.getTheme();
-        theme.resolveAttribute(id, typedValue, true);
-        @ColorInt int color = typedValue.data;
-        return color;
-    }
-
     public static void startDisplayOverOtherApp(Context context) {
         Intent intent = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
         intent.setData(Uri.parse("package:" + context.getPackageName()));

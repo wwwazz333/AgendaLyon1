@@ -18,18 +18,7 @@ import java.util.List;
 
 public class FileDownload {
 
-    private static final List<OnUpdateListener> onUpdateListenerList = new LinkedList<>();
     private static final int DEFAULT_BUFFER_SIZE = 8192;
-
-    public static void addOnUpdateListener(OnUpdateListener onUpdateListener) {
-        onUpdateListenerList.add(onUpdateListener);
-    }
-
-    private static void callOnUpdateListener() {
-        for (OnUpdateListener updateListener : onUpdateListenerList) {
-            if (updateListener != null) updateListener.update();
-        }
-    }
 
     public static InputStream getCalender(String urlCalender) throws IOException {
         Log.d("File", "Downloading file");
@@ -80,7 +69,6 @@ public class FileDownload {
             e.printStackTrace();
         }
 
-        callOnUpdateListener();
         return succes;
     }
 
