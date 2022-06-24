@@ -38,7 +38,7 @@ import java.util.GregorianCalendar;
 
 public class PageEventActivity extends AppCompatActivity {
 
-    private static boolean active = false, updating = false;
+    private static boolean updating = false;
     private ActivityPageEventBinding binding;
     private FragmentTransaction fragmentTransaction;
     private CurrentDate currDate;
@@ -49,16 +49,16 @@ public class PageEventActivity extends AppCompatActivity {
 
     private ViewPager viewPager;
 
-    public static boolean isActive() {
-        return active;
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d("Global", "PageEventActivity start");
-        SettingsApp.adapteTheme(this);
+
+        if (SettingsApp.adapteTheme(this)) {//it will restart, I don't know why
+            return;
+        }
         SettingsApp.setLocale(getResources(), DataGlobal.getLanguage(getApplicationContext()));
+
 
         binding = ActivityPageEventBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -75,6 +75,7 @@ public class PageEventActivity extends AppCompatActivity {
 
         CurrentDate dateToLaunch = getDateToLaunchAtFirst();
 
+        Log.d("Debug", "appeler depuis la création de la page");
         initPageViewEvent();
 
 
@@ -104,6 +105,8 @@ public class PageEventActivity extends AppCompatActivity {
 
         initAds();
         /*####Testing feature#####*/
+
+        Log.d("Global", "PageEventActivity end");
     }
 
     private void initAds() {
@@ -220,23 +223,11 @@ public class PageEventActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        active = true;
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        active = false;
-    }
 
 
     /*########################################################################
                                      UPDATE
     ########################################################################*/
-
 
     /**
      * update the calendar file
@@ -251,15 +242,18 @@ public class PageEventActivity extends AppCompatActivity {
                 FileGlobal.updateAndGetChange(getApplicationContext(), calendrier, ((context, intent) -> startActivity(intent)));
 
                 runOnUiThread(() -> {
+                    Log.d("Debug", "appeler d'epuis update");
+
                     initPageViewEvent();
                     setCurrDate(getCurrDate());
                 });
 
+                if (onFinishListener != null) onFinishListener.finished();
                 updating = false;
                 Log.d("Update", "end");
             }).start();
         }
-        if (onFinishListener != null) onFinishListener.finished();
+
 
     }
 

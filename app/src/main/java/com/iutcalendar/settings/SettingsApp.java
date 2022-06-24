@@ -8,12 +8,10 @@ import android.content.res.Resources;
 import android.net.Uri;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.util.TypedValue;
-import androidx.annotation.ColorInt;
 import androidx.annotation.LayoutRes;
 import androidx.appcompat.app.AppCompatDelegate;
-import com.univlyon1.tools.agenda.R;
 import com.iutcalendar.data.DataGlobal;
+import com.univlyon1.tools.agenda.R;
 
 import java.util.Locale;
 
@@ -36,29 +34,45 @@ public class SettingsApp {
     }
 
 
-    public static void adapteTheme(Context context) {
-        String t = DataGlobal.getTheme(context);
-        adapteTheme(t);
+    /**
+     * besoin de savoir si on change ou non sinon bug pour la main page
+     *
+     * @param context le context
+     * @return si le theme à besoin de changer
+     */
+    public static boolean adapteTheme(Context context) {
+        String theme = DataGlobal.getTheme(context);
+        int darkMode;
+        boolean hasToChange;
+        if (theme.equals("black")) {
+            darkMode = AppCompatDelegate.MODE_NIGHT_YES;
+            hasToChange = !isDarkMode((Activity) context);
+        } else if (theme.equals("light")) {
+            darkMode = AppCompatDelegate.MODE_NIGHT_NO;
+            hasToChange = isDarkMode((Activity) context);
+        } else {
+            darkMode = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM;
+            hasToChange = false;
+        }
+        if (hasToChange) AppCompatDelegate.setDefaultNightMode(darkMode);
+        return hasToChange;
     }
 
+    /**
+     * manière simplifiée de changer le theme
+     *
+     * @param theme le nouveau theme
+     */
     public static void adapteTheme(String theme) {
-        Log.d("Theme", theme);
+        int darkMode;
         if (theme.equals("black")) {
-            AppCompatDelegate
-                    .setDefaultNightMode(
-                            AppCompatDelegate
-                                    .MODE_NIGHT_YES);
+            darkMode = AppCompatDelegate.MODE_NIGHT_YES;
         } else if (theme.equals("light")) {
-            AppCompatDelegate
-                    .setDefaultNightMode(
-                            AppCompatDelegate
-                                    .MODE_NIGHT_NO);
+            darkMode = AppCompatDelegate.MODE_NIGHT_NO;
         } else {
-            AppCompatDelegate
-                    .setDefaultNightMode(
-                            AppCompatDelegate
-                                    .MODE_NIGHT_FOLLOW_SYSTEM);
+            darkMode = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM;
         }
+        AppCompatDelegate.setDefaultNightMode(darkMode);
     }
 
     public static @LayoutRes int getLayoutResWidget(Context context) {
@@ -73,10 +87,13 @@ public class SettingsApp {
         }
     }
 
-
     public static void startDisplayOverOtherApp(Context context) {
         Intent intent = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
         intent.setData(Uri.parse("package:" + context.getPackageName()));
         context.startActivity(intent);
+    }
+
+    public static boolean isDarkMode(Activity activity) {
+        return (activity.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
     }
 }

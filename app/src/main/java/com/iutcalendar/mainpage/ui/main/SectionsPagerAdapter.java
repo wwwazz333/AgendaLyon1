@@ -6,11 +6,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-import com.iutcalendar.event.EventFragment;
 import com.iutcalendar.calendrier.Calendrier;
 import com.iutcalendar.calendrier.CurrentDate;
 import com.iutcalendar.data.DataGlobal;
 import com.iutcalendar.data.FileGlobal;
+import com.iutcalendar.event.EventFragment;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
@@ -37,14 +37,14 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        CurrentDate dateToLaunche;
+        CurrentDate dateToLaunch;
         if (calendrier != null && calendrier.getFirstDay() != null) {
-            dateToLaunche = new CurrentDate(calendrier.getFirstDay()).addDay(position);
+            dateToLaunch = new CurrentDate(calendrier.getFirstDay()).addDay(position);
         } else {
-            dateToLaunche = new CurrentDate();
+            dateToLaunch = new CurrentDate();
         }
-        EventFragment eventFragment = new EventFragment(calendrier, dateToLaunche, FileGlobal.getFileDownload(mContext));
-        return eventFragment;
+
+        return new EventFragment(calendrier, dateToLaunch, FileGlobal.getFileDownload(mContext));
     }
 
     @Nullable

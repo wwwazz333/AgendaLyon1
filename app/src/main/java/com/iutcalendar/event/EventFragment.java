@@ -52,12 +52,10 @@ public class EventFragment extends Fragment {
     }
 
     public void updateUI() {
-        if (PageEventActivity.isActive()) {
-            updateRecycleView();
-            updateLabel();
-        }
-        swipeRefreshLayout.setRefreshing(false);
 
+        updateRecycleView();
+        updateLabel();
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     public void updateRecycleView() {
@@ -79,6 +77,7 @@ public class EventFragment extends Fragment {
 
     public void updateLabel() {
         if (update == null) return;
+
         if (getContext() != null && PreferenceManager.getDefaultSharedPreferences(getContext()).getBoolean("show_update", true)) {
             if (calendrier != null && getContext() != null && fileUpdate != null && FileGlobal.getFileDownload(getContext()).exists()) {
                 //affichage la dernière maj
@@ -100,7 +99,6 @@ public class EventFragment extends Fragment {
 
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -116,9 +114,8 @@ public class EventFragment extends Fragment {
             swipeRefreshLayout = view.findViewById(R.id.swipeRefresh);
             swipeRefreshLayout.setOnRefreshListener(() -> parentActivity.update(() -> swipeRefreshLayout.setRefreshing(false)));
             recycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-            updateUI();
         }
+        updateUI();
 
         return view;
     }
