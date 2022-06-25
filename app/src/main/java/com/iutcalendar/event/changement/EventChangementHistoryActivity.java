@@ -22,6 +22,7 @@ import java.util.List;
 
 public class EventChangementHistoryActivity extends AppCompatActivity {
 
+    //TODO si pas historique afficher msg
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

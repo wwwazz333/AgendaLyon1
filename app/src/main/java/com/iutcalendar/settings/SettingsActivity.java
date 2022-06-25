@@ -24,6 +24,8 @@ import com.iutcalendar.mainpage.PageEventActivity;
 import com.iutcalendar.menu.MenuItemClickActivities;
 
 public class SettingsActivity extends AppCompatActivity implements PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
+
+    //TODO possiblité désactivé notif changement event
     private static int countArboressenceFragment = 0;
     private ActionBar actionBar;
 
