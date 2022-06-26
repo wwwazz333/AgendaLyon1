@@ -9,15 +9,15 @@ android {
         applicationId "com.univlyon1.tools.agenda"
         minSdk 26
         targetSdk 32
-        versionCode 1
-        versionName "0.88"
+        versionCode 4
+        versionName "0.89b"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
