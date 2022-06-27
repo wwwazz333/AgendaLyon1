@@ -6,7 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.fragment.app.Fragment;
+import com.journeyapps.barcodescanner.ScanContract;
+import com.journeyapps.barcodescanner.ScanOptions;
 import com.univlyon1.tools.agenda.R;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.iutcalendar.data.DataGlobal;
@@ -15,7 +19,6 @@ import com.iutcalendar.filedownload.FileDownload;
 import com.journeyapps.barcodescanner.CaptureActivity;
 
 public class URLSetterFragment extends Fragment {
-
     View view;
     Button scan, valide, cancel;
     EditText input;
@@ -32,12 +35,22 @@ public class URLSetterFragment extends Fragment {
 
         input.setText(DataGlobal.getSavedPath(getContext()));
 
-        scan.setOnClickListener(v -> {
-            IntentIntegrator intentIntegrator = new IntentIntegrator(getActivity());
-            intentIntegrator.setOrientationLocked(false);
-            intentIntegrator.setCaptureActivity(CaptureActivity.class);
+        ActivityResultLauncher<ScanOptions> barcodeLauncher = registerForActivityResult(new ScanContract(),
+                result -> {
+                    if (result.getContents() != null) {
+                        Toast.makeText(getContext(), "QR code scané", Toast.LENGTH_SHORT).show();
+                        EditText input = view.findViewById(R.id.inputURL);
+                        input.setText(result.getContents());
+                    } else {
+                        Toast.makeText(getContext(), "échec", Toast.LENGTH_SHORT).show();
+                    }
+                });
 
-            intentIntegrator.initiateScan();
+        scan.setOnClickListener(v -> {
+            ScanOptions options = new ScanOptions();
+            options.setOrientationLocked(true);
+            options.setBeepEnabled(false);
+            barcodeLauncher.launch(options);
         });
 
         final String prevURL = input.getText().toString();

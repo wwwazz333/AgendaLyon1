@@ -92,21 +92,6 @@ public class SettingsActivity extends AppCompatActivity implements PreferenceFra
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        IntentResult res = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-
-        if (res.getContents() != null) {
-            Toast.makeText(getApplicationContext(), "QR code scané", Toast.LENGTH_SHORT).show();
-            EditText input = findViewById(R.id.inputURL);
-            input.setText(res.getContents());
-        } else {
-            Toast.makeText(getApplicationContext(), "échec", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             getSupportFragmentManager().popBackStack();
