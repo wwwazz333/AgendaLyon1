@@ -131,4 +131,5 @@ As well as a time which corresponds to the hour at which the alarm will sound."<
     <string name="widgetAide1">You can change its theme (white, black, gray) in the settings.</string>
     <string name="widgetAide2">"It displays the next 2 courses (if they are in the same day). A course will be displayed for a while after it starts and then the widget will display the next ones."</string>
     <string name="widgetAide3">"It updates itself frequently, but you can click on it to update it manually."</string>
+    <string name="msg_activ_overlay">This application needs Overlays to be used as an alarm clock.</string>
 </resources>

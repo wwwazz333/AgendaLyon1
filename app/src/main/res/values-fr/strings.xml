@@ -143,5 +143,6 @@ Ainsi qu'une horaire qui correspond à l'heure à l'aquelle l'alarme va sonner."
     <string name="widgetAide1">Vous pouvez changer sont theme (blanc, noire, gris) dans les paramètre.</string>
     <string name="widgetAide2">Il affiche les 2 prochains cours (s\'il sont dans la même journée). Un cours affiché un certain temps après son commencement puis le widget affichera les suivants.</string>
     <string name="widgetAide3">Il s\'actualise seul fréquemment, mais vous pouvez clicker dessus pour l\'actualiser manuellement.</string>
+    <string name="msg_activ_overlay">Cette application a besoin de l\'option Afficher sur d\'autres applis pour pouvoir être utilisé en tant que réveil.</string>
 
 </resources>

@@ -21,6 +21,10 @@ public class DialogMessage {
     }
 
     public static void showInfo(Context context, String title, String msg) {
+        showInfo(context, title, msg, null);
+    }
+
+    public static void showInfo(Context context, String title, String msg, OnOkListener onOkListener) {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
         alertDialog.setTitle(title);
         alertDialog.setMessage(msg);
@@ -28,6 +32,7 @@ public class DialogMessage {
 
         alertDialog.setPositiveButton(context.getString(R.string.ok),
                 (dialog, which) -> {
+                    if (onOkListener != null) onOkListener.ok();
                     dialog.dismiss();
                 });
 

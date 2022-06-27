@@ -7,7 +7,7 @@
             android:icon="@drawable/ic_link_url">
 
         <Preference
-                app:fragment="com.iutcalendar.settings.URLSetterFragment"
+                android:key="URLSetterFragment"
                 app:title="@string/url"
                 app:summary="@string/urlSettingsLabel"/>
 
@@ -66,7 +66,6 @@
         <Preference
                 android:key="liste_alarmes"
                 android:dependency="alarme_enable"
-                app:fragment="com.iutcalendar.settings.AlarmListFragment"
                 app:title="@string/Settings_alarms"
                 app:summary="@string/settings_alarm_label"/>
         <SwitchPreference
@@ -101,13 +100,11 @@
         <Preference
                 android:key="horaire_alarmes"
                 android:dependency="alarme_enable"
-                app:fragment="com.iutcalendar.settings.AlarmConditionFragment"
                 app:title="@string/Horaire_alarms_auto"
                 app:summary="@string/label_horaire_alarm_auto"/>
         <Preference
                 android:key="contrainte_alarmes"
                 android:dependency="alarme_enable"
-                app:fragment="com.iutcalendar.settings.AlarmConstraintFragment"
                 app:title="@string/ConstraintAlarms"
                 app:summary="@string/ConstraintAlarmsDescription"/>
     </PreferenceCategory>
@@ -115,14 +112,14 @@
     <PreferenceCategory app:title="@string/Feature"
                         android:icon="@drawable/ic_feature_settings">
         <Preference
-                app:fragment="com.iutcalendar.settings.ExplicationSettingsFragment"
+                android:key="ExplicationSettingsFragment"
                 app:title="@string/Usage"
                 app:summary="@string/Usage_description"/>
     </PreferenceCategory>
     <PreferenceCategory app:title="@string/Contact"
                         android:icon="@drawable/ic_contact">
         <Preference
-                app:fragment="com.iutcalendar.settings.ContactFragment"
+                android:key="ContactFragment"
                 app:title="@string/Contact"
                 app:summary="Me contacter"/>
     </PreferenceCategory>

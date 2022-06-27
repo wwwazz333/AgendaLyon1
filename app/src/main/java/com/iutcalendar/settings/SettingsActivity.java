@@ -1,7 +1,9 @@
 package com.iutcalendar.settings;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,12 +18,13 @@ import androidx.fragment.app.Fragment;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreference;
-import com.univlyon1.tools.agenda.R;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.iutcalendar.data.DataGlobal;
+import com.iutcalendar.dialog.DialogMessage;
 import com.iutcalendar.mainpage.PageEventActivity;
 import com.iutcalendar.menu.MenuItemClickActivities;
+import com.univlyon1.tools.agenda.R;
 
 public class SettingsActivity extends AppCompatActivity implements PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
 
@@ -86,7 +89,6 @@ public class SettingsActivity extends AppCompatActivity implements PreferenceFra
             return true;
         }
         return false;
-
     }
 
     @Override
@@ -138,7 +140,7 @@ public class SettingsActivity extends AppCompatActivity implements PreferenceFra
             Intent intent = new Intent(this, PageEventActivity.class);
             finish();
             startActivity(intent);
-        }else{
+        } else {
             decressCountArboressenceFragment();
         }
 
@@ -150,6 +152,30 @@ public class SettingsActivity extends AppCompatActivity implements PreferenceFra
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
+            setToggleComplexAlarm();
+
+            if (getActivity() != null) {
+                findPreference("alarme_enable").setOnPreferenceChangeListener((preference, newValue) -> {
+                    if (!Settings.canDrawOverlays(getContext()) && (boolean) newValue) {
+                        DialogMessage.showInfo(getActivity(), "Overlays", getContext().getString(R.string.msg_activ_overlay), () -> {
+                            Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getActivity().getPackageName()));
+                            startActivity(intent);
+                        });
+                    }
+                    return Settings.canDrawOverlays(getContext());
+                });
+
+                if (getActivity() instanceof SettingsActivity) {
+                    SettingsActivity settingsActivity = (SettingsActivity) getActivity();
+                    //Switch fragment
+                    if (settingsActivity != null) {
+                        setOnClickFragment(settingsActivity);
+                    }
+                }
+            }
+        }
+
+        private void setToggleComplexAlarm() {
             switchComplex = findPreference(DataGlobal.COMPLEX_ALARM_SETTINGS);
             if (switchComplex != null) {
                 setAlarmComplexity(switchComplex.isChecked());
@@ -179,6 +205,85 @@ public class SettingsActivity extends AppCompatActivity implements PreferenceFra
                     return true;
                 });
             }
+        }
+
+        private void setOnClickFragment(SettingsActivity settingsActivity) {
+            findPreference("ContactFragment").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(@NonNull Preference preference) {
+                    settingsActivity.incressCountArboressenceFragment();
+                    settingsActivity.updateActionBar();
+                    switchFragment(settingsActivity, new ContactFragment());
+                    return false;
+                }
+            });
+
+            findPreference("ContactFragment").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(@NonNull Preference preference) {
+                    settingsActivity.incressCountArboressenceFragment();
+                    settingsActivity.updateActionBar();
+                    switchFragment(settingsActivity, new ContactFragment());
+                    return false;
+                }
+            });
+
+            findPreference("ExplicationSettingsFragment").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(@NonNull Preference preference) {
+                    settingsActivity.incressCountArboressenceFragment();
+                    settingsActivity.updateActionBar();
+                    switchFragment(settingsActivity, new ExplicationSettingsFragment());
+                    return false;
+                }
+            });
+
+            findPreference("contrainte_alarmes").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(@NonNull Preference preference) {
+                    settingsActivity.incressCountArboressenceFragment();
+                    settingsActivity.updateActionBar();
+                    switchFragment(settingsActivity, new AlarmConstraintFragment());
+                    return false;
+                }
+            });
+
+            findPreference("horaire_alarmes").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(@NonNull Preference preference) {
+                    settingsActivity.incressCountArboressenceFragment();
+                    settingsActivity.updateActionBar();
+                    switchFragment(settingsActivity, new AlarmConditionFragment());
+                    return false;
+                }
+            });
+
+            findPreference("liste_alarmes").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(@NonNull Preference preference) {
+                    settingsActivity.incressCountArboressenceFragment();
+                    settingsActivity.updateActionBar();
+                    switchFragment(settingsActivity, new AlarmListFragment());
+                    return false;
+                }
+            });
+
+            findPreference("URLSetterFragment").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(@NonNull Preference preference) {
+                    settingsActivity.incressCountArboressenceFragment();
+                    settingsActivity.updateActionBar();
+                    switchFragment(settingsActivity, new URLSetterFragment());
+                    return false;
+                }
+            });
+        }
+
+        private void switchFragment(SettingsActivity activity, Fragment fragment) {
+            activity.getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.settings, fragment)
+                    .addToBackStack(null)
+                    .commit();
         }
 
         private void setAlarmComplexity(boolean complex) {
