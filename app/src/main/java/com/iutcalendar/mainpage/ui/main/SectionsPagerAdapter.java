@@ -29,6 +29,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         this.calendrier = calendrier;
         Log.d("Page", "end création SectionPagerAdapter");
 
+
         if (calendrier == null || calendrier.getFirstDay() == null) {
             this.countDay = 1;
         } else
@@ -43,7 +44,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         } else {
             dateToLaunch = new CurrentDate();
         }
-
+        Log.d("Event", "get item at " + dateToLaunch + " at position "+ position);
         return new EventFragment(calendrier, dateToLaunch, FileGlobal.getFileDownload(mContext));
     }
 

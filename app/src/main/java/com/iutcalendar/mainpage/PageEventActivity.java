@@ -1,12 +1,8 @@
 package com.iutcalendar.mainpage;
 
-import android.Manifest;
 import android.app.AlertDialog;
-import android.content.Intent;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -77,13 +73,9 @@ public class PageEventActivity extends AppCompatActivity {
         initCalendar();
 
 
-        CurrentDate dateToLaunch = getDateToLaunchAtFirst();
+        setCurrDate(getDateToLaunchAtFirst());
 
-        Log.d("Debug", "appeler depuis la création de la page");
         initPageViewEvent();
-
-
-        setCurrDate(dateToLaunch);
 
 
         initGestureSwipeWeek();
@@ -165,6 +157,8 @@ public class PageEventActivity extends AppCompatActivity {
      * init viewPager and sectionsPagerAdapter to see events
      */
     private void initPageViewEvent() {
+        Log.d("Event", "cration Section page adapter------------------");
+
         viewPager = binding.viewPager;
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager(), getCalendrier());
         viewPager.setAdapter(sectionsPagerAdapter);
@@ -183,6 +177,15 @@ public class PageEventActivity extends AppCompatActivity {
             public void onPageScrollStateChanged(int state) {
             }
         });
+        setPositionPageToCurrDate();
+    }
+
+    private void updatePageViewEvent(){
+        Log.d("Event", "update Section page adapter------------------");
+        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager(), getCalendrier());
+        viewPager.removeAllViews();
+        viewPager.setAdapter(sectionsPagerAdapter);
+        setPositionPageToCurrDate();
     }
 
     /**
@@ -248,8 +251,8 @@ public class PageEventActivity extends AppCompatActivity {
                 runOnUiThread(() -> {
                     Log.d("Debug", "appeler d'epuis update");
 
-                    initPageViewEvent();
-                    setCurrDate(getCurrDate());
+                    updatePageViewEvent();
+//                    setCurrDate(getCurrDate());
                 });
 
                 if (onFinishListener != null) onFinishListener.finished();
@@ -282,7 +285,8 @@ public class PageEventActivity extends AppCompatActivity {
     }
 
     public void setCurrDate(CurrentDate newDate) {
-        Log.d("Date", "set curr date");
+        if (newDate.sameDay(currDate)) return;
+        Log.d("Date", currDate + " set curr date to " + newDate);
 
         if (getCalendrier() != null && getCalendrier().getFirstDay() != null && getCalendrier().getLastDay() != null) {
             if (newDate.compareTo(getCalendrier().getFirstDay()) < 0) {
@@ -296,13 +300,22 @@ public class PageEventActivity extends AppCompatActivity {
 
         currDateLabel.setText(currDate.getRelativeDayName(getBaseContext()));
 
-        if (getCalendrier() != null && getCalendrier().getFirstDay() != null) {
-            int pos = getCalendrier().getFirstDay().getNbrDayTo(newDate);
-            Log.d("Position", "offset : " + pos);
-            viewPager.setCurrentItem(pos);
-        }
-
+        setPositionPageToCurrDate();
         setDaysOfWeek();
+    }
+
+    private void setPositionPageToCurrDate() {
+        if (getCalendrier() != null && getCalendrier().getFirstDay() != null && viewPager != null) {
+            Log.e("Event", "should call get item");
+            viewPager.setCurrentItem(getPosOfDate(this.currDate));
+        }
+    }
+
+    private int getPosOfDate(CurrentDate date) {
+        int pos = getCalendrier().getFirstDay().getNbrDayTo(date);
+        Log.d("Event", "position = " + pos + " for date " + date);
+        Log.d("Position", "offset : " + pos);
+        return pos;
     }
 
     public Calendrier getCalendrier() {

@@ -2,6 +2,7 @@ package com.iutcalendar.calendrier;
 
 
 import android.content.Context;
+import android.util.Log;
 import com.iutcalendar.data.FileGlobal;
 import com.iutcalendar.event.changement.EventChangment;
 import com.iutcalendar.task.PersonnalCalendrier;
@@ -10,7 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
-public class Calendrier {
+public class Calendrier implements Cloneable {
 
     static private final String DELIMITER_LINE = "\n(?=[A-Z])";
     private List<EventCalendrier> events;
@@ -57,10 +58,6 @@ public class Calendrier {
         return events;
     }
 
-    public Calendrier clone() {
-        List<EventCalendrier> n = new ArrayList<>(events);
-        return new Calendrier(n);
-    }
 
     public DateCalendrier getFirstDay() {
         if (getEvents().isEmpty()) return null;
@@ -86,6 +83,9 @@ public class Calendrier {
                     stateCal = State.CLOSE;
                     break;
                 } else if (lines[i].equals("BEGIN:VEVENT")) {
+                    if (!events.isEmpty() && events.get(events.size() - 1).getDate() == null) {
+                        Log.e("Event", "date is null");
+                    }
                     events.add(new EventCalendrier());
                     stateCal = State.EVENT;
                 }
@@ -131,12 +131,13 @@ public class Calendrier {
     public List<EventCalendrier> getEventsOfDay(DateCalendrier date) {
         LinkedList<EventCalendrier> eventsOfDay = new LinkedList<>();
         if (date != null && events != null) {
-            Iterator<EventCalendrier> it = events.iterator();
-            while(it.hasNext()){
-                EventCalendrier ev = it.next();
-
-                if (ev != null && ev.getDate().getDay() == date.getDay() && ev.getDate().getMonth() == date.getMonth() && ev.getDate().getYear() == date.getYear()) {
+            for (EventCalendrier ev : events) {
+                if (ev != null && ev.getDate() != null && ev.getDate().getDay() == date.getDay() && ev.getDate().getMonth() == date.getMonth() && ev.getDate().getYear() == date.getYear()) {
                     eventsOfDay.add(ev);
+                } else if (ev == null) {
+                    Log.e("Event", "ev is null");
+                } else if (ev.getDate() == null) {
+                    Log.e("Event", "ev date is null");
                 }
             }
 //            for (EventCalendrier ev : events) {
@@ -144,7 +145,14 @@ public class Calendrier {
 //                    eventsOfDay.add(ev);
 //                }
 //            }
+        } else {
+            Log.e("Event", "is null");
         }
+        if (events.isEmpty()) {
+            Log.e("Event", "is empty");
+
+        }
+
 
         return eventsOfDay;
     }
@@ -229,6 +237,18 @@ public class Calendrier {
     @Override
     public int hashCode() {
         return Objects.hash(events);
+    }
+
+    @Override
+    public Calendrier clone() {
+        try {
+            Calendrier clone = (Calendrier) super.clone();
+            clone.events = new ArrayList<>(events);
+            // TODO: copy mutable state here, so the clone can't change the internals of the original
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
     }
 
     private enum State {

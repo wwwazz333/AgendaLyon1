@@ -26,24 +26,26 @@ import java.util.List;
 public class EventFragment extends Fragment {
 
 
+    private static int number = 0;
     private Calendrier calendrier;
     private CurrentDate date;
     private File fileUpdate;
     private SwipeRefreshLayout swipeRefreshLayout;
     private TextView update;
-
     private RecyclerView recycleView;
+    private int myNumber;
 
 
     public EventFragment() {
         // Required empty public constructor
-        Log.d("Update", "constructor");
     }
 
     public EventFragment(Calendrier calendrier, CurrentDate date, File fileUpdate) {
         this.calendrier = calendrier;
         this.date = date;
         this.fileUpdate = fileUpdate;
+
+        Log.d("Event", "creation fragment event for " + date);
     }
 
     @Override
@@ -60,7 +62,9 @@ public class EventFragment extends Fragment {
 
     public void updateRecycleView() {
         if (getActivity() != null && calendrier != null) {
-            List<EventCalendrier> eventToday = calendrier.getEventsOfDay(date);
+            if (date == null) Log.e("Event", "date is null");
+            else Log.d("Event", "date update recycle view " + date + " for event " + myNumber);
+            List<EventCalendrier> eventToday = calendrier.clone().getEventsOfDay(date);
 
             ClickListener listener = index -> {//Event on click Event
                 if (getContext() != null && getActivity() != null) {
@@ -102,7 +106,7 @@ public class EventFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.d("Event", "creation fragment event");
+        myNumber = number++;
         View view = inflater.inflate(R.layout.fragment_event, container, false);
 
         recycleView = view.findViewById(R.id.recycleView);
@@ -119,5 +123,4 @@ public class EventFragment extends Fragment {
 
         return view;
     }
-
 }
