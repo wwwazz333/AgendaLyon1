@@ -8,18 +8,13 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.EditText;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreference;
-import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
 import com.iutcalendar.data.DataGlobal;
 import com.iutcalendar.dialog.DialogMessage;
 import com.iutcalendar.mainpage.PageEventActivity;
@@ -29,26 +24,26 @@ import com.univlyon1.tools.agenda.R;
 public class SettingsActivity extends AppCompatActivity implements PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
 
     //TODO possiblité désactivé notif changement event
-    private static int countArboressenceFragment = 0;
+    private static int countArborescenceFragment = 0;
     private ActionBar actionBar;
 
-    public void incressCountArboressenceFragment() {
-        countArboressenceFragment++;
+    public void increaseCountArborescenceFragment() {
+        countArborescenceFragment++;
         updateActionBar();
     }
 
-    public void decressCountArboressenceFragment() {
-        countArboressenceFragment--;
+    public void decreaseCountArborescenceFragment() {
+        countArborescenceFragment--;
         updateActionBar();
     }
 
     public void comeBackToMainPageSettings() {
-        countArboressenceFragment = 0;
+        countArborescenceFragment = 0;
         updateActionBar();
     }
 
     private boolean isMainRoot() {
-        return countArboressenceFragment == 0;
+        return countArborescenceFragment == 0;
     }
 
     @Override
@@ -74,7 +69,7 @@ public class SettingsActivity extends AppCompatActivity implements PreferenceFra
     @Override
     public boolean onPreferenceStartFragment(PreferenceFragmentCompat caller, Preference pref) {// pour la redirection vers les sous menu
         if (pref.getFragment() != null) {
-            incressCountArboressenceFragment();
+            increaseCountArborescenceFragment();
             updateActionBar();
             final Bundle args = pref.getExtras();
             final Fragment fragment = getSupportFragmentManager().getFragmentFactory().instantiate(
@@ -95,7 +90,7 @@ public class SettingsActivity extends AppCompatActivity implements PreferenceFra
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             getSupportFragmentManager().popBackStack();
-            decressCountArboressenceFragment();
+            decreaseCountArborescenceFragment();
         } else {
             return new MenuItemClickActivities(this).onMenuItemClick(item);
         }
@@ -120,13 +115,13 @@ public class SettingsActivity extends AppCompatActivity implements PreferenceFra
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Log.d("Back", String.valueOf(countArboressenceFragment));
+        Log.d("Back", String.valueOf(countArborescenceFragment));
         if (isMainRoot()) {
             Intent intent = new Intent(this, PageEventActivity.class);
             finish();
             startActivity(intent);
         } else {
-            decressCountArboressenceFragment();
+            decreaseCountArborescenceFragment();
         }
 
     }
@@ -196,7 +191,7 @@ public class SettingsActivity extends AppCompatActivity implements PreferenceFra
             findPreference("ContactFragment").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(@NonNull Preference preference) {
-                    settingsActivity.incressCountArboressenceFragment();
+                    settingsActivity.increaseCountArborescenceFragment();
                     settingsActivity.updateActionBar();
                     switchFragment(settingsActivity, new ContactFragment());
                     return false;
@@ -206,7 +201,7 @@ public class SettingsActivity extends AppCompatActivity implements PreferenceFra
             findPreference("ContactFragment").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(@NonNull Preference preference) {
-                    settingsActivity.incressCountArboressenceFragment();
+                    settingsActivity.increaseCountArborescenceFragment();
                     settingsActivity.updateActionBar();
                     switchFragment(settingsActivity, new ContactFragment());
                     return false;
@@ -216,7 +211,7 @@ public class SettingsActivity extends AppCompatActivity implements PreferenceFra
             findPreference("ExplicationSettingsFragment").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(@NonNull Preference preference) {
-                    settingsActivity.incressCountArboressenceFragment();
+                    settingsActivity.increaseCountArborescenceFragment();
                     settingsActivity.updateActionBar();
                     switchFragment(settingsActivity, new ExplicationSettingsFragment());
                     return false;
@@ -226,7 +221,7 @@ public class SettingsActivity extends AppCompatActivity implements PreferenceFra
             findPreference("contrainte_alarmes").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(@NonNull Preference preference) {
-                    settingsActivity.incressCountArboressenceFragment();
+                    settingsActivity.increaseCountArborescenceFragment();
                     settingsActivity.updateActionBar();
                     switchFragment(settingsActivity, new AlarmConstraintFragment());
                     return false;
@@ -236,7 +231,7 @@ public class SettingsActivity extends AppCompatActivity implements PreferenceFra
             findPreference("horaire_alarmes").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(@NonNull Preference preference) {
-                    settingsActivity.incressCountArboressenceFragment();
+                    settingsActivity.increaseCountArborescenceFragment();
                     settingsActivity.updateActionBar();
                     switchFragment(settingsActivity, new AlarmConditionFragment());
                     return false;
@@ -246,7 +241,7 @@ public class SettingsActivity extends AppCompatActivity implements PreferenceFra
             findPreference("liste_alarmes").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(@NonNull Preference preference) {
-                    settingsActivity.incressCountArboressenceFragment();
+                    settingsActivity.increaseCountArborescenceFragment();
                     settingsActivity.updateActionBar();
                     switchFragment(settingsActivity, new AlarmListFragment());
                     return false;
@@ -256,7 +251,7 @@ public class SettingsActivity extends AppCompatActivity implements PreferenceFra
             findPreference("URLSetterFragment").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(@NonNull Preference preference) {
-                    settingsActivity.incressCountArboressenceFragment();
+                    settingsActivity.increaseCountArborescenceFragment();
                     settingsActivity.updateActionBar();
                     switchFragment(settingsActivity, new URLSetterFragment());
                     return false;

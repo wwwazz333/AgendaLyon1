@@ -9,14 +9,12 @@ import android.widget.EditText;
 import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.fragment.app.Fragment;
-import com.journeyapps.barcodescanner.ScanContract;
-import com.journeyapps.barcodescanner.ScanOptions;
-import com.univlyon1.tools.agenda.R;
-import com.google.zxing.integration.android.IntentIntegrator;
 import com.iutcalendar.data.DataGlobal;
 import com.iutcalendar.data.FileGlobal;
 import com.iutcalendar.filedownload.FileDownload;
-import com.journeyapps.barcodescanner.CaptureActivity;
+import com.journeyapps.barcodescanner.ScanContract;
+import com.journeyapps.barcodescanner.ScanOptions;
+import com.univlyon1.tools.agenda.R;
 
 public class URLSetterFragment extends Fragment {
     View view;
@@ -64,11 +62,11 @@ public class URLSetterFragment extends Fragment {
                 new Thread(() -> FileDownload.updateFichier(FileGlobal.getFileDownload(getContext()).getAbsolutePath(), getContext())).start();
 
             }
-            parentActivity.comeBackToMainPageSettings();
+            if (parentActivity != null) parentActivity.comeBackToMainPageSettings();
             getParentFragmentManager().popBackStackImmediate();
         });
         cancel.setOnClickListener(v -> {
-            parentActivity.comeBackToMainPageSettings();
+            if (parentActivity != null) parentActivity.comeBackToMainPageSettings();
             getParentFragmentManager().popBackStackImmediate();
         });
 
