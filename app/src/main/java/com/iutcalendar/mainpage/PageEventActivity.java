@@ -306,7 +306,6 @@ public class PageEventActivity extends AppCompatActivity {
 
     private void setPositionPageToCurrDate() {
         if (getCalendrier() != null && getCalendrier().getFirstDay() != null && viewPager != null) {
-            Log.e("Event", "should call get item");
             viewPager.setCurrentItem(getPosOfDate(this.currDate));
         }
     }
