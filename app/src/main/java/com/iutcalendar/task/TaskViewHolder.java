@@ -17,7 +17,7 @@ public class TaskViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
 
         text = itemView.findViewById(R.id.textSummary);
-        alarmIcon = itemView.findViewById(R.id.iconeAlarme);
+        alarmIcon = itemView.findViewById(R.id.iconAlarme);
         view = itemView;
     }
 }

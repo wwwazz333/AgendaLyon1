@@ -12,13 +12,16 @@
         <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
                    android:src="@drawable/ic_email"
                    android:layout_gravity="center"
-                   android:foregroundGravity="center"/>
+                   android:foregroundGravity="center" android:contentDescription="@string/LogoMail"/>
 
         <TextView
-                android:text="univlyon1.tools@gmail.com"
+                android:text="@string/myEmail"
                 android:autoLink="email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:minWidth="@dimen/minTactile" android:minHeight="@dimen/minTactile"
+                android:gravity="center"
+                android:layout_gravity="center"
                 android:layout_marginTop="@dimen/default_padding"
                 android:layout_marginStart="@dimen/tab_gap"/>
     </LinearLayout>
@@ -28,12 +31,15 @@
         <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
                    android:src="@drawable/ic_github"
                    android:layout_gravity="center"
-                   android:foregroundGravity="center"/>
+                   android:foregroundGravity="center" android:contentDescription="@string/LogoGithub"/>
         <TextView
-                android:text="https://github.com/wwwazz333/IUTCalendar"
+                android:text="@string/repoGithub"
                 android:autoLink="web"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:minWidth="@dimen/minTactile" android:minHeight="@dimen/minTactile"
+                android:gravity="center"
+                android:layout_gravity="center"
                 android:layout_marginTop="@dimen/default_padding"
                 android:layout_marginStart="@dimen/tab_gap"/>
     </LinearLayout>

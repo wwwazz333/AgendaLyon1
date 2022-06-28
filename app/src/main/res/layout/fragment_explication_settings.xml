@@ -48,6 +48,8 @@
                     android:autoLink="web"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:minHeight="@dimen/minTactile" android:minWidth="@dimen/minTactile"
+                    android:gravity="center"
                     android:layout_marginTop="@dimen/default_padding"
                     android:layout_marginStart="@dimen/tab_gap"/>
             <TextView
@@ -120,13 +122,13 @@
                     android:layout_marginTop="@dimen/default_padding"
                     android:layout_marginStart="@dimen/tab_gap"/>
             <TextView
-                    android:text="@string/alamresAutoAide2"
+                    android:text="@string/alarmesAutoAide2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/default_padding"
                     android:layout_marginStart="@dimen/tab_gap"/>
             <TextView
-                    android:text="@string/alamresAutoAide3"
+                    android:text="@string/alarmesAutoAide3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/default_padding"

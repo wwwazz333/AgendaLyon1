@@ -21,19 +21,23 @@
 
             android:layout_marginEnd="@dimen/tab_gap"/>
     <EditText
+            android:importantForAutofill="no"
+            android:hint="@string/Autonomie"
             android:id="@+id/constraint"
             android:layout_gravity="center_vertical"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="SAE"
             android:inputType="text"
-            android:imeOptions="actionDone"/>
+            android:imeOptions="actionDone" android:minHeight="48dp"
+
+            android:textColorHint="@color/hintColor"/>
     <ImageButton
             android:id="@+id/del_btn"
             android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:minWidth="48dp" android:minHeight="48dp"
+            android:minWidth="@dimen/minTactile" android:minHeight="@dimen/minTactile"
             android:background="#00000000"
-            android:src="@drawable/ic_basket"/>
+            android:src="@drawable/ic_basket"
+            android:contentDescription="@string/DelConstraint"/>
 
 </LinearLayout>

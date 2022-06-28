@@ -19,9 +19,9 @@
             android:layout_height="wrap_content"
             android:minHeight="48dp"
             android:layout_below="@+id/title"
-            android:importantForAutofill="no"
-            android:labelFor="@id/submitBtn"
-            android:hint="@string/exemple_url"/>
+            android:autofillHints="no"
+            android:hint="@string/exemple_url"
+            android:textColorHint="@color/hintColor"/>
     <Button
             android:id="@+id/scanBtn"
             android:layout_width="wrap_content"

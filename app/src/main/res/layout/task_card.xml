@@ -8,13 +8,13 @@
               android:padding="5dp">
 
     <ImageView
-            android:id="@+id/iconeAlarme"
+            android:id="@+id/iconAlarme"
             android:layout_width="wrap_content" android:layout_height="wrap_content"
             android:src="@drawable/ic_alarm"
             android:layout_gravity="center"
             android:foregroundGravity="center"
             android:layout_marginEnd="@dimen/tab_gap"
-            android:visibility="invisible"/>
+            android:visibility="invisible" android:contentDescription="@string/LogoRememberOrNot"/>
     <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
               android:id="@+id/textSummary"
               android:text="@string/exemple_text"

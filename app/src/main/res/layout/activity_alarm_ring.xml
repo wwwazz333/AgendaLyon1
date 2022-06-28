@@ -37,7 +37,9 @@
             android:layout_alignTop="@+id/stop_alarm_btn"
             android:layout_alignBottom="@+id/stop_alarm_btn"
             android:layout_alignParentEnd="@+id/stop_alarm_btn"
-            android:layout_alignParentStart="@+id/stop_alarm_btn"/>
+            android:layout_alignParentStart="@+id/stop_alarm_btn"
+
+            android:contentDescription="@string/Stop_alarm"/>
 
     <ImageButton
             android:id="@+id/stop_alarm_btn"

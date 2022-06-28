@@ -25,7 +25,7 @@
     <string name="event">Évènement</string>
     <string name="task">Tâche</string>
     <string name="titreLabel">Titre</string>
-    <string name="resumerLabel">Résumé</string>
+    <string name="resumeLabel">Résumé</string>
     <string name="descriptionLabel">Déscription</string>
     <string name="locationLabel">Salle</string>
     <string name="horaireLabel">Horaires</string>
@@ -134,8 +134,8 @@ Ainsi qu'une horaire qui correspond à l'heure à l'aquelle l'alarme va sonner."
     <string name="maniereSimplifierAide2">Vous pourez aussi déterminié les jours où les alarmes pourons s\'activé ou non, avec le paramétre \'Jours activé\'</string>
     <string name="ManiereAvancer">Manière avancé</string>
     <string name="alarmesAutoAide1">Cette section permet d\'ajouté des alarmes qui devrons respecter des conditions, qui sont :</string>
-    <string name="alamresAutoAide2">le début du 1er cours de la journée doit être dans l\'interval et doit être un des jours sélectionné pour ces alarmes, alors l\'alarmes sonnera à l\'heure indiqué.</string>
-    <string name="alamresAutoAide3">Avec la Manière avancée il est ainsi possible de mettre plusieurs alarmes à des horaires différente</string>
+    <string name="alarmesAutoAide2">le début du 1er cours de la journée doit être dans l\'interval et doit être un des jours sélectionné pour ces alarmes, alors l\'alarmes sonnera à l\'heure indiqué.</string>
+    <string name="alarmesAutoAide3">Avec la Manière avancée il est ainsi possible de mettre plusieurs alarmes à des horaires différente</string>
     <string name="ConstraintAlarmsAide1">Les contrainte sont valables pour toutes les alamres configurer dans la section précédente. Ce sont des contraintes sur le nom de la matière. Les 2 contraintes possibles sont :</string>
     <string name="ConstraintAlarmsAide2">Ne doit pas contenir une chaine de caractère</string>
     <string name="ConstraintAlarmsAide3">Et l\'autre est N\'est pas, soit qui ne doit pas être exactement la chaine de caractère (attention aux majuscules dans les 2 cas).</string>
@@ -144,5 +144,10 @@ Ainsi qu'une horaire qui correspond à l'heure à l'aquelle l'alarme va sonner."
     <string name="widgetAide2">Il affiche les 2 prochains cours (s\'il sont dans la même journée). Un cours affiché un certain temps après son commencement puis le widget affichera les suivants.</string>
     <string name="widgetAide3">Il s\'actualise seul fréquemment, mais vous pouvez clicker dessus pour l\'actualiser manuellement.</string>
     <string name="msg_activ_overlay">Cette application a besoin de l\'option Afficher sur d\'autres applis pour pouvoir être utilisé en tant que réveil.</string>
+    <string name="Stop_alarm">Stop l\'alarme</string>
+    <string name="DelCondition">Supprime la condition</string>
+    <string name="Autonomie">Autonomie</string>
+    <string name="DelConstraint">Supprime la contrainte</string>
+    <string name="LogoRememberOrNot">Logo rappel ou pas rappel</string>
 
 </resources>
