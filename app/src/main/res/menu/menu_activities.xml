@@ -5,7 +5,8 @@
             android:id="@+id/overflowMenu"
             android:icon="@drawable/ic_menu"
             android:title=""
-            app:showAsAction="always">
+            app:showAsAction="always"
+            android:contentDescription="@string/MenuNav">
         <menu>
             <item
                     android:id="@+id/calendrier"

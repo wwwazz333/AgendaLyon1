@@ -137,4 +137,6 @@ As well as a time which corresponds to the hour at which the alarm will sound."<
     <string name="Autonomie">Autonomy</string>
     <string name="DelConstraint">Delete the constraint</string>
     <string name="LogoRememberOrNot">Logo reminder or no reminder</string>
+    <string name="MenuNav">Navigation Menu</string>
+    <string name="Today_s_event">Today\'s event</string>
 </resources>
