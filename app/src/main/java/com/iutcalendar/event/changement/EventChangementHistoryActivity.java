@@ -6,16 +6,17 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.univlyon1.tools.agenda.R;
 import com.iutcalendar.data.DataGlobal;
 import com.iutcalendar.mainpage.PageEventActivity;
 import com.iutcalendar.menu.MenuItemClickActivities;
 import com.iutcalendar.settings.SettingsApp;
+import com.univlyon1.tools.agenda.R;
 
 import java.util.Collections;
 import java.util.List;
@@ -31,12 +32,18 @@ public class EventChangementHistoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_event_changement_history);
 
         RecyclerView recyclerView = findViewById(R.id.recycleView);
+        TextView textView = findViewById(R.id.text);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         Log.d("History", EventChangmentManager.getInstance(getApplicationContext()).getChangmentList().toString());
-        List<EventChangment> eventChangmentList = EventChangmentManager.getInstance(getApplicationContext()).getChangmentList();
-        Collections.reverse(eventChangmentList);
-        recyclerView.setAdapter(new EventChangmentRecycleView(this, eventChangmentList));
+        List<EventChangment> eventChangementList = EventChangmentManager.getInstance(getApplicationContext()).getChangmentList();
+        if (eventChangementList.isEmpty()) {
+            textView.setText(R.string.NoEDTChange);
+        } else {
+            Collections.reverse(eventChangementList);
+            recyclerView.setAdapter(new EventChangmentRecycleView(this, eventChangementList));
+        }
+
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {

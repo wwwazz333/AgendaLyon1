@@ -166,5 +166,6 @@ Ainsi qu'une horaire qui correspond à l'heure à l'aquelle l'alarme va sonner."
     <string name="LogoRememberOrNot">Logo rappel ou pas rappel</string>
     <string name="MenuNav">Menu de navigation</string>
     <string name="Today_s_event">Évènement d\'aujourd\'hui</string>
+    <string name="NoEDTChange">Aucun changement d\'emplois du temps n\'a été enregistré.</string>
 
 </resources>

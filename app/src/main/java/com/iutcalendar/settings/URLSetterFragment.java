@@ -57,6 +57,7 @@ public class URLSetterFragment extends Fragment {
         valide.setOnClickListener(v -> {
             if (!prevURL.equals(input.getText().toString())) {
                 FileGlobal.getFileDownload(getContext()).delete();
+                FileGlobal.getFile(getContext(), FileGlobal.CHANGEMENT_EVENT).delete();
                 DataGlobal.savePath(getContext(), input.getText().toString());
 
                 new Thread(() -> FileDownload.updateFichier(FileGlobal.getFileDownload(getContext()).getAbsolutePath(), getContext())).start();
