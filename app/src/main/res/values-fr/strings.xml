@@ -54,7 +54,7 @@
     <string name="choose_langue_description">Changer la langue</string>
     <string name="Feature">Fonctionnalité</string>
     <string name="Usage">Utilisations</string>
-    <string name="Usage_description">Aide pour utiliser toutes les fonctionnalité de cette application</string>
+    <string name="Usage_description">Aide pour utiliser toutes les fonctionnalités de cette application</string>
     <string name="no_last_update">pas de maj....</string>
     <string name="Added">Ajouté</string>
     <string name="Deleted">Supprimé</string>
@@ -105,7 +105,7 @@ Ainsi qu'une horaire qui correspond à l'heure à l'aquelle l'alarme va sonner."
     <string name="Calendar">Calendrier</string>
     <string name="History">Historique</string>
     <string name="PublicHolidays">Jours fériés</string>
-    <string name="publicHolidaysDescriptionOff">Les alarms sont désactivé pour les jours fériés (cours de 8h)</string>
+    <string name="publicHolidaysDescriptionOff">Les alarms sont désactivé pour les jours fériés (cours de 8 h)</string>
     <string name="publicHolidaysDescriptionOn">Les alarms sont activé pour les jours fériés</string>
     <string name="AlarmesComplex">Alarmes avancées</string>
     <string name="alarmesComplexOff">"L'alarme est placès un temps prédéterminé avant le 1er cours de la journée.\n"</string>
@@ -141,7 +141,7 @@ Ainsi qu'une horaire qui correspond à l'heure à l'aquelle l'alarme va sonner."
     <string name="ConstraintAlarmsAide3">Et l\'autre est N\'est pas, soit qui ne doit pas être exactement la chaine de caractère (attention aux majuscules dans les 2 cas).</string>
     <string name="widget">Widget</string>
     <string name="widgetAide1">Vous pouvez changer sont theme (blanc, noire, gris) dans les paramètre.</string>
-    <string name="widgetAide2">Il affiche les 2 prochains cours (s\'il sont dans la même journée). Un cours affiché un certain temps après son commencement puis le widget affichera les suivants.</string>
+    <string name="widgetAide2">Il affiche les 2 prochains cours (s\'ils sont dans la même journée). Un cours affiché un certain temps après son commencement puis le widget affichera les suivants.</string>
     <string name="widgetAide3">Il s\'actualise seul fréquemment, mais vous pouvez clicker dessus pour l\'actualiser manuellement.</string>
     <string name="msg_activ_overlay">Cette application a besoin de l\'option Afficher sur d\'autres applis pour pouvoir être utilisé en tant que réveil.</string>
     <string name="Stop_alarm">Stop l\'alarme</string>
@@ -152,5 +152,11 @@ Ainsi qu'une horaire qui correspond à l'heure à l'aquelle l'alarme va sonner."
     <string name="MenuNav">Menu de navigation</string>
     <string name="Today_s_event">Évènement d\'aujourd\'hui</string>
     <string name="NoEDTChange">Aucun changement d\'emplois du temps n\'a été enregistré.</string>
+    <string name="bouton_d_aide">Bouton d\'aide</string>
+    <string name="add_element">Ajouter un élément</string>
+    <string name="reload_data">Re-charger les données</string>
+    <string name="go_to_page_Calendar">Allez à la page Calendrier</string>
+    <string name="go_to_page_History">Allez à la page Historique</string>
+    <string name="go_to_page_Settings">Allez à la page Paramètre</string>
 
 </resources>

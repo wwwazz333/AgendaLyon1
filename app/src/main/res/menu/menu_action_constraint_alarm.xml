@@ -6,10 +6,12 @@
             android:id="@+id/aideBtn"
             android:title=""
             app:showAsAction="ifRoom"
-            android:icon="@drawable/ic_help"/>
+            android:icon="@drawable/ic_help"
+            android:contentDescription="@string/bouton_d_aide"/>
     <item
             android:id="@+id/addBtn"
             android:title=""
             app:showAsAction="ifRoom"
-            android:icon="@drawable/ic_add_on_primary"/>
+            android:icon="@drawable/ic_add_on_primary"
+            android:contentDescription="@string/add_element"/>
 </menu>

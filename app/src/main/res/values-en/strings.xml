@@ -140,4 +140,10 @@ As well as a time which corresponds to the hour at which the alarm will sound."<
     <string name="MenuNav">Navigation Menu</string>
     <string name="Today_s_event">Today\'s event</string>
     <string name="NoEDTChange">There were no changes in schedules.</string>
+    <string name="bouton_d_aide">Help Button</string>
+    <string name="add_element">Add element</string>
+    <string name="reload_data">Reload data</string>
+    <string name="go_to_page_Calendar">Go to page Calendar</string>
+    <string name="go_to_page_History">Go to page History</string>
+    <string name="go_to_page_Settings">Go to page Settings</string>
 </resources>
