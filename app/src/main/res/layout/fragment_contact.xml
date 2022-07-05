@@ -17,6 +17,7 @@
         <TextView
                 android:text="@string/myEmail"
                 android:autoLink="email"
+                android:textColor="@color/redOnePlus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:minWidth="@dimen/minTactile" android:minHeight="@dimen/minTactile"
@@ -35,6 +36,7 @@
         <TextView
                 android:text="@string/repoGithub"
                 android:autoLink="web"
+                android:textColor="@color/redOnePlus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:minWidth="@dimen/minTactile" android:minHeight="@dimen/minTactile"
