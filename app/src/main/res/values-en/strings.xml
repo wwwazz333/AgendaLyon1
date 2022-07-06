@@ -146,4 +146,5 @@ As well as a time which corresponds to the hour at which the alarm will sound."<
     <string name="go_to_page_Calendar">Go to page Calendar</string>
     <string name="go_to_page_History">Go to page History</string>
     <string name="go_to_page_Settings">Go to page Settings</string>
+    <string name="Back_app">Background of app</string>
 </resources>

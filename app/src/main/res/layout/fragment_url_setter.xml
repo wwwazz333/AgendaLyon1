@@ -1,8 +1,18 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:context="com.iutcalendar.settings.URLSetterFragment">
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.iutcalendar.settings.URLSetterFragment">
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/scanBtn"
+            android:layout_above="@id/layout_button"
+            android:scaleType="fitXY"
+            android:src="@drawable/bg_background_url"
+            android:contentDescription="@string/Back_app"
+            tools:ignore="ImageContrastCheck"/>
 
     <TextView
             android:id="@+id/title"
@@ -14,9 +24,10 @@
             android:layout_centerHorizontal="true"/>
     <EditText
             android:id="@+id/inputURL"
-            android:inputType="textUri"
+            android:inputType="textUri|textMultiLine"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/default_padding"
             android:minHeight="48dp"
             android:layout_below="@+id/title"
             android:autofillHints="no"
@@ -26,14 +37,18 @@
             android:id="@+id/scanBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_padding"
             android:layout_below="@+id/inputURL"
             android:layout_centerHorizontal="true" app:icon="@drawable/ic_qr_code_scanner_ico"
             android:text="@string/qr_code_scan"/>
-    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                  android:orientation="horizontal"
-                  android:layout_centerHorizontal="true"
-                  android:layout_alignParentBottom="true"
-                  android:layout_marginBottom="100dp">
+    <LinearLayout
+            android:id="@+id/layout_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="24dp">
         <View android:layout_width="0dp" android:layout_height="match_parent"
               android:layout_weight="1"/>
         <Button

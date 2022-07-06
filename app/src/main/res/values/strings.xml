@@ -173,5 +173,6 @@ Ainsi qu'une horaire qui correspond à l'heure à l'aquelle l'alarme va sonner."
     <string name="go_to_page_Calendar">Allez à la page Calendrier</string>
     <string name="go_to_page_History">Allez à la page Historique</string>
     <string name="go_to_page_Settings">Allez à la page Paramètre</string>
+    <string name="Back_app">Fond de l\'application</string>
 
 </resources>
