@@ -1,17 +1,21 @@
 package com.iutcalendar.data;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Environment;
 import android.util.Log;
+import android.widget.Toast;
 import com.iutcalendar.calendrier.Calendrier;
 import com.iutcalendar.event.ChangeEventListener;
 import com.iutcalendar.event.changement.EventChangment;
 import com.iutcalendar.event.changement.EventChangmentManager;
 import com.iutcalendar.filedownload.FileDownload;
 import com.iutcalendar.mainpage.PageEventActivity;
+import com.univlyon1.tools.agenda.R;
 
 import java.io.*;
+import java.net.UnknownHostException;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
@@ -156,37 +160,53 @@ public class FileGlobal {
     }
 
     public static void updateAndGetChange(Context context, Calendrier calendrier, ChangeEventListener onChangeListener) {
-        Calendrier prev;
-        if (calendrier != null) {
-            prev = calendrier.clone();
-        } else {
-            prev = new Calendrier(FileGlobal.readFile(FileGlobal.getFileDownload(context)));
+        try {
+            Calendrier prev;
+            if (calendrier != null) {
+                prev = calendrier.clone();
+            } else {
+                prev = new Calendrier(FileGlobal.readFile(FileGlobal.getFileDownload(context)));
+            }
+
+            FileDownload.updateFichier(FileGlobal.getFileDownload(context).getAbsolutePath(), context);
+
+
+            Calendrier nouveau;
+            if (calendrier != null) {
+                nouveau = calendrier;
+                nouveau.loadFromString(FileGlobal.readFile(FileGlobal.getFileDownload(context)));
+            } else {
+                nouveau = new Calendrier(FileGlobal.readFile(FileGlobal.getFileDownload(context)));
+            }
+
+            nouveau.deleteUselessTask(context);
+
+            List<EventChangment> changes = nouveau.getChangedEvent(prev);
+            //sauvgarde l'historique des changements
+            EventChangmentManager.getInstance(context).getChangmentList().addAll(changes);
+            EventChangmentManager.getInstance(context).save(context);
+
+            if (!changes.isEmpty()) {
+                String changesMsg = Calendrier.changeToString(context, changes);
+
+                //TODO string: message de notif
+                Intent intent = new Intent(context, PageEventActivity.class);
+                intent.putExtra("changes", changesMsg);
+
+                onChangeListener.ifChange(context, intent);
+            }
         }
-        FileDownload.updateFichier(FileGlobal.getFileDownload(context).getAbsolutePath(), context);
-
-        Calendrier nouveau;
-        if (calendrier != null) {
-            nouveau = calendrier;
-            nouveau.loadFromString(FileGlobal.readFile(FileGlobal.getFileDownload(context)));
-        } else {
-            nouveau = new Calendrier(FileGlobal.readFile(FileGlobal.getFileDownload(context)));
+        catch (UnknownHostException e){
+            if (context instanceof Activity) {
+                Activity a = (Activity) context;
+                a.runOnUiThread(() -> Toast.makeText(context, a.getString(R.string.No_connexion), Toast.LENGTH_LONG).show());
+            }
         }
-
-        nouveau.deleteUselessTask(context);
-
-        List<EventChangment> changes = nouveau.getChangedEvent(prev);
-        //sauvgarde l'historique des changements
-        EventChangmentManager.getInstance(context).getChangmentList().addAll(changes);
-        EventChangmentManager.getInstance(context).save(context);
-
-        if (!changes.isEmpty()) {
-            String changesMsg = Calendrier.changeToString(context, changes);
-
-            //TODO string: message de notif
-            Intent intent = new Intent(context, PageEventActivity.class);
-            intent.putExtra("changes", changesMsg);
-
-            onChangeListener.ifChange(context, intent);
+        catch (Exception e) {
+            if (context instanceof Activity) {
+                Activity a = (Activity) context;
+                a.runOnUiThread(() -> Toast.makeText(context, a.getString(R.string.Wrong_URL), Toast.LENGTH_LONG).show());
+            }
         }
     }
 }

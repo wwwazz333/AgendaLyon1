@@ -1,6 +1,7 @@
 package com.iutcalendar.settings;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,8 @@ import com.iutcalendar.filedownload.FileDownload;
 import com.journeyapps.barcodescanner.ScanContract;
 import com.journeyapps.barcodescanner.ScanOptions;
 import com.univlyon1.tools.agenda.R;
+
+import java.io.IOException;
 
 public class URLSetterFragment extends Fragment {
     View view;
@@ -60,7 +63,15 @@ public class URLSetterFragment extends Fragment {
                 FileGlobal.getFile(getContext(), FileGlobal.CHANGEMENT_EVENT).delete();
                 DataGlobal.savePath(getContext(), input.getText().toString());
 
-                new Thread(() -> FileDownload.updateFichier(FileGlobal.getFileDownload(getContext()).getAbsolutePath(), getContext())).start();
+                new Thread(() -> {
+                    Log.d("Coucocu", "caca");
+                    try {
+                        FileDownload.updateFichier(FileGlobal.getFileDownload(getContext()).getAbsolutePath(), getContext());
+                    } catch (IOException e) {
+//                        throw new RuntimeException(e);
+                    }
+                }
+                ).start();
 
             }
             if (parentActivity != null) parentActivity.comeBackToMainPageSettings();

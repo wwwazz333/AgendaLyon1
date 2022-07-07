@@ -42,10 +42,10 @@ public class FileDownload {
         return null;
     }
 
-    public static boolean updateFichier(String file_path, Context context) {
+    public static boolean updateFichier(String file_path, Context context) throws IOException, InputStreamFileException {
         boolean succes = false;
 
-        try { // update du fichier ou création
+//        try { // update du fichier ou création
             String url = DataGlobal.getSavedPath(context);
             if (url.isEmpty()) {
                 throw new InputStreamFileException("mauvais URL");
@@ -58,16 +58,16 @@ public class FileDownload {
 
             succes = Calendrier.writeCalendarFile(conentFile, new File(file_path));
             if (succes) Log.d("File", "fichier enregistré");
-        } catch (InvalideFormatException e) {
-            Log.e("File", "format file : " + e.getMessage());
-        } catch (InputStreamFileException e) {
-            Log.e("File", "input stream : " + e.getMessage());
-        } catch (IOException e) {
-            Log.e("File", "IOException erreur update file: " + e.getMessage());
-        } catch (Exception e) {
-            Log.e("File", "Erreur update file : " + e.getMessage());
-            e.printStackTrace();
-        }
+//        } catch (InvalideFormatException e) {
+//            Log.e("File", "format file : " + e.getMessage());
+//        } catch (InputStreamFileException e) {
+//            Log.e("File", "input stream : " + e.getMessage());
+//        } catch (IOException e) {
+//            Log.e("File", "IOException erreur update file: " + e.getMessage());
+//        } catch (Exception e) {
+//            Log.e("File", "Erreur update file : " + e.getMessage());
+//            e.printStackTrace();
+//        }
 
         return succes;
     }

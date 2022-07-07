@@ -246,7 +246,7 @@ public class PageEventActivity extends AppCompatActivity {
             Log.d("Update", "start");
             updating = true;
             new Thread(() -> {
-                FileGlobal.updateAndGetChange(getApplicationContext(), calendrier, ((context, intent) -> startActivity(intent)));
+                FileGlobal.updateAndGetChange(this, calendrier, ((context, intent) -> startActivity(intent)));
 
                 runOnUiThread(() -> {
                     Log.d("Debug", "appeler d'epuis update");

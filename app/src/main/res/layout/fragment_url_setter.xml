@@ -1,76 +1,78 @@
-<androidx.constraintlayout.widget.ConstraintLayout
+<RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="match_parent" android:layout_height="match_parent"
         tools:context="com.iutcalendar.settings.URLSetterFragment">
-    <ImageView
+    <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@id/scanBtn"
-            app:layout_constraintBottom_toTopOf="@id/layout_button"
-            android:scaleType="fitXY"
-            android:src="@drawable/bg_background_url"
-            android:contentDescription="@string/Back_app"
-            tools:ignore="ImageContrastCheck" android:id="@+id/imageView" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"/>
+            android:layout_height="match_parent">
+        <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintTop_toBottomOf="@id/scanBtn"
+                app:layout_constraintBottom_toTopOf="@id/layout_button"
+                android:scaleType="fitXY"
+                android:src="@drawable/bg_background_url"
+                android:contentDescription="@string/Back_app"
+                tools:ignore="ImageContrastCheck" android:id="@+id/imageView"
+                app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"/>
 
-    <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/url"
-            style="@style/TitleText"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"/>
-    <EditText
-            android:id="@+id/inputURL"
-            android:inputType="textUri|textMultiLine"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="@dimen/default_padding"
-            android:minHeight="48dp"
-            app:layout_constraintTop_toBottomOf="@id/title"
-            android:autofillHints="no"
-            android:hint="@string/exemple_url"
-            android:textColorHint="@color/hintColor"/>
-    <Button
-            android:id="@+id/scanBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/default_padding"
-            app:layout_constraintTop_toBottomOf="@id/inputURL"
-            android:layout_centerHorizontal="true" app:icon="@drawable/ic_qr_code_scanner_ico"
-            android:text="@string/qr_code_scan"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.75"/>
-    <LinearLayout
-            android:id="@+id/layout_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="24dp">
-        <View android:layout_width="0dp" android:layout_height="match_parent"
-              android:layout_weight="1"/>
-        <Button
+        <TextView
+                android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/cancelBtn"
-                android:text="@string/cancel"
-        />
-        <View android:layout_width="0dp" android:layout_height="match_parent"
-              android:layout_weight="1"/>
+                android:text="@string/url"
+                style="@style/TitleText"
+                app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"/>
+        <EditText
+                android:id="@+id/inputURL"
+                android:inputType="textUri|textMultiLine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/default_padding"
+                android:minHeight="48dp"
+                app:layout_constraintTop_toBottomOf="@id/title"
+                android:autofillHints="no"
+                android:hint="@string/exemple_url"
+                android:textColorHint="@color/hintColor"/>
         <Button
+                android:id="@+id/scanBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/submitBtn"
-                android:text="@string/submit"
-        />
-        <View android:layout_width="0dp" android:layout_height="match_parent"
-              android:layout_weight="1"/>
+                android:layout_marginTop="@dimen/default_padding"
+                app:layout_constraintTop_toBottomOf="@id/inputURL"
+                android:layout_centerHorizontal="true" app:icon="@drawable/ic_qr_code_scanner_ico"
+                android:text="@string/qr_code_scan"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.75"/>
+        <LinearLayout
+                android:id="@+id/layout_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="24dp">
+            <View android:layout_width="0dp" android:layout_height="match_parent"
+                  android:layout_weight="1"/>
+            <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/cancelBtn"
+                    android:text="@string/cancel"
+            />
+            <View android:layout_width="0dp" android:layout_height="match_parent"
+                  android:layout_weight="1"/>
+            <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/submitBtn"
+                    android:text="@string/submit"
+            />
+            <View android:layout_width="0dp" android:layout_height="match_parent"
+                  android:layout_weight="1"/>
+        </LinearLayout>
 
 
-    </LinearLayout>
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>
