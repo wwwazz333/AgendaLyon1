@@ -17,6 +17,8 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.iutcalendar.calendrier.Calendrier;
 import com.iutcalendar.calendrier.CurrentDate;
 import com.iutcalendar.calendrier.EventCalendrier;
@@ -26,6 +28,7 @@ import com.iutcalendar.mainpage.ui.main.SectionsPagerAdapter;
 import com.iutcalendar.menu.MenuItemClickActivities;
 import com.iutcalendar.service.ForgroundServiceUpdate;
 import com.iutcalendar.settings.SettingsApp;
+import com.iutcalendar.snackbar.ErrorSnackBar;
 import com.iutcalendar.swiping.GestureEventManager;
 import com.iutcalendar.swiping.TouchGestureListener;
 import com.iutcalendar.task.PersonnalCalendrier;
@@ -103,7 +106,10 @@ public class PageEventActivity extends AppCompatActivity {
         /*####Testing feature#####*/
 
         Log.d("Global", "PageEventActivity end");
+
     }
+
+
 
     private void initAds() {
         MobileAds.initialize(this, initializationStatus -> {
@@ -180,7 +186,7 @@ public class PageEventActivity extends AppCompatActivity {
         setPositionPageToCurrDate();
     }
 
-    private void updatePageViewEvent(){
+    private void updatePageViewEvent() {
         Log.d("Event", "update Section page adapter------------------");
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager(), getCalendrier());
         viewPager.removeAllViews();
@@ -204,6 +210,9 @@ public class PageEventActivity extends AppCompatActivity {
             Log.d("Widget", "default date");
         }
         return dateToLaunch;
+    }
+    public ActivityPageEventBinding getBinding() {
+        return binding;
     }
 
     private void initCalendar() {

@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.fragment.app.Fragment;
+import com.iutcalendar.calendrier.InputStreamFileException;
 import com.iutcalendar.data.DataGlobal;
 import com.iutcalendar.data.FileGlobal;
 import com.iutcalendar.filedownload.FileDownload;
@@ -67,11 +68,11 @@ public class URLSetterFragment extends Fragment {
                     Log.d("Coucocu", "caca");
                     try {
                         FileDownload.updateFichier(FileGlobal.getFileDownload(getContext()).getAbsolutePath(), getContext());
-                    } catch (IOException e) {
-//                        throw new RuntimeException(e);
+                    } catch (InputStreamFileException | IOException e) {
                     }
                 }
                 ).start();
+
 
             }
             if (parentActivity != null) parentActivity.comeBackToMainPageSettings();

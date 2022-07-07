@@ -12,6 +12,7 @@ import com.iutcalendar.event.changement.EventChangment;
 import com.iutcalendar.event.changement.EventChangmentManager;
 import com.iutcalendar.filedownload.FileDownload;
 import com.iutcalendar.mainpage.PageEventActivity;
+import com.iutcalendar.snackbar.ErrorSnackBar;
 import com.univlyon1.tools.agenda.R;
 
 import java.io.*;
@@ -197,15 +198,15 @@ public class FileGlobal {
             }
         }
         catch (UnknownHostException e){
-            if (context instanceof Activity) {
-                Activity a = (Activity) context;
-                a.runOnUiThread(() -> Toast.makeText(context, a.getString(R.string.No_connexion), Toast.LENGTH_LONG).show());
+            if (context instanceof PageEventActivity) {
+                PageEventActivity a = (PageEventActivity) context;
+                ErrorSnackBar.showError(a.getBinding().getRoot(), a.getString(R.string.No_connexion));
             }
         }
         catch (Exception e) {
-            if (context instanceof Activity) {
-                Activity a = (Activity) context;
-                a.runOnUiThread(() -> Toast.makeText(context, a.getString(R.string.Wrong_URL), Toast.LENGTH_LONG).show());
+            if (context instanceof PageEventActivity) {
+                PageEventActivity a = (PageEventActivity) context;
+                ErrorSnackBar.showError(a.getBinding().getRoot(), a.getString(R.string.Wrong_URL));
             }
         }
     }
