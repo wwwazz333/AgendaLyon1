@@ -24,6 +24,9 @@
             android:screenOrientation="portrait"
             android:supportsRtl="true"
             android:theme="@style/Theme.IUTCalendarActionBar">
+        <activity
+                android:name="com.iutcalendar.search.SearchActivity"
+                android:exported="true"/>
 
         <meta-data
                 android:name="com.google.android.gms.ads.APPLICATION_ID"
@@ -32,35 +35,31 @@
         <activity
                 android:name="com.iutcalendar.mainpage.PageEventActivity"
                 android:exported="true"
-                android:screenOrientation="portrait"
-                android:hardwareAccelerated="true">
+                android:hardwareAccelerated="true"
+                android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
         <activity
                 android:name="com.iutcalendar.event.changement.EventChangementHistoryActivity"
-                android:screenOrientation="portrait"
                 android:exported="true"
-                android:hardwareAccelerated="false"/>
-
+                android:hardwareAccelerated="false"
+                android:screenOrientation="portrait"/>
         <activity
                 android:name="com.iutcalendar.alarm.AlarmRingActivity"
-                android:screenOrientation="portrait"
                 android:exported="true"
-                android:hardwareAccelerated="false"/>
-
+                android:hardwareAccelerated="false"
+                android:screenOrientation="portrait"/>
         <activity
                 android:name="com.iutcalendar.settings.SettingsActivity"
-                android:parentActivityName="com.iutcalendar.mainpage.PageEventActivity"
-                android:screenOrientation="portrait"
                 android:exported="true"
+                android:hardwareAccelerated="false"
                 android:label="@string/title_activity_settings"
-                android:hardwareAccelerated="false"/>
-
+                android:parentActivityName="com.iutcalendar.mainpage.PageEventActivity"
+                android:screenOrientation="portrait"/>
 
         <receiver
                 android:name="com.iutcalendar.widget.WidgetCalendar"
@@ -87,8 +86,6 @@
         </receiver>
         <receiver android:name="com.iutcalendar.alarm.Alarm">
         </receiver>
-
-
     </application>
 
 </manifest>

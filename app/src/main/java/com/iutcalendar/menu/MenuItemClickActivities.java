@@ -5,10 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.MenuItem;
 import android.widget.PopupMenu;
-import com.univlyon1.tools.agenda.R;
 import com.iutcalendar.event.changement.EventChangementHistoryActivity;
 import com.iutcalendar.mainpage.PageEventActivity;
+import com.iutcalendar.search.SearchActivity;
 import com.iutcalendar.settings.SettingsActivity;
+import com.univlyon1.tools.agenda.R;
 
 public class MenuItemClickActivities implements MenuItem.OnMenuItemClickListener, PopupMenu.OnMenuItemClickListener {
 
@@ -32,6 +33,9 @@ public class MenuItemClickActivities implements MenuItem.OnMenuItemClickListener
                 break;
             case R.id.history:
                 intent = new Intent(context, EventChangementHistoryActivity.class);
+                break;
+            case R.id.search:
+                intent = new Intent(context, SearchActivity.class);
                 break;
             default:
                 return false;

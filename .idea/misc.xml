@@ -32,7 +32,8 @@
         <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/layout/activity_alarm_ring.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/layout/activity_event_changement_history.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/layout/activity_page_event.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/layout/activity_page_event.xml" value="0.33" />
+        <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/layout/activity_search.xml" value="0.32592592592592595" />
         <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/layout/alarm_card.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/layout/changement_card.xml" value="0.365625" />
         <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/layout/condition_alarm_card.xml" value="0.36666666666666664" />
@@ -50,6 +51,7 @@
         <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/layout/fragment_explication_settings.xml" value="0.33" />
         <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/layout/fragment_page_event.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/layout/fragment_reload_animation.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/layout/fragment_search_room.xml" value="0.32592592592592595" />
         <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/layout/fragment_settings_alarm.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/layout/fragment_url_setter.xml" value="0.33" />
         <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/layout/settings_activity.xml" value="0.36666666666666664" />

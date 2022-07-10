@@ -85,11 +85,11 @@
     <string name="And">Et</string>
     <string name="RingHour">Heure Sonnerie</string>
     <string name="aide_conditon_alarm">
-"Une alarm sera placé pour chaques CONDITION respecter.
+        "Une alarm sera placé pour chaques CONDITION respecter.
 
-Une CONDITION possède un intérvale dont les valeurs (inférieur ET supérieur) sont comprises.
+        Une CONDITION possède un intérvale dont les valeurs (inférieur ET supérieur) sont comprises.
 
-Ainsi qu'une horaire qui correspond à l'heure à l'aquelle l'alarme va sonner."
+        Ainsi qu'une horaire qui correspond à l'heure à l'aquelle l'alarme va sonner."
     </string>
     <string name="must_contain">Doit contenir</string>
     <string name="must_not_contain">Ne doit pas contenir</string>
@@ -126,10 +126,10 @@ Ainsi qu'une horaire qui correspond à l'heure à l'aquelle l'alarme va sonner."
     <string name="ConstraintAlarms">Contraintes Alarmes</string>
     <string name="ConstraintAlarmsDescription">Paramètrage des contraintes pour les alarmes</string>
     <string name="aid_constraint_alarm">
-"Les CONTRAINTES sont des conditions sur le titre de l\'évenement qui doit soit
+        "Les CONTRAINTES sont des conditions sur le titre de l\'évenement qui doit soit
 
-- Contenire une chaine de caractères
-- Ne pas contenire une chaine de caractères"
+        - Contenire une chaine de caractères
+        - Ne pas contenire une chaine de caractères"
     </string>
     <string name="Contact" translatable="false">Contact</string>
     <string name="presentationGeneral">"Cette application vous permet de consulter votre agenda universitaire sur votre téléphone, vous pourez ainsi être notifié d\'un changemenet dans votre emploi du temps, vous pourez retrouvez tous les changements dans l\'historique."</string>
@@ -176,5 +176,9 @@ Ainsi qu'une horaire qui correspond à l'heure à l'aquelle l'alarme va sonner."
     <string name="Back_app">Fond de l\'application</string>
     <string name="Wrong_URL">Mauvais URL</string>
     <string name="No_connexion">Pas de connexion</string>
+    <string name="Search">Recherche un salle</string>
+    <string name="go_to_page_Search">Allez à la page Recherche de salle</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
