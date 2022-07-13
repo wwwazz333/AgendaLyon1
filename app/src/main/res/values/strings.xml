@@ -176,9 +176,8 @@
     <string name="Back_app">Fond de l\'application</string>
     <string name="Wrong_URL">Mauvais URL</string>
     <string name="No_connexion">Pas de connexion</string>
-    <string name="Search">Recherche un salle</string>
+    <string name="Search">Recherche un salle (Beta)</string>
     <string name="go_to_page_Search">Allez à la page Recherche de salle</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

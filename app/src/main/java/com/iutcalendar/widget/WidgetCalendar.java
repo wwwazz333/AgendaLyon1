@@ -1,5 +1,6 @@
 package com.iutcalendar.widget;
 
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.Toast;
+import com.iutcalendar.notification.Notif;
 import com.univlyon1.tools.agenda.R;
 import com.iutcalendar.calendrier.Calendrier;
 import com.iutcalendar.calendrier.CurrentDate;
@@ -86,6 +88,10 @@ public class WidgetCalendar extends AppWidgetProvider {
 
             appWidgetManager.updateAppWidget(widgetId, views);
 
+            if (DataGlobal.isDebug(context)) {
+                new Notif(context, Notif.CHANGE_EVENT_NOTIFICATION_ID, NotificationManager.IMPORTANCE_DEFAULT,
+                        "widget", "update widget", R.drawable.ic_update, null).show();
+            }
 
         }
 

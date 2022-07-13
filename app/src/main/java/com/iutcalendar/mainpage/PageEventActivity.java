@@ -17,8 +17,6 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
-import com.google.android.material.snackbar.BaseTransientBottomBar;
-import com.google.android.material.snackbar.Snackbar;
 import com.iutcalendar.calendrier.Calendrier;
 import com.iutcalendar.calendrier.CurrentDate;
 import com.iutcalendar.calendrier.EventCalendrier;
@@ -28,7 +26,6 @@ import com.iutcalendar.mainpage.ui.main.SectionsPagerAdapter;
 import com.iutcalendar.menu.MenuItemClickActivities;
 import com.iutcalendar.service.ForgroundServiceUpdate;
 import com.iutcalendar.settings.SettingsApp;
-import com.iutcalendar.snackbar.ErrorSnackBar;
 import com.iutcalendar.swiping.GestureEventManager;
 import com.iutcalendar.swiping.TouchGestureListener;
 import com.iutcalendar.task.PersonnalCalendrier;
@@ -107,8 +104,8 @@ public class PageEventActivity extends AppCompatActivity {
 
         Log.d("Global", "PageEventActivity end");
 
-    }
 
+    }
 
 
     private void initAds() {
@@ -211,6 +208,7 @@ public class PageEventActivity extends AppCompatActivity {
         }
         return dateToLaunch;
     }
+
     public ActivityPageEventBinding getBinding() {
         return binding;
     }
@@ -294,7 +292,10 @@ public class PageEventActivity extends AppCompatActivity {
     }
 
     public void setCurrDate(CurrentDate newDate) {
-        if (newDate.sameDay(currDate)) return;
+        if (newDate.sameDay(currDate)) {
+            currDateLabel.setText(currDate.getRelativeDayName(getBaseContext()));
+            return;
+        }
         Log.d("Date", currDate + " set curr date to " + newDate);
 
         if (getCalendrier() != null && getCalendrier().getFirstDay() != null && getCalendrier().getLastDay() != null) {
@@ -308,6 +309,7 @@ public class PageEventActivity extends AppCompatActivity {
         this.currDate.set(newDate);
 
         currDateLabel.setText(currDate.getRelativeDayName(getBaseContext()));
+        Log.d("ActionBar", currDate.getRelativeDayName(getBaseContext()));
 
         setPositionPageToCurrDate();
         setDaysOfWeek();

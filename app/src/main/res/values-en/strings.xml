@@ -149,6 +149,6 @@ As well as a time which corresponds to the hour at which the alarm will sound."<
     <string name="Back_app">Background of app</string>
     <string name="Wrong_URL">Wrong URL</string>
     <string name="No_connexion">No connection</string>
-    <string name="Search">Search a room</string>
+    <string name="Search">Search a room (Beta)</string>
     <string name="go_to_page_Search">Go to page Search a room</string>
 </resources>
