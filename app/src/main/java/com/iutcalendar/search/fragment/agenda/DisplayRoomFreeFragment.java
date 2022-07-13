@@ -1,10 +1,11 @@
-package com.univlyon1.tools.agenda;
+package com.iutcalendar.search.fragment.agenda;
 
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import com.univlyon1.tools.agenda.R;
 
 /**
  * A simple {@link Fragment} subclass.

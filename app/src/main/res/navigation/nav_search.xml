@@ -3,10 +3,10 @@
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools" android:id="@+id/nav_search" app:startDestination="@id/searchRoomFragment">
 
-    <fragment android:id="@+id/searchRoomFragment" android:name="com.univlyon1.tools.agenda.SearchRoomFragment" android:label="fragment_search_room" tools:layout="@layout/fragment_search_room">
+    <fragment android:id="@+id/searchRoomFragment" android:name="com.iutcalendar.search.fragment.agenda.SearchRoomFragment" android:label="fragment_search_room" tools:layout="@layout/fragment_search_room">
         <action android:id="@+id/goToDisplay" app:destination="@id/displayRoomFreeFragment"/>
     </fragment>
-    <fragment android:id="@+id/displayRoomFreeFragment" android:name="com.univlyon1.tools.agenda.DisplayRoomFreeFragment" android:label="fragment_display_room_free" tools:layout="@layout/fragment_display_room_free">
+    <fragment android:id="@+id/displayRoomFreeFragment" android:name="com.iutcalendar.search.fragment.agenda.DisplayRoomFreeFragment" android:label="fragment_display_room_free" tools:layout="@layout/fragment_display_room_free">
         <action android:id="@+id/goToSearch" app:destination="@id/searchRoomFragment"/>
     </fragment>
 </navigation>

@@ -1,4 +1,4 @@
-package com.univlyon1.tools.agenda;
+package com.iutcalendar.search.fragment.agenda;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,6 +9,7 @@ import android.widget.CalendarView;
 import android.widget.EditText;
 import androidx.fragment.app.Fragment;
 import com.iutcalendar.calendrier.CurrentDate;
+import com.univlyon1.tools.agenda.R;
 
 
 public class SearchRoomFragment extends Fragment {
