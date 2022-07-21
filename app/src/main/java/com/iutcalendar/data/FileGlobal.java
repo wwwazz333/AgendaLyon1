@@ -1,16 +1,15 @@
 package com.iutcalendar.data;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Environment;
 import android.util.Log;
-import android.widget.Toast;
 import com.iutcalendar.calendrier.Calendrier;
 import com.iutcalendar.event.ChangeEventListener;
 import com.iutcalendar.event.changement.EventChangment;
 import com.iutcalendar.event.changement.EventChangmentManager;
 import com.iutcalendar.filedownload.FileDownload;
+import com.iutcalendar.filedownload.WrongURLException;
 import com.iutcalendar.mainpage.PageEventActivity;
 import com.iutcalendar.snackbar.ErrorSnackBar;
 import com.univlyon1.tools.agenda.R;
@@ -196,18 +195,22 @@ public class FileGlobal {
 
                 onChangeListener.ifChange(context, intent);
             }
-        }
-        catch (UnknownHostException e){
+        } catch (UnknownHostException e) {
             if (context instanceof PageEventActivity) {
                 PageEventActivity a = (PageEventActivity) context;
                 ErrorSnackBar.showError(a.getBinding().getRoot(), a.getString(R.string.No_connexion));
             }
-        }
-        catch (Exception e) {
+        } catch (WrongURLException e) {
             if (context instanceof PageEventActivity) {
                 PageEventActivity a = (PageEventActivity) context;
                 ErrorSnackBar.showError(a.getBinding().getRoot(), a.getString(R.string.Wrong_URL));
             }
+        } catch (Exception e) {
+            if (context instanceof PageEventActivity) {
+                PageEventActivity a = (PageEventActivity) context;
+                ErrorSnackBar.showError(a.getBinding().getRoot(), a.getString(R.string.Error));
+            }
+            Log.e("File", e.getMessage());
         }
     }
 }

@@ -48,7 +48,7 @@ public class FileDownload {
 //        try { // update du fichier ou création
             String url = DataGlobal.getSavedPath(context);
             if (url.isEmpty()) {
-                throw new InputStreamFileException("mauvais URL");
+                throw new WrongURLException();
             }
             InputStream inputStream = getCalender(url);
             if (inputStream == null) {

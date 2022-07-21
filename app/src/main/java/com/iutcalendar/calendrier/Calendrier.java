@@ -47,6 +47,7 @@ public class Calendrier implements Cloneable {
     }
 
     public static boolean writeCalendarFile(String conentFile, File fileToWrite) throws IOException, InvalideFormatException {
+        Log.d("Debug", conentFile);
         if (isValideFormat(conentFile)) {
             return FileGlobal.writeFile(conentFile, fileToWrite);
         } else {
