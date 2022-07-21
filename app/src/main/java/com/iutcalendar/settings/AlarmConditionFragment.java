@@ -7,13 +7,13 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.univlyon1.tools.agenda.R;
 import com.iutcalendar.alarm.AlarmRing;
 import com.iutcalendar.alarm.condition.AlarmConditionManager;
 import com.iutcalendar.alarm.condition.AlarmConditionRecycleView;
 import com.iutcalendar.alarm.condition.AlarmCondtion;
 import com.iutcalendar.calendrier.DateCalendrier;
 import com.iutcalendar.dialog.DialogMessage;
+import com.univlyon1.tools.agenda.R;
 
 public class AlarmConditionFragment extends Fragment {
 
@@ -89,12 +89,13 @@ public class AlarmConditionFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_action_constraint_alarm, menu);
+        inflater.inflate(R.menu.menu_action_help_and_add_alarm, menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
+        Log.d("MenuBar", "fragment");
 
         if (id == R.id.addBtn) {
             addCondition();

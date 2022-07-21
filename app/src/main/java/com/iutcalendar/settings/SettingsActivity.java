@@ -88,11 +88,13 @@ public class SettingsActivity extends AppCompatActivity implements PreferenceFra
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
+        Log.d("MenuBar", "activity");
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
             getSupportFragmentManager().popBackStack();
             decreaseCountArborescenceFragment();
         } else {
-            return new MenuItemClickActivities(this).onMenuItemClick(item);
+            new MenuItemClickActivities(this).onMenuItemClick(item);
         }
         updateActionBar();
         return super.onOptionsItemSelected(item);

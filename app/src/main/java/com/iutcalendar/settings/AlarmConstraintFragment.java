@@ -63,12 +63,14 @@ public class AlarmConstraintFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_action_constraint_alarm, menu);
+        inflater.inflate(R.menu.menu_action_help_and_add_alarm, menu);
     }
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
+        Log.d("MenuBar", "fragment");
 
         if (id == R.id.addBtn) {
             addConstraint();
