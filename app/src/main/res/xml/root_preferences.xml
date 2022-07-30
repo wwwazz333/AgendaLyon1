@@ -120,8 +120,7 @@
                         android:icon="@drawable/ic_contact">
         <Preference
                 android:key="ContactFragment"
-                app:title="@string/Contact"
-                app:summary="Me contacter"/>
+                app:title="@string/Contact"/>
     </PreferenceCategory>
 
 
