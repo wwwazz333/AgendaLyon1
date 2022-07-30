@@ -23,6 +23,7 @@ import java.util.List;
 
 public class EventChangementHistoryActivity extends AppCompatActivity {
 
+    //TODO en faire un fragment pour le mettre dans la notif d'ouverture quand il y à des changements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

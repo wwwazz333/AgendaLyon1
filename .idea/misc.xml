@@ -94,6 +94,7 @@
         <entry key="app/src/main/res/drawable/left_arrow.xml" value="0.3671875" />
         <entry key="app/src/main/res/drawable/task_background.xml" value="0.37435897435897436" />
         <entry key="app/src/main/res/layout/activity_alarm_ring.xml" value="0.35104166666666664" />
+        <entry key="app/src/main/res/layout/activity_event_changement_history.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_page_event.xml" value="0.37395833333333334" />
         <entry key="app/src/main/res/layout/alarm_card.xml" value="0.5" />
