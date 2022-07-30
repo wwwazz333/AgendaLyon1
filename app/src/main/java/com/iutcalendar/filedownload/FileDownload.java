@@ -4,7 +4,6 @@ import android.content.Context;
 import android.util.Log;
 import com.iutcalendar.calendrier.Calendrier;
 import com.iutcalendar.calendrier.InputStreamFileException;
-import com.iutcalendar.calendrier.InvalideFormatException;
 import com.iutcalendar.data.DataGlobal;
 
 import java.io.ByteArrayOutputStream;
@@ -13,8 +12,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.LinkedList;
-import java.util.List;
 
 public class FileDownload {
 
@@ -43,31 +40,23 @@ public class FileDownload {
     }
 
     public static boolean updateFichier(String file_path, Context context) throws IOException, InputStreamFileException {
+        //TODO actualizer alarm etc...
         boolean succes = false;
 
-//        try { // update du fichier ou création
-            String url = DataGlobal.getSavedPath(context);
-            if (url.isEmpty()) {
-                throw new WrongURLException();
-            }
-            InputStream inputStream = getCalender(url);
-            if (inputStream == null) {
-                throw new InputStreamFileException("input stream est null");
-            }
-            String conentFile = inputStream2String(inputStream);
+        // update du fichier ou création
+        String url = DataGlobal.getSavedPath(context);
+        if (url.isEmpty()) {
+            throw new WrongURLException();
+        }
+        InputStream inputStream = getCalender(url);
+        if (inputStream == null) {
+            throw new InputStreamFileException("input stream est null");
+        }
+        String conentFile = inputStream2String(inputStream);
 
-            succes = Calendrier.writeCalendarFile(conentFile, new File(file_path));
-            if (succes) Log.d("File", "fichier enregistré");
-//        } catch (InvalideFormatException e) {
-//            Log.e("File", "format file : " + e.getMessage());
-//        } catch (InputStreamFileException e) {
-//            Log.e("File", "input stream : " + e.getMessage());
-//        } catch (IOException e) {
-//            Log.e("File", "IOException erreur update file: " + e.getMessage());
-//        } catch (Exception e) {
-//            Log.e("File", "Erreur update file : " + e.getMessage());
-//            e.printStackTrace();
-//        }
+        succes = Calendrier.writeCalendarFile(conentFile, new File(file_path));
+        if (succes) Log.d("File", "fichier enregistré");
+
 
         return succes;
     }

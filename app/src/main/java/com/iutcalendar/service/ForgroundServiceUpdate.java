@@ -92,10 +92,11 @@ public class ForgroundServiceUpdate extends Service/*BroadcastReceiver*/ {
 
 
     private void updateFile(Context context) {
+        //TODO string: message de notif FR & AN
         FileGlobal.updateAndGetChange(context, calendrier, ((context1, intent) -> {
             PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE);
 
-            Notif notif = new Notif(context, Notif.CHANGE_EVENT_NOTIFICATION_ID, NotificationManager.IMPORTANCE_DEFAULT, context.getResources().getString(R.string.event), "changes : all the changes", R.drawable.ic_edit, pendingIntent);
+            Notif notif = new Notif(context, Notif.CHANGE_EVENT_NOTIFICATION_ID, NotificationManager.IMPORTANCE_DEFAULT, context.getResources().getString(R.string.event), context.getString(R.string.change_in_schedul), R.drawable.ic_edit, pendingIntent);
             notif.show();
         }));
     }

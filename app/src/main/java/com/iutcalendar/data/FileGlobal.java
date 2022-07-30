@@ -189,7 +189,7 @@ public class FileGlobal {
             if (!changes.isEmpty()) {
                 String changesMsg = Calendrier.changeToString(context, changes);
 
-                //TODO string: message de notif
+
                 Intent intent = new Intent(context, PageEventActivity.class);
                 intent.putExtra("changes", changesMsg);
 
@@ -210,7 +210,7 @@ public class FileGlobal {
                 PageEventActivity a = (PageEventActivity) context;
                 ErrorSnackBar.showError(a.getBinding().getRoot(), a.getString(R.string.Error));
             }
-            Log.e("File", e.getMessage());
+            Log.e("SnackBar", e.getMessage());
         }
     }
 }

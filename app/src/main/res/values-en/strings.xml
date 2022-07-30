@@ -152,4 +152,5 @@ As well as a time which corresponds to the hour at which the alarm will sound."<
     <string name="Search">Search a room (Beta)</string>
     <string name="go_to_page_Search">Go to page Search a room</string>
     <string name="Error">Error</string>
+    <string name="change_in_schedul">There is changes in your schedule</string>
 </resources>
