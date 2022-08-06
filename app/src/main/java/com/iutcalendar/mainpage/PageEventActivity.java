@@ -1,20 +1,16 @@
 package com.iutcalendar.mainpage;
 
-import android.app.AlertDialog;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.FragmentContainerView;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 import com.google.android.gms.ads.AdRequest;
@@ -26,7 +22,6 @@ import com.iutcalendar.calendrier.EventCalendrier;
 import com.iutcalendar.data.DataGlobal;
 import com.iutcalendar.data.FileGlobal;
 import com.iutcalendar.event.changement.ChangeDialog;
-import com.iutcalendar.event.changement.EventChangementHistoryActivity;
 import com.iutcalendar.mainpage.ui.main.SectionsPagerAdapter;
 import com.iutcalendar.menu.MenuItemClickActivities;
 import com.iutcalendar.service.ForgroundServiceUpdate;
@@ -301,10 +296,10 @@ public class PageEventActivity extends AppCompatActivity {
     }
 
     public void setCurrDate(CurrentDate newDate) {
-        if (newDate.sameDay(currDate)) {
-            currDateLabel.setText(currDate.getRelativeDayName(getBaseContext()));
-            return;
-        }
+//        if (newDate.sameDay(currDate)) { //some bugs
+//            currDateLabel.setText(currDate.getRelativeDayName(getBaseContext()));
+//            return;
+//        }
         Log.d("Date", currDate + " set curr date to " + newDate);
 
         if (getCalendrier() != null && getCalendrier().getFirstDay() != null && getCalendrier().getLastDay() != null) {
