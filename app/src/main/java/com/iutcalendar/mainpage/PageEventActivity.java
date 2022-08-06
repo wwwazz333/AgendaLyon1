@@ -7,11 +7,14 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentContainerView;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 import com.google.android.gms.ads.AdRequest;
@@ -22,6 +25,8 @@ import com.iutcalendar.calendrier.CurrentDate;
 import com.iutcalendar.calendrier.EventCalendrier;
 import com.iutcalendar.data.DataGlobal;
 import com.iutcalendar.data.FileGlobal;
+import com.iutcalendar.event.changement.ChangeDialog;
+import com.iutcalendar.event.changement.EventChangementHistoryActivity;
 import com.iutcalendar.mainpage.ui.main.SectionsPagerAdapter;
 import com.iutcalendar.menu.MenuItemClickActivities;
 import com.iutcalendar.service.ForgroundServiceUpdate;
@@ -274,14 +279,18 @@ public class PageEventActivity extends AppCompatActivity {
     private void showChangedEvent(String changes) {
         //TODO faire plus beau
         //FIXME pas afficher quand charger agenda
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(PageEventActivity.this);
-        alertDialog.setTitle(getString(R.string.event));
+//        AlertDialog.Builder alertDialog = new AlertDialog.Builder(PageEventActivity.this);
+//        alertDialog.setTitle(getString(R.string.event));
+//
+////        alertDialog.setMessage(changes);
+//        alertDialog.setView(getLayoutInflater().inflate(R.layout.fragment_history, null));
+//
+//        alertDialog.setPositiveButton(getString(R.string.ok), (dialog, which) -> dialog.dismiss());
+//
+//        alertDialog.show();
 
-        alertDialog.setMessage(changes);
+        new ChangeDialog(this).show();
 
-        alertDialog.setPositiveButton(getString(R.string.ok), (dialog, which) -> dialog.dismiss());
-
-        alertDialog.show();
     }
 
     /*########################################################################

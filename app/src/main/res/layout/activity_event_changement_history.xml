@@ -5,7 +5,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context="com.iutcalendar.event.changement.EventChangementHistoryActivity">
-    <TextView
+    <!--<TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/default_padding"
@@ -15,7 +15,12 @@
             android:id="@+id/recycleView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scrollbars="vertical"/>
+            android:scrollbars="vertical"/>-->
 
-
+    <androidx.fragment.app.FragmentContainerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:name="com.iutcalendar.event.changement.HistoryFragment"
+            android:id="@+id/fragmentHistory"
+            tools:layout="@layout/fragment_history"/>
 </RelativeLayout>

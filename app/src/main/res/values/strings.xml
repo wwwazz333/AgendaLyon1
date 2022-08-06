@@ -179,7 +179,6 @@
     <string name="Search">Recherche un salle (Beta)</string>
     <string name="go_to_page_Search">Allez à la page Recherche de salle</string>
     <string name="Error">Erreur</string>
-    <string name="change_in_schedul">Il y a des changements dans votre emplois du temps</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="change_in_schedul">Il y a des changements dans votre emploi du temps</string>
 
 </resources>

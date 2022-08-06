@@ -31,18 +31,18 @@ public class EventChangementHistoryActivity extends AppCompatActivity {
         SettingsApp.setLocale(getResources(), DataGlobal.getLanguage(getApplicationContext()));
         setContentView(R.layout.activity_event_changement_history);
 
-        RecyclerView recyclerView = findViewById(R.id.recycleView);
-        TextView textView = findViewById(R.id.text);
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        Log.d("History", EventChangmentManager.getInstance(getApplicationContext()).getChangmentList().toString());
-        List<EventChangment> eventChangementList = EventChangmentManager.getInstance(getApplicationContext()).getChangmentList();
-        if (eventChangementList.isEmpty()) {
-            textView.setText(R.string.NoEDTChange);
-        } else {
-            Collections.reverse(eventChangementList);
-            recyclerView.setAdapter(new EventChangmentRecycleView(this, eventChangementList));
-        }
+//        RecyclerView recyclerView = findViewById(R.id.recycleView);
+//        TextView textView = findViewById(R.id.text);
+//
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        Log.d("History", EventChangmentManager.getInstance(getApplicationContext()).getChangmentList().toString());
+//        List<EventChangment> eventChangementList = EventChangmentManager.getInstance(getApplicationContext()).getChangmentList();
+//        if (eventChangementList.isEmpty()) {
+//            textView.setText(R.string.NoEDTChange);
+//        } else {
+//            Collections.reverse(eventChangementList);
+//            recyclerView.setAdapter(new EventChangmentRecycleView(this, eventChangementList));
+//        }
 
 
         ActionBar actionBar = getSupportActionBar();
