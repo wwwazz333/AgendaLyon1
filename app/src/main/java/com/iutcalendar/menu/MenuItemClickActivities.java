@@ -34,9 +34,9 @@ public class MenuItemClickActivities implements MenuItem.OnMenuItemClickListener
             case R.id.history:
                 intent = new Intent(context, EventChangementHistoryActivity.class);
                 break;
-            case R.id.search:
-                intent = new Intent(context, SearchActivity.class);
-                break;
+//            case R.id.search:
+//                intent = new Intent(context, SearchActivity.class);
+//                break;
             default:
                 return false;
         }
