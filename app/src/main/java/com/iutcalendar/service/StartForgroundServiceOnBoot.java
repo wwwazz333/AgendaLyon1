@@ -8,6 +8,6 @@ public class StartForgroundServiceOnBoot extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        ForgroundServiceUpdate.start(context);
+        ForegroundServiceUpdate.start(context);
     }
 }

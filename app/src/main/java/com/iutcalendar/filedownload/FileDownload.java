@@ -2,9 +2,11 @@ package com.iutcalendar.filedownload;
 
 import android.content.Context;
 import android.util.Log;
+import com.iutcalendar.alarm.Alarm;
 import com.iutcalendar.calendrier.Calendrier;
 import com.iutcalendar.calendrier.InputStreamFileException;
 import com.iutcalendar.data.DataGlobal;
+import com.iutcalendar.data.FileGlobal;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -55,7 +57,12 @@ public class FileDownload {
         String conentFile = inputStream2String(inputStream);
 
         succes = Calendrier.writeCalendarFile(conentFile, new File(file_path));
-        if (succes) Log.d("File", "fichier enregistré");
+        if (succes) {
+            Log.d("File", "fichier enregistré");
+            Calendrier calendrier = new Calendrier(FileGlobal.readFile(FileGlobal.getFileDownload(context)));
+
+            Alarm.setUpAlarm(context, calendrier);
+        }
 
 
         return succes;

@@ -74,7 +74,7 @@
         </receiver>
 
         <service
-                android:name="com.iutcalendar.service.ForgroundServiceUpdate"
+                android:name="com.iutcalendar.service.ForegroundServiceUpdate"
                 android:enabled="true"/>
 
         <receiver

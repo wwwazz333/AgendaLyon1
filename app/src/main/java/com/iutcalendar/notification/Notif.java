@@ -11,7 +11,7 @@ import androidx.core.app.NotificationCompat;
 public class Notif extends NotificationCompat.Builder {
     public static final String CHANGE_EVENT_NOTIFICATION_ID = "Change event notification";
     public static final String UPDATE_BACKGROUND_NOTIFICATION_ID = "Background update permanent notification";
-    public static final String ALARM_NOTIFICATION_ID = "Alarm notfication";
+    public static final String ALARM_NOTIFICATION_ID = "Alarm notification";
     private final String chanelId;
     private NotificationManager mNotificationManager;
 

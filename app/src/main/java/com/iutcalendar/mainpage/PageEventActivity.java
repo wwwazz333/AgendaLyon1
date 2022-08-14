@@ -24,7 +24,7 @@ import com.iutcalendar.data.FileGlobal;
 import com.iutcalendar.event.changement.ChangeDialog;
 import com.iutcalendar.mainpage.ui.main.SectionsPagerAdapter;
 import com.iutcalendar.menu.MenuItemClickActivities;
-import com.iutcalendar.service.ForgroundServiceUpdate;
+import com.iutcalendar.service.ForegroundServiceUpdate;
 import com.iutcalendar.settings.SettingsApp;
 import com.iutcalendar.swiping.GestureEventManager;
 import com.iutcalendar.swiping.TouchGestureListener;
@@ -94,7 +94,7 @@ public class PageEventActivity extends AppCompatActivity {
         }
 
         //démarre le service d'arrière-plan avec interval
-        ForgroundServiceUpdate.start(getApplicationContext());
+        ForegroundServiceUpdate.start(getApplicationContext());
 
         //update
         update(null);

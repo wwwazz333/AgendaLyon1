@@ -10,15 +10,14 @@ import android.os.IBinder;
 import android.os.PowerManager;
 import android.util.Log;
 import androidx.annotation.Nullable;
-import com.univlyon1.tools.agenda.R;
-import com.iutcalendar.alarm.Alarm;
 import com.iutcalendar.calendrier.Calendrier;
 import com.iutcalendar.calendrier.CurrentDate;
 import com.iutcalendar.data.DataGlobal;
 import com.iutcalendar.data.FileGlobal;
 import com.iutcalendar.notification.Notif;
+import com.univlyon1.tools.agenda.R;
 
-public class ForgroundServiceUpdate extends Service/*BroadcastReceiver*/ {
+public class ForegroundServiceUpdate extends Service/*BroadcastReceiver*/ {
     private static final long INTERVAL_UPDATE = 20 * 60_000;
 
     private static final String TAG_WAKE_LOCK = "IUTCalendar::majAgenda";
@@ -27,7 +26,7 @@ public class ForgroundServiceUpdate extends Service/*BroadcastReceiver*/ {
 
     public static void start(Context context) {
         Log.d("Background", "start alarm repeating");
-        Intent intentService = new Intent(context, ForgroundServiceUpdate.class);
+        Intent intentService = new Intent(context, ForegroundServiceUpdate.class);
         PendingIntent pendingIntent = PendingIntent.getForegroundService(context, 0, intentService, PendingIntent.FLAG_IMMUTABLE);
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + INTERVAL_UPDATE, INTERVAL_UPDATE, pendingIntent);
@@ -46,34 +45,24 @@ public class ForgroundServiceUpdate extends Service/*BroadcastReceiver*/ {
 
 
             if (wakeLock.isHeld()) {
-                long timerCount = System.currentTimeMillis();
+                try {
+                    long timerCount = System.currentTimeMillis();
 
-                long read, setal, upmaj;
-                calendrier = new Calendrier(FileGlobal.readFile(FileGlobal.getFileDownload(getApplicationContext())));
-                read = (System.currentTimeMillis() - timerCount) / 1000;
-                timerCount = System.currentTimeMillis();
+                    updateFile(getApplicationContext());
 
-                Alarm.setUpAlarm(getApplicationContext(), calendrier);
-                setal = (System.currentTimeMillis() - timerCount) / 1000;
-                timerCount = System.currentTimeMillis();
-
-
-                updateFile(getApplicationContext());
-                upmaj = (System.currentTimeMillis() - timerCount) / 1000;
-
-                if (DataGlobal.isDebug(getApplicationContext())) {
-                    String txt = "";
-                    txt += "read cal : " + read + "s\n";
-                    txt += "maj : " + setal + "s\n";
-                    txt += "alarm : " + upmaj + "s\n";
-                    new Notif(this, Notif.CHANGE_EVENT_NOTIFICATION_ID, NotificationManager.IMPORTANCE_DEFAULT,
-                            "Tps background", txt, R.drawable.ic_update, null).show();
+                    if (DataGlobal.isDebug(getApplicationContext())) {
+                        String txt = "";
+                        txt += "background process : " + (System.currentTimeMillis() - timerCount) / 1000 + "s";
+                        new Notif(this, Notif.CHANGE_EVENT_NOTIFICATION_ID, NotificationManager.IMPORTANCE_DEFAULT,
+                                "Tps background", txt, R.drawable.ic_update, null).show();
+                    }
+                } catch (Exception ignored) {
                 }
+
             } else {
                 new Notif(this, Notif.CHANGE_EVENT_NOTIFICATION_ID, NotificationManager.IMPORTANCE_DEFAULT,
-                        "background", "wake cpu doesn't work", R.drawable.ic_update, null).show();
+                        "maj.", "maj. impossible", R.drawable.ic_update, null).show();
             }
-
 
             //Plus besoin du CPU
             wakeLock.release();

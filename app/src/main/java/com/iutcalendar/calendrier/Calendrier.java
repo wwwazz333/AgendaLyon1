@@ -244,7 +244,6 @@ public class Calendrier implements Cloneable {
         try {
             Calendrier clone = (Calendrier) super.clone();
             clone.events = new ArrayList<>(events);
-            // TODO: copy mutable state here, so the clone can't change the internals of the original
             return clone;
         } catch (CloneNotSupportedException e) {
             throw new AssertionError();
