@@ -24,7 +24,7 @@ import com.iutcalendar.data.FileGlobal;
 import com.iutcalendar.event.changement.ChangeDialog;
 import com.iutcalendar.mainpage.ui.main.SectionsPagerAdapter;
 import com.iutcalendar.menu.MenuItemClickActivities;
-import com.iutcalendar.service.ForegroundServiceUpdate;
+import com.iutcalendar.service.UpdateBackgroundJobServices;
 import com.iutcalendar.settings.SettingsApp;
 import com.iutcalendar.swiping.GestureEventManager;
 import com.iutcalendar.swiping.TouchGestureListener;
@@ -88,13 +88,14 @@ public class PageEventActivity extends AppCompatActivity {
         String changements = getIntent().getStringExtra("changes");
         if (changements != null) {
             Log.d("Extra", changements);
-            showChangedEvent(changements);
+            showChangedEvent();
         } else {
             Log.d("Extra", "no changes");
         }
 
         //démarre le service d'arrière-plan avec interval
-        ForegroundServiceUpdate.start(getApplicationContext());
+//        ForegroundServiceUpdate.start(getApplicationContext());
+        UpdateBackgroundJobServices.startScheduleJobBackground(this);
 
         //update
         update(null);
@@ -271,19 +272,8 @@ public class PageEventActivity extends AppCompatActivity {
 
     }
 
-    private void showChangedEvent(String changes) {
-        //TODO faire plus beau
+    private void showChangedEvent() {
         //FIXME pas afficher quand charger agenda
-//        AlertDialog.Builder alertDialog = new AlertDialog.Builder(PageEventActivity.this);
-//        alertDialog.setTitle(getString(R.string.event));
-//
-////        alertDialog.setMessage(changes);
-//        alertDialog.setView(getLayoutInflater().inflate(R.layout.fragment_history, null));
-//
-//        alertDialog.setPositiveButton(getString(R.string.ok), (dialog, which) -> dialog.dismiss());
-//
-//        alertDialog.show();
-
         new ChangeDialog(this).show();
 
     }
