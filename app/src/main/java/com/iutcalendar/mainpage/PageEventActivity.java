@@ -1,6 +1,9 @@
 package com.iutcalendar.mainpage;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -8,9 +11,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 import com.google.android.gms.ads.AdRequest;
@@ -104,6 +109,7 @@ public class PageEventActivity extends AppCompatActivity {
         /*####Testing feature#####*/
 
         Log.d("Global", "PageEventActivity end");
+
 
 
     }

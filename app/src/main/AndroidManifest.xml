@@ -6,12 +6,12 @@
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
     <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
     <application
+            android:name="com.iutcalendar.notification.NotificationChannels"
             android:allowBackup="true"
             android:hardwareAccelerated="true"
             android:icon="@mipmap/ic_launcher"
@@ -21,14 +21,8 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:screenOrientation="portrait"
             android:supportsRtl="true"
-            android:theme="@style/Theme.IUTCalendarActionBar" >
-        <activity
-                android:name="com.iutcalendar.search.SearchActivity"
-                android:exported="true"/>
+            android:theme="@style/Theme.IUTCalendarActionBar">
 
-        <meta-data
-                android:name="com.google.android.gms.ads.APPLICATION_ID"
-                android:value="ca-app-pub-5948550134102575~7748128275"/>
 
         <activity
                 android:name="com.iutcalendar.mainpage.PageEventActivity"
@@ -41,6 +35,10 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity
+                android:name="com.iutcalendar.search.SearchActivity"
+                android:exported="true"
+                android:screenOrientation="portrait"/>
         <activity
                 android:name="com.iutcalendar.event.changement.EventChangementHistoryActivity"
                 android:exported="true"
@@ -70,13 +68,15 @@
                     android:name="android.appwidget.provider"
                     android:resource="@xml/widget_calendar_info"/>
         </receiver>
+        <receiver android:name="com.iutcalendar.alarm.Alarm">
+        </receiver>
 
         <service android:name="com.iutcalendar.service.UpdateBackgroundJobServices"
                  android:permission="android.permission.BIND_JOB_SERVICE"/>
 
-
-        <receiver android:name="com.iutcalendar.alarm.Alarm">
-        </receiver>
+        <meta-data
+                android:name="com.google.android.gms.ads.APPLICATION_ID"
+                android:value="ca-app-pub-5948550134102575~7748128275"/>
     </application>
 
 </manifest>
