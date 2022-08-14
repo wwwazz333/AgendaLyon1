@@ -21,26 +21,34 @@ public class UpdateBackgroundJobServices extends JobService {
     private static final long INTERVAL_UPDATE = 20 * 60_000;
     public static int jobID = 5453;
 
-    public UpdateBackgroundJobServices(){
+    public UpdateBackgroundJobServices() {
         Configuration.Builder builder = new Configuration.Builder();
         builder.setJobSchedulerJobIdRange(0, 10000);
     }
 
     public static void startScheduleJobBackground(Context context) {
-        ComponentName componentName = new ComponentName(context, UpdateBackgroundJobServices.class);
-
-        JobInfo info = new JobInfo.Builder(jobID, componentName)
-                .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
-                .setPersisted(true)
-                .setPeriodic(INTERVAL_UPDATE)
-                .build();
-
         JobScheduler scheduler = (JobScheduler) context.getSystemService(JOB_SCHEDULER_SERVICE);
-        int resCode = scheduler.schedule(info);
-        if (resCode == JobScheduler.RESULT_SUCCESS) {
-            Log.d(TAG, "startScheduleJobBackground: success");
+        if (scheduler.getPendingJob(jobID) != null) {
+            Log.d(TAG, "planification des updates");
+
+
+            ComponentName componentName = new ComponentName(context, UpdateBackgroundJobServices.class);
+
+            JobInfo info = new JobInfo.Builder(jobID, componentName)
+                    .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
+                    .setPersisted(true)
+                    .setPeriodic(INTERVAL_UPDATE)
+                    .build();
+
+
+            int resCode = scheduler.schedule(info);
+            if (resCode == JobScheduler.RESULT_SUCCESS) {
+                Log.d(TAG, "startScheduleJobBackground: success");
+            } else {
+                Log.d(TAG, "startScheduleJobBackground: failed");
+            }
         } else {
-            Log.d(TAG, "startScheduleJobBackground: failed");
+            Log.d(TAG, "planification des updates déjà faites");
         }
     }
 
@@ -61,7 +69,7 @@ public class UpdateBackgroundJobServices extends JobService {
 
                 updateFile(getApplicationContext());
 
-                if (DataGlobal.isDebug(getApplicationContext())) {
+                if (DataGlobal.isDebug(getApplicationContext())) {//Debugging
                     String txt = "";
                     txt += "background process : " + (System.currentTimeMillis() - timerCount) / 1000 + "s";
                     new Notif(this, Notif.CHANGE_EVENT_NOTIFICATION_ID, NotificationManager.IMPORTANCE_DEFAULT,
