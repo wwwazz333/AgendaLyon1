@@ -153,4 +153,9 @@ As well as a time which corresponds to the hour at which the alarm will sound."<
     <string name="go_to_page_Search">Go to page Search a room</string>
     <string name="Error">Error</string>
     <string name="change_in_schedul">There is changes in your schedule</string>
+    <string name="change_schedule">Changes in the schedule</string>
+    <string name="change_schedule">Changes in the schedule</string>
+    <string name="notify_change">Notify of a change in the schedule</string>
+    <string name="notif_for_alarm">Alarm notification</string>
+    <string name="notify_for_alarm">Notification for alarms (not disabled if using alarms)</string>
 </resources>
