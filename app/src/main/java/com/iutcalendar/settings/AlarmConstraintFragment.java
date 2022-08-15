@@ -7,13 +7,14 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.iutcalendar.menu.AbstractFragmentWitheMenu;
 import com.univlyon1.tools.agenda.R;
 import com.iutcalendar.alarm.condition.AlarmConditionManager;
 import com.iutcalendar.alarm.condition.label_constraint.AlarmConstraintLabel;
 import com.iutcalendar.alarm.condition.label_constraint.AlarmLabelConstraintRecycleView;
 import com.iutcalendar.dialog.DialogMessage;
 
-public class AlarmConstraintFragment extends Fragment {
+public class AlarmConstraintFragment extends AbstractFragmentWitheMenu {
 
     RecyclerView recyclerViewConstraint;
     View view;
@@ -39,7 +40,7 @@ public class AlarmConstraintFragment extends Fragment {
         recyclerViewConstraint.setAdapter(adapter);
         recyclerViewConstraint.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        //save si des changement de constraint on été fait
+        //save si des changements de constraint ont été fait
         saveConstraint();
         Log.d("Constraint", "updateConstraint");
     }
@@ -55,11 +56,6 @@ public class AlarmConstraintFragment extends Fragment {
 
 
     /*#################MENU BAR#################*/
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-    }
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {

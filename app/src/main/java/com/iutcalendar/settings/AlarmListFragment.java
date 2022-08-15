@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.iutcalendar.menu.AbstractFragmentWitheMenu;
 import com.univlyon1.tools.agenda.R;
 import com.iutcalendar.alarm.Alarm;
 import com.iutcalendar.alarm.AlarmRecycleView;
@@ -15,7 +16,7 @@ import com.iutcalendar.calendrier.Calendrier;
 import com.iutcalendar.data.FileGlobal;
 
 
-public class AlarmListFragment extends Fragment {
+public class AlarmListFragment extends AbstractFragmentWitheMenu {
 
 
     private RecyclerView recyclerViewAlarm;
@@ -54,11 +55,6 @@ public class AlarmListFragment extends Fragment {
 
 
     /*#################MENU BAR#################*/
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-    }
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {

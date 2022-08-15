@@ -13,9 +13,10 @@ import com.iutcalendar.alarm.condition.AlarmConditionRecycleView;
 import com.iutcalendar.alarm.condition.AlarmCondtion;
 import com.iutcalendar.calendrier.DateCalendrier;
 import com.iutcalendar.dialog.DialogMessage;
+import com.iutcalendar.menu.AbstractFragmentWitheMenu;
 import com.univlyon1.tools.agenda.R;
 
-public class AlarmConditionFragment extends Fragment {
+public class AlarmConditionFragment extends AbstractFragmentWitheMenu {
 
     RecyclerView recyclerViewConstraint;
     View view;
@@ -81,11 +82,6 @@ public class AlarmConditionFragment extends Fragment {
 
 
     /*#################MENU BAR#################*/
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-    }
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {

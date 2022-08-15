@@ -21,6 +21,8 @@ public class NotificationChannels extends Application {
 
     private void createNotificationChannels() {
         Context ctx = getApplicationContext();
+        NotificationManager notificationManager = getSystemService(NotificationManager.class);
+
 
         NotificationChannel channelChangeEvent = new NotificationChannel(CHANGE_EVENT_NOTIFICATION_ID, ctx.getString(R.string.change_schedule), NotificationManager.IMPORTANCE_DEFAULT);
         channelChangeEvent.enableLights(true);
@@ -34,7 +36,7 @@ public class NotificationChannels extends Application {
         channelAlarmNotif.enableVibration(true);
         channelAlarmNotif.setDescription(ctx.getString(R.string.notify_for_alarm));
 
-        NotificationManager notificationManager = getSystemService(NotificationManager.class);
+
 
         notificationManager.createNotificationChannel(channelChangeEvent);
         notificationManager.createNotificationChannel(channelAlarmNotif);

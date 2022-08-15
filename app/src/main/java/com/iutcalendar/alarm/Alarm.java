@@ -24,6 +24,7 @@ import com.iutcalendar.calendrier.DateCalendrier;
 import com.iutcalendar.calendrier.EventCalendrier;
 import com.iutcalendar.data.DataGlobal;
 import com.iutcalendar.notification.Notif;
+import com.iutcalendar.notification.NotificationChannels;
 import com.univlyon1.tools.agenda.R;
 
 import java.util.GregorianCalendar;
@@ -201,7 +202,7 @@ public class Alarm extends BroadcastReceiver {
         Intent ai = new Intent(context, AlarmRingActivity.class);
         PendingIntent cancelAlarmIntent = PendingIntent.getActivity(context, 0, ai, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
-        Notif notif = new Notif(context, Notif.ALARM_NOTIFICATION_ID, NotificationManager.IMPORTANCE_HIGH,
+        Notif notif = new Notif(context, NotificationChannels.ALARM_NOTIFICATION_ID,
                 "Alarm", "ring", R.drawable.ic_alarm, cancelAlarmIntent);
         notif.setOngoing(true);
         notif.show();

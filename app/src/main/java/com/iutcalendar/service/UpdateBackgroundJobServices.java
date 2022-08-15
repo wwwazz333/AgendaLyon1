@@ -14,6 +14,7 @@ import com.iutcalendar.calendrier.CurrentDate;
 import com.iutcalendar.data.DataGlobal;
 import com.iutcalendar.data.FileGlobal;
 import com.iutcalendar.notification.Notif;
+import com.iutcalendar.notification.NotificationChannels;
 import com.univlyon1.tools.agenda.R;
 
 public class UpdateBackgroundJobServices extends JobService {
@@ -72,7 +73,7 @@ public class UpdateBackgroundJobServices extends JobService {
                 if (DataGlobal.isDebug(getApplicationContext())) {//Debugging
                     String txt = "";
                     txt += "background process : " + (System.currentTimeMillis() - timerCount) / 1000 + "s";
-                    new Notif(this, Notif.CHANGE_EVENT_NOTIFICATION_ID, NotificationManager.IMPORTANCE_DEFAULT,
+                    new Notif(this, NotificationChannels.CHANGE_EVENT_NOTIFICATION_ID,
                             "Tps background", txt, R.drawable.ic_update, null).show();
                 }
             } catch (Exception ignored) {
@@ -95,7 +96,7 @@ public class UpdateBackgroundJobServices extends JobService {
         FileGlobal.updateAndGetChange(context, null, ((context1, intent) -> {
             PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE);
 
-            Notif notif = new Notif(context, Notif.CHANGE_EVENT_NOTIFICATION_ID, NotificationManager.IMPORTANCE_DEFAULT, context.getResources().getString(R.string.event), context.getString(R.string.change_in_schedul), R.drawable.ic_edit, pendingIntent);
+            Notif notif = new Notif(context, NotificationChannels.CHANGE_EVENT_NOTIFICATION_ID, context.getResources().getString(R.string.event), context.getString(R.string.change_in_schedul), R.drawable.ic_edit, pendingIntent);
             notif.show();
         }));
     }
