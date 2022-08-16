@@ -187,11 +187,9 @@ public class FileGlobal {
             EventChangmentManager.getInstance(context).save(context);
 
             if (!changes.isEmpty()) {
-                String changesMsg = Calendrier.changeToString(context, changes);
-
-
                 Intent intent = new Intent(context, PageEventActivity.class);
-                intent.putExtra("changes", changesMsg);
+
+                DataGlobal.save(context, DataGlobal.NOMBRE_CHANGE_TO_DISPLAY, changes.size());
 
                 onChangeListener.ifChange(context, intent);
             }

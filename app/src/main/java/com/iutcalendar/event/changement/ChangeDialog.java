@@ -9,9 +9,13 @@ import com.univlyon1.tools.agenda.R;
 
 public class ChangeDialog extends Dialog {
 
-    public ChangeDialog(@NonNull Context context) {
+    private final int nombreChangements;
+
+    public ChangeDialog(@NonNull Context context, int nombreChangements) {
         super(context);
         setContentView(R.layout.changement_dialog);
+
+        this.nombreChangements = nombreChangements;
     }
 
     @Override
@@ -20,7 +24,7 @@ public class ChangeDialog extends Dialog {
 
         FragmentContainerView fragmentContainerView = findViewById(R.id.fragmentHistory);
         Bundle args = new Bundle();
-        args.putString(HistoryFragment.DATE_AFFICHAGE, "today");
+        args.putInt(HistoryFragment.NOMBRE_EVENT, nombreChangements);
         fragmentContainerView.getFragment().setArguments(args);
     }
 }

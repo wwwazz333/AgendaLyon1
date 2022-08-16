@@ -24,6 +24,7 @@ public class DataGlobal {
 
     public final static String ACTIVATED_DAYS = "activated_days";
     public final static String NOTIFICATION_ENABLED = "notification_enabled";
+    public final static String NOMBRE_CHANGE_TO_DISPLAY = "nombre_change_to_display";
 
 
     public final static String DEBUGING = "debuging";

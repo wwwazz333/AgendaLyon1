@@ -71,8 +71,6 @@
         <receiver android:name="com.iutcalendar.alarm.Alarm">
         </receiver>
 
-        <service android:name="com.iutcalendar.service.UpdateBackgroundJobServices"
-                 android:permission="android.permission.BIND_JOB_SERVICE"/>
 
         <meta-data
                 android:name="com.google.android.gms.ads.APPLICATION_ID"

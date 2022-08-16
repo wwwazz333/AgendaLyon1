@@ -1,6 +1,5 @@
 package com.iutcalendar.mainpage;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,12 +13,9 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
-import androidx.work.WorkManager;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
-import com.iutcalendar.alarm.Alarm;
-import com.iutcalendar.alarm.AlarmRingActivity;
 import com.iutcalendar.calendrier.Calendrier;
 import com.iutcalendar.calendrier.CurrentDate;
 import com.iutcalendar.calendrier.EventCalendrier;
@@ -88,11 +84,11 @@ public class PageEventActivity extends AppCompatActivity {
         initAllOnClickEvents();
 
 
-        //affiche la dialog si ouverte depuis notification (changements)
-        String changements = getIntent().getStringExtra("changes");
-        if (changements != null) {
-            Log.d("Extra", changements);
-            showChangedEvent();
+        //affiche la dialog si changements depuis la dernière fois (notif ou non)
+        int nombreChange;
+        if ((nombreChange = DataGlobal.getSavedInt(this, DataGlobal.NOMBRE_CHANGE_TO_DISPLAY)) > 0) {
+            showChangedEvent(nombreChange);
+            DataGlobal.save(this, DataGlobal.NOMBRE_CHANGE_TO_DISPLAY, 0);
         } else {
             Log.d("Extra", "no changes");
         }
@@ -102,7 +98,6 @@ public class PageEventActivity extends AppCompatActivity {
 //        UpdateBackgroundJobServices.startScheduleJobBackground(this);
 
         WorkUpdate.startBackgroundWork(this);
-
 
 
         //update
@@ -279,9 +274,9 @@ public class PageEventActivity extends AppCompatActivity {
 
     }
 
-    private void showChangedEvent() {
+    private void showChangedEvent(int nombreChangements) {
         //FIXME pas afficher quand charger agenda
-        new ChangeDialog(this).show();
+        new ChangeDialog(this, nombreChangements).show();
 
     }
 

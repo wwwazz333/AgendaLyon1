@@ -9,8 +9,6 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.iutcalendar.calendrier.CurrentDate;
-import com.iutcalendar.calendrier.DateCalendrier;
 import com.univlyon1.tools.agenda.R;
 
 import java.util.Collections;
@@ -20,7 +18,7 @@ import java.util.List;
 
 public class HistoryFragment extends Fragment {
 
-    public static final String DATE_AFFICHAGE = "date_affichage";
+    public static final String NOMBRE_EVENT = "nombre_event";
 
     private View view;
 
@@ -41,9 +39,9 @@ public class HistoryFragment extends Fragment {
         List<EventChangment> eventChangementList = new LinkedList<>(EventChangmentManager.getInstance(getContext()).getChangmentList());
 
 
-        if (getArguments() != null && getArguments().getString(DATE_AFFICHAGE).equals("today")) {
-            eventChangementList.removeIf(changement ->
-                    changement.getDateOfTheChangement().compareTo(new CurrentDate().subTime(new DateCalendrier(0, 0, 0, 0, 1))) < 0);
+        int nombreEventDisplay;
+        if (getArguments() != null && (nombreEventDisplay = getArguments().getInt(NOMBRE_EVENT, 0)) > 0) {
+            eventChangementList = eventChangementList.subList(0, nombreEventDisplay);
         }
 
         if (eventChangementList.isEmpty()) {

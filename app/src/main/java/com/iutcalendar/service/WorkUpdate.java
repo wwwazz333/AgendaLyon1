@@ -24,17 +24,21 @@ public class WorkUpdate extends Worker {
 
     public static void startBackgroundWork(Context ctx) {
         WorkManager workManager = WorkManager.getInstance(ctx);
+        workManager.cancelUniqueWork(WorkUpdate.workName);
         if (DataGlobal.getSavedBoolean(ctx, DataGlobal.NOTIFICATION_ENABLED)) {
             Constraints constraints = new Constraints.Builder()
                     .setRequiredNetworkType(NetworkType.CONNECTED)
                     .build();
 
-            PeriodicWorkRequest periodicWorkRequest = new PeriodicWorkRequest.Builder(WorkUpdate.class, 20, TimeUnit.MINUTES)
+            PeriodicWorkRequest periodicWorkRequest = new PeriodicWorkRequest.Builder(WorkUpdate.class, 1, TimeUnit.HOURS)
                     .setConstraints(constraints)
+                    .setInitialDelay(1, TimeUnit.HOURS)
                     .build();
             workManager.enqueueUniquePeriodicWork(WorkUpdate.workName, ExistingPeriodicWorkPolicy.KEEP, periodicWorkRequest);
+            Log.d(TAG, "startBackgroundWork: periodic work enqueued");
         } else {
             workManager.cancelUniqueWork(WorkUpdate.workName);
+            Log.d(TAG, "startBackgroundWork: periodic work canceled");
         }
 
     }
