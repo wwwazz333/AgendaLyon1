@@ -23,6 +23,7 @@ public class DataGlobal {
     public final static String TIME_BEFORE_RING = "time_before_ring";
 
     public final static String ACTIVATED_DAYS = "activated_days";
+    public final static String NOTIFICATION_ENABLED = "notification_enabled";
 
 
     public final static String DEBUGING = "debuging";

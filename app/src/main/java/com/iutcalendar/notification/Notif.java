@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import androidx.annotation.DrawableRes;
 import androidx.core.app.NotificationCompat;
+import com.iutcalendar.data.DataGlobal;
 
 public class Notif extends NotificationCompat.Builder {
     private final String chanelId;

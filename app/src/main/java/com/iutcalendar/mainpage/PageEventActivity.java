@@ -1,9 +1,7 @@
 package com.iutcalendar.mainpage;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
+import android.content.Intent;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -11,17 +9,17 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
-import androidx.work.*;
+import androidx.work.WorkManager;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.iutcalendar.alarm.Alarm;
+import com.iutcalendar.alarm.AlarmRingActivity;
 import com.iutcalendar.calendrier.Calendrier;
 import com.iutcalendar.calendrier.CurrentDate;
 import com.iutcalendar.calendrier.EventCalendrier;
@@ -30,7 +28,6 @@ import com.iutcalendar.data.FileGlobal;
 import com.iutcalendar.event.changement.ChangeDialog;
 import com.iutcalendar.mainpage.ui.main.SectionsPagerAdapter;
 import com.iutcalendar.menu.MenuItemClickActivities;
-import com.iutcalendar.service.UpdateBackgroundJobServices;
 import com.iutcalendar.service.WorkUpdate;
 import com.iutcalendar.settings.SettingsApp;
 import com.iutcalendar.swiping.GestureEventManager;
@@ -42,7 +39,6 @@ import com.univlyon1.tools.agenda.databinding.ActivityPageEventBinding;
 
 import java.io.File;
 import java.util.GregorianCalendar;
-import java.util.concurrent.TimeUnit;
 
 public class PageEventActivity extends AppCompatActivity {
 
@@ -105,8 +101,7 @@ public class PageEventActivity extends AppCompatActivity {
 //        ForegroundServiceUpdate.start(getApplicationContext());
 //        UpdateBackgroundJobServices.startScheduleJobBackground(this);
 
-        WorkUpdate.startWork(this);
-
+        WorkUpdate.startBackgroundWork(this);
 
 
 
@@ -117,8 +112,6 @@ public class PageEventActivity extends AppCompatActivity {
         /*####Testing feature#####*/
 
         Log.d("Global", "PageEventActivity end");
-
-
 
     }
 

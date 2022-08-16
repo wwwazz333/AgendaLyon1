@@ -9,11 +9,12 @@ import android.os.Bundle;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import com.univlyon1.tools.agenda.R;
 import com.iutcalendar.calendrier.CurrentDate;
 import com.iutcalendar.data.DataGlobal;
 import com.iutcalendar.settings.SettingsApp;
+import com.univlyon1.tools.agenda.R;
 
 public class AlarmRingActivity extends AppCompatActivity {
 
@@ -28,7 +29,10 @@ public class AlarmRingActivity extends AppCompatActivity {
 
         //wakeup phone & not unlock needed
         wakeAndShowActivity();
-
+        
+        ActionBar actionBar;
+        if ((actionBar = getSupportActionBar()) != null)
+            actionBar.hide();
 
         setContentView(R.layout.activity_alarm_ring);
 

@@ -15,6 +15,13 @@
 
     <PreferenceCategory app:title="@string/General"
                         android:icon="@drawable/ic_settings_ico">
+
+        <SwitchPreference
+            android:key="notification_enabled"
+            android:title="Notification"
+            android:summaryOn="Les notifications sont activé"
+            android:summaryOff="Les notifications sont désactivé"
+            android:defaultValue="true"/>
         <SwitchPreference
                 app:key="show_update"
                 app:title="@string/show_update"

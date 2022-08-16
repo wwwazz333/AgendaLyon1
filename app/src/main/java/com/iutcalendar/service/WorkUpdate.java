@@ -15,25 +15,28 @@ import com.univlyon1.tools.agenda.R;
 import java.util.concurrent.TimeUnit;
 
 public class WorkUpdate extends Worker {
-    private static final String TAG = "WorkUpdate";
-
     public static final String workName = "UpdateWorkBackground";
-
-    public static void startWork(Context ctx){
-        WorkManager workManager = WorkManager.getInstance(ctx);
-
-        Constraints constraints = new Constraints.Builder()
-                .setRequiredNetworkType(NetworkType.CONNECTED)
-                .build();
-
-        PeriodicWorkRequest periodicWorkRequest = new PeriodicWorkRequest.Builder(WorkUpdate.class, 20, TimeUnit.MINUTES)
-                .setConstraints(constraints)
-                .build();
-        workManager.enqueueUniquePeriodicWork(WorkUpdate.workName, ExistingPeriodicWorkPolicy.KEEP, periodicWorkRequest);
-    }
+    private static final String TAG = "WorkUpdate";
 
     public WorkUpdate(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
+    }
+
+    public static void startBackgroundWork(Context ctx) {
+        WorkManager workManager = WorkManager.getInstance(ctx);
+        if (DataGlobal.getSavedBoolean(ctx, DataGlobal.NOTIFICATION_ENABLED)) {
+            Constraints constraints = new Constraints.Builder()
+                    .setRequiredNetworkType(NetworkType.CONNECTED)
+                    .build();
+
+            PeriodicWorkRequest periodicWorkRequest = new PeriodicWorkRequest.Builder(WorkUpdate.class, 20, TimeUnit.MINUTES)
+                    .setConstraints(constraints)
+                    .build();
+            workManager.enqueueUniquePeriodicWork(WorkUpdate.workName, ExistingPeriodicWorkPolicy.KEEP, periodicWorkRequest);
+        } else {
+            workManager.cancelUniqueWork(WorkUpdate.workName);
+        }
+
     }
 
     @NonNull
@@ -69,8 +72,8 @@ public class WorkUpdate extends Worker {
         FileGlobal.updateAndGetChange(context, null, ((context1, intent) -> {
             PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE);
 
-            Notif notif = new Notif(context, NotificationChannels.CHANGE_EVENT_NOTIFICATION_ID, context.getResources().getString(R.string.event), context.getString(R.string.change_in_schedul), R.drawable.ic_edit, pendingIntent);
-            notif.show();
+            if (DataGlobal.getSavedBoolean(context, DataGlobal.NOTIFICATION_ENABLED))
+                new Notif(context, NotificationChannels.CHANGE_EVENT_NOTIFICATION_ID, context.getResources().getString(R.string.event), context.getString(R.string.change_in_schedul), R.drawable.ic_edit, pendingIntent).show();
         }));
     }
 }
