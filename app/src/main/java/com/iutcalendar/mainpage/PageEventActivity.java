@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
+import androidx.work.*;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
@@ -30,6 +31,7 @@ import com.iutcalendar.event.changement.ChangeDialog;
 import com.iutcalendar.mainpage.ui.main.SectionsPagerAdapter;
 import com.iutcalendar.menu.MenuItemClickActivities;
 import com.iutcalendar.service.UpdateBackgroundJobServices;
+import com.iutcalendar.service.WorkUpdate;
 import com.iutcalendar.settings.SettingsApp;
 import com.iutcalendar.swiping.GestureEventManager;
 import com.iutcalendar.swiping.TouchGestureListener;
@@ -40,6 +42,7 @@ import com.univlyon1.tools.agenda.databinding.ActivityPageEventBinding;
 
 import java.io.File;
 import java.util.GregorianCalendar;
+import java.util.concurrent.TimeUnit;
 
 public class PageEventActivity extends AppCompatActivity {
 
@@ -100,7 +103,12 @@ public class PageEventActivity extends AppCompatActivity {
 
         //démarre le service d'arrière-plan avec interval
 //        ForegroundServiceUpdate.start(getApplicationContext());
-        UpdateBackgroundJobServices.startScheduleJobBackground(this);
+//        UpdateBackgroundJobServices.startScheduleJobBackground(this);
+
+        WorkUpdate.startWork(this);
+
+
+
 
         //update
         update(null);
