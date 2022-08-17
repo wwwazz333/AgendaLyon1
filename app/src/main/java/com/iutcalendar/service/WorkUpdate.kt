@@ -64,7 +64,7 @@ class WorkUpdate(context: Context, workerParams: WorkerParameters) : Worker(cont
                     .setConstraints(constraints)
                     .setInitialDelay(1, TimeUnit.HOURS)
                     .build()
-                workManager.enqueueUniquePeriodicWork(workName, ExistingPeriodicWorkPolicy.KEEP, periodicWorkRequest)
+                workManager.enqueueUniquePeriodicWork(workName, ExistingPeriodicWorkPolicy.REPLACE, periodicWorkRequest)
                 Log.d(TAG, "startBackgroundWork: periodic work enqueued")
             } else {
                 workManager.cancelUniqueWork(workName)
