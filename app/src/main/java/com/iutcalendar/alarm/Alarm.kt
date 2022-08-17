@@ -180,7 +180,7 @@ class Alarm : BroadcastReceiver() {
         }
 
         fun setUpAlarm(context: Context?, calendrier: Calendrier) {
-            val personalAlarmManager: PersonnalAlarmManager = PersonnalAlarmManager.getInstance(context)
+            val personalAlarmManager: PersonalAlarmManager = PersonalAlarmManager.getInstance(context)
             val alarmConditionManager: AlarmConditionManager = AlarmConditionManager.getInstance(context)
             var dayAnalysed = CurrentDate()
             Log.d("Constraint", alarmConditionManager.allConstraints.toString())
@@ -201,7 +201,7 @@ class Alarm : BroadcastReceiver() {
                     //supprimer toutes les alarmes (Tache) pour se jour
                     personalAlarmManager.removeForDay(context, dayAnalysed)
                     var currEvent = events[0]
-                    if (currEvent.duree.hour < 8 || DataGlobal.getSavedBoolean(context, DataGlobal.FERIER_DAY_ENABLED)) {
+                    if (currEvent.dure.hour < 8 || DataGlobal.getSavedBoolean(context, DataGlobal.FERIER_DAY_ENABLED)) {
                         var i = 0
                         do {
                             currEvent = events[i]

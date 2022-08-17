@@ -30,7 +30,7 @@ class ExplicationSettingsFragment : Fragment() {
         } catch (e: NameNotFoundException) {
             Log.e("Information", "error version build affichage : " + e.message)
         }
-        version.setOnClickListener { view1: View? ->
+        version.setOnClickListener {
             if (lastTimeClick == 0L) {
                 elapsedTimeLastClick = 0
                 lastTimeClick = System.currentTimeMillis()

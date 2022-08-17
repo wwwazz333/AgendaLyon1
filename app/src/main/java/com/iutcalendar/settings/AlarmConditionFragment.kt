@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.iutcalendar.alarm.AlarmRing
 import com.iutcalendar.alarm.condition.AlarmConditionManager
 import com.iutcalendar.alarm.condition.AlarmConditionRecycleView
-import com.iutcalendar.alarm.condition.AlarmCondtion
+import com.iutcalendar.alarm.condition.AlarmCondition
 import com.iutcalendar.calendrier.DateCalendrier
 import com.iutcalendar.dialog.DialogMessage
 import com.iutcalendar.menu.AbstractFragmentWitheMenu
@@ -49,19 +49,19 @@ class AlarmConditionFragment : AbstractFragmentWitheMenu() {
     private fun addCondition() {
 
         //demande heure début
-        AlarmRing.askTime(context, getString(R.string.BorneInf)) { view: TimePicker?, hourOfDayBegin: Int, minuteBegin: Int ->
+        AlarmRing.askTime(context, getString(R.string.BorneInf)) { _: TimePicker?, hourOfDayBegin: Int, minuteBegin: Int ->
             val begin: Long = DateCalendrier.getHourInMillis(hourOfDayBegin, minuteBegin)
 
             //demande heure fin
-            AlarmRing.askTime(context, getString(R.string.BorneSup)) { view1: TimePicker?, hourOfDayEnd: Int, minuteEnd: Int ->
+            AlarmRing.askTime(context, getString(R.string.BorneSup)) { _: TimePicker?, hourOfDayEnd: Int, minuteEnd: Int ->
                 val end: Long = DateCalendrier.getHourInMillis(hourOfDayEnd, minuteEnd)
                 if (begin > end) {
                     DialogMessage.showWarning(context, getString(R.string.Interval), getString(R.string.born_sup_et_inf_inverser))
                 } else {
                     //demande heure sonnerie
-                    AlarmRing.askTime(context, getString(R.string.TimeToRing)) { view2: TimePicker?, hourOfDayAlarmAt: Int, minuteAlarmAt: Int ->
+                    AlarmRing.askTime(context, getString(R.string.TimeToRing)) { _: TimePicker?, hourOfDayAlarmAt: Int, minuteAlarmAt: Int ->
                         val alarmAt: Long = DateCalendrier.getHourInMillis(hourOfDayAlarmAt, minuteAlarmAt)
-                        AlarmConditionManager.getInstance(context).addCondition(AlarmCondtion(begin, end, alarmAt))
+                        AlarmConditionManager.getInstance(context).addCondition(AlarmCondition(begin, end, alarmAt))
                         updateConditions()
                     }
                 }

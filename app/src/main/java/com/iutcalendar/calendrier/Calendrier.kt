@@ -6,7 +6,7 @@ import com.iutcalendar.data.FileGlobal
 import com.iutcalendar.event.changement.EventChangement
 import com.iutcalendar.event.changement.EventChangement.Change
 import com.iutcalendar.event.changement.EventChangement.InfoChange
-import com.iutcalendar.task.PersonnalCalendrier
+import com.iutcalendar.task.PersonalCalendrier
 import java.io.File
 import java.io.IOException
 import java.util.*
@@ -167,14 +167,14 @@ class Calendrier : Cloneable {
         for (event in events) {
             uids.add(event.uid)
         }
-        val it: MutableIterator<String?> = PersonnalCalendrier.getInstance(context)!!.keys.iterator()
+        val it: MutableIterator<String?> = PersonalCalendrier.getInstance(context)!!.keys.iterator()
         while (it.hasNext()) {
             val uid = it.next()
             if (!uids.contains(uid)) { //alors on doit supprimer les taches liées à cette UID (vieux UID).
-                PersonnalCalendrier.getInstance(context)!!.removeAllLinkedTask(context, uid, it)
+                PersonalCalendrier.getInstance(context)!!.removeAllLinkedTask(context, uid, it)
             }
         }
-        PersonnalCalendrier.getInstance(context)!!.save(context)
+        PersonalCalendrier.getInstance(context)!!.save(context)
     }
 
     override fun hashCode(): Int {

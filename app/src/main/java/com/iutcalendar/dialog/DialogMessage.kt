@@ -13,7 +13,7 @@ object DialogMessage {
         alertDialog.setIcon(R.drawable.ic_error)
         alertDialog.setPositiveButton(
             context!!.getString(R.string.ok)
-        ) { dialog: DialogInterface, which: Int -> dialog.dismiss() }
+        ) { dialog: DialogInterface, _: Int -> dialog.dismiss() }
         alertDialog.show()
     }
 
@@ -24,7 +24,7 @@ object DialogMessage {
         alertDialog.setIcon(R.drawable.ic_info)
         alertDialog.setPositiveButton(
             context!!.getString(R.string.ok)
-        ) { dialog: DialogInterface, which: Int ->
+        ) { dialog: DialogInterface, _: Int ->
             onOkListener()
             dialog.dismiss()
         }
@@ -38,7 +38,7 @@ object DialogMessage {
         alertDialog.setIcon(R.drawable.ic_help)
         alertDialog.setPositiveButton(
             context!!.getString(R.string.ok)
-        ) { dialog: DialogInterface, which: Int -> dialog.dismiss() }
+        ) { dialog: DialogInterface, _: Int -> dialog.dismiss() }
         alertDialog.show()
     }
 }

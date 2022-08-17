@@ -13,38 +13,38 @@ class EventCalendrier : Comparable<EventCalendrier>, Serializable, Cloneable {
         private set
     var date: DateCalendrier?
         private set
-    private var dureeH: Int
-    private var dureeM: Int
+    private var dureH: Int
+    private var dureM: Int
     var uid: String
         private set
 
     constructor() {
         date = null
-        dureeH = 0
-        dureeM = 0
+        dureH = 0
+        dureM = 0
         nameEvent = ""
         salle = ""
         description = ""
         uid = ""
     }
 
-    constructor(debut: DateCalendrier?, dureeH: Int, dureeM: Int, summary: String, salle: String, description: String, UID: String) {
+    constructor(debut: DateCalendrier?, dureH: Int, dureM: Int, summary: String, salle: String, description: String, UID: String) {
         date = debut
-        this.dureeH = dureeH
-        this.dureeM = dureeM
+        this.dureH = dureH
+        this.dureM = dureM
         nameEvent = summary
         this.salle = salle
         this.description = description
         uid = UID
     }
 
-    val duree: DateCalendrier
-        get() = DateCalendrier(0, 0, 0, dureeH, dureeM)
+    val dure: DateCalendrier
+        get() = DateCalendrier(0, 0, 0, dureH, dureM)
 
     @Throws(CloneNotSupportedException::class)
     override fun clone(): EventCalendrier {
         super.clone()
-        return EventCalendrier(date, dureeH, dureeM, nameEvent, salle, description, uid)
+        return EventCalendrier(date, dureH, dureM, nameEvent, salle, description, uid)
     }
 
     fun parseLine(str: String) {
@@ -58,8 +58,8 @@ class EventCalendrier : Comparable<EventCalendrier>, Serializable, Cloneable {
         } else if (title == "DTEND" && date != null) {
             var fin: DateCalendrier? = getDateTime(splited[1])
             fin = fin!!.subTime(date!!)
-            dureeH = fin[GregorianCalendar.HOUR_OF_DAY]
-            dureeM = fin[GregorianCalendar.MINUTE]
+            dureH = fin[GregorianCalendar.HOUR_OF_DAY]
+            dureM = fin[GregorianCalendar.MINUTE]
         } else if (title == "SUMMARY") {
             nameEvent = splited[1]
         } else if (title == "LOCATION") {
@@ -99,7 +99,7 @@ class EventCalendrier : Comparable<EventCalendrier>, Serializable, Cloneable {
     }
 
     override fun toString(): String {
-        return date.toString() + " " + dureeH + ":" + dureeM + " : " + nameEvent
+        return date.toString() + " " + dureH + ":" + dureM + " : " + nameEvent
     }
 
     override fun equals(other: Any?): Boolean {

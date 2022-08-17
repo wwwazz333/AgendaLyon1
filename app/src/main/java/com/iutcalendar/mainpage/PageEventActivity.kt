@@ -28,7 +28,7 @@ import com.iutcalendar.service.WorkUpdate
 import com.iutcalendar.settings.SettingsApp
 import com.iutcalendar.swiping.GestureEventManager
 import com.iutcalendar.swiping.TouchGestureListener
-import com.iutcalendar.task.PersonnalCalendrier
+import com.iutcalendar.task.PersonalCalendrier
 import com.iutcalendar.widget.WidgetCalendar
 import com.univlyon1.tools.agenda.R
 import com.univlyon1.tools.agenda.databinding.ActivityPageEventBinding
@@ -54,7 +54,7 @@ class PageEventActivity : AppCompatActivity() {
         binding = ActivityPageEventBinding.inflate(layoutInflater)
         setContentView(binding!!.root)
         initVariable()
-        PersonnalCalendrier.getInstance(applicationContext)
+        PersonalCalendrier.getInstance(applicationContext)
         initActionBar()
 
         //init Calendrier
@@ -134,7 +134,7 @@ class PageEventActivity : AppCompatActivity() {
      * init viewPager and sectionsPagerAdapter to see events
      */
     private fun initPageViewEvent() {
-        Log.d("Event", "cration Section page adapter------------------")
+        Log.d("Event", "creation Section page adapter")
         viewPager = binding!!.viewPager
         val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager, calendrier)
         viewPager!!.adapter = sectionsPagerAdapter
@@ -156,7 +156,7 @@ class PageEventActivity : AppCompatActivity() {
         viewPager!!.removeAllViews()
         viewPager!!.adapter = sectionsPagerAdapter
         setPositionPageToCurrDate()
-    }//pcq l'event s'affiche toujours au bout de 30min
+    }//pcq event s'affiche toujours au bout de 30min
 
     /**
      * @return the date the activity has to be launch
@@ -166,7 +166,7 @@ class PageEventActivity : AppCompatActivity() {
             var dateToLaunch = CurrentDate()
             Log.d("Widget", "main : " + intent.getBooleanExtra("launch_next_event", false))
             if (intent.getBooleanExtra("launch_next_event", false)) {
-                dateToLaunch.add(GregorianCalendar.MINUTE, WidgetCalendar.DELAY_AFTER_EVENT_PASSED) //pcq l'event s'affiche toujours au bout de 30min
+                dateToLaunch.add(GregorianCalendar.MINUTE, WidgetCalendar.DELAY_AFTER_EVENT_PASSED) //pcq event s'affiche toujours au bout de 30min
                 val es = calendrier!!.getNext2EventAfter(dateToLaunch)
                 if (es[0] != null) {
                     dateToLaunch = CurrentDate(es[0]?.date)
@@ -211,9 +211,9 @@ class PageEventActivity : AppCompatActivity() {
             Log.d("Update", "start")
             updating = true
             Thread {
-                FileGlobal.updateAndGetChange(this, calendrier) { context: Context?, intent: Intent? -> startActivity(intent) }
+                FileGlobal.updateAndGetChange(this, calendrier) { _: Context?, intent: Intent? -> startActivity(intent) }
                 runOnUiThread {
-                    Log.d("Debug", "appeler d'epuis update")
+                    Log.d("Debug", "appeler depuis update")
                     updatePageViewEvent()
                 }
                 if (onFinishListener != null) {
@@ -285,22 +285,6 @@ class PageEventActivity : AppCompatActivity() {
         setNumOfMonthAndSelected(binding!!.dimancheNum, 6)
     }
 
-    private fun setAnimationGoRight() {
-        fragmentTransaction!!.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left)
-    }
-
-    private fun setAnimationGoLeft() {
-        fragmentTransaction!!.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right)
-    }
-
-    private fun setAnimationDirection(d: Int) {
-        if (d > 0) {
-            setAnimationGoRight()
-        } else {
-            setAnimationGoLeft()
-        }
-    }
-
     private fun setOnClickDay(dayClicked: TextView?, day: Int) {
         dayClicked?.setOnTouchListener(TouchGestureListener(applicationContext, object : GestureWeekListener() {
             override fun onClick() {
@@ -331,14 +315,10 @@ class PageEventActivity : AppCompatActivity() {
                                     NAVIGATION WEEKS
      ########################################################################*/
     fun switchToPrevWeek() {
-        val sens = -1
-        setAnimationDirection(sens)
         setCurrDate(currDate.prevWeek())
     }
 
     fun switchToNextWeek() {
-        val sens = -1
-        setAnimationDirection(sens)
         setCurrDate(currDate.nextWeek())
     }
 

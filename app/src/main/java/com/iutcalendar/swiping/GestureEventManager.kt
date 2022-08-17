@@ -2,6 +2,7 @@ package com.iutcalendar.swiping
 
 import android.view.GestureDetector.SimpleOnGestureListener
 import android.view.MotionEvent
+import kotlin.math.abs
 
 open class GestureEventManager : SimpleOnGestureListener() {
     override fun onDown(e: MotionEvent): Boolean {
@@ -27,8 +28,8 @@ open class GestureEventManager : SimpleOnGestureListener() {
         try {
             val diffY = e2.y - e1.y
             val diffX = e2.x - e1.x
-            if (Math.abs(diffX) > Math.abs(diffY)) {
-                if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
+            if (abs(diffX) > abs(diffY)) {
+                if (abs(diffX) > SWIPE_THRESHOLD && abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
                     if (diffX > 0) {
                         onSwipeRight()
                     } else {
@@ -36,7 +37,7 @@ open class GestureEventManager : SimpleOnGestureListener() {
                     }
                 }
             } else {
-                if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
+                if (abs(diffY) > SWIPE_THRESHOLD && abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
                     if (diffY > 0) {
                         onSwipeDown()
                     } else {
@@ -52,11 +53,11 @@ open class GestureEventManager : SimpleOnGestureListener() {
 
     open fun onSwipeRight() {}
     open fun onSwipeLeft() {}
-    protected fun onSwipeUp() {}
+    private fun onSwipeUp() {}
     open fun onSwipeDown() {}
     protected open fun onClick() {}
-    protected fun onDoubleClick() {}
-    protected fun onLongClick() {}
+    private fun onDoubleClick() {}
+    private fun onLongClick() {}
 
     companion object {
         private const val SWIPE_THRESHOLD = 100

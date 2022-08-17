@@ -10,8 +10,7 @@ import android.widget.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.iutcalendar.calendrier.EventCalendrier
-import com.iutcalendar.task.ClickListener
-import com.iutcalendar.task.PersonnalCalendrier
+import com.iutcalendar.task.PersonalCalendrier
 import com.iutcalendar.task.Task
 import com.iutcalendar.task.TaskRecycleView
 import com.univlyon1.tools.agenda.R
@@ -38,12 +37,12 @@ class DialogPopupEvent(context: Context, eventClicked: EventCalendrier, activity
         addBtn.setOnClickListener { showAddTask() }
         okBtn.setOnClickListener { dismiss() }
         val timeDebut = relatedEvent.date!!.timeToString()
-        val timeFin = relatedEvent.date!!.addTime(relatedEvent.duree).timeToString()
+        val timeFin = relatedEvent.date!!.addTime(relatedEvent.dure).timeToString()
         title.text = relatedEvent.nameEvent
         summary.text = relatedEvent.description
         salle.text = relatedEvent.salle.replace("\\,", ", ")
         horaire.text = context.getString(R.string.both_time, timeDebut, timeFin)
-        duree.text = relatedEvent.duree.timeToString()
+        duree.text = relatedEvent.dure.timeToString()
         updatedTask()
         Log.d("Dialog", "end")
     }
@@ -60,12 +59,10 @@ class DialogPopupEvent(context: Context, eventClicked: EventCalendrier, activity
     }
 
     private fun updatedTask() {
-        val adapter = TaskRecycleView(PersonnalCalendrier.getInstance(context)!!.getLinkedTask(relatedEvent), object : ClickListener {
-            override fun click(taskClicked: Task?) {
-                if (taskClicked != null) removeTask(taskClicked)
-            }
+        val adapter = TaskRecycleView(PersonalCalendrier.getInstance(context)!!.getLinkedTask(relatedEvent)) { taskClicked: Task? ->
+            if (taskClicked != null) removeTask(taskClicked)
+        }
 
-        })
         recyclerViewTask.adapter = adapter
         recyclerViewTask.layoutManager = LinearLayoutManager(activity)
         Log.d("Dialog", "updateTask")
@@ -89,15 +86,15 @@ class DialogPopupEvent(context: Context, eventClicked: EventCalendrier, activity
         alertDialog.setView(editText)
         alertDialog.setPositiveButton(
             context.getString(R.string.submit)
-        ) { dialog: DialogInterface, which: Int ->
-            PersonnalCalendrier.getInstance(context)!!.addLinkedTask(Task(editText.text.toString(), relatedEvent.uid), relatedEvent)
-            PersonnalCalendrier.getInstance(context)!!.save(context)
+        ) { dialog: DialogInterface, _: Int ->
+            PersonalCalendrier.getInstance(context)!!.addLinkedTask(Task(editText.text.toString(), relatedEvent.uid), relatedEvent)
+            PersonalCalendrier.getInstance(context)!!.save(context)
             dialog.dismiss()
             updatedTask()
         }
         alertDialog.setNegativeButton(
             context.getString(R.string.cancel)
-        ) { dialog: DialogInterface, which: Int -> dialog.cancel() }
+        ) { dialog: DialogInterface, _: Int -> dialog.cancel() }
         alertDialog.show()
     }
 
@@ -111,9 +108,9 @@ class DialogPopupEvent(context: Context, eventClicked: EventCalendrier, activity
     "${taskClicked.txt}"
     """.trimIndent()
             )
-            alertDialog.setPositiveButton(context.getString(R.string.yes)) { dialogInterface: DialogInterface, i: Int ->
-                PersonnalCalendrier.getInstance(context)!!.remove(context, taskClicked)
-                PersonnalCalendrier.getInstance(context)!!.save(context)
+            alertDialog.setPositiveButton(context.getString(R.string.yes)) { dialogInterface: DialogInterface, _: Int ->
+                PersonalCalendrier.getInstance(context)!!.remove(context, taskClicked)
+                PersonalCalendrier.getInstance(context)!!.save(context)
                 Toast.makeText(context, "Tâche supprimer", Toast.LENGTH_SHORT).show()
                 updatedTask()
                 dialogInterface.dismiss()
@@ -124,14 +121,14 @@ class DialogPopupEvent(context: Context, eventClicked: EventCalendrier, activity
                 """Voulez-vous ${if (taskClicked.isAlarmActivate) "désactivé" else "activé"} cette tâche ?
 "${taskClicked.txt}""""
             )
-            alertDialog.setPositiveButton(context.getString(R.string.yes)) { dialogInterface: DialogInterface, i: Int ->
+            alertDialog.setPositiveButton(context.getString(R.string.yes)) { dialogInterface: DialogInterface, _: Int ->
                 taskClicked.isAlarmActivate = !taskClicked.isAlarmActivate
-                PersonnalCalendrier.getInstance(context)!!.save(context)
+                PersonalCalendrier.getInstance(context)!!.save(context)
                 updatedTask()
                 dialogInterface.dismiss()
             }
         }
-        alertDialog.setNegativeButton(context.getString(R.string.no)) { dialogInterface: DialogInterface, i: Int -> dialogInterface.cancel() }
+        alertDialog.setNegativeButton(context.getString(R.string.no)) { dialogInterface: DialogInterface, _: Int -> dialogInterface.cancel() }
         alertDialog.show()
     }
 }

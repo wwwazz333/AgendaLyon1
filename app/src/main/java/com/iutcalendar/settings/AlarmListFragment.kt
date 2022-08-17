@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.iutcalendar.alarm.Alarm
 import com.iutcalendar.alarm.AlarmRecycleView
-import com.iutcalendar.alarm.PersonnalAlarmManager
+import com.iutcalendar.alarm.PersonalAlarmManager
 import com.iutcalendar.calendrier.Calendrier
 import com.iutcalendar.data.FileGlobal
 import com.iutcalendar.menu.AbstractFragmentWitheMenu
@@ -28,17 +28,17 @@ class AlarmListFragment : AbstractFragmentWitheMenu() {
     private fun updateAlarm() {
         Alarm.setUpAlarm(context, Calendrier(FileGlobal.readFile(FileGlobal.getFileDownload(context))))
         val adapter = AlarmRecycleView(
-            PersonnalAlarmManager.getInstance(context).allAlarmToList
+            PersonalAlarmManager.getInstance(context).allAlarmToList
         ) { saveAlarm() }
         recyclerViewAlarm!!.adapter = adapter
         val layout = LinearLayoutManager(activity)
         recyclerViewAlarm!!.layoutManager = layout
         saveAlarm()
-        Log.d("Alarm", "updateAlarm : " + PersonnalAlarmManager.getInstance(context).allAlarmToList.size)
+        Log.d("Alarm", "updateAlarm : " + PersonalAlarmManager.getInstance(context).allAlarmToList.size)
     }
 
     private fun saveAlarm() {
-        PersonnalAlarmManager.getInstance(context).save(context)
+        PersonalAlarmManager.getInstance(context).save(context)
     }
 
     /*#################MENU BAR#################*/

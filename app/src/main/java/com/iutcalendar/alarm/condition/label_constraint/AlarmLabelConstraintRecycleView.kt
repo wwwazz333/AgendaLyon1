@@ -4,7 +4,6 @@ import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.iutcalendar.alarm.condition.AlarmConditionManager
@@ -22,7 +21,7 @@ class AlarmLabelConstraintRecycleView(var context: Context?, var list: List<Alar
     override fun onBindViewHolder(holder: AlarmLabelConstraintViewHolder, position: Int) {
         val constraintLabelAlarm = list!![position]
         holder.typeConstraint.text = constraintLabelAlarm.typeDeContraint.toString(context)
-        holder.typeConstraint.setOnClickListener { view: View? -> showEditConstraintType(holder, constraintLabelAlarm) }
+        holder.typeConstraint.setOnClickListener { showEditConstraintType(holder, constraintLabelAlarm) }
         holder.constraint.setText(constraintLabelAlarm.contraintText)
         holder.constraint.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
@@ -33,15 +32,14 @@ class AlarmLabelConstraintRecycleView(var context: Context?, var list: List<Alar
             }
         })
         holder.constraint.isSelected = false
-        holder.delBtn.setOnClickListener { view: View? ->
-            AlarmConditionManager.Companion.getInstance(context)!!.removeConstraint(constraintLabelAlarm)
+        holder.delBtn.setOnClickListener {
+            AlarmConditionManager.getInstance(context).removeConstraint(constraintLabelAlarm)
             reloadListener()
         }
     }
 
     private fun showEditConstraintType(holder: AlarmLabelConstraintViewHolder, constraintLabelAlarm: AlarmConstraintLabel) {
-        val type: Containing
-        type = if (holder.typeConstraint.text.toString() == Containing.MUST_NOT_CONTAIN.toString(context)) {
+        val type: Containing = if (holder.typeConstraint.text.toString() == Containing.MUST_NOT_CONTAIN.toString(context)) {
             Containing.MUST_NOT_BE_EXACTLY
         } else {
             Containing.MUST_NOT_CONTAIN

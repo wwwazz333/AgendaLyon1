@@ -40,8 +40,8 @@ object FileDownload {
 
     @Throws(IOException::class, InputStreamFileException::class)
     fun updateFichier(file_path: String?, context: Context?): Boolean {
-        //TODO actualizer alarm etc...
-        var succes = false
+        //TODO actualiser alarm etc...
+        val success: Boolean
 
         // update du fichier ou création
         val url = DataGlobal.getSavedPath(context)
@@ -49,14 +49,14 @@ object FileDownload {
             throw WrongURLException()
         }
         val inputStream = getCalender(url) ?: throw InputStreamFileException("input stream est null")
-        val conentFile = inputStream2String(inputStream)
-        succes = Calendrier.Companion.writeCalendarFile(conentFile, File(file_path))
-        if (succes) {
+        val contentFile = inputStream2String(inputStream)
+        success = Calendrier.writeCalendarFile(contentFile, File(file_path.toString()))
+        if (success) {
             Log.d("File", "fichier enregistré")
             val calendrier = Calendrier(FileGlobal.readFile(FileGlobal.getFileDownload(context)))
-            Alarm.Companion.setUpAlarm(context, calendrier)
+            Alarm.setUpAlarm(context, calendrier)
         }
-        return succes
+        return success
     }
 
     @Throws(IOException::class)

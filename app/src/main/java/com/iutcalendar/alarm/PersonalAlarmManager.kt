@@ -7,7 +7,7 @@ import com.iutcalendar.data.FileGlobal
 import java.io.Serializable
 import java.util.*
 
-class PersonnalAlarmManager : Serializable {
+class PersonalAlarmManager : Serializable {
     private var alarms: HashMap<String, MutableList<AlarmRing>>?
 
     init {
@@ -37,7 +37,7 @@ class PersonnalAlarmManager : Serializable {
 
     /**
      * @param day le jour où doivent sonner les alarms qu'on retourne
-     * @return le timeMillis de l'alarm correspondant à l'event ou -1 si pas d'alarm
+     * @return le timeMillis de l'alarme correspondant à event ou -1 si pas d'alarme
      */
     operator fun get(day: DateCalendrier): MutableList<AlarmRing> {
         return alarms!!.getOrDefault(createDayId(day), LinkedList())
@@ -101,10 +101,10 @@ class PersonnalAlarmManager : Serializable {
     }
 
     companion object {
-        private var instance: PersonnalAlarmManager? = null
-        fun getInstance(context: Context?): PersonnalAlarmManager {
+        private var instance: PersonalAlarmManager? = null
+        fun getInstance(context: Context?): PersonalAlarmManager {
             if (instance == null) {
-                instance = PersonnalAlarmManager()
+                instance = PersonalAlarmManager()
                 instance!!.load(context)
             }
             return instance!!

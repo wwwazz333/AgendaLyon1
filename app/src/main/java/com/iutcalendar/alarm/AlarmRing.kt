@@ -14,13 +14,13 @@ class AlarmRing(val timeInMillis: Long, var isActivate: Boolean) : Serializable,
 
     fun setAlarm(context: Context?) {
         if (timeInMillis >= System.currentTimeMillis()) {
-            Alarm.Companion.setAlarm(context, timeInMillis, createAlarmId(),
-                    if (isActivate) Alarm.Companion.START else Alarm.Companion.NONE)
+            Alarm.setAlarm(context, timeInMillis, createAlarmId(),
+                    if (isActivate) Alarm.START else Alarm.NONE)
         }
     }
 
     fun cancelAlarm(context: Context?) {
-        Alarm.Companion.cancelAlarm(context, createAlarmId())
+        Alarm.cancelAlarm(context, createAlarmId())
     }
 
     val dateTime: CurrentDate
@@ -37,8 +37,8 @@ class AlarmRing(val timeInMillis: Long, var isActivate: Boolean) : Serializable,
                 '}'
     }
 
-    override fun compareTo(alarmRing: AlarmRing): Int {
-        return java.lang.Long.compare(timeInMillis, alarmRing.timeInMillis)
+    override fun compareTo(other: AlarmRing): Int {
+        return timeInMillis.compareTo(other.timeInMillis)
     }
 
     companion object {

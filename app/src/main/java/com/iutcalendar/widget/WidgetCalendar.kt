@@ -19,14 +19,14 @@ import com.iutcalendar.mainpage.PageEventActivity
 import com.iutcalendar.notification.Notif
 import com.iutcalendar.notification.NotificationChannels
 import com.iutcalendar.settings.SettingsApp
-import com.iutcalendar.task.PersonnalCalendrier
+import com.iutcalendar.task.PersonalCalendrier
 import com.univlyon1.tools.agenda.R
 import java.util.*
 
 class WidgetCalendar : AppWidgetProvider() {
     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
         //Load some Data needed
-        PersonnalCalendrier.getInstance(context)
+        PersonalCalendrier.getInstance(context)
         SettingsApp.setLocale(context.resources, DataGlobal.getLanguage(context))
 
         //update Widget
@@ -57,11 +57,11 @@ class WidgetCalendar : AppWidgetProvider() {
 
             //open MainActivity via Btn
             views.setTextViewText(R.id.openBtn, context.getString(R.string.open))
-            val intentActvity = Intent(context, PageEventActivity::class.java)
-            intentActvity.putExtra("launch_next_event", true)
+            val intentActivity = Intent(context, PageEventActivity::class.java)
+            intentActivity.putExtra("launch_next_event", true)
             views.setOnClickPendingIntent(
                 R.id.openBtn,
-                PendingIntent.getActivity(context, 0, intentActvity, PendingIntent.FLAG_IMMUTABLE)
+                PendingIntent.getActivity(context, 0, intentActivity, PendingIntent.FLAG_IMMUTABLE)
             )
             val intent = Intent(context, WidgetCalendar::class.java)
             intent.action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
@@ -83,10 +83,10 @@ class WidgetCalendar : AppWidgetProvider() {
     private fun updateBothEvent(context: Context, views: RemoteViews, event1: EventCalendrier?, event2: EventCalendrier?) {
         if (event1?.date != null) {
             views.setTextViewText(R.id.debut1, event1.date!!.timeToString())
-            views.setTextViewText(R.id.fin1, event1.date!!.addTime(event1.duree).timeToString())
+            views.setTextViewText(R.id.fin1, event1.date!!.addTime(event1.dure).timeToString())
             views.setTextViewText(R.id.summary1, event1.nameEvent)
             views.setTextViewText(R.id.salle1, event1.salle.replace("\\,", " "))
-            val numberTask: Int = PersonnalCalendrier.getInstance(context)!!.getCountTaskOf(event1)
+            val numberTask: Int = PersonalCalendrier.getInstance(context)!!.getCountTaskOf(event1)
             setNumTask(views, R.id.countTask1, numberTask)
         } else {
             views.setTextViewText(R.id.debut1, "")
@@ -97,10 +97,10 @@ class WidgetCalendar : AppWidgetProvider() {
         }
         if (event2?.date != null) {
             views.setTextViewText(R.id.debut2, event2.date!!.timeToString())
-            views.setTextViewText(R.id.fin2, event2.date!!.addTime(event2.duree).timeToString())
+            views.setTextViewText(R.id.fin2, event2.date!!.addTime(event2.dure).timeToString())
             views.setTextViewText(R.id.summary2, event2.nameEvent)
             views.setTextViewText(R.id.salle2, event2.salle.replace("\\,", " "))
-            val numberTask: Int = PersonnalCalendrier.getInstance(context)!!.getCountTaskOf(event2)
+            val numberTask: Int = PersonalCalendrier.getInstance(context)!!.getCountTaskOf(event2)
             setNumTask(views, R.id.countTask2, numberTask)
         } else {
             views.setTextViewText(R.id.debut2, "")

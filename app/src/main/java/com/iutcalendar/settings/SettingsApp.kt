@@ -21,15 +21,15 @@ object SettingsApp {
     fun setLocale(resources: Resources, language: String?) {
         val metrics = resources.displayMetrics
         val configuration = resources.configuration
-        configuration.setLocale(Locale(language))
-        locale = Locale(language)
+        configuration.setLocale(Locale(language.toString()))
+        locale = Locale(language.toString())
         //Update configuration
         Log.d("Language", configuration.locales.toString())
         resources.updateConfiguration(configuration, metrics)
     }
 
     /**
-     * besoin de savoir si on change ou non sinon bug pour la main page
+     * Besoin de savoir si on change ou non sinon bug pour la main page
      *
      * @param context le context
      * @return si le theme à besoin de changer
@@ -38,33 +38,40 @@ object SettingsApp {
         val theme = DataGlobal.getTheme(context)
         val darkMode: Int
         val hasToChange: Boolean
-        if (theme == "black") {
-            darkMode = AppCompatDelegate.MODE_NIGHT_YES
-            hasToChange = !isDarkMode(context as Activity)
-        } else if (theme == "light") {
-            darkMode = AppCompatDelegate.MODE_NIGHT_NO
-            hasToChange = isDarkMode(context as Activity)
-        } else {
-            darkMode = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
-            hasToChange = false
+        when (theme) {
+            "black" -> {
+                darkMode = AppCompatDelegate.MODE_NIGHT_YES
+                hasToChange = !isDarkMode(context as Activity)
+            }
+            "light" -> {
+                darkMode = AppCompatDelegate.MODE_NIGHT_NO
+                hasToChange = isDarkMode(context as Activity)
+            }
+            else -> {
+                darkMode = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+                hasToChange = false
+            }
         }
         if (hasToChange) AppCompatDelegate.setDefaultNightMode(darkMode)
         return hasToChange
     }
 
     /**
-     * manière simplifiée de changer le theme
+     * Manière simplifiée de changer le theme
      *
      * @param theme le nouveau theme
      */
     fun adapteTheme(theme: String) {
-        val darkMode: Int
-        darkMode = if (theme == "black") {
-            AppCompatDelegate.MODE_NIGHT_YES
-        } else if (theme == "light") {
-            AppCompatDelegate.MODE_NIGHT_NO
-        } else {
-            AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+        val darkMode: Int = when (theme) {
+            "black" -> {
+                AppCompatDelegate.MODE_NIGHT_YES
+            }
+            "light" -> {
+                AppCompatDelegate.MODE_NIGHT_NO
+            }
+            else -> {
+                AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+            }
         }
         AppCompatDelegate.setDefaultNightMode(darkMode)
     }
@@ -73,12 +80,16 @@ object SettingsApp {
     fun getLayoutResWidget(context: Context?): Int {
         val t = DataGlobal.getThemeResWidget(context)
         Log.d("Widget", "Theme : $t")
-        return if (t == "black") {
-            R.layout.widget_calendar_black
-        } else if (t == "light") {
-            R.layout.widget_calendar_light
-        } else {
-            R.layout.widget_calendar_grey
+        return when (t) {
+            "black" -> {
+                R.layout.widget_calendar_black
+            }
+            "light" -> {
+                R.layout.widget_calendar_light
+            }
+            else -> {
+                R.layout.widget_calendar_grey
+            }
         }
     }
 
@@ -88,7 +99,7 @@ object SettingsApp {
         context.startActivity(intent)
     }
 
-    fun isDarkMode(activity: Activity): Boolean {
+    private fun isDarkMode(activity: Activity): Boolean {
         return activity.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
     }
 }

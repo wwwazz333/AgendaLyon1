@@ -8,13 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.univlyon1.tools.agenda.R
 
 class AlarmLabelConstraintViewHolder(var view: View) : RecyclerView.ViewHolder(view) {
-    var typeConstraint: Button
-    var constraint: EditText
-    var delBtn: ImageButton
+    var typeConstraint: Button = itemView.findViewById(R.id.type_constraint)
+    var constraint: EditText = itemView.findViewById(R.id.constraint)
+    var delBtn: ImageButton = itemView.findViewById(R.id.del_btn)
 
-    init {
-        constraint = itemView.findViewById(R.id.constraint)
-        typeConstraint = itemView.findViewById(R.id.type_constraint)
-        delBtn = itemView.findViewById(R.id.del_btn)
-    }
 }

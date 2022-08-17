@@ -20,14 +20,11 @@ class SectionsPagerAdapter(private val mContext: Context, fm: FragmentManager?, 
 
     init {
         Log.d("Page", "end création SectionPagerAdapter")
-        if (calendrier == null || calendrier.firstDay == null) {
-            countDay = 1
-        } else countDay = calendrier.firstDay!!.getNbrDayTo(calendrier.lastDay) + 1
+        countDay = if (calendrier?.firstDay == null) 1 else calendrier.firstDay!!.getNbrDayTo(calendrier.lastDay) + 1
     }
 
     override fun getItem(position: Int): Fragment {
-        val dateToLaunch: CurrentDate?
-        dateToLaunch = if (calendrier != null && calendrier.firstDay != null) {
+        val dateToLaunch: CurrentDate = if (calendrier?.firstDay != null) {
             CurrentDate(calendrier.firstDay).addDay(position)
         } else {
             CurrentDate()

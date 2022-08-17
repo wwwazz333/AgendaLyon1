@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.iutcalendar.calendrier.EventCalendrier
 import com.iutcalendar.swiping.GestureEventManager
 import com.iutcalendar.swiping.TouchGestureListener
-import com.iutcalendar.task.PersonnalCalendrier
+import com.iutcalendar.task.PersonalCalendrier
 import com.univlyon1.tools.agenda.R
 
 class EventRecycleView(var list: List<EventCalendrier?>?, var context: Context, var clickListener: (Int) -> Unit) : RecyclerView.Adapter<EventViewHolder>() {
@@ -25,10 +25,10 @@ class EventRecycleView(var list: List<EventCalendrier?>?, var context: Context, 
         val index = viewHolder!!.absoluteAdapterPosition
         val e = list!![position]!!
         viewHolder!!.debut.text = e.date?.timeToString()
-        viewHolder!!.fin.text = e.date!!.addTime(e.duree).timeToString()
+        viewHolder!!.fin.text = e.date!!.addTime(e.dure).timeToString()
         viewHolder!!.summary.text = e.nameEvent
         viewHolder!!.salle.text = e.salle.replace("\\,", "\n")
-        val numberTask: Int = PersonnalCalendrier.getInstance(context)!!.getCountTaskOf(e)
+        val numberTask: Int = PersonalCalendrier.getInstance(context)!!.getCountTaskOf(e)
         if (numberTask == 0) {
             viewHolder!!.countTask.visibility = View.INVISIBLE
         } else {

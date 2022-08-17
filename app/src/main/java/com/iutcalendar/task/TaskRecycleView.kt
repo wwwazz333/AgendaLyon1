@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.univlyon1.tools.agenda.R
 
-class TaskRecycleView(var list: List<Task>, var listener: ClickListener) : RecyclerView.Adapter<TaskViewHolder>() {
+class TaskRecycleView(var list: List<Task>, var listener: (taskClicked: Task?) -> Unit) : RecyclerView.Adapter<TaskViewHolder>() {
     var viewHolder: TaskViewHolder? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
         val context = parent.context
@@ -17,7 +17,6 @@ class TaskRecycleView(var list: List<Task>, var listener: ClickListener) : Recyc
     }
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
-        val index = viewHolder!!.absoluteAdapterPosition
         val task = list[position]
         viewHolder!!.text.text = task.txt
         if (task.isAlarm) {
@@ -28,7 +27,7 @@ class TaskRecycleView(var list: List<Task>, var listener: ClickListener) : Recyc
                 viewHolder!!.alarmIcon.setImageDrawable(viewHolder!!.view.context.getDrawable(R.drawable.ic_alarm_off))
             }
         }
-        viewHolder!!.view.setOnClickListener { view: View? -> listener.click(task) }
+        viewHolder!!.view.setOnClickListener { listener(task) }
     }
 
     override fun getItemCount(): Int {

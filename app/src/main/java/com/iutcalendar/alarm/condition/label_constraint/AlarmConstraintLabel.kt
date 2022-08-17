@@ -17,7 +17,6 @@ class AlarmConstraintLabel(var typeDeContraint: Containing, var contraintText: S
                 return false
             }
 
-            else -> {}
         }
         return true
     }
@@ -26,10 +25,10 @@ class AlarmConstraintLabel(var typeDeContraint: Containing, var contraintText: S
         contraintText = constraintString
     }
 
-    override fun equals(o: Any?): Boolean {
-        if (this === o) return true
-        if (o == null || javaClass != o.javaClass) return false
-        val that = o as AlarmConstraintLabel
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || javaClass != other.javaClass) return false
+        val that = other as AlarmConstraintLabel
         return typeDeContraint == that.typeDeContraint && contraintText == that.contraintText
     }
 
@@ -38,17 +37,16 @@ class AlarmConstraintLabel(var typeDeContraint: Containing, var contraintText: S
     }
 
     override fun toString(): String {
-        return typeDeContraint.toString() + " : " + contraintText
+        return "$typeDeContraint : $contraintText"
     }
 
     enum class Containing : Serializable {
-        MUST_NOT_CONTAIN, MUST_NOT_BE_EXACTLY, NONE;
+        MUST_NOT_CONTAIN, MUST_NOT_BE_EXACTLY;
 
         fun toString(context: Context?): String {
             return when (this) {
                 MUST_NOT_CONTAIN -> context!!.resources.getString(R.string.must_not_contain)
                 MUST_NOT_BE_EXACTLY -> context!!.resources.getString(R.string.must_not_be_exactly)
-                else -> this.toString()
             }
         }
     }

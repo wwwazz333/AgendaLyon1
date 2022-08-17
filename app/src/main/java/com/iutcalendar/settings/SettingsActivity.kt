@@ -117,7 +117,7 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
             setPreferencesFromResource(R.xml.root_preferences, rootKey)
             setToggleComplexAlarm()
             if (activity != null) {
-                findPreference<Preference>("alarme_enable")!!.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { preference: Preference?, newValue: Any ->
+                findPreference<Preference>("alarme_enable")!!.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _: Preference?, newValue: Any ->
                     if (!Settings.canDrawOverlays(context) && newValue as Boolean) {
                         DialogMessage.showInfo(activity, "Overlays", context!!.getString(R.string.msg_activ_overlay)) {
                             val intent = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + activity!!.packageName))
@@ -138,14 +138,14 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
             switchComplex = findPreference(DataGlobal.COMPLEX_ALARM_SETTINGS)
             if (switchComplex != null) {
                 setAlarmComplexity(switchComplex!!.isChecked)
-                switchComplex!!.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { preference: Preference?, newValue: Any ->
+                switchComplex!!.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _: Preference?, newValue: Any ->
                     setAlarmComplexity(newValue as Boolean)
                     true
                 }
             }
             val themeSelectedPref = findPreference<Preference>(DataGlobal.THEME)
             if (themeSelectedPref != null) {
-                themeSelectedPref.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { preference: Preference?, newValue: Any ->
+                themeSelectedPref.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _: Preference?, newValue: Any ->
                     SettingsApp.adapteTheme(newValue.toString())
                     reloadActivity()
                     true
@@ -153,7 +153,7 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
             }
             val languageSelectedPref = findPreference<Preference>(DataGlobal.LANGUAGE)
             if (languageSelectedPref != null) {
-                languageSelectedPref.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { preference: Preference?, newValue: Any ->
+                languageSelectedPref.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _: Preference?, newValue: Any ->
                     DataGlobal.save(context, DataGlobal.LANGUAGE, newValue.toString())
                     reloadActivity()
                     true

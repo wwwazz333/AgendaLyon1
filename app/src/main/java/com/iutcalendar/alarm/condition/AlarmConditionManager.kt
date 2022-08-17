@@ -9,7 +9,7 @@ import java.io.Serializable
 import java.util.*
 
 class AlarmConditionManager : Serializable {
-    var allConditions: LinkedList<AlarmCondtion>?
+    var allConditions: LinkedList<AlarmCondition>?
         private set
     var allConstraints: LinkedList<AlarmConstraintLabel>?
         private set
@@ -19,7 +19,7 @@ class AlarmConditionManager : Serializable {
         allConstraints = LinkedList()
     }
 
-    fun addCondition(constraintAlarm: AlarmCondtion) {
+    fun addCondition(constraintAlarm: AlarmCondition) {
         allConditions!!.add(constraintAlarm)
     }
 
