@@ -56,7 +56,6 @@ class URLSetterFragment : Fragment() {
             barcodeLauncher.launch(options)
         }
         val prevURL = input.text.toString()
-        val parentActivity = activity as SettingsActivity?
         valide.setOnClickListener {
             if (prevURL != input.text.toString()) {
                 FileGlobal.getFileDownload(context).delete()
@@ -70,11 +69,9 @@ class URLSetterFragment : Fragment() {
                     }
                 }.start()
             }
-            parentActivity?.comeBackToMainPageSettings()
             parentFragmentManager.popBackStackImmediate()
         }
         cancel.setOnClickListener {
-            parentActivity?.comeBackToMainPageSettings()
             parentFragmentManager.popBackStackImmediate()
         }
         return view

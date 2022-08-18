@@ -2,7 +2,10 @@ package com.iutcalendar.settings
 
 import android.os.Bundle
 import android.util.Log
-import android.view.*
+import android.view.LayoutInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.iutcalendar.alarm.Alarm
@@ -26,7 +29,10 @@ class AlarmListFragment : AbstractFragmentWitheMenu() {
     }
 
     private fun updateAlarm() {
-        Alarm.setUpAlarm(context, Calendrier(FileGlobal.readFile(FileGlobal.getFileDownload(context))))
+        Alarm.setUpAlarm(
+            context,
+            Calendrier(FileGlobal.readFile(FileGlobal.getFileDownload(context)))
+        )
         val adapter = AlarmRecycleView(
             PersonalAlarmManager.getInstance(context).allAlarmToList
         ) { saveAlarm() }
@@ -34,7 +40,10 @@ class AlarmListFragment : AbstractFragmentWitheMenu() {
         val layout = LinearLayoutManager(activity)
         recyclerViewAlarm!!.layoutManager = layout
         saveAlarm()
-        Log.d("Alarm", "updateAlarm : " + PersonalAlarmManager.getInstance(context).allAlarmToList.size)
+        Log.d(
+            "Alarm",
+            "updateAlarm : " + PersonalAlarmManager.getInstance(context).allAlarmToList.size
+        )
     }
 
     private fun saveAlarm() {
@@ -42,15 +51,10 @@ class AlarmListFragment : AbstractFragmentWitheMenu() {
     }
 
     /*#################MENU BAR#################*/
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_action_settings_alarm, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    override fun clickMenu(item: MenuItem) {
         val id = item.itemId
         if (id == R.id.mybutton) {
             updateAlarm()
         }
-        return super.onOptionsItemSelected(item)
     }
 }

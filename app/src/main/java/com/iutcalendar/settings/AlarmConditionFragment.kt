@@ -2,14 +2,17 @@ package com.iutcalendar.settings
 
 import android.os.Bundle
 import android.util.Log
-import android.view.*
+import android.view.LayoutInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import android.widget.TimePicker
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.iutcalendar.alarm.AlarmRing
+import com.iutcalendar.alarm.condition.AlarmCondition
 import com.iutcalendar.alarm.condition.AlarmConditionManager
 import com.iutcalendar.alarm.condition.AlarmConditionRecycleView
-import com.iutcalendar.alarm.condition.AlarmCondition
 import com.iutcalendar.calendrier.DateCalendrier
 import com.iutcalendar.dialog.DialogMessage
 import com.iutcalendar.menu.AbstractFragmentWitheMenu
@@ -32,8 +35,10 @@ class AlarmConditionFragment : AbstractFragmentWitheMenu() {
     }
 
     private fun updateConditions() {
-        val adapter = AlarmConditionRecycleView(context,
-            AlarmConditionManager.getInstance(context).allConditions, { saveConditions() }) { updateConditions() }
+        val adapter = AlarmConditionRecycleView(
+            context,
+            AlarmConditionManager.getInstance(context).allConditions,
+            { saveConditions() }) { updateConditions() }
         recyclerViewConstraint!!.adapter = adapter
         recyclerViewConstraint!!.layoutManager = LinearLayoutManager(activity)
 
@@ -49,19 +54,34 @@ class AlarmConditionFragment : AbstractFragmentWitheMenu() {
     private fun addCondition() {
 
         //demande heure début
-        AlarmRing.askTime(context, getString(R.string.BorneInf)) { _: TimePicker?, hourOfDayBegin: Int, minuteBegin: Int ->
+        AlarmRing.askTime(
+            context,
+            getString(R.string.BorneInf)
+        ) { _: TimePicker?, hourOfDayBegin: Int, minuteBegin: Int ->
             val begin: Long = DateCalendrier.getHourInMillis(hourOfDayBegin, minuteBegin)
 
             //demande heure fin
-            AlarmRing.askTime(context, getString(R.string.BorneSup)) { _: TimePicker?, hourOfDayEnd: Int, minuteEnd: Int ->
+            AlarmRing.askTime(
+                context,
+                getString(R.string.BorneSup)
+            ) { _: TimePicker?, hourOfDayEnd: Int, minuteEnd: Int ->
                 val end: Long = DateCalendrier.getHourInMillis(hourOfDayEnd, minuteEnd)
                 if (begin > end) {
-                    DialogMessage.showWarning(context, getString(R.string.Interval), getString(R.string.born_sup_et_inf_inverser))
+                    DialogMessage.showWarning(
+                        context,
+                        getString(R.string.Interval),
+                        getString(R.string.born_sup_et_inf_inverser)
+                    )
                 } else {
                     //demande heure sonnerie
-                    AlarmRing.askTime(context, getString(R.string.TimeToRing)) { _: TimePicker?, hourOfDayAlarmAt: Int, minuteAlarmAt: Int ->
-                        val alarmAt: Long = DateCalendrier.getHourInMillis(hourOfDayAlarmAt, minuteAlarmAt)
-                        AlarmConditionManager.getInstance(context).addCondition(AlarmCondition(begin, end, alarmAt))
+                    AlarmRing.askTime(
+                        context,
+                        getString(R.string.TimeToRing)
+                    ) { _: TimePicker?, hourOfDayAlarmAt: Int, minuteAlarmAt: Int ->
+                        val alarmAt: Long =
+                            DateCalendrier.getHourInMillis(hourOfDayAlarmAt, minuteAlarmAt)
+                        AlarmConditionManager.getInstance(context)
+                            .addCondition(AlarmCondition(begin, end, alarmAt))
                         updateConditions()
                     }
                 }
@@ -70,18 +90,17 @@ class AlarmConditionFragment : AbstractFragmentWitheMenu() {
     }
 
     /*#################MENU BAR#################*/
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_action_help_and_add_alarm, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    override fun clickMenu(item: MenuItem) {
         val id = item.itemId
         Log.d("MenuBar", "fragment")
         if (id == R.id.addBtn) {
             addCondition()
         } else if (id == R.id.aideBtn) {
-            DialogMessage.showAide(context, getString(R.string.Help), getString(R.string.aide_conditon_alarm))
+            DialogMessage.showAide(
+                context,
+                getString(R.string.Help),
+                getString(R.string.aide_conditon_alarm)
+            )
         }
-        return super.onOptionsItemSelected(item)
     }
 }

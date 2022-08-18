@@ -50,11 +50,7 @@ class AlarmConstraintFragment : AbstractFragmentWitheMenu() {
     }
 
     /*#################MENU BAR#################*/
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_action_help_and_add_alarm, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    override fun clickMenu(item: MenuItem) {
         val id = item.itemId
         Log.d("MenuBar", "fragment")
         if (id == R.id.addBtn) {
@@ -62,6 +58,5 @@ class AlarmConstraintFragment : AbstractFragmentWitheMenu() {
         } else if (id == R.id.aideBtn) {
             DialogMessage.showAide(context, getString(R.string.Help), getString(R.string.aid_constraint_alarm))
         }
-        return super.onOptionsItemSelected(item)
     }
 }

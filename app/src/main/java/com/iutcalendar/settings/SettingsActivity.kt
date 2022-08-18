@@ -6,11 +6,13 @@ import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
 import android.view.Menu
+import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
@@ -20,29 +22,16 @@ import com.iutcalendar.data.DataGlobal
 import com.iutcalendar.dialog.DialogMessage
 import com.iutcalendar.mainpage.PageEventActivity
 import com.iutcalendar.math.MyMath
+import com.iutcalendar.menu.AbstractFragmentWitheMenu
 import com.iutcalendar.menu.MenuItemClickActivities
 import com.univlyon1.tools.agenda.R
 
 class SettingsActivity : AppCompatActivity(),
     PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
     private var actionBar: ActionBar? = null
-    fun increaseCountArborescenceFragment() {
-        countArborescenceFragment++
-        updateActionBar()
-    }
+    private val getFragment: Fragment?
+        get() = supportFragmentManager.findFragmentById(R.id.settings)
 
-    private fun decreaseCountArborescenceFragment() {
-        countArborescenceFragment--
-        updateActionBar()
-    }
-
-    fun comeBackToMainPageSettings() {
-        countArborescenceFragment = 0
-        updateActionBar()
-    }
-
-    private val isMainRoot: Boolean
-        get() = countArborescenceFragment == 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +44,47 @@ class SettingsActivity : AppCompatActivity(),
                 .commit()
         }
         actionBar = supportActionBar
-        comeBackToMainPageSettings()
+
+        addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                Log.d("ActionBar", "onCreateMenu")
+
+                when (getFragment) {
+                    is SettingsFragment -> {
+                        menuInflater.inflate(R.menu.menu_activities, menu)
+                    }
+                    is AlarmConditionFragment,
+                    is AlarmConstraintFragment -> {
+                        menuInflater.inflate(R.menu.menu_action_help_and_add_alarm, menu)
+                    }
+                    is AlarmListFragment -> {
+                        menuInflater.inflate(R.menu.menu_action_settings_alarm, menu)
+                    }
+                }
+
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                val id = menuItem.itemId
+                if (id == android.R.id.home) {
+                    if (getFragment is SettingsFragment) goBackToCalendar()
+                    else supportFragmentManager.popBackStackImmediate()
+                } else {
+                    MenuItemClickActivities(this@SettingsActivity).onMenuItemClick(menuItem)
+                }
+                if (getFragment is AbstractFragmentWitheMenu) {
+                    (getFragment as AbstractFragmentWitheMenu).clickMenu(menuItem)
+                }
+                return true
+            }
+
+        })
+    }
+
+    fun goBackToCalendar() {
+        val intent = Intent(this@SettingsActivity, PageEventActivity::class.java)
+        finish()
+        startActivity(intent)
     }
 
     override fun onPreferenceStartFragment(
@@ -63,8 +92,6 @@ class SettingsActivity : AppCompatActivity(),
         pref: Preference
     ): Boolean { // pour la redirection vers les sous menu
         pref.fragment?.let {
-            increaseCountArborescenceFragment()
-            updateActionBar()
             val fragment = supportFragmentManager.fragmentFactory.instantiate(classLoader, it)
                 .apply { arguments = pref.extras }
             // Replace the existing Fragment with the new Fragment
@@ -77,42 +104,9 @@ class SettingsActivity : AppCompatActivity(),
         return false
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        Log.d("MenuBar", "activity")
-        val id = item.itemId
-        if (id == android.R.id.home) {
-            supportFragmentManager.popBackStack()
-            decreaseCountArborescenceFragment()
-        } else {
-            MenuItemClickActivities(this).onMenuItemClick(item)
-        }
-        updateActionBar()
-        return super.onOptionsItemSelected(item)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        val inflater = menuInflater
-        inflater.inflate(R.menu.menu_activities, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
-
-    private fun updateActionBar() {
-        if (actionBar != null) {
-            actionBar!!.title = getString(R.string.Settings)
-            actionBar!!.setDisplayHomeAsUpEnabled(!isMainRoot)
-        }
-    }
-
     override fun onBackPressed() {
-        super.onBackPressed()
-        Log.d("Back", countArborescenceFragment.toString())
-        if (isMainRoot) {
-            val intent = Intent(this, PageEventActivity::class.java)
-            finish()
-            startActivity(intent)
-        } else {
-            decreaseCountArborescenceFragment()
-        }
+        if (getFragment is SettingsFragment) goBackToCalendar()
+        else super.onBackPressed()
     }
 
 
@@ -129,7 +123,7 @@ class SettingsActivity : AppCompatActivity(),
                 if (activity is SettingsActivity) {
                     val settingsActivity = activity as SettingsActivity?
                     //Switch fragment
-                    settingsActivity?.let { setOnClickFragment(it) }
+                    settingsActivity?.let { setOnClickFragment() }
                 }
             }
         }
@@ -207,46 +201,34 @@ class SettingsActivity : AppCompatActivity(),
             }
         }
 
-        private fun setOnClickFragment(settingsActivity: SettingsActivity) {
+        private fun setOnClickFragment() {
             findPreference<Preference>("ContactFragment")?.onPreferenceClickListener =
                 Preference.OnPreferenceClickListener {
-                    settingsActivity.increaseCountArborescenceFragment()
-                    settingsActivity.updateActionBar()
                     switchFragment(ContactFragment())
                     false
                 }
             findPreference<Preference>("ExplicationSettingsFragment")?.onPreferenceClickListener =
                 Preference.OnPreferenceClickListener {
-                    settingsActivity.increaseCountArborescenceFragment()
-                    settingsActivity.updateActionBar()
                     switchFragment(ExplicationSettingsFragment())
                     false
                 }
             findPreference<Preference>("contrainte_alarmes")?.onPreferenceClickListener =
                 Preference.OnPreferenceClickListener {
-                    settingsActivity.increaseCountArborescenceFragment()
-                    settingsActivity.updateActionBar()
                     switchFragment(AlarmConstraintFragment())
                     false
                 }
             findPreference<Preference>("horaire_alarmes")?.onPreferenceClickListener =
                 Preference.OnPreferenceClickListener {
-                    settingsActivity.increaseCountArborescenceFragment()
-                    settingsActivity.updateActionBar()
                     switchFragment(AlarmConditionFragment())
                     false
                 }
             findPreference<Preference>("liste_alarmes")?.onPreferenceClickListener =
                 Preference.OnPreferenceClickListener {
-                    settingsActivity.increaseCountArborescenceFragment()
-                    settingsActivity.updateActionBar()
                     switchFragment(AlarmListFragment())
                     false
                 }
             findPreference<Preference>("URLSetterFragment")?.onPreferenceClickListener =
                 Preference.OnPreferenceClickListener {
-                    settingsActivity.increaseCountArborescenceFragment()
-                    settingsActivity.updateActionBar()
                     switchFragment(URLSetterFragment())
                     false
                 }
@@ -280,9 +262,5 @@ class SettingsActivity : AppCompatActivity(),
                 it.overridePendingTransition(0, 0)
             }
         }
-    }
-
-    companion object {
-        private var countArborescenceFragment = 0
     }
 }
