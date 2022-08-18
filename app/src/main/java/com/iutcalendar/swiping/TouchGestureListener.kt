@@ -17,4 +17,5 @@ class TouchGestureListener(ctx: Context?, gs: GestureEventManager?) : OnTouchLis
         v.performClick()
         return gestureDetector.onTouchEvent(event)
     }
+
 }

@@ -1,200 +1,236 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
-            tools:context="com.iutcalendar.settings.ExplicationSettingsFragment"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="10dp"
+    android:paddingHorizontal="10dp"
+    android:scrollbars="none"
+    tools:context="com.iutcalendar.settings.ExplicationSettingsFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:divider="?dividerHorizontal"
+        android:orientation="vertical"
+        android:showDividers="middle">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingHorizontal="10dp"
-            android:layout_marginTop="10dp">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-
-                  android:orientation="vertical"
-                  android:divider="?dividerHorizontal"
-                  android:showDividers="middle">
-
-        <LinearLayout
-                android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:orientation="vertical">
             <TextView
-                    android:text="@string/General"
-                    style="@style/TitleText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"/>
+                style="@style/TitleText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/General"
+                android:textStyle="bold" />
+
             <TextView
-                    android:text="@string/presentationGeneral"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/default_padding"
-                    android:layout_marginStart="@dimen/tab_gap"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/tab_gap"
+                android:layout_marginTop="@dimen/default_padding"
+                android:text="@string/presentationGeneral" />
         </LinearLayout>
+
         <LinearLayout
-                android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:orientation="vertical">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
             <TextView
-                    android:text="@string/ForStarted"
-                    style="@style/TitleText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"/>
+                style="@style/TitleText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ForStarted"
+                android:textStyle="bold" />
+
             <TextView
-                    android:text="@string/commencer1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/default_padding"
-                    android:layout_marginStart="@dimen/tab_gap"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/tab_gap"
+                android:layout_marginTop="@dimen/default_padding"
+                android:text="@string/commencer1" />
+
             <TextView
-                    android:text="@string/lien_edt"
-                    android:autoLink="web"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:minHeight="@dimen/minTactile" android:minWidth="@dimen/minTactile"
-                    android:gravity="center"
-                    android:layout_marginTop="@dimen/default_padding"
-                    android:layout_marginStart="@dimen/tab_gap"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/tab_gap"
+                android:layout_marginTop="@dimen/default_padding"
+                android:autoLink="web"
+                android:gravity="center"
+                android:minWidth="@dimen/minTactile"
+                android:minHeight="@dimen/minTactile"
+                android:text="@string/lien_edt" />
+
             <TextView
-                    android:text="@string/commencer2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/default_padding"
-                    android:layout_marginStart="@dimen/tab_gap"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/tab_gap"
+                android:layout_marginTop="@dimen/default_padding"
+                android:text="@string/commencer2" />
+
             <TextView
-                    android:text="@string/commencer3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/default_padding"
-                    android:layout_marginStart="@dimen/tab_gap"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/tab_gap"
+                android:layout_marginTop="@dimen/default_padding"
+                android:text="@string/commencer3" />
         </LinearLayout>
+
         <LinearLayout
-                android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:orientation="vertical">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
             <TextView
-                    android:text="@string/Alarm_auto"
-                    style="@style/TitleText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"/>
+                style="@style/TitleText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Alarm_auto"
+                android:textStyle="bold" />
+
             <TextView
-                    android:text="@string/alarm_auto_aide1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/default_padding"
-                    android:layout_marginStart="@dimen/tab_gap"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/tab_gap"
+                android:layout_marginTop="@dimen/default_padding"
+                android:text="@string/alarm_auto_aide1" />
+
             <TextView
-                    android:text="@string/alarm_auto_aide2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/default_padding"
-                    android:layout_marginStart="@dimen/tab_gap"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/tab_gap"
+                android:layout_marginTop="@dimen/default_padding"
+                android:text="@string/alarm_auto_aide2" />
+
             <TextView
-                    android:text="@string/ManiereSimplifie"
-                    style="@style/subTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"/>
+                style="@style/subTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ManiereSimplifie"
+                android:textStyle="bold" />
+
             <TextView
-                    android:text="@string/maniereSimplifierAide1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/default_padding"
-                    android:layout_marginStart="@dimen/tab_gap"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/tab_gap"
+                android:layout_marginTop="@dimen/default_padding"
+                android:text="@string/maniereSimplifierAide1" />
+
             <TextView
-                    android:text="@string/maniereSimplifierAide2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/default_padding"
-                    android:layout_marginStart="@dimen/tab_gap"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/tab_gap"
+                android:layout_marginTop="@dimen/default_padding"
+                android:text="@string/maniereSimplifierAide2" />
+
             <TextView
-                    android:text="@string/ManiereAvancer"
-                    style="@style/subTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"/>
+                style="@style/subTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ManiereAvancer"
+                android:textStyle="bold" />
+
             <TextView
-                    android:text="@string/Horaire_alarms_auto"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Horaire_alarms_auto"
+                android:textStyle="bold" />
+
             <TextView
-                    android:text="@string/alarmesAutoAide1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/default_padding"
-                    android:layout_marginStart="@dimen/tab_gap"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/tab_gap"
+                android:layout_marginTop="@dimen/default_padding"
+                android:text="@string/alarmesAutoAide1" />
+
             <TextView
-                    android:text="@string/alarmesAutoAide2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/default_padding"
-                    android:layout_marginStart="@dimen/tab_gap"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/tab_gap"
+                android:layout_marginTop="@dimen/default_padding"
+                android:text="@string/alarmesAutoAide2" />
+
             <TextView
-                    android:text="@string/alarmesAutoAide3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/default_padding"
-                    android:layout_marginStart="@dimen/tab_gap"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/tab_gap"
+                android:layout_marginTop="@dimen/default_padding"
+                android:text="@string/alarmesAutoAide3" />
 
 
             <TextView
-                    android:text="@string/ConstraintAlarms"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ConstraintAlarms"
+                android:textStyle="bold" />
+
             <TextView
-                    android:text="@string/ConstraintAlarmsAide1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/default_padding"
-                    android:layout_marginStart="@dimen/tab_gap"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/tab_gap"
+                android:layout_marginTop="@dimen/default_padding"
+                android:text="@string/ConstraintAlarmsAide1" />
+
             <TextView
-                    android:text="@string/ConstraintAlarmsAide2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/default_padding"
-                    android:layout_marginStart="@dimen/tab_gap"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/tab_gap"
+                android:layout_marginTop="@dimen/default_padding"
+                android:text="@string/ConstraintAlarmsAide2" />
+
             <TextView
-                    android:text="@string/ConstraintAlarmsAide3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/default_padding"
-                    android:layout_marginStart="@dimen/tab_gap"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/tab_gap"
+                android:layout_marginTop="@dimen/default_padding"
+                android:text="@string/ConstraintAlarmsAide3" />
         </LinearLayout>
+
         <LinearLayout
-                android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:orientation="vertical">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
             <TextView
-                    android:text="@string/widget"
-                    style="@style/TitleText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"/>
+                style="@style/TitleText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/widget"
+                android:textStyle="bold" />
+
             <TextView
-                    android:text="@string/widgetAide1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/default_padding"
-                    android:layout_marginStart="@dimen/tab_gap"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/tab_gap"
+                android:layout_marginTop="@dimen/default_padding"
+                android:text="@string/widgetAide1" />
+
             <TextView
-                    android:text="@string/widgetAide2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/default_padding"
-                    android:layout_marginStart="@dimen/tab_gap"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/tab_gap"
+                android:layout_marginTop="@dimen/default_padding"
+                android:text="@string/widgetAide2" />
+
             <TextView
-                    android:text="@string/widgetAide3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/default_padding"
-                    android:layout_marginStart="@dimen/tab_gap"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/tab_gap"
+                android:layout_marginTop="@dimen/default_padding"
+                android:text="@string/widgetAide3" />
         </LinearLayout>
 
         <TextView
-                android:id="@+id/versionLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/version_build"
-                android:layout_gravity="center_horizontal"
-                android:gravity="center"
-                android:minHeight="48dp"/>
+            android:id="@+id/versionLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:minHeight="48dp"
+            android:text="@string/version_build" />
     </LinearLayout>
 </ScrollView>

@@ -21,8 +21,8 @@ class ExplicationSettingsFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_explication_settings, container, false)
         val version = view.findViewById<TextView>(R.id.versionLabel)
-        val pm = context!!.packageManager
-        val pkgName = context!!.packageName
+        val pm = requireContext().packageManager
+        val pkgName = requireContext().packageName
         val pkgInfo: PackageInfo?
         try {
             pkgInfo = pm.getPackageInfo(pkgName, 0)

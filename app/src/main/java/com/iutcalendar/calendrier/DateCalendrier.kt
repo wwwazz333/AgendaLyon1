@@ -20,14 +20,29 @@ open class DateCalendrier() : GregorianCalendar() {
         this.minute = minute
     }
 
-    constructor(other: DateCalendrier?) : this(other!!.day, other.month, other.year, other.hour, other.minute)
+    constructor(other: DateCalendrier?) : this(
+        other!!.day,
+        other.month,
+        other.year,
+        other.hour,
+        other.minute
+    )
 
     /**
      * Le décalage est appliqué à la lecture du fichier uniquement
      * par la suite toutes les dates aurons le bon décalage.
      */
     fun doZoneOffset() {
-        val offset = ZonedDateTime.of(year, month, day, hour, minute, 0, 0, ZoneId.systemDefault())[ChronoField.OFFSET_SECONDS]
+        val offset = ZonedDateTime.of(
+            year,
+            month,
+            day,
+            hour,
+            minute,
+            0,
+            0,
+            ZoneId.systemDefault()
+        )[ChronoField.OFFSET_SECONDS]
         hour += offset / 3600
     }
 

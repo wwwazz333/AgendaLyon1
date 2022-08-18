@@ -1,23 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="horizontal"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:background="@drawable/little_surface_background"
-              android:layout_marginBottom="3dp"
-              android:padding="5dp">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="3dp"
+    android:background="@drawable/little_surface_background"
+    android:orientation="horizontal"
+    android:padding="5dp">
 
-    <ImageView
-            android:id="@+id/iconAlarme"
-            android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:src="@drawable/ic_alarm"
-            android:layout_gravity="center"
-            android:foregroundGravity="center"
-            android:layout_marginEnd="@dimen/tab_gap"
-            android:visibility="invisible" android:contentDescription="@string/LogoRememberOrNot"/>
-    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-              android:id="@+id/textSummary"
-              android:text="@string/exemple_text"
-              android:textColor="?attr/colorOnBackground"/>
+    <TextView
+        android:id="@+id/textSummary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/default_padding"
+        android:text="@string/exemple_text"
+        android:textColor="?attr/colorOnBackground" />
 
 </LinearLayout>

@@ -23,7 +23,6 @@ import com.iutcalendar.data.DataGlobal
 import com.iutcalendar.data.FileGlobal
 import com.iutcalendar.event.changement.ChangeDialog
 import com.iutcalendar.mainpage.ui.main.SectionsPagerAdapter
-import com.iutcalendar.math.MyMath.Companion.roundAt
 import com.iutcalendar.menu.MenuItemClickActivities
 import com.iutcalendar.service.WorkUpdate
 import com.iutcalendar.settings.SettingsApp
@@ -74,20 +73,15 @@ class PageEventActivity : AppCompatActivity() {
             Log.d("Extra", "no changes")
         }
 
-        //démarre le service d'arrière-plan avec interval
-//        ForegroundServiceUpdate.start(getApplicationContext());
-//        UpdateBackgroundJobServices.startScheduleJobBackground(this);
+        //démarre le service en arrière-plan avec interval
         WorkUpdate.startBackgroundWork(this)
-
 
         //update
         update(null)
         initAds()
+
         /*####Testing feature#####*/
         Log.d("Global", "PageEventActivity end")
-
-        Log.d("Pref", DataGlobal.getSavedInt(this, "time_before_ring").toString())
-
     }
 
     private fun initAds() {
@@ -102,24 +96,25 @@ class PageEventActivity : AppCompatActivity() {
      */
     private fun initAllOnClickEvents() {
         //back to current date
-        currDateLabel!!.setOnClickListener { setCurrDate(CurrentDate()) }
-
+        currDateLabel?.setOnClickListener { setCurrDate(CurrentDate()) }
 
         //Click on day
-        setOnClickDay(binding!!.dayLundi, 0)
-        setOnClickDay(binding!!.dayMardi, 1)
-        setOnClickDay(binding!!.dayMercredi, 2)
-        setOnClickDay(binding!!.dayJeudi, 3)
-        setOnClickDay(binding!!.dayVendredi, 4)
-        setOnClickDay(binding!!.daySamedi, 5)
-        setOnClickDay(binding!!.dayDimanche, 6)
-        setOnClickDay(binding!!.lundiNum, 0)
-        setOnClickDay(binding!!.mardiNum, 1)
-        setOnClickDay(binding!!.mercrediNum, 2)
-        setOnClickDay(binding!!.jeudiNum, 3)
-        setOnClickDay(binding!!.vendrediNum, 4)
-        setOnClickDay(binding!!.samediNum, 5)
-        setOnClickDay(binding!!.dimancheNum, 6)
+        binding?.let {
+            setOnClickDay(it.dayLundi, 0)
+            setOnClickDay(it.dayMardi, 1)
+            setOnClickDay(it.dayMercredi, 2)
+            setOnClickDay(it.dayJeudi, 3)
+            setOnClickDay(it.dayVendredi, 4)
+            setOnClickDay(it.daySamedi, 5)
+            setOnClickDay(it.dayDimanche, 6)
+            setOnClickDay(it.lundiNum, 0)
+            setOnClickDay(it.mardiNum, 1)
+            setOnClickDay(it.mercrediNum, 2)
+            setOnClickDay(it.jeudiNum, 3)
+            setOnClickDay(it.vendrediNum, 4)
+            setOnClickDay(it.samediNum, 5)
+            setOnClickDay(it.dimancheNum, 6)
+        }
     }
 
     /**
@@ -131,13 +126,14 @@ class PageEventActivity : AppCompatActivity() {
             nameDayLayout!!.getChildAt(i)
                 .setOnTouchListener(TouchGestureListener(applicationContext, GestureWeekListener()))
         }
-        nameDayLayout!!.setOnTouchListener(
+        nameDayLayout?.setOnTouchListener(
             TouchGestureListener(
                 applicationContext,
                 GestureWeekListener()
             )
         )
-        dayOfWeek!!.setOnTouchListener(
+
+        dayOfWeek?.setOnTouchListener(
             TouchGestureListener(
                 applicationContext,
                 GestureWeekListener()
@@ -150,10 +146,10 @@ class PageEventActivity : AppCompatActivity() {
      */
     private fun initPageViewEvent() {
         Log.d("Event", "creation Section page adapter")
-        viewPager = binding!!.viewPager
+        viewPager = binding?.viewPager
         val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager, calendrier)
-        viewPager!!.adapter = sectionsPagerAdapter
-        viewPager!!.addOnPageChangeListener(object : OnPageChangeListener {
+        viewPager?.adapter = sectionsPagerAdapter
+        viewPager?.addOnPageChangeListener(object : OnPageChangeListener {
             override fun onPageScrolled(
                 position: Int,
                 positionOffset: Float,
@@ -177,7 +173,7 @@ class PageEventActivity : AppCompatActivity() {
         viewPager!!.removeAllViews()
         viewPager!!.adapter = sectionsPagerAdapter
         setPositionPageToCurrDate()
-    }//pcq event s'affiche toujours au bout de 30min
+    }
 
     /**
      * @return the date the activity has to be launch
@@ -190,7 +186,7 @@ class PageEventActivity : AppCompatActivity() {
                 dateToLaunch.add(
                     GregorianCalendar.MINUTE,
                     WidgetCalendar.DELAY_AFTER_EVENT_PASSED
-                ) //pcq event s'affiche toujours au bout de 30min
+                ) //pcq event est toujours affiché toujours au bout de 30min
                 val es = calendrier!!.getNext2EventAfter(dateToLaunch)
                 if (es[0] != null) {
                     dateToLaunch = CurrentDate(es[0]?.date)

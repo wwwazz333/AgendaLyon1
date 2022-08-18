@@ -12,17 +12,8 @@ class PersonalCalendrier {
         tasks = HashMap()
     }
 
-    private fun hasAlarm(linkedToUID: String?): Boolean {
-        for (task in getLinkedTask(linkedToUID)) {
-            if (task.isAlarm) {
-                return true
-            }
-        }
-        return false
-    }
-
     private fun getCountTaskOf(linkedToUID: String?): Int {
-        return getLinkedTask(linkedToUID).size - if (hasAlarm(linkedToUID)) 1 else 0
+        return getLinkedTask(linkedToUID).size
     }
 
     fun getCountTaskOf(linkedTo: EventCalendrier?): Int {
@@ -57,28 +48,7 @@ class PersonalCalendrier {
         iterator.remove()
     }
 
-    fun removeAllAlarmOf(context: Context?, linkedToUID: String?) {
-        val it = getLinkedTask(linkedToUID).iterator()
-        while (it.hasNext()) {
-            val t = it.next()
-            if (t.isAlarm) {
-                t.destroy(context)
-                it.remove()
-            }
-        }
-        for (task in getLinkedTask(linkedToUID)) {
-            task.destroy(context)
-        }
-    }
 
-    fun getAlarmOf(linkedToUID: String?): Task? {
-        for (task in getLinkedTask(linkedToUID)) {
-            if (task.isAlarm) {
-                return task
-            }
-        }
-        return null
-    }
 
     fun remove(context: Context?, task: Task) {
         val taskList = tasks!![task.linkedToUID]

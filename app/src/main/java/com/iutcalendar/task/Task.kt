@@ -5,9 +5,9 @@ import com.iutcalendar.alarm.Alarm
 import java.io.Serializable
 import java.util.*
 
-class Task @JvmOverloads constructor(//TODO implémenté un rappel
-        val txt: String, val linkedToUID: String?, val isAlarm: Boolean = false) : Serializable {
-    var isAlarmActivate = true
+class Task constructor(
+    val txt: String, val linkedToUID: String?
+) : Serializable {
 
     fun destroy(context: Context?) {
         Alarm.cancelAlarm(context, linkedToUID)
