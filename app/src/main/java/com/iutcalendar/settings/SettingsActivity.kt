@@ -65,12 +65,8 @@ class SettingsActivity : AppCompatActivity(),
         pref.fragment?.let {
             increaseCountArborescenceFragment()
             updateActionBar()
-            val args = pref.extras
-            val fragment = supportFragmentManager.fragmentFactory.instantiate(
-                classLoader,
-                it
-            )
-            fragment.arguments = args
+            val fragment = supportFragmentManager.fragmentFactory.instantiate(classLoader, it)
+                .apply { arguments = pref.extras }
             // Replace the existing Fragment with the new Fragment
             supportFragmentManager.beginTransaction()
                 .replace(R.id.settings, fragment)
@@ -216,69 +212,64 @@ class SettingsActivity : AppCompatActivity(),
                 Preference.OnPreferenceClickListener {
                     settingsActivity.increaseCountArborescenceFragment()
                     settingsActivity.updateActionBar()
-                    switchFragment(settingsActivity, ContactFragment())
-                    false
-                }
-            findPreference<Preference>("ContactFragment")?.onPreferenceClickListener =
-                Preference.OnPreferenceClickListener {
-                    settingsActivity.increaseCountArborescenceFragment()
-                    settingsActivity.updateActionBar()
-                    switchFragment(settingsActivity, ContactFragment())
+                    switchFragment(ContactFragment())
                     false
                 }
             findPreference<Preference>("ExplicationSettingsFragment")?.onPreferenceClickListener =
                 Preference.OnPreferenceClickListener {
                     settingsActivity.increaseCountArborescenceFragment()
                     settingsActivity.updateActionBar()
-                    switchFragment(settingsActivity, ExplicationSettingsFragment())
+                    switchFragment(ExplicationSettingsFragment())
                     false
                 }
             findPreference<Preference>("contrainte_alarmes")?.onPreferenceClickListener =
                 Preference.OnPreferenceClickListener {
                     settingsActivity.increaseCountArborescenceFragment()
                     settingsActivity.updateActionBar()
-                    switchFragment(settingsActivity, AlarmConstraintFragment())
+                    switchFragment(AlarmConstraintFragment())
                     false
                 }
             findPreference<Preference>("horaire_alarmes")?.onPreferenceClickListener =
                 Preference.OnPreferenceClickListener {
                     settingsActivity.increaseCountArborescenceFragment()
                     settingsActivity.updateActionBar()
-                    switchFragment(settingsActivity, AlarmConditionFragment())
+                    switchFragment(AlarmConditionFragment())
                     false
                 }
             findPreference<Preference>("liste_alarmes")?.onPreferenceClickListener =
                 Preference.OnPreferenceClickListener {
                     settingsActivity.increaseCountArborescenceFragment()
                     settingsActivity.updateActionBar()
-                    switchFragment(settingsActivity, AlarmListFragment())
+                    switchFragment(AlarmListFragment())
                     false
                 }
             findPreference<Preference>("URLSetterFragment")?.onPreferenceClickListener =
                 Preference.OnPreferenceClickListener {
                     settingsActivity.increaseCountArborescenceFragment()
                     settingsActivity.updateActionBar()
-                    switchFragment(settingsActivity, URLSetterFragment())
+                    switchFragment(URLSetterFragment())
                     false
                 }
         }
 
-        private fun switchFragment(activity: SettingsActivity, fragment: Fragment) {
-            activity.supportFragmentManager.beginTransaction()
+        private fun switchFragment(fragment: Fragment) {
+            requireActivity().supportFragmentManager.beginTransaction()
                 .replace(R.id.settings, fragment)
                 .addToBackStack(null)
                 .commit()
         }
 
         private fun setAlarmComplexity(complex: Boolean) {
-            findPreference<Preference>("horaire_alarmes")?.isEnabled = complex
-            findPreference<Preference>("contrainte_alarmes")?.isEnabled = complex
-            findPreference<Preference>("horaire_alarmes")?.isVisible = complex
-            findPreference<Preference>("contrainte_alarmes")?.isVisible = complex
-            findPreference<Preference>("time_before_ring")?.isEnabled = !complex
-            findPreference<Preference>("time_before_ring")?.isVisible = !complex
-            findPreference<Preference>("activated_days")?.isEnabled = !complex
-            findPreference<Preference>("activated_days")?.isVisible = !complex
+            complex.let {
+                findPreference<Preference>("horaire_alarmes")?.isEnabled = it
+                findPreference<Preference>("contrainte_alarmes")?.isEnabled = it
+                findPreference<Preference>("horaire_alarmes")?.isVisible = it
+                findPreference<Preference>("contrainte_alarmes")?.isVisible = it
+                findPreference<Preference>("time_before_ring")?.isEnabled = !it
+                findPreference<Preference>("time_before_ring")?.isVisible = !it
+                findPreference<Preference>("activated_days")?.isEnabled = !it
+                findPreference<Preference>("activated_days")?.isVisible = !it
+            }
         }
 
         private fun reloadActivity() {
