@@ -23,6 +23,7 @@ import com.iutcalendar.data.DataGlobal
 import com.iutcalendar.data.FileGlobal
 import com.iutcalendar.event.changement.ChangeDialog
 import com.iutcalendar.mainpage.ui.main.SectionsPagerAdapter
+import com.iutcalendar.math.MyMath.Companion.roundAt
 import com.iutcalendar.menu.MenuItemClickActivities
 import com.iutcalendar.service.WorkUpdate
 import com.iutcalendar.settings.SettingsApp
@@ -47,9 +48,6 @@ class PageEventActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d("Global", "PageEventActivity start")
-        if (SettingsApp.adapteTheme(this)) { //it will restart, I don't know why
-            return
-        }
         SettingsApp.setLocale(resources, DataGlobal.getLanguage(applicationContext))
         binding = ActivityPageEventBinding.inflate(layoutInflater)
         setContentView(binding!!.root)
@@ -67,7 +65,9 @@ class PageEventActivity : AppCompatActivity() {
 
         //affiche la dialog si changements depuis la dernière fois (notif ou non)
         var nombreChange: Int
-        if (DataGlobal.getSavedInt(this, DataGlobal.NOMBRE_CHANGE_TO_DISPLAY).also { nombreChange = it } > 0) {
+        if (DataGlobal.getSavedInt(this, DataGlobal.NOMBRE_CHANGE_TO_DISPLAY)
+                .also { nombreChange = it } > 0
+        ) {
             showChangedEvent(nombreChange)
             DataGlobal.save(this, DataGlobal.NOMBRE_CHANGE_TO_DISPLAY, 0)
         } else {
@@ -83,7 +83,11 @@ class PageEventActivity : AppCompatActivity() {
         //update
         update(null)
         initAds()
-        /*####Testing feature#####*/Log.d("Global", "PageEventActivity end")
+        /*####Testing feature#####*/
+        Log.d("Global", "PageEventActivity end")
+
+        Log.d("Pref", DataGlobal.getSavedInt(this, "time_before_ring").toString())
+
     }
 
     private fun initAds() {
@@ -124,10 +128,21 @@ class PageEventActivity : AppCompatActivity() {
     private fun initGestureSwipeWeek() {
         val childCount = nameDayLayout!!.childCount
         for (i in 0 until childCount) {
-            nameDayLayout!!.getChildAt(i).setOnTouchListener(TouchGestureListener(applicationContext, GestureWeekListener()))
+            nameDayLayout!!.getChildAt(i)
+                .setOnTouchListener(TouchGestureListener(applicationContext, GestureWeekListener()))
         }
-        nameDayLayout!!.setOnTouchListener(TouchGestureListener(applicationContext, GestureWeekListener()))
-        dayOfWeek!!.setOnTouchListener(TouchGestureListener(applicationContext, GestureWeekListener()))
+        nameDayLayout!!.setOnTouchListener(
+            TouchGestureListener(
+                applicationContext,
+                GestureWeekListener()
+            )
+        )
+        dayOfWeek!!.setOnTouchListener(
+            TouchGestureListener(
+                applicationContext,
+                GestureWeekListener()
+            )
+        )
     }
 
     /**
@@ -139,7 +154,13 @@ class PageEventActivity : AppCompatActivity() {
         val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager, calendrier)
         viewPager!!.adapter = sectionsPagerAdapter
         viewPager!!.addOnPageChangeListener(object : OnPageChangeListener {
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {
+            }
+
             override fun onPageSelected(position: Int) {
                 Log.d("Page", "new page : $position")
                 setCurrDate(CurrentDate(calendrier?.firstDay).addDay(position))
@@ -166,7 +187,10 @@ class PageEventActivity : AppCompatActivity() {
             var dateToLaunch = CurrentDate()
             Log.d("Widget", "main : " + intent.getBooleanExtra("launch_next_event", false))
             if (intent.getBooleanExtra("launch_next_event", false)) {
-                dateToLaunch.add(GregorianCalendar.MINUTE, WidgetCalendar.DELAY_AFTER_EVENT_PASSED) //pcq event s'affiche toujours au bout de 30min
+                dateToLaunch.add(
+                    GregorianCalendar.MINUTE,
+                    WidgetCalendar.DELAY_AFTER_EVENT_PASSED
+                ) //pcq event s'affiche toujours au bout de 30min
                 val es = calendrier!!.getNext2EventAfter(dateToLaunch)
                 if (es[0] != null) {
                     dateToLaunch = CurrentDate(es[0]?.date)
@@ -211,7 +235,10 @@ class PageEventActivity : AppCompatActivity() {
             Log.d("Update", "start")
             updating = true
             Thread {
-                FileGlobal.updateAndGetChange(this, calendrier) { _: Context?, intent: Intent? -> startActivity(intent) }
+                FileGlobal.updateAndGetChange(
+                    this,
+                    calendrier
+                ) { _: Context?, intent: Intent? -> startActivity(intent) }
                 runOnUiThread {
                     Log.d("Debug", "appeler depuis update")
                     updatePageViewEvent()
@@ -286,12 +313,16 @@ class PageEventActivity : AppCompatActivity() {
     }
 
     private fun setOnClickDay(dayClicked: TextView?, day: Int) {
-        dayClicked?.setOnTouchListener(TouchGestureListener(applicationContext, object : GestureWeekListener() {
-            override fun onClick() {
-                setCurrDate(currDate.getDateOfDayOfWeek(day))
-                super.onClick()
-            }
-        }))
+        dayClicked?.setOnTouchListener(
+            TouchGestureListener(
+                applicationContext,
+                object : GestureWeekListener() {
+                    override fun onClick() {
+                        setCurrDate(currDate.getDateOfDayOfWeek(day))
+                        super.onClick()
+                    }
+                })
+        )
     }
 
     /**

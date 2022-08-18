@@ -142,6 +142,7 @@ class Alarm : BroadcastReceiver() {
             am.setAlarmClock(AlarmClockInfo(time, alarmIntent), alarmIntent)
         }
 
+
         fun setAlarm(context: Context?, time: Long, id: String) {
             setAlarm(context, time, id, START)
         }

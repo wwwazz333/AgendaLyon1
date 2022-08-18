@@ -1,133 +1,135 @@
-<PreferenceScreen
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory
-            app:title="@string/url"
-            android:icon="@drawable/ic_link_url">
+        android:icon="@drawable/ic_link_url"
+        app:title="@string/url">
 
         <Preference
-                android:key="URLSetterFragment"
-                app:title="@string/url"
-                app:summary="@string/urlSettingsLabel"/>
+            android:key="URLSetterFragment"
+            app:summary="@string/urlSettingsLabel"
+            app:title="@string/url" />
 
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="@string/General"
-                        android:icon="@drawable/ic_settings_ico">
+    <PreferenceCategory
+        android:icon="@drawable/ic_settings_ico"
+        app:title="@string/General">
 
         <SwitchPreference
+            android:defaultValue="true"
             android:key="notification_enabled"
-            android:title="Notification"
-            android:summaryOn="Les notifications sont activé"
-            android:summaryOff="Les notifications sont désactivé"
-            android:defaultValue="true"/>
+            android:summaryOff="@string/notif_summary_off"
+            android:summaryOn="@string/notif_summary_on"
+            android:title="@string/Notification" />
         <SwitchPreference
-                app:key="show_update"
-                app:title="@string/show_update"
-                app:summary="@string/show_date_description"
-                android:defaultValue="true"
-        />
+            android:defaultValue="true"
+            app:key="show_update"
+            app:summary="@string/show_date_description"
+            app:title="@string/show_update" />
 
         <ListPreference
-                android:key="language_selected"
-                android:title="@string/choose_langue"
-                android:summary="@string/choose_langue_description"
-                android:defaultValue="fr"
-                android:entryValues="@array/language_values"
-                android:entries="@array/language_options"/>
+            android:defaultValue="fr"
+            android:entries="@array/language_options"
+            android:entryValues="@array/language_values"
+            android:key="language_selected"
+            android:summary="@string/choose_langue_description"
+            android:title="@string/choose_langue" />
 
 
         <ListPreference
-                android:key="theme_selected"
-                android:title="@string/Theme"
-                android:summary="@string/themeLabelSettings"
-                android:entryValues="@array/theme_values"
-                android:entries="@array/theme_options"
-                android:defaultValue="default"/>
+            android:defaultValue="default"
+            android:entries="@array/theme_options"
+            android:entryValues="@array/theme_values"
+            android:key="theme_selected"
+            android:summary="@string/themeLabelSettings"
+            android:title="@string/Theme" />
         <ListPreference
-                android:key="theme_widget_selected"
-                android:title="@string/WidgetTheme"
-                android:summary="@string/themeWidgetLabelSettings"
-                android:entryValues="@array/theme_widget_values"
-                android:entries="@array/theme_widget_options"
-                android:defaultValue="grey"/>
+            android:defaultValue="grey"
+            android:entries="@array/theme_widget_options"
+            android:entryValues="@array/theme_widget_values"
+            android:key="theme_widget_selected"
+            android:summary="@string/themeWidgetLabelSettings"
+            android:title="@string/WidgetTheme" />
 
     </PreferenceCategory>
-    <PreferenceCategory app:title="Alarme auto"
-                        android:icon="@drawable/ic_alarm">
+    <PreferenceCategory
+        android:icon="@drawable/ic_alarm"
+        app:title="@string/Alarm_auto">
         <SwitchPreference
-                android:key="alarme_enable"
-                android:title="@string/Alarm_auto"
-                android:summaryOn="@string/alarm_auto_label"
-                android:summaryOff="Aucune alarmes ne sonne (même celle dans 'Liste des Alamres')"
-                android:defaultValue="false"/>
+            android:defaultValue="false"
+            android:key="alarme_enable"
+            android:summaryOff="@string/alarme_enabled_summary_off"
+            android:summaryOn="@string/alarm_auto_label"
+            android:title="@string/Alarm_auto" />
         <SwitchPreference
-                android:key="jour_ferier_enabled"
-                android:dependency="alarme_enable"
-                android:title="@string/PublicHolidays"
-                android:summaryOff="@string/publicHolidaysDescriptionOff"
-                android:summaryOn="@string/publicHolidaysDescriptionOn"
-                android:defaultValue="false"/>
+            android:defaultValue="false"
+            android:dependency="alarme_enable"
+            android:key="jour_ferier_enabled"
+            android:summaryOff="@string/publicHolidaysDescriptionOff"
+            android:summaryOn="@string/publicHolidaysDescriptionOn"
+            android:title="@string/PublicHolidays" />
 
         <Preference
-                android:key="liste_alarmes"
-                android:dependency="alarme_enable"
-                app:title="@string/Settings_alarms"
-                app:summary="@string/settings_alarm_label"/>
+            android:dependency="alarme_enable"
+            android:key="liste_alarmes"
+            app:summary="@string/settings_alarm_label"
+            app:title="@string/Settings_alarms" />
         <SwitchPreference
-                android:key="complex_alarm_settings"
-                android:dependency="alarme_enable"
-                android:title="@string/AlarmesComplex"
-                android:summaryOff="@string/alarmesComplexOff"
-                android:summaryOn="@string/alarmesComplexOn"
-                android:defaultValue="false"/>
+            android:defaultValue="false"
+            android:dependency="alarme_enable"
+            android:key="complex_alarm_settings"
+            android:summaryOff="@string/alarmesComplexOff"
+            android:summaryOn="@string/alarmesComplexOn"
+            android:title="@string/AlarmesComplex" />
 
         <SeekBarPreference
-                android:key="time_before_ring"
-                android:dependency="alarme_enable"
-                android:title="@string/HoraireSonnerie"
-                android:summary="@string/HoraireSonnerieDescription"
-                app:showSeekBarValue="true"
-                android:defaultValue="60"
-                app:min="5"
-                android:max="300"/>
+            android:defaultValue="60"
+            android:dependency="alarme_enable"
+            android:key="time_before_ring"
+            android:summary="@string/HoraireSonnerieDescription"
+            android:title="@string/HoraireSonnerie"
+            android:max="300"
+            app:min="5"
+            app:showSeekBarValue="true"/>
 
         <MultiSelectListPreference
-                android:key="activated_days"
-                android:dependency="alarme_enable"
-                android:title="@string/ActivatedDays"
-                android:dialogTitle="@string/ActivatedDays"
-                android:summary="@string/activatedDaysDescription"
-                android:entryValues="@array/values_days"
-                android:entries="@array/names_days"
-                android:defaultValue="@array/default_days"/>
+            android:defaultValue="@array/default_days"
+            android:dependency="alarme_enable"
+            android:dialogTitle="@string/ActivatedDays"
+            android:entries="@array/names_days"
+            android:entryValues="@array/values_days"
+            android:key="activated_days"
+            android:summary="@string/activatedDaysDescription"
+            android:title="@string/ActivatedDays" />
 
 
         <Preference
-                android:key="horaire_alarmes"
-                android:dependency="alarme_enable"
-                app:title="@string/Horaire_alarms_auto"
-                app:summary="@string/label_horaire_alarm_auto"/>
+            android:dependency="alarme_enable"
+            android:key="horaire_alarmes"
+            app:summary="@string/label_horaire_alarm_auto"
+            app:title="@string/Horaire_alarms_auto" />
         <Preference
-                android:key="contrainte_alarmes"
-                android:dependency="alarme_enable"
-                app:title="@string/ConstraintAlarms"
-                app:summary="@string/ConstraintAlarmsDescription"/>
+            android:dependency="alarme_enable"
+            android:key="contrainte_alarmes"
+            app:summary="@string/ConstraintAlarmsDescription"
+            app:title="@string/ConstraintAlarms" />
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="@string/Feature"
-                        android:icon="@drawable/ic_feature_settings">
+    <PreferenceCategory
+        android:icon="@drawable/ic_feature_settings"
+        app:title="@string/Feature">
         <Preference
-                android:key="ExplicationSettingsFragment"
-                app:title="@string/Usage"
-                app:summary="@string/Usage_description"/>
+            android:key="ExplicationSettingsFragment"
+            app:summary="@string/Usage_description"
+            app:title="@string/Usage" />
     </PreferenceCategory>
-    <PreferenceCategory app:title="@string/Contact"
-                        android:icon="@drawable/ic_contact">
+    <PreferenceCategory
+        android:icon="@drawable/ic_contact"
+        app:title="@string/Contact">
         <Preference
-                android:key="ContactFragment"
-                app:title="@string/Contact"/>
+            android:key="ContactFragment"
+            app:title="@string/Contact" />
     </PreferenceCategory>
 
 

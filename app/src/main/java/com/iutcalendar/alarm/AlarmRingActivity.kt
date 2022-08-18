@@ -19,7 +19,6 @@ import com.univlyon1.tools.agenda.R
 class AlarmRingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        SettingsApp.adapteTheme(this)
         SettingsApp.setLocale(resources, DataGlobal.getLanguage(applicationContext))
 
         //wakeup phone & not unlock needed

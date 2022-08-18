@@ -111,7 +111,7 @@ Ainsi qu'une horaire qui correspond à l'heure à l'aquelle l'alarme va sonner."
     <string name="alarmesComplexOff">"L'alarme est placès un temps prédéterminé avant le 1er cours de la journée.\n"</string>
     <string name="alarmesComplexOn">Les alarmes sont placès en fonction des intervales de temps prédéfinie (Horaires Alarmes auto) et avec des contraintes (Contraintes Alarmes)</string>
     <string name="HoraireSonnerie">Horaire Sonnerie</string>
-    <string name="HoraireSonnerieDescription">Horaire de la sonnerie relative au 1er cours de la journée</string>
+    <string name="HoraireSonnerieDescription">Horaire de la sonnerie relative au 1er cours de la journée (en minutes avant le cours)</string>
     <string name="ActivatedDays">Jours activé</string>
     <string name="activatedDaysDescription">Les jours de la semaine où les alarmes automatiques seront activé</string>
     <string name="ConstraintAlarms">Contraintes Alarmes</string>
@@ -169,5 +169,11 @@ Ainsi qu'une horaire qui correspond à l'heure à l'aquelle l'alarme va sonner."
     <string name="notify_change">Notifie d\'un changement dans l\'emplois du temps</string>
     <string name="notif_for_alarm">Notification d\'alarme</string>
     <string name="notify_for_alarm">Notification pour les alarmes (ne pas désactivé si utilise les alarmes)</string>
+    <string name="French">Français</string>
+    <string name="English">Anglais</string>
+    <string name="notif_summary_on">Les notifications sont activé</string>
+    <string name="notif_summary_off">Les notifications sont désactivé</string>
+    <string name="Notification">Notification</string>
+    <string name="alarme_enabled_summary_off">Aucune alarmes ne sonnera</string>
 
 </resources>

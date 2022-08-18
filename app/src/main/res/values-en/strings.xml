@@ -100,7 +100,7 @@ As well as a time which corresponds to the hour at which the alarm will sound."<
     <string name="alarmesComplexOff">The alarm is set a pre-determined time before the first class of the day.</string>
     <string name="alarmesComplexOn">The alarms are placed according to predefined time intervals (Schedule Auto Alarms) and with constraints (Constraints Alarms)</string>
     <string name="HoraireSonnerie">Time Ringing</string>
-    <string name="HoraireSonnerieDescription">Ringing time for the first class of the day</string>
+    <string name="HoraireSonnerieDescription">Time of the bell for the first class of the day (in minutes before class)</string>
     <string name="ActivatedDays">Activated days</string>
     <string name="activatedDaysDescription">The days of the week when the automatic alarms will be activated</string>
     <string name="ConstraintAlarmsDescription">Setting constraints for alarms</string>
@@ -157,4 +157,10 @@ As well as a time which corresponds to the hour at which the alarm will sound."<
     <string name="notify_change">Notify of a change in the schedule</string>
     <string name="notif_for_alarm">Alarm notification</string>
     <string name="notify_for_alarm">Notification for alarms (not disabled if using alarms)</string>
+    <string name="French">French</string>
+    <string name="English">English</string>
+    <string name="Notification">Notification</string>
+    <string name="notif_summary_on">Notifications are enabled</string>
+    <string name="notif_summary_off">Notifications are diseabled</string>
+    <string name="alarme_enabled_summary_off">No alarms will ring</string>
 </resources>

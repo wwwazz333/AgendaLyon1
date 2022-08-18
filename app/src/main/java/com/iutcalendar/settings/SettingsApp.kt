@@ -41,11 +41,11 @@ object SettingsApp {
         when (theme) {
             "black" -> {
                 darkMode = AppCompatDelegate.MODE_NIGHT_YES
-                hasToChange = !isDarkMode(context as Activity)
+                hasToChange = !isDarkMode(context)
             }
             "light" -> {
                 darkMode = AppCompatDelegate.MODE_NIGHT_NO
-                hasToChange = isDarkMode(context as Activity)
+                hasToChange = isDarkMode(context)
             }
             else -> {
                 darkMode = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
@@ -101,5 +101,10 @@ object SettingsApp {
 
     private fun isDarkMode(activity: Activity): Boolean {
         return activity.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
+    }
+
+    private fun isDarkMode(ctx: Context): Boolean {
+        return ctx.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
+
     }
 }

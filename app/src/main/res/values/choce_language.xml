@@ -5,7 +5,7 @@
         <item>en</item>
     </string-array>
     <string-array name="language_options">//what is showed
-        <item>Français</item>
-        <item>Anglais</item>
+        <item>@string/French</item>
+        <item>@string/English</item>
     </string-array>
 </resources>

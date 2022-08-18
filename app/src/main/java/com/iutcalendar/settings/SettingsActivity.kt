@@ -7,19 +7,24 @@ import android.provider.Settings
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.SeekBar
+import android.widget.SeekBar.OnSeekBarChangeListener
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.SeekBarPreference
 import androidx.preference.SwitchPreference
 import com.iutcalendar.data.DataGlobal
 import com.iutcalendar.dialog.DialogMessage
 import com.iutcalendar.mainpage.PageEventActivity
+import com.iutcalendar.math.MyMath
 import com.iutcalendar.menu.MenuItemClickActivities
 import com.univlyon1.tools.agenda.R
 
-class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
+class SettingsActivity : AppCompatActivity(),
+    PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
     private var actionBar: ActionBar? = null
     fun increaseCountArborescenceFragment() {
         countArborescenceFragment++
@@ -41,33 +46,36 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setTheme(R.style.Theme_IUTCalendarActionBar)
         SettingsApp.setLocale(resources, DataGlobal.getLanguage(applicationContext))
         setContentView(R.layout.settings_activity)
         if (savedInstanceState == null) {
             supportFragmentManager
-                    .beginTransaction()
-                    .replace(R.id.settings, SettingsFragment())
-                    .commit()
+                .beginTransaction()
+                .replace(R.id.settings, SettingsFragment())
+                .commit()
         }
         actionBar = supportActionBar
         comeBackToMainPageSettings()
     }
 
-    override fun onPreferenceStartFragment(caller: PreferenceFragmentCompat, pref: Preference): Boolean { // pour la redirection vers les sous menu
-        if (pref.fragment != null) {
+    override fun onPreferenceStartFragment(
+        caller: PreferenceFragmentCompat,
+        pref: Preference
+    ): Boolean { // pour la redirection vers les sous menu
+        pref.fragment?.let {
             increaseCountArborescenceFragment()
             updateActionBar()
             val args = pref.extras
             val fragment = supportFragmentManager.fragmentFactory.instantiate(
-                    classLoader,
-                    pref.fragment!!)
+                classLoader,
+                it
+            )
             fragment.arguments = args
             // Replace the existing Fragment with the new Fragment
             supportFragmentManager.beginTransaction()
-                    .replace(R.id.settings, fragment)
-                    .addToBackStack(null)
-                    .commit()
+                .replace(R.id.settings, fragment)
+                .addToBackStack(null)
+                .commit()
             return true
         }
         return false
@@ -111,21 +119,17 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
         }
     }
 
+
     class SettingsFragment : PreferenceFragmentCompat() {
+
         private var switchComplex: SwitchPreference? = null
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey)
             setToggleComplexAlarm()
             if (activity != null) {
-                findPreference<Preference>("alarme_enable")!!.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _: Preference?, newValue: Any ->
-                    if (!Settings.canDrawOverlays(context) && newValue as Boolean) {
-                        DialogMessage.showInfo(activity, "Overlays", context!!.getString(R.string.msg_activ_overlay)) {
-                            val intent = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + activity!!.packageName))
-                            startActivity(intent)
-                        }
-                    }
-                    Settings.canDrawOverlays(context)
-                }
+                initSeekBar()
+
+                initAlarmActivation()
                 if (activity is SettingsActivity) {
                     val settingsActivity = activity as SettingsActivity?
                     //Switch fragment
@@ -134,102 +138,155 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
             }
         }
 
+        private fun initAlarmActivation() {
+            findPreference<Preference>("alarme_enable")!!.onPreferenceChangeListener =
+                Preference.OnPreferenceChangeListener { _: Preference?, newValue: Any ->
+                    if (!Settings.canDrawOverlays(context) && newValue as Boolean) {
+                        DialogMessage.showInfo(
+                            activity,
+                            "Overlays",
+                            requireContext().getString(R.string.msg_activ_overlay)
+                        ) {
+                            val intent = Intent(
+                                Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                                Uri.parse("package:" + requireActivity().packageName)
+                            )
+                            startActivity(intent)
+                        }
+                    }
+                    Settings.canDrawOverlays(context)
+                }
+        }
+
+        private fun initSeekBar() {
+            findPreference<SeekBarPreference>("time_before_ring")?.let {
+                it.onPreferenceChangeListener = object : OnSeekBarChangeListener,
+                    Preference.OnPreferenceChangeListener {
+                    override fun onProgressChanged(
+                        seekBar: SeekBar?,
+                        progress: Int,
+                        fromUser: Boolean
+                    ) {
+                    }
+
+                    override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+                    override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+                    override fun onPreferenceChange(
+                        preference: Preference,
+                        newValue: Any?
+                    ): Boolean {
+                        it.value = MyMath.roundAt(newValue as Int)
+                        return false
+                    }
+
+
+                }
+            }
+        }
+
         private fun setToggleComplexAlarm() {
             switchComplex = findPreference(DataGlobal.COMPLEX_ALARM_SETTINGS)
             if (switchComplex != null) {
-                setAlarmComplexity(switchComplex!!.isChecked)
-                switchComplex!!.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _: Preference?, newValue: Any ->
-                    setAlarmComplexity(newValue as Boolean)
-                    true
-                }
+                switchComplex?.isChecked?.let { setAlarmComplexity(it) }
+                switchComplex!!.onPreferenceChangeListener =
+                    Preference.OnPreferenceChangeListener { _: Preference?, newValue: Any ->
+                        setAlarmComplexity(newValue as Boolean)
+                        true
+                    }
             }
-            val themeSelectedPref = findPreference<Preference>(DataGlobal.THEME)
-            if (themeSelectedPref != null) {
-                themeSelectedPref.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _: Preference?, newValue: Any ->
-                    SettingsApp.adapteTheme(newValue.toString())
-                    reloadActivity()
-                    true
-                }
+            findPreference<Preference>(DataGlobal.THEME)?.let {
+                it.onPreferenceChangeListener =
+                    Preference.OnPreferenceChangeListener { _: Preference?, newValue: Any ->
+                        SettingsApp.adapteTheme(newValue.toString())
+                        true
+                    }
             }
-            val languageSelectedPref = findPreference<Preference>(DataGlobal.LANGUAGE)
-            if (languageSelectedPref != null) {
-                languageSelectedPref.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _: Preference?, newValue: Any ->
-                    DataGlobal.save(context, DataGlobal.LANGUAGE, newValue.toString())
-                    reloadActivity()
-                    true
-                }
+            findPreference<Preference>(DataGlobal.LANGUAGE)?.let {
+                it.onPreferenceChangeListener =
+                    Preference.OnPreferenceChangeListener { _: Preference?, newValue: Any ->
+                        DataGlobal.save(context, DataGlobal.LANGUAGE, newValue.toString())
+                        reloadActivity()
+                        true
+                    }
             }
         }
 
         private fun setOnClickFragment(settingsActivity: SettingsActivity) {
-            findPreference<Preference>("ContactFragment")!!.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-                settingsActivity.increaseCountArborescenceFragment()
-                settingsActivity.updateActionBar()
-                switchFragment(settingsActivity, ContactFragment())
-                false
-            }
-            findPreference<Preference>("ContactFragment")!!.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-                settingsActivity.increaseCountArborescenceFragment()
-                settingsActivity.updateActionBar()
-                switchFragment(settingsActivity, ContactFragment())
-                false
-            }
-            findPreference<Preference>("ExplicationSettingsFragment")!!.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-                settingsActivity.increaseCountArborescenceFragment()
-                settingsActivity.updateActionBar()
-                switchFragment(settingsActivity, ExplicationSettingsFragment())
-                false
-            }
-            findPreference<Preference>("contrainte_alarmes")!!.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-                settingsActivity.increaseCountArborescenceFragment()
-                settingsActivity.updateActionBar()
-                switchFragment(settingsActivity, AlarmConstraintFragment())
-                false
-            }
-            findPreference<Preference>("horaire_alarmes")!!.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-                settingsActivity.increaseCountArborescenceFragment()
-                settingsActivity.updateActionBar()
-                switchFragment(settingsActivity, AlarmConditionFragment())
-                false
-            }
-            findPreference<Preference>("liste_alarmes")!!.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-                settingsActivity.increaseCountArborescenceFragment()
-                settingsActivity.updateActionBar()
-                switchFragment(settingsActivity, AlarmListFragment())
-                false
-            }
-            findPreference<Preference>("URLSetterFragment")!!.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-                settingsActivity.increaseCountArborescenceFragment()
-                settingsActivity.updateActionBar()
-                switchFragment(settingsActivity, URLSetterFragment())
-                false
-            }
+            findPreference<Preference>("ContactFragment")?.onPreferenceClickListener =
+                Preference.OnPreferenceClickListener {
+                    settingsActivity.increaseCountArborescenceFragment()
+                    settingsActivity.updateActionBar()
+                    switchFragment(settingsActivity, ContactFragment())
+                    false
+                }
+            findPreference<Preference>("ContactFragment")?.onPreferenceClickListener =
+                Preference.OnPreferenceClickListener {
+                    settingsActivity.increaseCountArborescenceFragment()
+                    settingsActivity.updateActionBar()
+                    switchFragment(settingsActivity, ContactFragment())
+                    false
+                }
+            findPreference<Preference>("ExplicationSettingsFragment")?.onPreferenceClickListener =
+                Preference.OnPreferenceClickListener {
+                    settingsActivity.increaseCountArborescenceFragment()
+                    settingsActivity.updateActionBar()
+                    switchFragment(settingsActivity, ExplicationSettingsFragment())
+                    false
+                }
+            findPreference<Preference>("contrainte_alarmes")?.onPreferenceClickListener =
+                Preference.OnPreferenceClickListener {
+                    settingsActivity.increaseCountArborescenceFragment()
+                    settingsActivity.updateActionBar()
+                    switchFragment(settingsActivity, AlarmConstraintFragment())
+                    false
+                }
+            findPreference<Preference>("horaire_alarmes")?.onPreferenceClickListener =
+                Preference.OnPreferenceClickListener {
+                    settingsActivity.increaseCountArborescenceFragment()
+                    settingsActivity.updateActionBar()
+                    switchFragment(settingsActivity, AlarmConditionFragment())
+                    false
+                }
+            findPreference<Preference>("liste_alarmes")?.onPreferenceClickListener =
+                Preference.OnPreferenceClickListener {
+                    settingsActivity.increaseCountArborescenceFragment()
+                    settingsActivity.updateActionBar()
+                    switchFragment(settingsActivity, AlarmListFragment())
+                    false
+                }
+            findPreference<Preference>("URLSetterFragment")?.onPreferenceClickListener =
+                Preference.OnPreferenceClickListener {
+                    settingsActivity.increaseCountArborescenceFragment()
+                    settingsActivity.updateActionBar()
+                    switchFragment(settingsActivity, URLSetterFragment())
+                    false
+                }
         }
 
         private fun switchFragment(activity: SettingsActivity, fragment: Fragment) {
             activity.supportFragmentManager.beginTransaction()
-                    .replace(R.id.settings, fragment)
-                    .addToBackStack(null)
-                    .commit()
+                .replace(R.id.settings, fragment)
+                .addToBackStack(null)
+                .commit()
         }
 
         private fun setAlarmComplexity(complex: Boolean) {
-            findPreference<Preference>("horaire_alarmes")!!.isEnabled = complex
-            findPreference<Preference>("contrainte_alarmes")!!.isEnabled = complex
-            findPreference<Preference>("horaire_alarmes")!!.isVisible = complex
-            findPreference<Preference>("contrainte_alarmes")!!.isVisible = complex
-            findPreference<Preference>("time_before_ring")!!.isEnabled = !complex
-            findPreference<Preference>("time_before_ring")!!.isVisible = !complex
-            findPreference<Preference>("activated_days")!!.isEnabled = !complex
-            findPreference<Preference>("activated_days")!!.isVisible = !complex
+            findPreference<Preference>("horaire_alarmes")?.isEnabled = complex
+            findPreference<Preference>("contrainte_alarmes")?.isEnabled = complex
+            findPreference<Preference>("horaire_alarmes")?.isVisible = complex
+            findPreference<Preference>("contrainte_alarmes")?.isVisible = complex
+            findPreference<Preference>("time_before_ring")?.isEnabled = !complex
+            findPreference<Preference>("time_before_ring")?.isVisible = !complex
+            findPreference<Preference>("activated_days")?.isEnabled = !complex
+            findPreference<Preference>("activated_days")?.isVisible = !complex
         }
 
         private fun reloadActivity() {
-            if (activity != null) {
-                activity!!.finish()
-                activity!!.overridePendingTransition(0, 0)
-                startActivity(activity!!.intent)
-                activity!!.overridePendingTransition(0, 0)
+            requireActivity().let {
+                it.finish()
+                it.overridePendingTransition(0, 0)
+                startActivity(requireActivity().intent)
+                it.overridePendingTransition(0, 0)
             }
         }
     }

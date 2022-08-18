@@ -1,163 +1,175 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context="com.iutcalendar.mainpage.PageEventActivity">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.iutcalendar.mainpage.PageEventActivity">
 
 
     <LinearLayout
-            android:id="@+id/headerLayout"
-            android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintTop_toTopOf="parent">
+        android:id="@+id/headerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent">
 
 
         <LinearLayout
-                android:id="@+id/nameDayLayout"
-                android:layout_width="match_parent"
+            android:id="@+id/nameDayLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/tab_gap"
+            android:layout_marginBottom="8dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/dayLundi"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="@dimen/tab_gap"
-                android:layout_marginBottom="8dp">
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/Lundi_abv"
+                android:textColor="?attr/colorOnBackground"
+                android:textSize="22sp" />
 
             <TextView
-                    android:id="@+id/dayLundi"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/Lundi_abv"
-                    android:textColor="?attr/colorOnBackground"
-                    android:textSize="22sp"
-                    android:gravity="center"
-                    android:layout_weight="1"/>
+                android:id="@+id/dayMardi"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/Mardi_abv"
+                android:textColor="?attr/colorOnBackground"
+                android:textSize="22sp" />
 
             <TextView
-                    android:id="@+id/dayMardi"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/Mardi_abv"
-                    android:textColor="?attr/colorOnBackground"
-                    android:textSize="22sp"
-                    android:gravity="center"
-                    android:layout_weight="1"/>
+                android:id="@+id/dayMercredi"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/Mercredi_abv"
+                android:textColor="?attr/colorOnBackground"
+                android:textSize="22sp" />
+
             <TextView
-                    android:id="@+id/dayMercredi"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/Mercredi_abv"
-                    android:textColor="?attr/colorOnBackground"
-                    android:textSize="22sp"
-                    android:gravity="center"
-                    android:layout_weight="1"/>
+                android:id="@+id/dayJeudi"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/Jeudi_abv"
+                android:textColor="?attr/colorOnBackground"
+                android:textSize="22sp" />
+
             <TextView
-                    android:id="@+id/dayJeudi"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/Jeudi_abv"
-                    android:textColor="?attr/colorOnBackground"
-                    android:textSize="22sp"
-                    android:gravity="center"
-                    android:layout_weight="1"/>
+                android:id="@+id/dayVendredi"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/Vendredi_abv"
+                android:textColor="?attr/colorOnBackground"
+                android:textSize="22sp" />
+
             <TextView
-                    android:id="@+id/dayVendredi"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/Vendredi_abv"
-                    android:textColor="?attr/colorOnBackground"
-                    android:textSize="22sp"
-                    android:gravity="center"
-                    android:layout_weight="1"/>
+                android:id="@+id/daySamedi"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/Samedi_abv"
+                android:textColor="?attr/colorOnBackground"
+                android:textSize="22sp" />
+
             <TextView
-                    android:id="@+id/daySamedi"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/Samedi_abv"
-                    android:textColor="?attr/colorOnBackground"
-                    android:textSize="22sp"
-                    android:gravity="center"
-                    android:layout_weight="1"/>
-            <TextView
-                    android:id="@+id/dayDimanche"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/Dimanche_abv"
-                    android:textColor="?attr/colorOnBackground"
-                    android:textSize="22sp"
-                    android:gravity="center"
-                    android:layout_weight="1"/>
+                android:id="@+id/dayDimanche"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/Dimanche_abv"
+                android:textColor="?attr/colorOnBackground"
+                android:textSize="22sp" />
         </LinearLayout>
+
         <LinearLayout
-                android:id="@+id/dayOfWeek"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/tab_gap"
-                android:orientation="horizontal">
-            <TextView
-                    android:id="@+id/lundiNum"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="1"
-                    android:textColor="?attr/colorOnBackground"
-                    android:textSize="22sp"
-                    android:gravity="center"
-                    android:layout_weight="1"/>
+            android:id="@+id/dayOfWeek"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/tab_gap"
+            android:orientation="horizontal">
 
             <TextView
-                    android:id="@+id/mardiNum"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="2"
-                    android:textColor="?attr/colorOnBackground"
-                    android:textSize="22sp"
-                    android:gravity="center"
-                    android:layout_weight="1"/>
+                android:id="@+id/lundiNum"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="1"
+                android:textColor="?attr/colorOnBackground"
+                android:textSize="22sp" />
+
             <TextView
-                    android:id="@+id/mercrediNum"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="3"
-                    android:textColor="?attr/colorOnBackground"
-                    android:textSize="22sp"
-                    android:gravity="center"
-                    android:layout_weight="1"/>
+                android:id="@+id/mardiNum"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="2"
+                android:textColor="?attr/colorOnBackground"
+                android:textSize="22sp" />
+
             <TextView
-                    android:id="@+id/jeudiNum"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="4"
-                    android:textColor="?attr/colorOnBackground"
-                    android:textSize="22sp"
-                    android:gravity="center"
-                    android:layout_weight="1"/>
+                android:id="@+id/mercrediNum"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="3"
+                android:textColor="?attr/colorOnBackground"
+                android:textSize="22sp" />
+
             <TextView
-                    android:id="@+id/vendrediNum"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="5"
-                    android:textColor="?attr/colorOnBackground"
-                    android:textSize="22sp"
-                    android:gravity="center"
-                    android:layout_weight="1"/>
+                android:id="@+id/jeudiNum"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="4"
+                android:textColor="?attr/colorOnBackground"
+                android:textSize="22sp" />
+
             <TextView
-                    android:id="@+id/samediNum"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="6"
-                    android:textColor="?attr/colorOnBackground"
-                    android:textSize="22sp"
-                    android:gravity="center"
-                    android:layout_weight="1"/>
+                android:id="@+id/vendrediNum"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="5"
+                android:textColor="?attr/colorOnBackground"
+                android:textSize="22sp" />
+
             <TextView
-                    android:id="@+id/dimancheNum"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="7"
-                    android:textColor="?attr/colorOnBackground"
-                    android:textSize="22sp"
-                    android:gravity="center"
-                    android:layout_weight="1"/>
+                android:id="@+id/samediNum"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="6"
+                android:textColor="?attr/colorOnBackground"
+                android:textSize="22sp" />
+
+            <TextView
+                android:id="@+id/dimancheNum"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="7"
+                android:textColor="?attr/colorOnBackground"
+                android:textSize="22sp" />
         </LinearLayout>
 
 
@@ -165,27 +177,26 @@
 
 
     <androidx.viewpager.widget.ViewPager
-            android:id="@+id/view_pager"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            app:layout_constraintTop_toBottomOf="@+id/headerLayout"
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:contentDescription="@string/Today_s_event"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
 
-            app:layout_constraintBottom_toTopOf="@+id/adView"
-            tools:layout_editor_absoluteX="0dp"
-            app:layout_constraintVertical_bias="0.0"
-            android:contentDescription="@string/Today_s_event"/>
+        app:layout_constraintBottom_toTopOf="@+id/adView"
+        app:layout_constraintTop_toBottomOf="@+id/headerLayout"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="0dp" />
 
     <!--    ads:adUnitId="ca-app-pub-5948550134102575/3363280263"-->
     <!-- test   ads:adUnitId="ca-app-pub-3940256099942544/6300978111"-->
-    <com.google.android.gms.ads.AdView
-            xmlns:ads="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/adView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            ads:adSize="BANNER"
-            ads:adUnitId="ca-app-pub-3940256099942544/6300978111"
-            app:layout_constraintBottom_toBottomOf="parent">
+    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-3940256099942544/6300978111"
+        app:layout_constraintBottom_toBottomOf="parent">
     </com.google.android.gms.ads.AdView>
 
 
