@@ -24,6 +24,7 @@ class AlarmConditionFragment : AbstractFragmentWitheMenu() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        requireActivity().invalidateOptionsMenu()
         val view = inflater.inflate(R.layout.fragment_alarm_condition, container, false)
         initVariable(view)
         updateConditions()

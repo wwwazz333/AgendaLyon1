@@ -108,8 +108,8 @@ As well as a time which corresponds to the hour at which the alarm will sound."<
     <string name="aid_constraint_alarm">
 "CONTRAINTS are conditions on the event title which must either
 
-- Contain a string of characters
-- Not contain a string of characters"</string>
+- 'Contain' a string of characters
+- 'Is not' a string of characters"</string>
     <string name="presentationGeneral">This application allows you to consult your university calendar on your phone, you can be notified of a change in your schedule, you can find all changes in the history.</string>
     <string name="ForStarted">Getting Started</string>
     <string name="commencer1">You need to link this application to your schedule, to do so go to :</string>

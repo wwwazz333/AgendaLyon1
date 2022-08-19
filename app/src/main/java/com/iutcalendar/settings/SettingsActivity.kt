@@ -47,7 +47,7 @@ class SettingsActivity : AppCompatActivity(),
 
         addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                Log.d("ActionBar", "onCreateMenu")
+                Log.d("ActionBar", "onCreateMenu for $getFragment")
 
                 when (getFragment) {
                     is SettingsFragment -> {

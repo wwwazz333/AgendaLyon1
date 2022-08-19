@@ -22,6 +22,7 @@ class AlarmListFragment : AbstractFragmentWitheMenu() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        requireActivity().invalidateOptionsMenu()
         val view = inflater.inflate(R.layout.fragment_alarm_list, container, false)
         recyclerViewAlarm = view.findViewById(R.id.recycle_alarm)
         updateAlarm()

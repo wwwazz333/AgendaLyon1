@@ -19,6 +19,7 @@ class AlarmConstraintFragment : AbstractFragmentWitheMenu() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        requireActivity().invalidateOptionsMenu()
         val view = inflater.inflate(R.layout.fragment_alarm_constraint, container, false)
         initVariable(view)
         updateConstraint()
