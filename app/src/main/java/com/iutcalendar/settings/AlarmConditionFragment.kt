@@ -46,7 +46,7 @@ class AlarmConditionFragment : AbstractFragmentWitheMenu() {
                 recyclerViewConstraint?.adapter?.notifyItemRemoved(itemPos)
                 recyclerViewConstraint?.adapter?.notifyItemRangeChanged(
                     itemPos,
-                    AlarmConditionManager.getInstance(context).allConditions?.size!!
+                    AlarmConditionManager.getInstance(context).allConditions?.size!! - itemPos
                 )
                 saveConditions()
             })

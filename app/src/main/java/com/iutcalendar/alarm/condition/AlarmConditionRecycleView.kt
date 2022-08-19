@@ -1,6 +1,7 @@
 package com.iutcalendar.alarm.condition
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.CheckedTextView
@@ -27,6 +28,7 @@ class AlarmConditionRecycleView(
     }
 
     override fun onBindViewHolder(holder: AlarmConditionViewHolder, position: Int) {
+        Log.d("AlarmConditionRecycleView", position.toString())
         val alarmConstraint = list!![position]
         holder.beginHour.text = DateCalendrier.timeLongToString(alarmConstraint.begin)
         holder.endHour.text = DateCalendrier.timeLongToString(alarmConstraint.end)
@@ -65,14 +67,12 @@ class AlarmConditionRecycleView(
         initDayCheck(alarmConstraint, holder.sunday, GregorianCalendar.SUNDAY)
     }
 
-    private fun initDayCheck(alarmConstraint: AlarmCondition, check: CheckedTextView?, value: Int) {
-        if (alarmConstraint.daysEnabled.contains(value)) {
-            check!!.isChecked = true
-        }
-        check!!.setOnClickListener {
+    private fun initDayCheck(alarmCondition: AlarmCondition, check: CheckedTextView, value: Int) {
+        check.isChecked = alarmCondition.daysEnabled.contains(value)
+        check.setOnClickListener {
             check.toggle()
-            if (check.isChecked) alarmConstraint.daysEnabled.add(value)
-            else alarmConstraint.daysEnabled.remove(Integer.valueOf(value))
+            if (check.isChecked) alarmCondition.daysEnabled.add(value)
+            else alarmCondition.daysEnabled.remove(Integer.valueOf(value))
 
             saveListener()
         }
