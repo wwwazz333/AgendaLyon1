@@ -39,9 +39,22 @@ class AlarmConditionFragment : AbstractFragmentWitheMenu() {
         val adapter = AlarmConditionRecycleView(
             context,
             AlarmConditionManager.getInstance(context).allConditions,
-            { saveConditions() }) { updateConditions() }
-        recyclerViewConstraint!!.adapter = adapter
-        recyclerViewConstraint!!.layoutManager = LinearLayoutManager(activity)
+            { itemPos: Int ->
+                recyclerViewConstraint?.adapter?.notifyItemChanged(itemPos)
+                saveConditions()
+            }, { itemPos: Int ->
+                recyclerViewConstraint?.adapter?.notifyItemRemoved(itemPos)
+                recyclerViewConstraint?.adapter?.notifyItemRangeChanged(
+                    itemPos,
+                    AlarmConditionManager.getInstance(context).allConditions?.size!!
+                )
+                saveConditions()
+            })
+        { saveConditions() }
+        recyclerViewConstraint?.let {
+            it.adapter = adapter
+            it.layoutManager = LinearLayoutManager(activity)
+        }
 
         //save si des changements de constraint ont été fait
         saveConditions()

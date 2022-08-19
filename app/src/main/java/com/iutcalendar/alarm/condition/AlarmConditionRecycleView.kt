@@ -11,7 +11,14 @@ import com.iutcalendar.calendrier.DateCalendrier
 import com.univlyon1.tools.agenda.R
 import java.util.*
 
-class AlarmConditionRecycleView(var context: Context?, var list: List<AlarmCondition>?, private var updateListener: () -> Unit, private var reloadListener: () -> Unit) : RecyclerView.Adapter<AlarmConditionViewHolder>() {
+class AlarmConditionRecycleView(
+    var context: Context?,
+    var list: List<AlarmCondition>?,
+    private var updateItemListener: (itemPos: Int) -> Unit,
+    private var removeItemListener: (itemPos: Int) -> Unit,
+    private var saveListener: () -> Unit
+) : RecyclerView.Adapter<AlarmConditionViewHolder>() {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlarmConditionViewHolder {
         val context = parent.context
         val inflater = LayoutInflater.from(context)
@@ -27,24 +34,24 @@ class AlarmConditionRecycleView(var context: Context?, var list: List<AlarmCondi
         holder.beginHour.setOnClickListener {
             AlarmRing.askTime(context) { _: TimePicker?, hourOfDay: Int, minute: Int ->
                 alarmConstraint.begin = DateCalendrier.getHourInMillis(hourOfDay, minute)
-                updateListener()
+                updateItemListener(position)
             }
         }
         holder.endHour.setOnClickListener {
             AlarmRing.askTime(context) { _: TimePicker?, hourOfDay: Int, minute: Int ->
                 alarmConstraint.end = DateCalendrier.getHourInMillis(hourOfDay, minute)
-                updateListener()
+                updateItemListener(position)
             }
         }
         holder.ringHour.setOnClickListener {
             AlarmRing.askTime(context) { _: TimePicker?, hourOfDay: Int, minute: Int ->
                 alarmConstraint.alarmAt = DateCalendrier.getHourInMillis(hourOfDay, minute)
-                updateListener()
+                updateItemListener(position)
             }
         }
         holder.delBtn.setOnClickListener {
             AlarmConditionManager.getInstance(context).removeCondition(position)
-            reloadListener()
+            removeItemListener(position)
         }
 
 
@@ -64,8 +71,10 @@ class AlarmConditionRecycleView(var context: Context?, var list: List<AlarmCondi
         }
         check!!.setOnClickListener {
             check.toggle()
-            if (check.isChecked) alarmConstraint.daysEnabled.add(value) else alarmConstraint.daysEnabled.remove(Integer.valueOf(value))
-            updateListener()
+            if (check.isChecked) alarmConstraint.daysEnabled.add(value)
+            else alarmConstraint.daysEnabled.remove(Integer.valueOf(value))
+
+            saveListener()
         }
     }
 
