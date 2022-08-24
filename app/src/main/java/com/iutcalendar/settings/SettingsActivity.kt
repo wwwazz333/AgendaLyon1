@@ -44,6 +44,7 @@ class SettingsActivity : AppCompatActivity(),
                 .commit()
         }
         actionBar = supportActionBar
+        actionBar?.title = getString(R.string.Settings)
 
         addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {

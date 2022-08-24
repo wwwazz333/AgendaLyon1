@@ -46,8 +46,8 @@ class PageEventActivity : AppCompatActivity() {
     private var viewPager: ViewPager? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d("Global", "PageEventActivity start")
         SettingsApp.setLocale(resources, DataGlobal.getLanguage(applicationContext))
+        Log.d("Global", "PageEventActivity start")
         binding = ActivityPageEventBinding.inflate(layoutInflater)
         setContentView(binding!!.root)
         initVariable()

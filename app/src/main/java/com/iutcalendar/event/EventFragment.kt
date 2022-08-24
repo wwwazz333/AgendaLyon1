@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.iutcalendar.calendrier.Calendrier
 import com.iutcalendar.calendrier.CurrentDate
+import com.iutcalendar.data.DataGlobal
 import com.iutcalendar.data.FileGlobal
 import com.iutcalendar.mainpage.PageEventActivity
 import com.iutcalendar.settings.SettingsApp
@@ -109,7 +110,7 @@ class EventFragment : Fragment {
                     )
                 }
             } else {
-                update!!.setText(R.string.no_last_update)
+                update!!.text = getString(R.string.no_last_update)
             }
         } else {
             update!!.text = ""
@@ -120,6 +121,8 @@ class EventFragment : Fragment {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        SettingsApp.setLocale(resources, DataGlobal.getLanguage(requireContext()))
+
         myNumber = number++
         val view = inflater.inflate(R.layout.fragment_event, container, false)
         recycleView = view.findViewById(R.id.recycleView)
