@@ -1,6 +1,7 @@
 package com.iutcalendar.event
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,21 +29,23 @@ class EventAdapter(
     override fun onBindViewHolder(holder: EventViewHolder, position: Int) {
 
         viewHolder?.apply {
-            val index = absoluteAdapterPosition
             val eventCalendrier = list[position]
             debut.text = eventCalendrier.date?.timeToString()
             fin.text = eventCalendrier.date!!.addTime(eventCalendrier.dure).timeToString()
             summary.text = eventCalendrier.nameEvent
             salle.text = eventCalendrier.salle.replace("\\,", "\n")
-            val numberTask: Int = PersonalCalendrier.getInstance(context)!!.getCountTaskOf(eventCalendrier)
-            if (numberTask == 0) {
-                countTask.visibility = View.INVISIBLE
-            } else {
-                countTask.text = numberTask.toString()
+
+            PersonalCalendrier.getInstance(context)?.getCountTaskOf(eventCalendrier)?.let {
+                if (it == 0) {
+                    countTask.visibility = View.INVISIBLE
+                } else {
+                    countTask.text = it.toString()
+                }
             }
+
             view.setOnTouchListener(TouchGestureListener(context, object : GestureEventManager() {
                 override fun onClick() {
-                    clickListener(index)
+                    clickListener(absoluteAdapterPosition)
                     super.onClick()
                 }
             }))

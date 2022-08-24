@@ -60,7 +60,12 @@ class EventFragment : Fragment {
                         requireContext(),
                         ev,
                         activity
-                    ) { requireActivity().runOnUiThread { updateRecycleView() } }
+                    ) {
+                        requireActivity().runOnUiThread {
+                            //TODO notify data change
+                            updateRecycleView()
+                        }
+                    }
                     dialog.show()
                 }
             }

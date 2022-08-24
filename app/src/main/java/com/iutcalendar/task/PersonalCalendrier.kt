@@ -6,7 +6,7 @@ import com.iutcalendar.data.FileGlobal
 import java.util.*
 
 class PersonalCalendrier {
-    private var tasks: HashMap<String?, MutableList<Task>>?
+    private var tasks: HashMap<String?, MutableList<Task>>
 
     init {
         tasks = HashMap()
@@ -22,16 +22,16 @@ class PersonalCalendrier {
 
     fun addLinkedTask(task: Task, linkedTo: EventCalendrier?) {
         // si aucune tache n'a déjà été ajouté à cette event alors créée la liste pour cette event
-        tasks!!.computeIfAbsent(linkedTo?.uid) { LinkedList() }
+        tasks.computeIfAbsent(linkedTo?.uid) { LinkedList() }
         getLinkedTask(linkedTo).add(task)
     }
 
     fun getLinkedTask(linkedTo: EventCalendrier?): MutableList<Task> {
-        return tasks!!.getOrDefault(linkedTo?.uid, LinkedList())
+        return tasks.getOrDefault(linkedTo?.uid, LinkedList())
     }
 
     private fun getLinkedTask(linkedToUID: String?): MutableList<Task> {
-        return tasks!!.getOrDefault(linkedToUID, LinkedList())
+        return tasks.getOrDefault(linkedToUID, LinkedList())
     }
 
     /**
@@ -41,7 +41,11 @@ class PersonalCalendrier {
      * @param linkedToUID L'UID de l'event auquelle sont attaché les tasks
      * @param iterator    iterator qui permet de parcourir les tasks liée
      */
-    fun removeAllLinkedTask(context: Context?, linkedToUID: String?, iterator: MutableIterator<String?>) {
+    fun removeAllLinkedTask(
+        context: Context?,
+        linkedToUID: String?,
+        iterator: MutableIterator<String?>
+    ) {
         for (task in getLinkedTask(linkedToUID)) {
             task.destroy(context)
         }
@@ -49,9 +53,8 @@ class PersonalCalendrier {
     }
 
 
-
     fun remove(context: Context?, task: Task) {
-        val taskList = tasks!![task.linkedToUID]
+        val taskList = tasks[task.linkedToUID]
         if (!taskList.isNullOrEmpty()) {
             task.destroy(context)
             taskList.remove(task)
@@ -59,12 +62,13 @@ class PersonalCalendrier {
     }
 
     val keys: MutableSet<String?>
-        get() = tasks!!.keys
+        get() = tasks.keys
 
     fun load(context: Context?) {
-        tasks = FileGlobal.loadBinaryFile(FileGlobal.getFilePersonalTask(context))
-        if (tasks == null) {
-            tasks = HashMap()
+        tasks = HashMap()
+
+        (FileGlobal.loadBinaryFile(FileGlobal.getFilePersonalTask(context)) as HashMap<String?, MutableList<Task>>?)?.let {
+            tasks = it
         }
     }
 
@@ -76,8 +80,7 @@ class PersonalCalendrier {
         private var instance: PersonalCalendrier? = null
         fun getInstance(context: Context?): PersonalCalendrier? {
             if (instance == null) {
-                instance = PersonalCalendrier()
-                instance!!.load(context)
+                instance = PersonalCalendrier().apply { load(context) }
             }
             return instance
         }
