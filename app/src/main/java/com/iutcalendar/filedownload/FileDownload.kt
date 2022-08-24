@@ -40,7 +40,6 @@ object FileDownload {
 
     @Throws(IOException::class, InputStreamFileException::class)
     fun updateFichier(file_path: String?, context: Context?): Boolean {
-        //TODO actualiser alarm etc...
         val success: Boolean
 
         // update du fichier ou création

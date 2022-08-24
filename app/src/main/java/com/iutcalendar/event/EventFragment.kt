@@ -26,9 +26,8 @@ class EventFragment : Fragment {
     private var date: CurrentDate? = null
     private var fileUpdate: File? = null
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
-    private var update: TextView? = null
+    private var updateTextView: TextView? = null
     private lateinit var recycleView: RecyclerView
-    private var myNumber = 0
 
     constructor() {
         // Required empty public constructor
@@ -49,10 +48,7 @@ class EventFragment : Fragment {
 
     private fun updateRecycleView() {
         if (activity != null && calendrier != null) {
-            if (date == null) Log.e("Event", "date is null") else Log.d(
-                "Event",
-                "date update recycle view $date for event $myNumber"
-            )
+
             val eventToday = calendrier!!.clone().getEventsOfDay(date)
             val listener = { index: Int ->  //Event on click Event
                 if (context != null && activity != null) {
@@ -76,45 +72,48 @@ class EventFragment : Fragment {
     }
 
     private fun updateLabel() {
-        if (update == null) return
-        if (context != null && PreferenceManager.getDefaultSharedPreferences(requireContext())
-                .getBoolean("show_update", true)
-        ) {
-            if (calendrier != null && context != null && fileUpdate != null && FileGlobal.getFileDownload(
-                    context
-                ).exists()
+        updateTextView?.let { updateText ->
+            if (PreferenceManager.getDefaultSharedPreferences(requireContext())
+                    .getBoolean("show_update", true)
             ) {
-                //affichage la dernière maj
-                val dateLastEdit = CurrentDate()
-                dateLastEdit.timeInMillis = fileUpdate!!.lastModified()
-                dateLastEdit.runForDate({
-                    update!!.text = resources.getString(
-                        R.string.last_update,
-                        SimpleDateFormat(
-                            "HH:mm",
-                            SettingsApp.locale
-                        ).format(fileUpdate!!.lastModified())
-                    )
-                }, {
-                    update!!.text = resources.getString(
-                        R.string.last_update,
-                        "error" //impossible que last_update soit demain
-                    )
-                }) {
-                    update!!.text = resources.getString(
-                        R.string.last_update,
-                        SimpleDateFormat(
-                            "dd/MM/yyyy HH:mm",
-                            SettingsApp.locale
-                        ).format(fileUpdate!!.lastModified())
-                    )
+                if (calendrier != null && fileUpdate != null && FileGlobal.getFileDownload(
+                        requireContext()
+                    ).exists()
+                ) {
+                    CurrentDate().apply {   //affichage la dernière maj
+                        timeInMillis = fileUpdate!!.lastModified()
+                        runForDate({
+                            updateText.text = resources.getString(
+                                R.string.last_update,
+                                SimpleDateFormat(
+                                    "HH:mm",
+                                    SettingsApp.locale
+                                ).format(fileUpdate!!.lastModified())
+                            )
+                        }, {
+                            updateText.text = resources.getString(
+                                R.string.last_update,
+                                "error" //impossible que last_update soit demain
+                            )
+                        }) {
+                            updateText.text = resources.getString(
+                                R.string.last_update,
+                                SimpleDateFormat(
+                                    "dd/MM/yyyy HH:mm",
+                                    SettingsApp.locale
+                                ).format(fileUpdate!!.lastModified())
+                            )
+                        }
+                    }
+
+                } else {
+                    updateText.text = getString(R.string.no_last_update)
                 }
             } else {
-                update!!.text = getString(R.string.no_last_update)
+                updateText.text = ""
             }
-        } else {
-            update!!.text = ""
         }
+
     }
 
     override fun onCreateView(
@@ -123,25 +122,20 @@ class EventFragment : Fragment {
     ): View? {
         SettingsApp.setLocale(resources, DataGlobal.getLanguage(requireContext()))
 
-        myNumber = number++
-        val view = inflater.inflate(R.layout.fragment_event, container, false)
-        recycleView = view.findViewById(R.id.recycleView)
-        update = view.findViewById(R.id.updateText)
-        if (activity != null && activity is PageEventActivity) {
-            val parentActivity = activity as PageEventActivity?
-            swipeRefreshLayout = view.findViewById(R.id.swipeRefresh)
-            swipeRefreshLayout.setOnRefreshListener {
-                parentActivity!!.update {
-                    swipeRefreshLayout.isRefreshing = false
+        return inflater.inflate(R.layout.fragment_event, container, false).also { view ->
+            recycleView = view.findViewById(R.id.recycleView)
+            updateTextView = view.findViewById(R.id.updateText)
+            if (activity != null && activity is PageEventActivity) {
+                val parentActivity = activity as PageEventActivity?
+                swipeRefreshLayout = view.findViewById(R.id.swipeRefresh)
+                swipeRefreshLayout.setOnRefreshListener {
+                    parentActivity?.update {
+                        swipeRefreshLayout.isRefreshing = false
+                    }
                 }
+                recycleView.layoutManager = LinearLayoutManager(activity)
             }
-            recycleView.layoutManager = LinearLayoutManager(activity)
+            updateUI()
         }
-        updateUI()
-        return view
-    }
-
-    companion object {
-        private var number = 0
     }
 }

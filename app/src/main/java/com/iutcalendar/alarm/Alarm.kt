@@ -190,6 +190,9 @@ class Alarm : BroadcastReceiver() {
             } else -1
         }
 
+        /**
+         * met en place toutes les alarmes
+         */
         fun setUpAlarm(context: Context?, calendrier: Calendrier) {
             val personalAlarmManager: PersonalAlarmManager =
                 PersonalAlarmManager.getInstance(context)
