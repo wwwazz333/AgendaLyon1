@@ -48,31 +48,46 @@ class EventFragment : Fragment {
 
     private fun updateRecycleView() {
         if (activity != null && calendrier != null) {
-            if (date == null) Log.e("Event", "date is null") else Log.d("Event", "date update recycle view $date for event $myNumber")
+            if (date == null) Log.e("Event", "date is null") else Log.d(
+                "Event",
+                "date update recycle view $date for event $myNumber"
+            )
             val eventToday = calendrier!!.clone().getEventsOfDay(date)
             val listener = { index: Int ->  //Event on click Event
                 if (context != null && activity != null) {
                     val ev = eventToday[index]
-                    val dialog = DialogPopupEvent(context!!, ev, activity) { activity!!.runOnUiThread { updateRecycleView() } }
+                    val dialog = DialogPopupEvent(
+                        requireContext(),
+                        ev,
+                        activity
+                    ) { requireActivity().runOnUiThread { updateRecycleView() } }
                     dialog.show()
                 }
             }
-            val adapter = EventRecycleView(eventToday, activity!!.application, listener)
+            val adapter = EventAdapter(eventToday, requireActivity().application, listener)
             recycleView.adapter = adapter
         }
     }
 
     private fun updateLabel() {
         if (update == null) return
-        if (context != null && PreferenceManager.getDefaultSharedPreferences(context!!).getBoolean("show_update", true)) {
-            if (calendrier != null && context != null && fileUpdate != null && FileGlobal.getFileDownload(context).exists()) {
+        if (context != null && PreferenceManager.getDefaultSharedPreferences(requireContext())
+                .getBoolean("show_update", true)
+        ) {
+            if (calendrier != null && context != null && fileUpdate != null && FileGlobal.getFileDownload(
+                    context
+                ).exists()
+            ) {
                 //affichage la dernière maj
                 val dateLastEdit = CurrentDate()
                 dateLastEdit.timeInMillis = fileUpdate!!.lastModified()
                 dateLastEdit.runForDate({
                     update!!.text = resources.getString(
                         R.string.last_update,
-                        SimpleDateFormat("HH:mm", SettingsApp.locale).format(fileUpdate!!.lastModified())
+                        SimpleDateFormat(
+                            "HH:mm",
+                            SettingsApp.locale
+                        ).format(fileUpdate!!.lastModified())
                     )
                 }, {
                     update!!.text = resources.getString(
@@ -82,7 +97,10 @@ class EventFragment : Fragment {
                 }) {
                     update!!.text = resources.getString(
                         R.string.last_update,
-                        SimpleDateFormat("dd/MM/yyyy HH:mm", SettingsApp.locale).format(fileUpdate!!.lastModified())
+                        SimpleDateFormat(
+                            "dd/MM/yyyy HH:mm",
+                            SettingsApp.locale
+                        ).format(fileUpdate!!.lastModified())
                     )
                 }
             } else {
@@ -104,7 +122,11 @@ class EventFragment : Fragment {
         if (activity != null && activity is PageEventActivity) {
             val parentActivity = activity as PageEventActivity?
             swipeRefreshLayout = view.findViewById(R.id.swipeRefresh)
-            swipeRefreshLayout.setOnRefreshListener { parentActivity!!.update { swipeRefreshLayout.isRefreshing = false } }
+            swipeRefreshLayout.setOnRefreshListener {
+                parentActivity!!.update {
+                    swipeRefreshLayout.isRefreshing = false
+                }
+            }
             recycleView.layoutManager = LinearLayoutManager(activity)
         }
         updateUI()

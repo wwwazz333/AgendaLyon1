@@ -12,8 +12,6 @@ import android.media.RingtoneManager
 import android.net.Uri
 import android.os.Build
 import android.os.VibrationEffect
-import android.os.Vibrator
-import android.os.VibratorManager
 import android.provider.Settings
 import android.util.Log
 import com.iutcalendar.alarm.condition.AlarmConditionManager
@@ -23,6 +21,7 @@ import com.iutcalendar.calendrier.DateCalendrier
 import com.iutcalendar.data.DataGlobal
 import com.iutcalendar.notification.Notif
 import com.iutcalendar.notification.NotificationChannels
+import com.iutcalendar.tools.vibrator.VibratorSimpleUse
 import com.univlyon1.tools.agenda.R
 import java.util.*
 
@@ -35,7 +34,9 @@ class Alarm : BroadcastReceiver() {
                     //Sound
                     startRingtone(context)
 
+
                     //Vibration
+
                     startVibration(context)
 
                     //Notification
@@ -67,24 +68,18 @@ class Alarm : BroadcastReceiver() {
 
     private fun showNotification(context: Context) {
         val ai = Intent(context, AlarmRingActivity::class.java)
-        val cancelAlarmIntent = PendingIntent.getActivity(context, 0, ai, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+        val cancelAlarmIntent = PendingIntent.getActivity(
+            context,
+            0,
+            ai,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
         val notif = Notif(
             context, NotificationChannels.ALARM_NOTIFICATION_ID,
             "Alarm", "ring", R.drawable.ic_alarm, cancelAlarmIntent
         )
         notif.setOngoing(true)
         notif.show()
-    }
-
-    private fun startVibration(context: Context) {
-        val vibrator = getVibrator(context)
-        vibrator.cancel()
-        val pattern = longArrayOf(1000, 1000, 1000, 1000)
-        vibrator.vibrate(VibrationEffect.createWaveform(pattern, 1))
-    }
-
-    private fun stopVibration(context: Context) {
-        getVibrator(context).cancel()
     }
 
     private fun startRingtone(context: Context) {
@@ -111,15 +106,15 @@ class Alarm : BroadcastReceiver() {
             ring = null
         }
     }
+    private fun startVibration(context: Context) {
+        val vibrator = VibratorSimpleUse.getVibrator(context)
+        vibrator.cancel()
+        val pattern = longArrayOf(1000, 1000, 1000, 1000)
+        vibrator.vibrate(VibrationEffect.createWaveform(pattern, 1))
+    }
 
-    private fun getVibrator(context: Context): Vibrator {
-        val vb: Vibrator = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            val vibratorManager = context.getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
-            vibratorManager.defaultVibrator
-        } else {
-            context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-        }
-        return vb
+    private fun stopVibration(context: Context) {
+        VibratorSimpleUse.getVibrator(context).cancel()
     }
 
     companion object {
@@ -137,7 +132,12 @@ class Alarm : BroadcastReceiver() {
         fun setAlarm(context: Context, time: Long) {
             val ai = Intent(context, Alarm::class.java)
             ai.putExtra("action", START)
-            val alarmIntent = PendingIntent.getBroadcast(context, 0, ai, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+            val alarmIntent = PendingIntent.getBroadcast(
+                context,
+                0,
+                ai,
+                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            )
             val am = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
             am.setAlarmClock(AlarmClockInfo(time, alarmIntent), alarmIntent)
         }
@@ -153,7 +153,12 @@ class Alarm : BroadcastReceiver() {
             //change requestCode pour placer plusieurs alarmes ou
             ai.data = Uri.parse("reveil://$id")
             ai.action = id
-            val alarmIntent = PendingIntent.getBroadcast(context, 0, ai, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+            val alarmIntent = PendingIntent.getBroadcast(
+                context,
+                0,
+                ai,
+                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            )
             val am = context!!.getSystemService(Context.ALARM_SERVICE) as AlarmManager
             am.setAlarmClock(AlarmClockInfo(time, alarmIntent), alarmIntent)
         }
@@ -164,7 +169,12 @@ class Alarm : BroadcastReceiver() {
             //change requestCode pour placer plusieurs alarmes ou
             ai.data = Uri.parse("reveil://$id")
             ai.action = id
-            val alarmIntent = PendingIntent.getBroadcast(context, 0, ai, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+            val alarmIntent = PendingIntent.getBroadcast(
+                context,
+                0,
+                ai,
+                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            )
             val am = context!!.getSystemService(Context.ALARM_SERVICE) as AlarmManager
             am.cancel(alarmIntent)
         }
@@ -181,8 +191,10 @@ class Alarm : BroadcastReceiver() {
         }
 
         fun setUpAlarm(context: Context?, calendrier: Calendrier) {
-            val personalAlarmManager: PersonalAlarmManager = PersonalAlarmManager.getInstance(context)
-            val alarmConditionManager: AlarmConditionManager = AlarmConditionManager.getInstance(context)
+            val personalAlarmManager: PersonalAlarmManager =
+                PersonalAlarmManager.getInstance(context)
+            val alarmConditionManager: AlarmConditionManager =
+                AlarmConditionManager.getInstance(context)
             var dayAnalysed = CurrentDate()
             Log.d("Constraint", alarmConditionManager.allConstraints.toString())
             Log.d("Constraint", personalAlarmManager.allAlarmToList.toString())
@@ -202,16 +214,27 @@ class Alarm : BroadcastReceiver() {
                     //supprimer toutes les alarmes (Tache) pour se jour
                     personalAlarmManager.removeForDay(context, dayAnalysed)
                     var currEvent = events[0]
-                    if (currEvent.dure.hour < 8 || DataGlobal.getSavedBoolean(context, DataGlobal.FERIER_DAY_ENABLED)) {
+                    if (currEvent.dure.hour < 8 || DataGlobal.getSavedBoolean(
+                            context,
+                            DataGlobal.FERIER_DAY_ENABLED
+                        )
+                    ) {
                         var i = 0
                         do {
                             currEvent = events[i]
                             i++
-                        } while (i < events.size && !alarmConditionManager.matchConstraints(currEvent))
+                        } while (i < events.size && !alarmConditionManager.matchConstraints(
+                                currEvent
+                            )
+                        )
                         if (alarmConditionManager.matchConstraints(currEvent)) {
                             //remet ou met l'alarme si besoin
                             val timeAlarmRing = DateCalendrier(currEvent.date)
-                            if (DataGlobal.getSavedBoolean(context, DataGlobal.COMPLEX_ALARM_SETTINGS)) { //mode alarmes de type complex
+                            if (DataGlobal.getSavedBoolean(
+                                    context,
+                                    DataGlobal.COMPLEX_ALARM_SETTINGS
+                                )
+                            ) { //mode alarmes de type complex
                                 for (alarmCondition in AlarmConditionManager.getInstance(context).allConditions!!) {
                                     if (alarmCondition.isApplicableTo(currEvent)) {
                                         timeAlarmRing.setHourWithMillis(alarmCondition.alarmAt)
@@ -224,8 +247,14 @@ class Alarm : BroadcastReceiver() {
                                     }
                                 }
                             } else { //mode alarmes de type simple
-                                timeAlarmRing.timeInMillis = timeAlarmRing.timeInMillis - DataGlobal.getSavedInt(context, DataGlobal.TIME_BEFORE_RING) * 60L * 1000L
-                                if (DataGlobal.getActivatedDays(context).contains(timeAlarmRing[GregorianCalendar.DAY_OF_WEEK])) {
+                                timeAlarmRing.timeInMillis =
+                                    timeAlarmRing.timeInMillis - DataGlobal.getSavedInt(
+                                        context,
+                                        DataGlobal.TIME_BEFORE_RING
+                                    ) * 60L * 1000L
+                                if (DataGlobal.getActivatedDays(context)
+                                        .contains(timeAlarmRing[GregorianCalendar.DAY_OF_WEEK])
+                                ) {
                                     personalAlarmManager.add(
                                         dayAnalysed, AlarmRing(
                                             timeAlarmRing.timeInMillis,

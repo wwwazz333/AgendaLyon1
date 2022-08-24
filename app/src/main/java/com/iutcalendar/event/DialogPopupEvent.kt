@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.iutcalendar.calendrier.EventCalendrier
 import com.iutcalendar.task.PersonalCalendrier
 import com.iutcalendar.task.Task
-import com.iutcalendar.task.TaskRecycleView
+import com.iutcalendar.task.TaskAdapter
 import com.univlyon1.tools.agenda.R
 
 class DialogPopupEvent(
@@ -64,14 +64,16 @@ class DialogPopupEvent(
     }
 
     private fun updatedTask() {
-        val adapter = TaskRecycleView(
+        val taskAdapter = TaskAdapter(
+            context,
             PersonalCalendrier.getInstance(context)!!.getLinkedTask(relatedEvent)
         ) { taskClicked: Task? ->
-            if (taskClicked != null) removeTask(taskClicked)
+            taskClicked?.let { removeTask(it) }
         }
-
-        recyclerViewTask.adapter = adapter
-        recyclerViewTask.layoutManager = LinearLayoutManager(activity)
+        recyclerViewTask.apply {
+            adapter = taskAdapter
+            layoutManager = LinearLayoutManager(activity)
+        }
         Log.d("Dialog", "updateTask")
     }
 
@@ -94,15 +96,14 @@ class DialogPopupEvent(
         alertDialog.setPositiveButton(
             context.getString(R.string.submit)
         ) { dialog: DialogInterface, _: Int ->
-            PersonalCalendrier.getInstance(context)!!
-                .addLinkedTask(Task(editText.text.toString(), relatedEvent.uid), relatedEvent)
-            PersonalCalendrier.getInstance(context)!!.save(context)
+            PersonalCalendrier.getInstance(context)?.apply {
+                addLinkedTask(Task(editText.text.toString(), relatedEvent.uid), relatedEvent)
+                save(context)
+            }
             dialog.dismiss()
             updatedTask()
         }
-        alertDialog.setNegativeButton(
-            context.getString(R.string.cancel)
-        ) { dialog: DialogInterface, _: Int -> dialog.cancel() }
+        alertDialog.setNegativeButton(context.getString(R.string.cancel)) { dialog: DialogInterface, _: Int -> dialog.cancel() }
         alertDialog.show()
     }
 
@@ -116,8 +117,10 @@ class DialogPopupEvent(
     """.trimIndent()
         )
         alertDialog.setPositiveButton(context.getString(R.string.yes)) { dialogInterface: DialogInterface, _: Int ->
-            PersonalCalendrier.getInstance(context)!!.remove(context, taskClicked)
-            PersonalCalendrier.getInstance(context)!!.save(context)
+            PersonalCalendrier.getInstance(context)?.apply {
+                remove(context, taskClicked)
+                save(context)
+            }
             Toast.makeText(context, "Tâche supprimer", Toast.LENGTH_SHORT).show()
             updatedTask()
             dialogInterface.dismiss()

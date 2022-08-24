@@ -1,11 +1,17 @@
 package com.iutcalendar.task
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.iutcalendar.tools.vibrator.VibratorSimpleUse
 import com.univlyon1.tools.agenda.R
 
-class TaskRecycleView(var list: List<Task>, var listener: (taskClicked: Task?) -> Unit) :
+class TaskAdapter(
+    var context: Context,
+    var list: List<Task>,
+    var removeTaskListener: (taskClicked: Task?) -> Unit
+) :
     RecyclerView.Adapter<TaskViewHolder>() {
     private var viewHolder: TaskViewHolder? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
@@ -20,9 +26,12 @@ class TaskRecycleView(var list: List<Task>, var listener: (taskClicked: Task?) -
         val task = list[position]
         viewHolder?.apply {
             text.text = task.txt
-            view.setOnClickListener { listener(task) }
+            view.setOnLongClickListener {
+                VibratorSimpleUse.pushVibration(context)
+                removeTaskListener(task)
+                return@setOnLongClickListener true
+            }
         }
-
     }
 
     override fun getItemCount(): Int {
