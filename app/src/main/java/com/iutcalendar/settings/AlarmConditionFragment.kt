@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.iutcalendar.alarm.AlarmRing
 import com.iutcalendar.alarm.condition.AlarmCondition
+import com.iutcalendar.alarm.condition.AlarmConditionAdapter
 import com.iutcalendar.alarm.condition.AlarmConditionManager
-import com.iutcalendar.alarm.condition.AlarmConditionRecycleView
 import com.iutcalendar.calendrier.DateCalendrier
 import com.iutcalendar.dialog.DialogMessage
 import com.iutcalendar.menu.AbstractFragmentWitheMenu
@@ -36,24 +36,13 @@ class AlarmConditionFragment : AbstractFragmentWitheMenu() {
     }
 
     private fun updateConditions() {
-        val adapter = AlarmConditionRecycleView(
+        val alarmAdapter = AlarmConditionAdapter(
             context,
-            AlarmConditionManager.getInstance(context).allConditions,
-            { itemPos: Int ->
-                recyclerViewConstraint?.adapter?.notifyItemChanged(itemPos)
-                saveConditions()
-            }, { itemPos: Int ->
-                recyclerViewConstraint?.adapter?.notifyItemRemoved(itemPos)
-                recyclerViewConstraint?.adapter?.notifyItemRangeChanged(
-                    itemPos,
-                    AlarmConditionManager.getInstance(context).allConditions?.size!! - itemPos
-                )
-                saveConditions()
-            })
-        { saveConditions() }
-        recyclerViewConstraint?.let {
-            it.adapter = adapter
-            it.layoutManager = LinearLayoutManager(activity)
+            AlarmConditionManager.getInstance(context).allConditions
+        ) { saveConditions() }
+        recyclerViewConstraint?.apply {
+            adapter = alarmAdapter
+            layoutManager = LinearLayoutManager(activity)
         }
 
         //save si des changements de constraint ont été fait
@@ -96,7 +85,10 @@ class AlarmConditionFragment : AbstractFragmentWitheMenu() {
                             DateCalendrier.getHourInMillis(hourOfDayAlarmAt, minuteAlarmAt)
                         AlarmConditionManager.getInstance(context)
                             .addCondition(AlarmCondition(begin, end, alarmAt))
-                        updateConditions()
+                        recyclerViewConstraint?.adapter?.let {
+                            it.notifyItemInserted(it.itemCount - 1)
+                        }
+                        saveConditions()
                     }
                 }
             }

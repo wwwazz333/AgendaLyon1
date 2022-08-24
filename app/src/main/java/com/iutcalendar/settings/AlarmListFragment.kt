@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.iutcalendar.alarm.Alarm
-import com.iutcalendar.alarm.AlarmRecycleView
+import com.iutcalendar.alarm.AlarmAdapter
 import com.iutcalendar.alarm.PersonalAlarmManager
 import com.iutcalendar.calendrier.Calendrier
 import com.iutcalendar.data.FileGlobal
@@ -34,7 +34,7 @@ class AlarmListFragment : AbstractFragmentWitheMenu() {
             context,
             Calendrier(FileGlobal.readFile(FileGlobal.getFileDownload(context)))
         )
-        val adapter = AlarmRecycleView(
+        val adapter = AlarmAdapter(
             PersonalAlarmManager.getInstance(context).allAlarmToList
         ) { saveAlarm() }
         recyclerViewAlarm!!.adapter = adapter

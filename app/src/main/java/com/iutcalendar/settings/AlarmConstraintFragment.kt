@@ -2,13 +2,16 @@ package com.iutcalendar.settings
 
 import android.os.Bundle
 import android.util.Log
-import android.view.*
+import android.view.LayoutInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.iutcalendar.alarm.condition.AlarmConditionManager
 import com.iutcalendar.alarm.condition.label_constraint.AlarmConstraintLabel
 import com.iutcalendar.alarm.condition.label_constraint.AlarmConstraintLabel.Containing
-import com.iutcalendar.alarm.condition.label_constraint.AlarmLabelConstraintRecycleView
+import com.iutcalendar.alarm.condition.label_constraint.AlarmLabelConstraintAdapter
 import com.iutcalendar.dialog.DialogMessage
 import com.iutcalendar.menu.AbstractFragmentWitheMenu
 import com.univlyon1.tools.agenda.R
@@ -31,8 +34,12 @@ class AlarmConstraintFragment : AbstractFragmentWitheMenu() {
     }
 
     private fun updateConstraint() {
-        val adapter = AlarmLabelConstraintRecycleView(context,
-            AlarmConditionManager.getInstance(context).allConstraints, { saveConstraint() }) { updateConstraint() }
+        val adapter = AlarmConditionManager.getInstance(context).allConstraints?.let {
+            AlarmLabelConstraintAdapter(
+                context,
+                it
+            ) { saveConstraint() }
+        }
         recyclerViewConstraint!!.adapter = adapter
         recyclerViewConstraint!!.layoutManager = LinearLayoutManager(activity)
 
@@ -46,8 +53,12 @@ class AlarmConstraintFragment : AbstractFragmentWitheMenu() {
     }
 
     private fun addConstraint() {
-        AlarmConditionManager.getInstance(context).addConstraint(AlarmConstraintLabel(Containing.MUST_NOT_CONTAIN, ""))
-        updateConstraint()
+        AlarmConditionManager.getInstance(context)
+            .addConstraint(AlarmConstraintLabel(Containing.MUST_NOT_CONTAIN, ""))
+        recyclerViewConstraint?.adapter?.let {
+            it.notifyItemInserted(it.itemCount - 1)
+        }
+        saveConstraint()
     }
 
     /*#################MENU BAR#################*/
@@ -57,7 +68,11 @@ class AlarmConstraintFragment : AbstractFragmentWitheMenu() {
         if (id == R.id.addBtn) {
             addConstraint()
         } else if (id == R.id.aideBtn) {
-            DialogMessage.showAide(context, getString(R.string.Help), getString(R.string.aid_constraint_alarm))
+            DialogMessage.showAide(
+                context,
+                getString(R.string.Help),
+                getString(R.string.aid_constraint_alarm)
+            )
         }
     }
 }

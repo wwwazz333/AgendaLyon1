@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.iutcalendar.data.DataGlobal
 import com.univlyon1.tools.agenda.R
 
-class AlarmRecycleView(var list: List<AlarmRing>, var updateClick: () -> Unit) : RecyclerView.Adapter<AlarmViewHolder>() {
+class AlarmAdapter(var list: List<AlarmRing>, var updateClick: () -> Unit) : RecyclerView.Adapter<AlarmViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlarmViewHolder {
         val context = parent.context
         val inflater = LayoutInflater.from(context)
