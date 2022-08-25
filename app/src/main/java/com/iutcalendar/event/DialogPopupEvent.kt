@@ -48,7 +48,7 @@ class DialogPopupEvent(
         salle.text = relatedEvent.salle.replace("\\,", ", ")
         horaire.text = context.getString(R.string.both_time, timeDebut, timeFin)
         duree.text = relatedEvent.dure.timeToString()
-        updatedTask()
+        initRecyclerViewTask()
         Log.d("Dialog", "end")
     }
 
@@ -63,7 +63,7 @@ class DialogPopupEvent(
         recyclerViewTask = findViewById(R.id.listTask)
     }
 
-    private fun updatedTask() {
+    private fun initRecyclerViewTask() {
         val taskAdapter = TaskAdapter(context, relatedEvent)
         recyclerViewTask.apply {
             adapter = taskAdapter

@@ -50,7 +50,7 @@ class EventFragment : Fragment {
         if (activity != null && calendrier != null) {
 
             val eventToday = calendrier!!.clone().getEventsOfDay(date)
-            val listener = { index: Int ->  //Event on click Event
+            val onClickEvent = { index: Int ->
                 if (context != null && activity != null) {
                     val ev = eventToday[index]
                     val dialog = DialogPopupEvent(
@@ -58,16 +58,12 @@ class EventFragment : Fragment {
                         ev,
                         activity
                     ) {
-                        requireActivity().runOnUiThread {
-                            //TODO notify data change
-                            updateRecycleView()
-                        }
+                        recycleView.adapter?.notifyItemChanged(index)
                     }
                     dialog.show()
                 }
             }
-            val adapter = EventAdapter(eventToday, requireActivity().application, listener)
-            recycleView.adapter = adapter
+            recycleView.adapter = EventAdapter(eventToday, requireActivity().application, onClickEvent)
         }
     }
 

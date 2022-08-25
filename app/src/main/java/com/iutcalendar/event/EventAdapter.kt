@@ -17,14 +17,12 @@ class EventAdapter(
     var clickListener: (Int) -> Unit
 ) : RecyclerView.Adapter<EventViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventViewHolder {
-        val context = parent.context
-        val inflater = LayoutInflater.from(context)
+        val inflater = LayoutInflater.from(parent.context)
         val eventView = inflater.inflate(R.layout.event_card, parent, false)
         return EventViewHolder(eventView)
     }
 
     override fun onBindViewHolder(holder: EventViewHolder, position: Int) {
-
         holder.apply {
             val eventCalendrier = list[position]
             debut.text = eventCalendrier.date?.timeToString()
