@@ -6,8 +6,10 @@ import android.content.Context
 import androidx.annotation.DrawableRes
 import androidx.core.app.NotificationCompat
 
-class Notif(context: Context, private val chanelId: String, title: String?, msg: String?, @DrawableRes icon: Int, pendingIntent: PendingIntent?) : NotificationCompat.Builder(context, chanelId) {
+class Notif(context: Context, private val chanelId: String, title: String?, msg: String?, @DrawableRes icon: Int, pendingIntent: PendingIntent?) :
+    NotificationCompat.Builder(context, chanelId) {
     private val mNotificationManager: NotificationManager
+
 
     init {
         setSmallIcon(icon)
@@ -19,17 +21,18 @@ class Notif(context: Context, private val chanelId: String, title: String?, msg:
     }
 
     fun show() {
-        if (chanelId == NotificationChannels.ALARM_NOTIFICATION_ID) {
-            mNotificationManager.notify(0, build())
-        } else {
-            mNotificationManager.notify(System.currentTimeMillis().toInt(), build())
-        }
+        mNotificationManager.notify(
+            if (chanelId == NotificationChannels.ALARM_NOTIFICATION_ID) {
+                0
+            } else {
+                System.currentTimeMillis().toInt()
+            }, build()
+        )
     }
 
     companion object {
         fun cancelAlarmNotif(context: Context) {
-            val mNotificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            mNotificationManager.cancel(0)
+            (context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager).cancel(0)
         }
     }
 }

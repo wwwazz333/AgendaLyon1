@@ -29,6 +29,7 @@ class Alarm : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         when (intent.getIntExtra("action", NONE)) {
             START -> {
+                Log.d("AlarmAction", "START")
                 val enabled = DataGlobal.getSavedBoolean(context, DataGlobal.ALARM_ENABLED)
                 if (enabled) {
                     //Sound
@@ -53,9 +54,17 @@ class Alarm : BroadcastReceiver() {
             }
 
             STOP -> {
+                Log.d("AlarmAction", "STOP")
                 stopRingtone()
                 stopVibration(context)
                 clearNotif(context)
+            }
+            CANCEL_SNOOZE -> {
+                intent.getStringExtra("idAlarm")?.let { id ->
+                    Log.d("AlarmAction", "CANCEL_SNOOZE for id : $id")
+                    cancelAlarm(context, id)
+                    Notif.cancelAlarmNotif(context)
+                }
             }
 
             else -> Log.d("Alarm", "no action")
@@ -122,6 +131,7 @@ class Alarm : BroadcastReceiver() {
         const val NONE = 0
         const val STOP = 1
         const val START = 2
+        const val CANCEL_SNOOZE = 3
         private var ring: Ringtone? = null
 
         /**
@@ -129,29 +139,11 @@ class Alarm : BroadcastReceiver() {
          *
          * @param context le context
          * @param time    heure de l'alarme (en ms)
+         * @param id      id de l'alarme pour pouvoir la manipuler plus tard
          */
-        fun setAlarm(context: Context, time: Long) {
-            val ai = Intent(context, Alarm::class.java)
-            ai.putExtra("action", START)
-            val alarmIntent = PendingIntent.getBroadcast(
-                context,
-                0,
-                ai,
-                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-            )
-            val am = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-            am.setAlarmClock(AlarmClockInfo(time, alarmIntent), alarmIntent)
-        }
-
-
-        fun setAlarm(context: Context?, time: Long, id: String) {
-            setAlarm(context, time, id, START)
-        }
-
         fun setAlarm(context: Context?, time: Long, id: String, howToLaunch: Int) {
             val ai = Intent(context, Alarm::class.java)
             ai.putExtra("action", howToLaunch)
-            //change requestCode pour placer plusieurs alarmes ou
             ai.data = Uri.parse("reveil://$id")
             ai.action = id
             val alarmIntent = PendingIntent.getBroadcast(
@@ -168,7 +160,6 @@ class Alarm : BroadcastReceiver() {
         fun cancelAlarm(context: Context?, id: String?) {
             val ai = Intent(context, Alarm::class.java)
             ai.putExtra("action", START)
-            //change requestCode pour placer plusieurs alarmes ou
             ai.data = Uri.parse("reveil://$id")
             ai.action = id
             val alarmIntent = PendingIntent.getBroadcast(

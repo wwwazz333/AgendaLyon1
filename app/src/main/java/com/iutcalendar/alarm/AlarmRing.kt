@@ -8,7 +8,7 @@ import java.io.Serializable
 
 class AlarmRing(val timeInMillis: Long, var isActivate: Boolean = true, var isDeletable: Boolean = false) : Serializable, Comparable<AlarmRing> {
 
-    private fun createAlarmId(): String {
+    fun createAlarmId(): String {
         return timeInMillis.toString()
     }
 

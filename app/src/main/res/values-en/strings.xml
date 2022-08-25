@@ -163,4 +163,5 @@ As well as a time which corresponds to the hour at which the alarm will sound."<
     <string name="notif_summary_on">Notifications are enabled</string>
     <string name="notif_summary_off">Notifications are diseabled</string>
     <string name="alarme_enabled_summary_off">No alarms will ring</string>
+    <string name="alarm_reported">alarm delayed by 5 min</string>
 </resources>

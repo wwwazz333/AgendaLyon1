@@ -7,14 +7,15 @@
         tools:context="com.iutcalendar.alarm.AlarmRingActivity">
 
     <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:text="@string/alarme"
-            style="@style/TitleText"
-            android:textSize="75sp"
-            android:layout_marginTop="100dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"/>
+        android:id="@+id/title"
+        style="@style/TitleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:text="@string/alarme"
+        android:textSize="75sp" />
     <TextView
             android:id="@+id/horaire"
             android:layout_width="wrap_content"
@@ -26,34 +27,43 @@
             android:layout_marginTop="@dimen/tab_gap" android:layout_below="@+id/title"/>
 
     <ImageView
-            android:id="@+id/shadow_btn"
-            android:background="@drawable/background_round_red"
-            android:backgroundTint="@color/grey"
-            android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:minWidth="48dp"
-            android:minHeight="48dp"
-
-            android:layout_centerHorizontal="true"
-            android:layout_alignTop="@+id/stop_alarm_btn"
-            android:layout_alignBottom="@+id/stop_alarm_btn"
-            android:layout_alignParentEnd="@+id/stop_alarm_btn"
-            android:layout_alignParentStart="@+id/stop_alarm_btn"
-
-            android:contentDescription="@string/Stop_alarm"/>
+        android:id="@+id/shadow_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/stop_alarm_btn"
+        android:layout_alignBottom="@+id/stop_alarm_btn"
+        android:layout_alignParentStart="@+id/stop_alarm_btn"
+        android:layout_alignParentEnd="@+id/stop_alarm_btn"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/background_round_red"
+        android:backgroundTint="@color/grey"
+        android:contentDescription="@string/Stop_alarm"
+        android:minWidth="48dp"
+        android:minHeight="48dp" />
 
     <ImageButton
-            android:id="@+id/stop_alarm_btn"
-            android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:src="@drawable/ic_alarm_off"
-            android:contentDescription="@string/stop_alarme"
-            android:minWidth="48dp"
-            android:minHeight="48dp"
-            android:scaleX="1.5"
-            android:scaleY="1.5"
-            android:background="@drawable/background_round_red"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="100dp"/>
+        android:id="@+id/stop_alarm_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="100dp"
+        android:background="@drawable/background_round_red"
+        android:contentDescription="@string/stop_alarme"
+        android:minWidth="48dp"
+        android:minHeight="48dp"
+        android:scaleX="1.5"
+        android:scaleY="1.5"
+        android:src="@drawable/ic_alarm_off" />
+
+    <Button
+        android:id="@+id/snoozeBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/stop_alarm_btn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="80dp"
+        android:text="@string/snooze" />
 
 
 </RelativeLayout>

@@ -30,6 +30,7 @@ class PersonalAlarmManager : Serializable {
     fun addNewAlarm(ctx: Context, day: DateCalendrier, alarmRing: AlarmRing): Boolean {
         return add(day, alarmRing).also {
             setUpAlarms(ctx)
+            save(ctx)
         }
     }
 
