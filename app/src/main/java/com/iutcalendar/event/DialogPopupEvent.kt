@@ -64,12 +64,7 @@ class DialogPopupEvent(
     }
 
     private fun updatedTask() {
-        val taskAdapter = TaskAdapter(
-            context,
-            PersonalCalendrier.getInstance(context)!!.getLinkedTask(relatedEvent)
-        ) { taskClicked: Task? ->
-            taskClicked?.let { removeTask(it) }
-        }
+        val taskAdapter = TaskAdapter(context, relatedEvent)
         recyclerViewTask.apply {
             adapter = taskAdapter
             layoutManager = LinearLayoutManager(activity)
@@ -87,46 +82,25 @@ class DialogPopupEvent(
         alertDialog.setTitle("Ajouté un tâche")
         alertDialog.setMessage(context.getString(R.string.task))
         val editText = EditText(context)
-        val lp = LinearLayout.LayoutParams(
+        editText.layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT,
             LinearLayout.LayoutParams.MATCH_PARENT
         )
-        editText.layoutParams = lp
         alertDialog.setView(editText)
         alertDialog.setPositiveButton(
             context.getString(R.string.submit)
         ) { dialog: DialogInterface, _: Int ->
-            PersonalCalendrier.getInstance(context)?.apply {
+            PersonalCalendrier.getInstance(context).apply {
                 addLinkedTask(Task(editText.text.toString(), relatedEvent.uid), relatedEvent)
                 save(context)
             }
             dialog.dismiss()
-            updatedTask()
+            recyclerViewTask.adapter?.apply {
+                notifyItemInserted(itemCount - 1)
+            }
         }
         alertDialog.setNegativeButton(context.getString(R.string.cancel)) { dialog: DialogInterface, _: Int -> dialog.cancel() }
         alertDialog.show()
     }
 
-    private fun removeTask(taskClicked: Task) {
-        val alertDialog = AlertDialog.Builder(context)
-        alertDialog.setTitle("Suppression")
-        alertDialog.setMessage(
-            """
-    Voulez-vous supprimer cette tâche ?
-    "${taskClicked.txt}"
-    """.trimIndent()
-        )
-        alertDialog.setPositiveButton(context.getString(R.string.yes)) { dialogInterface: DialogInterface, _: Int ->
-            PersonalCalendrier.getInstance(context)?.apply {
-                remove(context, taskClicked)
-                save(context)
-            }
-            Toast.makeText(context, "Tâche supprimer", Toast.LENGTH_SHORT).show()
-            updatedTask()
-            dialogInterface.dismiss()
-        }
-
-        alertDialog.setNegativeButton(context.getString(R.string.no)) { dialogInterface: DialogInterface, _: Int -> dialogInterface.cancel() }
-        alertDialog.show()
-    }
 }

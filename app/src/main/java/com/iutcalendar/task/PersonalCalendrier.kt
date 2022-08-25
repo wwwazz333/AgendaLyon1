@@ -78,11 +78,11 @@ class PersonalCalendrier {
 
     companion object {
         private var instance: PersonalCalendrier? = null
-        fun getInstance(context: Context?): PersonalCalendrier? {
+        fun getInstance(context: Context?): PersonalCalendrier {
             if (instance == null) {
                 instance = PersonalCalendrier().apply { load(context) }
             }
-            return instance
+            return instance!!
         }
     }
 }
