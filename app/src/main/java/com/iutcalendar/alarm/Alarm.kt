@@ -89,16 +89,15 @@ class Alarm : BroadcastReceiver() {
             .setUsage(AudioAttributes.USAGE_ALARM)
             .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
             .build()
-        if (ring != null) {
-            ring!!.audioAttributes = alarmVolume
+        ring?.apply {
+            audioAttributes = alarmVolume
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                ring!!.isLooping = true
+                isLooping = true
             } else {
                 Log.d("Alarm", "can't put loop")
             }
-            ring!!.play()
+            play()
         }
-
     }
 
     private fun stopRingtone() {
