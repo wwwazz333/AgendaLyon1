@@ -8,7 +8,7 @@ import java.io.Serializable
 import java.util.*
 
 class PersonalAlarmManager : Serializable {
-    private var alarms: HashMap<String, MutableList<AlarmRing>>?
+    private var alarms: HashMap<String, MutableList<AlarmRing>>
 
     init {
         alarms = HashMap()
@@ -17,9 +17,9 @@ class PersonalAlarmManager : Serializable {
     fun add(day: DateCalendrier, alarmRing: AlarmRing): Boolean {
         Log.d("Alarm", alarmRing.toString())
         if (alarmRing.timeInMillis > System.currentTimeMillis()) {
-            val alarmOfDay = alarms!!.getOrDefault(createDayId(day), LinkedList())
+            val alarmOfDay = alarms.getOrDefault(createDayId(day), LinkedList())
             if (alarmOfDay.isEmpty()) {
-                alarms!![createDayId(day)] = alarmOfDay
+                alarms[createDayId(day)] = alarmOfDay
             }
             alarmOfDay.add(alarmRing)
             return true
@@ -27,8 +27,14 @@ class PersonalAlarmManager : Serializable {
         return false
     }
 
+    fun addNewAlarm(ctx: Context, day: DateCalendrier, alarmRing: AlarmRing): Boolean {
+        return add(day, alarmRing).also {
+            setUpAlarms(ctx)
+        }
+    }
+
     fun setUpAlarms(context: Context?) {
-        for ((_, value) in alarms!!) {
+        for ((_, value) in alarms) {
             for (alarm in value) {
                 alarm.setAlarm(context)
             }
@@ -40,16 +46,20 @@ class PersonalAlarmManager : Serializable {
      * @return le timeMillis de l'alarme correspondant à event ou -1 si pas d'alarme
      */
     operator fun get(day: DateCalendrier): MutableList<AlarmRing> {
-        return alarms!!.getOrDefault(createDayId(day), LinkedList())
+        return alarms.getOrDefault(createDayId(day), LinkedList())
     }
 
-    private fun removeAlarm(context: Context?, alarmRing: AlarmRing, it: MutableIterator<AlarmRing>) {
+    private fun removeAlarm(
+        context: Context?,
+        alarmRing: AlarmRing,
+        it: MutableIterator<AlarmRing>
+    ) {
         alarmRing.cancelAlarm(context)
         it.remove()
     }
 
     fun remove(context: Context?, alarmRing: AlarmRing) {
-        for (list in alarms!!.values) {
+        for (list in alarms.values) {
             val it = list.iterator()
             while (it.hasNext()) {
                 val alarm = it.next()
@@ -68,7 +78,7 @@ class PersonalAlarmManager : Serializable {
     }
 
     fun removeUseless(context: Context?) {
-        for ((_, value) in alarms!!) {
+        for ((_, value) in alarms) {
             val it = value.iterator()
             while (it.hasNext()) {
                 val alarmRing = it.next()
@@ -82,7 +92,7 @@ class PersonalAlarmManager : Serializable {
     val allAlarmToList: ArrayList<AlarmRing>
         get() {
             val liste = ArrayList<AlarmRing>()
-            for (listAlarm in alarms!!.values) {
+            for (listAlarm in alarms.values) {
                 liste.addAll(listAlarm)
             }
             liste.sort()
@@ -90,9 +100,9 @@ class PersonalAlarmManager : Serializable {
         }
 
     fun load(context: Context?) {
-        alarms = FileGlobal.loadBinaryFile(FileGlobal.getFilePersonalAlarm(context))
-        if (alarms == null) {
-            alarms = HashMap()
+        alarms = HashMap()
+        (FileGlobal.loadBinaryFile(FileGlobal.getFilePersonalAlarm(context)) as HashMap<String, MutableList<AlarmRing>>?)?.let {
+            alarms = it
         }
     }
 

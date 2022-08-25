@@ -6,7 +6,7 @@ import android.content.Context
 import com.iutcalendar.calendrier.CurrentDate
 import java.io.Serializable
 
-class AlarmRing(val timeInMillis: Long, var isActivate: Boolean) : Serializable, Comparable<AlarmRing> {
+class AlarmRing(val timeInMillis: Long, var isActivate: Boolean = true, var isDeletable: Boolean = false) : Serializable, Comparable<AlarmRing> {
 
     private fun createAlarmId(): String {
         return timeInMillis.toString()
@@ -14,8 +14,10 @@ class AlarmRing(val timeInMillis: Long, var isActivate: Boolean) : Serializable,
 
     fun setAlarm(context: Context?) {
         if (timeInMillis >= System.currentTimeMillis()) {
-            Alarm.setAlarm(context, timeInMillis, createAlarmId(),
-                    if (isActivate) Alarm.START else Alarm.NONE)
+            Alarm.setAlarm(
+                context, timeInMillis, createAlarmId(),
+                if (isActivate) Alarm.START else Alarm.NONE
+            )
         }
     }
 

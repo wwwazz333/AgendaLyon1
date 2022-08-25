@@ -36,13 +36,21 @@ class WorkUpdate(context: Context, workerParams: WorkerParameters) : Worker(cont
     }
 
     private fun updateFile(cxt: Context) {
-        //TODO string: message de notif FR & AN
         FileGlobal.updateAndGetChange(cxt, null) { context: Context?, intent: Intent? ->
-            val pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE)
+            val pendingIntent = PendingIntent.getActivity(
+                context,
+                0,
+                intent,
+                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
+            )
             if (DataGlobal.getSavedBoolean(context, DataGlobal.NOTIFICATION_ENABLED)) {
                 Notif(
-                    cxt, NotificationChannels.CHANGE_EVENT_NOTIFICATION_ID, cxt.resources.getString(R.string.event), cxt.getString(R.string.change_in_schedul),
-                    R.drawable.ic_edit, pendingIntent
+                    cxt,
+                    NotificationChannels.CHANGE_EVENT_NOTIFICATION_ID,
+                    cxt.resources.getString(R.string.event),
+                    cxt.getString(R.string.change_in_schedul),
+                    R.drawable.ic_edit,
+                    pendingIntent
                 )
                     .show()
             }
@@ -53,18 +61,23 @@ class WorkUpdate(context: Context, workerParams: WorkerParameters) : Worker(cont
     companion object {
         private const val workName = "UpdateWorkBackground"
         private const val TAG = "WorkUpdate"
-        fun startBackgroundWork(ctx: Context?) {
-            val workManager = WorkManager.getInstance(ctx!!)
+        fun startBackgroundWork(ctx: Context) {
+            val workManager = WorkManager.getInstance(ctx)
             workManager.cancelUniqueWork(workName)
             if (DataGlobal.getSavedBoolean(ctx, DataGlobal.NOTIFICATION_ENABLED)) {
                 val constraints = Constraints.Builder()
                     .setRequiredNetworkType(NetworkType.CONNECTED)
                     .build()
-                val periodicWorkRequest = PeriodicWorkRequest.Builder(WorkUpdate::class.java, 1, TimeUnit.HOURS)
-                    .setConstraints(constraints)
-                    .setInitialDelay(1, TimeUnit.HOURS)
-                    .build()
-                workManager.enqueueUniquePeriodicWork(workName, ExistingPeriodicWorkPolicy.REPLACE, periodicWorkRequest)
+                val periodicWorkRequest =
+                    PeriodicWorkRequest.Builder(WorkUpdate::class.java, 1, TimeUnit.HOURS)
+                        .setConstraints(constraints)
+                        .setInitialDelay(1, TimeUnit.HOURS)
+                        .build()
+                workManager.enqueueUniquePeriodicWork(
+                    workName,
+                    ExistingPeriodicWorkPolicy.REPLACE,
+                    periodicWorkRequest
+                )
                 Log.d(TAG, "startBackgroundWork: periodic work enqueued")
             } else {
                 workManager.cancelUniqueWork(workName)

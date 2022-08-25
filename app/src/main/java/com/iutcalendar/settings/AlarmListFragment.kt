@@ -1,20 +1,25 @@
 package com.iutcalendar.settings
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TimePicker
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.iutcalendar.alarm.Alarm
 import com.iutcalendar.alarm.AlarmAdapter
+import com.iutcalendar.alarm.AlarmRing
 import com.iutcalendar.alarm.PersonalAlarmManager
 import com.iutcalendar.calendrier.Calendrier
+import com.iutcalendar.calendrier.CurrentDate
 import com.iutcalendar.data.FileGlobal
 import com.iutcalendar.menu.AbstractFragmentWitheMenu
 import com.univlyon1.tools.agenda.R
+import java.util.*
 
 class AlarmListFragment : AbstractFragmentWitheMenu() {
     private var recyclerViewAlarm: RecyclerView? = null
@@ -34,12 +39,11 @@ class AlarmListFragment : AbstractFragmentWitheMenu() {
             context,
             Calendrier(FileGlobal.readFile(FileGlobal.getFileDownload(context)))
         )
-        val adapter = AlarmAdapter(
-            PersonalAlarmManager.getInstance(context).allAlarmToList
-        ) { saveAlarm() }
-        recyclerViewAlarm!!.adapter = adapter
-        val layout = LinearLayoutManager(activity)
-        recyclerViewAlarm!!.layoutManager = layout
+        val alarmAdapter = AlarmAdapter(requireContext())
+        recyclerViewAlarm?.apply {
+            adapter = alarmAdapter
+            layoutManager = LinearLayoutManager(activity)
+        }
         saveAlarm()
         Log.d(
             "Alarm",
@@ -51,11 +55,41 @@ class AlarmListFragment : AbstractFragmentWitheMenu() {
         PersonalAlarmManager.getInstance(context).save(context)
     }
 
-    /*#################MENU BAR#################*/
-    override fun clickMenu(item: MenuItem) {
-        val id = item.itemId
-        if (id == R.id.mybutton) {
-            updateAlarm()
+    @SuppressLint("NotifyDataSetChanged")
+    private fun addAlarm() {
+        AlarmRing.askTime(
+            requireContext(),
+            "Nouvelle alarme"
+        ) { _: TimePicker?, hourOfDay: Int, minute: Int ->
+
+            val date = CurrentDate().apply {
+                set(GregorianCalendar.HOUR_OF_DAY, hourOfDay)
+                set(GregorianCalendar.MINUTE, minute)
+                set(GregorianCalendar.SECOND, 0)
+            }
+
+            PersonalAlarmManager.getInstance(requireContext()).addNewAlarm(
+                requireContext(), CurrentDate(), AlarmRing(
+                    date.timeInMillis,
+                    isDeletable = true
+                )
+            )
+
+            recyclerViewAlarm?.adapter?.notifyDataSetChanged()
         }
     }
+
+    /*#################MENU BAR#################*/
+    override fun clickMenu(item: MenuItem) {
+        when (item.itemId) {
+            R.id.mybutton -> {
+                updateAlarm()
+            }
+            R.id.addBtn -> {
+                addAlarm()
+            }
+        }
+    }
+
+
 }

@@ -106,6 +106,7 @@ class Alarm : BroadcastReceiver() {
             ring = null
         }
     }
+
     private fun startVibration(context: Context) {
         val vibrator = VibratorSimpleUse.getVibrator(context)
         vibrator.cancel()
@@ -159,8 +160,9 @@ class Alarm : BroadcastReceiver() {
                 ai,
                 PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
             )
-            val am = context!!.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-            am.setAlarmClock(AlarmClockInfo(time, alarmIntent), alarmIntent)
+            (context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager).apply {
+                setAlarmClock(AlarmClockInfo(time, alarmIntent), alarmIntent)
+            }
         }
 
         fun cancelAlarm(context: Context?, id: String?) {

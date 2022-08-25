@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <item
-            android:id="@+id/mybutton"
-            android:title=""
-            app:showAsAction="ifRoom"
-            android:icon="@drawable/ic_refresh"
-    android:contentDescription="@string/reload_data"/>
+        android:id="@+id/mybutton"
+        android:contentDescription="@string/reload_data"
+        android:icon="@drawable/ic_refresh"
+        android:title=""
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/addBtn"
+        android:title=""
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_add_on_primary"
+        android:contentDescription="@string/add_element"/>
 </menu>

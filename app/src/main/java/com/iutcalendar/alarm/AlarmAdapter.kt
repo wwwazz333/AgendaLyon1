@@ -1,5 +1,6 @@
 package com.iutcalendar.alarm
 
+import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +11,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.iutcalendar.data.DataGlobal
 import com.univlyon1.tools.agenda.R
 
-class AlarmAdapter(var list: List<AlarmRing>, var updateClick: () -> Unit) : RecyclerView.Adapter<AlarmViewHolder>() {
+class AlarmAdapter(var ctx: Context) : RecyclerView.Adapter<AlarmViewHolder>() {
+
+    private val alarmManager: PersonalAlarmManager
+        get() = PersonalAlarmManager.getInstance(ctx)
+    private val list: List<AlarmRing>
+        get() = alarmManager.allAlarmToList
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlarmViewHolder {
         val context = parent.context
         val inflater = LayoutInflater.from(context)
@@ -37,11 +45,17 @@ class AlarmAdapter(var list: List<AlarmRing>, var updateClick: () -> Unit) : Rec
         holder.isActivateSwitch.isChecked = alarmRing.isActivate
         holder.isActivateSwitch.setOnCheckedChangeListener { _: CompoundButton?, isChecked: Boolean ->
             alarmRing.isActivate = isChecked
-            updateClick()
+            alarmManager.save(ctx)
         }
-        holder.trash.setOnClickListener { view: View ->
-            PersonalAlarmManager.getInstance(view.context).remove(view.context, alarmRing)
-            updateClick()
+
+        if (alarmRing.isDeletable) {
+            holder.trash.visibility = View.VISIBLE
+            holder.trash.setOnClickListener { view: View ->
+                alarmManager.remove(view.context, alarmRing)
+                alarmManager.save(ctx)
+                notifyItemRemoved(position)
+                notifyItemRangeChanged(position, itemCount - position)
+            }
         }
     }
 
