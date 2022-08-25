@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.CalendarView
 import android.widget.EditText
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import com.iutcalendar.calendrier.CurrentDate
 import com.univlyon1.tools.agenda.R
 
@@ -30,12 +31,15 @@ class SearchRoomFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_search_room, container, false)
         initVariables(view)
         resetValues()
-        resetBtn!!.setOnClickListener { resetValues() }
+        resetBtn?.setOnClickListener { resetValues() }
+        searchBtn?.setOnClickListener {
+            Navigation.findNavController(view).navigate(R.id.goToDisplay)
+        }
         return view
     }
 
     private fun resetValues() {
-        timeChooser!!.setText(CurrentDate().timeToString())
-        calendarView!!.date = CurrentDate().timeInMillis
+        timeChooser?.setText(CurrentDate().timeToString())
+        calendarView?.date = CurrentDate().timeInMillis
     }
 }

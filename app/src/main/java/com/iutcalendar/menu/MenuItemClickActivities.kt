@@ -22,8 +22,8 @@ class MenuItemClickActivities(private val context: Context) : MenuItem.OnMenuIte
             R.id.history -> Intent(context, EventChangementHistoryActivity::class.java)
             else -> return false
         }
-        activity.finish()
         context.startActivity(intent)
+        activity.finish()
         return true
     }
 }
