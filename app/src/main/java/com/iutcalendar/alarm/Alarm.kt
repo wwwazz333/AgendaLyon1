@@ -79,6 +79,7 @@ class Alarm : BroadcastReceiver() {
             "Alarm", "ring", R.drawable.ic_alarm, cancelAlarmIntent
         )
         notif.setOngoing(true)
+        notif.setAutoCancel(false)
         notif.show()
     }
 
