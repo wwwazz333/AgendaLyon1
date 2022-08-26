@@ -107,6 +107,7 @@ class PageEventActivity : AppCompatActivity() {
             setOnClickDay(it.dayVendredi, 4)
             setOnClickDay(it.daySamedi, 5)
             setOnClickDay(it.dayDimanche, 6)
+
             setOnClickDay(it.lundiNum, 0)
             setOnClickDay(it.mardiNum, 1)
             setOnClickDay(it.mercrediNum, 2)

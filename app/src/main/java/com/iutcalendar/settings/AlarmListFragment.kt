@@ -67,7 +67,7 @@ class AlarmListFragment : AbstractFragmentWitheMenu(), DatePickerDialog.OnDateSe
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
         AlarmRing.askTime(
             requireContext(),
-            "Nouvelle alarme"
+            getString(R.string.New_alarm)
         ) { _: TimePicker?, hourOfDay: Int, minute: Int ->
 
 

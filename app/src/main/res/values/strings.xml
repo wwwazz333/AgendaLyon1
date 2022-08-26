@@ -192,5 +192,6 @@
     <string name="alarme_enabled_summary_off">Aucune alarmes ne sonnera</string>
     <string name="snooze" translatable="false">SNOOZE</string>
     <string name="alarm_reported">alarme reporté de 5 min</string>
+    <string name="New_alarm">Nouvelle alarme</string>
 
 </resources>

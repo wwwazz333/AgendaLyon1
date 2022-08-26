@@ -15,8 +15,9 @@ class ChangeDialog(context: Context, nombreChangements: Int) : Dialog(context) {
         this.nombreChangements = nombreChangements
     }
 
-    override fun onCreate(savedInstanceState: Bundle) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         val fragmentContainerView = findViewById<FragmentContainerView>(R.id.fragmentHistory)
         val args = Bundle()
         args.putInt(HistoryFragment.NOMBRE_EVENT, nombreChangements)
