@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
@@ -15,7 +14,6 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.viewpager.widget.ViewPager
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
 import com.iutcalendar.calendrier.Calendrier
 import com.iutcalendar.calendrier.CurrentDate
@@ -35,21 +33,19 @@ import com.univlyon1.tools.agenda.databinding.ActivityPageEventBinding
 import java.util.*
 
 class PageEventActivity : AppCompatActivity() {
-    var binding: ActivityPageEventBinding? = null
-        private set
+    lateinit var binding: ActivityPageEventBinding
     private var fragmentTransaction: FragmentTransaction? = null
     private var currDate: CurrentDate = CurrentDate()
     private var currDateLabel: TextView? = null
-    private var nameDayLayout: LinearLayout? = null
-    private var dayOfWeek: LinearLayout? = null
     var calendrier: Calendrier? = null
     private var viewPager: ViewPager? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         SettingsApp.setLocale(resources, DataGlobal.getLanguage(applicationContext))
         Log.d("Global", "PageEventActivity start")
         binding = ActivityPageEventBinding.inflate(layoutInflater)
-        setContentView(binding!!.root)
+        setContentView(binding.root)
         initVariable()
         PersonalCalendrier.getInstance(applicationContext)
         initActionBar()
@@ -86,9 +82,7 @@ class PageEventActivity : AppCompatActivity() {
 
     private fun initAds() {
         MobileAds.initialize(this) { }
-        val mAdView = findViewById<AdView>(R.id.adView)
-        val adRequest = AdRequest.Builder().build()
-        mAdView.loadAd(adRequest)
+        binding.adView.loadAd(AdRequest.Builder().build())
     }
 
     /**
@@ -99,7 +93,7 @@ class PageEventActivity : AppCompatActivity() {
         currDateLabel?.setOnClickListener { setCurrDate(CurrentDate()) }
 
         //Click on day
-        binding?.let {
+        binding.let {
             setOnClickDay(it.dayLundi, 0)
             setOnClickDay(it.dayMardi, 1)
             setOnClickDay(it.dayMercredi, 2)
@@ -122,7 +116,7 @@ class PageEventActivity : AppCompatActivity() {
      * init gesture to switch between weeks
      */
     private fun initGestureSwipeWeek() {
-        nameDayLayout?.apply {
+        binding.nameDayLayout.apply {
             for (i in 0 until childCount) {
                 getChildAt(i)
                     .setOnTouchListener(TouchGestureListener(applicationContext, GestureWeekListener()))
@@ -134,7 +128,7 @@ class PageEventActivity : AppCompatActivity() {
                 )
             )
         }
-        dayOfWeek?.setOnTouchListener(
+        binding.dayOfWeek.setOnTouchListener(
             TouchGestureListener(
                 applicationContext,
                 GestureWeekListener()
@@ -148,7 +142,7 @@ class PageEventActivity : AppCompatActivity() {
      */
     private fun initPageViewEvent() {
         Log.d("Event", "creation Section page adapter")
-        viewPager = binding?.viewPager
+        viewPager = binding.viewPager
         val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager, calendrier)
         viewPager?.adapter = sectionsPagerAdapter
         viewPager?.addOnPageChangeListener(object : OnPageChangeListener {
@@ -208,8 +202,6 @@ class PageEventActivity : AppCompatActivity() {
     private fun initVariable() {
         currDate = CurrentDate()
         fragmentTransaction = supportFragmentManager.beginTransaction()
-        nameDayLayout = findViewById(R.id.nameDayLayout)
-        dayOfWeek = findViewById(R.id.dayOfWeek)
     }
 
     private fun initActionBar() {
@@ -296,13 +288,13 @@ class PageEventActivity : AppCompatActivity() {
     }
 
     private fun setDaysOfWeek() {
-        setNumOfMonthAndSelected(binding!!.lundiNum, 0)
-        setNumOfMonthAndSelected(binding!!.mardiNum, 1)
-        setNumOfMonthAndSelected(binding!!.mercrediNum, 2)
-        setNumOfMonthAndSelected(binding!!.jeudiNum, 3)
-        setNumOfMonthAndSelected(binding!!.vendrediNum, 4)
-        setNumOfMonthAndSelected(binding!!.samediNum, 5)
-        setNumOfMonthAndSelected(binding!!.dimancheNum, 6)
+        setNumOfMonthAndSelected(binding.lundiNum, 0)
+        setNumOfMonthAndSelected(binding.mardiNum, 1)
+        setNumOfMonthAndSelected(binding.mercrediNum, 2)
+        setNumOfMonthAndSelected(binding.jeudiNum, 3)
+        setNumOfMonthAndSelected(binding.vendrediNum, 4)
+        setNumOfMonthAndSelected(binding.samediNum, 5)
+        setNumOfMonthAndSelected(binding.dimancheNum, 6)
     }
 
     private fun setOnClickDay(dayClicked: TextView?, day: Int) {

@@ -166,15 +166,15 @@ object FileGlobal {
             }
         } catch (e: UnknownHostException) {
             if (context is PageEventActivity) {
-                ErrorSnackBar.showError(context.binding!!.root, context.getString(R.string.No_connexion))
+                ErrorSnackBar.showError(context.binding.root, context.getString(R.string.No_connexion))
             }
         } catch (e: WrongURLException) {
             if (context is PageEventActivity) {
-                ErrorSnackBar.showError(context.binding!!.root, context.getString(R.string.Wrong_URL))
+                ErrorSnackBar.showError(context.binding.root, context.getString(R.string.Wrong_URL))
             }
         } catch (e: Exception) {
             if (context is PageEventActivity) {
-                ErrorSnackBar.showError(context.binding!!.root, context.getString(R.string.Error))
+                ErrorSnackBar.showError(context.binding.root, context.getString(R.string.Error))
             }
             Log.e("SnackBar", e.message!!)
         }

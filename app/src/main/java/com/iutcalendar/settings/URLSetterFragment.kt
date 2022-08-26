@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.iutcalendar.calendrier.InputStreamFileException
@@ -16,51 +14,41 @@ import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanIntentResult
 import com.journeyapps.barcodescanner.ScanOptions
 import com.univlyon1.tools.agenda.R
+import com.univlyon1.tools.agenda.databinding.FragmentUrlSetterBinding
 import java.io.IOException
 
 class URLSetterFragment : Fragment() {
-    private lateinit var scan: Button
-    private lateinit var valide: Button
-    private lateinit var cancel: Button
-    private lateinit var input: EditText
+    private lateinit var binding: FragmentUrlSetterBinding
 
-    private fun initVariable(view: View) {
-        scan = view.findViewById(R.id.scanBtn)
-        valide = view.findViewById(R.id.submitBtn)
-        cancel = view.findViewById(R.id.cancelBtn)
-        input = view.findViewById(R.id.inputURL)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_url_setter, container, false)
-        initVariable(view)
-        input.setText(DataGlobal.getSavedPath(context))
-        val barcodeLauncher = registerForActivityResult(
-            ScanContract()
-        ) { result: ScanIntentResult ->
-            if (result.contents != null) {
-                Toast.makeText(context, "QR code scanné", Toast.LENGTH_SHORT).show()
-                val input = view.findViewById<EditText>(R.id.inputURL)
-                input.setText(result.contents)
-            } else {
-                Toast.makeText(context, "échec", Toast.LENGTH_SHORT).show()
+        binding = FragmentUrlSetterBinding.bind(view)
+
+        binding.inputURL.setText(DataGlobal.getSavedPath(context))
+        val barcodeLauncher = registerForActivityResult(ScanContract()) { result: ScanIntentResult ->
+            result.contents?.let {
+                binding.inputURL.setText(it)
+            }
+            if (result.contents == null) {
+                Toast.makeText(context, getString(R.string.Error), Toast.LENGTH_SHORT).show()
             }
         }
-        scan.setOnClickListener {
+        binding.scanBtn.setOnClickListener {
             val options = ScanOptions()
             options.setOrientationLocked(true)
             options.setBeepEnabled(false)
             barcodeLauncher.launch(options)
         }
-        val prevURL = input.text.toString()
-        valide.setOnClickListener {
-            if (prevURL != input.text.toString()) {
+        val prevURL = binding.inputURL.text.toString()
+        binding.submitBtn.setOnClickListener {
+            if (prevURL != binding.inputURL.text.toString()) {
                 FileGlobal.getFileDownload(context).delete()
                 FileGlobal.getFile(context, FileGlobal.CHANGEMENT_EVENT).delete()
-                DataGlobal.savePath(context, input.text.toString())
+                DataGlobal.savePath(context, binding.inputURL.text.toString())
                 Thread {
                     try {
                         FileDownload.updateFichier(FileGlobal.getFileDownload(context).absolutePath, context)
@@ -71,7 +59,7 @@ class URLSetterFragment : Fragment() {
             }
             parentFragmentManager.popBackStackImmediate()
         }
-        cancel.setOnClickListener {
+        binding.cancelBtn.setOnClickListener {
             parentFragmentManager.popBackStackImmediate()
         }
         return view

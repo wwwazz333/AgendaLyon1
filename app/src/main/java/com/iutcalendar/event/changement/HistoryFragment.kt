@@ -24,14 +24,17 @@ class HistoryFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(context)
         Log.d("History", EventChangementManager.getInstance(context).changementList.toString())
         var eventChangementList: List<EventChangement?> = LinkedList(EventChangementManager.getInstance(context).changementList)
-        if (arguments != null && arguments!!.getInt(NOMBRE_EVENT, 0) > 0) {
-            eventChangementList = eventChangementList.subList(0, arguments!!.getInt(NOMBRE_EVENT, 0))
+        if (arguments != null && requireArguments().getInt(NOMBRE_EVENT, 0) > 0) {
+            eventChangementList = eventChangementList.subList(0, requireArguments().getInt(NOMBRE_EVENT, 0))
         }
         if (eventChangementList.isEmpty()) {
             textView.setText(R.string.NoEDTChange)
         } else {
 
-            recyclerView.adapter = EventChangementRecycleView(context, eventChangementList.reversed())//reversed : pour le plus récent en haut, car enregistrer dans l'autre sense
+            recyclerView.adapter = EventChangementRecycleView(
+                context,
+                eventChangementList.reversed()
+            )//reversed : pour le plus récent en haut, car enregistrer dans l'autre sense
         }
         return view
     }
