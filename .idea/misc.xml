@@ -17,6 +17,7 @@
         <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/drawable/ic_add.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/drawable/ic_add_onPrimary.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/drawable/ic_add_on_primary.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/drawable/ic_add_red.xml" value="0.26" />
         <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/drawable/ic_agenda_ico.xml" value="0.19427083333333334" />
         <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/drawable/ic_alarm_off.xml" value="0.3385" />
         <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/drawable/ic_backgroundurl.xml" value="0.32592592592592595" />
@@ -24,6 +25,7 @@
         <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/drawable/ic_email.xml" value="0.3769230769230769" />
         <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/drawable/ic_feature_settings.xml" value="0.3402777777777778" />
         <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/drawable/ic_github.xml" value="0.3769230769230769" />
+        <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/drawable/ic_help.xml" value="0.314" />
         <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/drawable/ic_menu.xml" value="0.3769230769230769" />
         <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/drawable/ic_settings_ico.xml" value="0.3769230769230769" />
         <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/drawable/ic_simple_ico.xml" value="0.3769230769230769" />
@@ -187,7 +189,7 @@
       </value>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_16" project-jdk-name="11" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_16_PREVIEW" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
