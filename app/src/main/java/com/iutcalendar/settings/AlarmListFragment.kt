@@ -1,12 +1,14 @@
 package com.iutcalendar.settings
 
 import android.annotation.SuppressLint
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.DatePicker
 import android.widget.TimePicker
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -21,7 +23,7 @@ import com.iutcalendar.menu.AbstractFragmentWitheMenu
 import com.univlyon1.tools.agenda.R
 import java.util.*
 
-class AlarmListFragment : AbstractFragmentWitheMenu() {
+class AlarmListFragment : AbstractFragmentWitheMenu(), DatePickerDialog.OnDateSetListener {
     private var recyclerViewAlarm: RecyclerView? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,14 +57,24 @@ class AlarmListFragment : AbstractFragmentWitheMenu() {
         PersonalAlarmManager.getInstance(context).save(context)
     }
 
-    @SuppressLint("NotifyDataSetChanged")
+
     private fun addAlarm() {
+        val today = CurrentDate()
+        DatePickerDialog(requireContext(), this, today.year, today.get(GregorianCalendar.MONTH), today.get(GregorianCalendar.DAY_OF_MONTH)).show()
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
         AlarmRing.askTime(
             requireContext(),
             "Nouvelle alarme"
         ) { _: TimePicker?, hourOfDay: Int, minute: Int ->
 
-            val date = CurrentDate().apply {
+
+            val date = GregorianCalendar().apply {
+                set(GregorianCalendar.YEAR, year)
+                set(GregorianCalendar.MONTH, month)
+                set(GregorianCalendar.DAY_OF_MONTH, dayOfMonth)
                 set(GregorianCalendar.HOUR_OF_DAY, hourOfDay)
                 set(GregorianCalendar.MINUTE, minute)
                 set(GregorianCalendar.SECOND, 0)
