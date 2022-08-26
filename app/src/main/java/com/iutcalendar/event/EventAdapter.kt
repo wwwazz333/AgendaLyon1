@@ -1,6 +1,7 @@
 package com.iutcalendar.event
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,6 +35,7 @@ class EventAdapter(
                 if (it == 0) {
                     countTask.visibility = View.INVISIBLE
                 } else {
+                    countTask.visibility = View.VISIBLE
                     countTask.text = it.toString()
                 }
             }
