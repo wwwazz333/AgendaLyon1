@@ -122,24 +122,25 @@ class PageEventActivity : AppCompatActivity() {
      * init gesture to switch between weeks
      */
     private fun initGestureSwipeWeek() {
-        val childCount = nameDayLayout!!.childCount
-        for (i in 0 until childCount) {
-            nameDayLayout!!.getChildAt(i)
-                .setOnTouchListener(TouchGestureListener(applicationContext, GestureWeekListener()))
-        }
-        nameDayLayout?.setOnTouchListener(
-            TouchGestureListener(
-                applicationContext,
-                GestureWeekListener()
+        nameDayLayout?.apply {
+            for (i in 0 until childCount) {
+                getChildAt(i)
+                    .setOnTouchListener(TouchGestureListener(applicationContext, GestureWeekListener()))
+            }
+            setOnTouchListener(
+                TouchGestureListener(
+                    applicationContext,
+                    GestureWeekListener()
+                )
             )
-        )
-
+        }
         dayOfWeek?.setOnTouchListener(
             TouchGestureListener(
                 applicationContext,
                 GestureWeekListener()
             )
         )
+
     }
 
     /**
@@ -259,11 +260,6 @@ class PageEventActivity : AppCompatActivity() {
     ########################################################################*/
 
     fun setCurrDate(newCurrentDate: CurrentDate?) {
-//        if (newDate.sameDay(currDate)) { //some bugs
-//            currDateLabel.setText(currDate.getRelativeDayName(getBaseContext()));
-//            return;
-//        }
-
         if (newCurrentDate != null) {
             var newDate = newCurrentDate
             Log.d("Date", "$currDate set curr date to $newDate")
