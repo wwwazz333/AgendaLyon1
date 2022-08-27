@@ -1,82 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" xmlns:tools="http://schemas.android.com/tools"
-        android:orientation="horizontal"
-        android:showDividers="middle"
-        android:divider="?android:dividerHorizontal"
-        android:background="@drawable/surface_background"
-        android:layout_margin="5dp"
-        android:id="@+id/linearLayout">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:background="@drawable/surface_background"
+    android:divider="?android:dividerHorizontal"
+    android:orientation="horizontal"
+    android:showDividers="middle">
 
     <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="5dp"
+        android:divider="?android:dividerVertical"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingVertical="3dp"
+        android:showDividers="middle">
+
+        <TextView
+            android:id="@+id/debut"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_margin="5dp"
-            android:paddingVertical="3dp"
-            android:showDividers="middle"
-            android:divider="?android:dividerVertical">
+            android:layout_marginBottom="3dp"
+            android:text="@string/exemple_hour"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="18sp" />
 
         <TextView
-                android:id="@+id/debut"
-                android:text="@string/exemple_hour"
-                android:textColor="?attr/colorOnSurface"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:layout_marginBottom="3dp"/>
-        <TextView
-                android:id="@+id/fin"
-                android:text="@string/exemple_hour"
-                android:textColor="?attr/colorOnSurface"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="18sp"/>
+            android:id="@+id/fin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/exemple_hour"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="18sp" />
 
     </LinearLayout>
+
     <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-        <TextView
-                android:id="@+id/summary"
-                android:text="@string/exemple_text"
-                android:textColor="?attr/colorOnSurface"
-                android:layout_height="match_parent"
-                android:layout_width="match_parent"
-                android:textSize="18sp"
-                android:paddingHorizontal="5dp"
-                android:gravity="center_vertical"
-                android:layout_gravity="center_vertical"/>
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
 
         <TextView
-                tools:ignore="RelativeOverlap"
-                android:id="@+id/countTask"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:background="@drawable/background_round_red"
-                android:textColor="?attr/colorOnPrimary"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="8dp"
-                android:layout_marginTop="5dp"/>
+            android:id="@+id/summary"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="5dp"
+            android:text="@string/exemple_text"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/countTask"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/background_round_red"
+            android:gravity="center"
+            android:textColor="?attr/colorOnPrimary"
+            tools:ignore="RelativeOverlap" />
 
     </RelativeLayout>
 
 
     <TextView
-            android:id="@+id/salle"
-            android:text="@string/locationLabel"
-            android:textColor="?attr/colorOnSurface"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:maxWidth="200dp"
-            android:textSize="18sp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginHorizontal="5dp"/>
+        android:id="@+id/salle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginHorizontal="5dp"
+        android:maxWidth="200dp"
+        android:text="@string/locationLabel"
+        android:textColor="?attr/colorOnSurface"
+        android:textSize="18sp" />
 
 
 </LinearLayout>
