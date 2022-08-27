@@ -28,6 +28,14 @@ open class DateCalendrier() : GregorianCalendar() {
         other.minute
     )
 
+    fun from(gregorianCalendar: GregorianCalendar) : DateCalendrier {
+        this.set(YEAR, gregorianCalendar.get(YEAR))
+        this.set(DAY_OF_YEAR, gregorianCalendar.get(DAY_OF_YEAR))
+        this.set(HOUR_OF_DAY, gregorianCalendar.get(HOUR_OF_DAY))
+        this.set(MINUTE, gregorianCalendar.get(MINUTE))
+        return this
+    }
+
     /**
      * Le décalage est appliqué à la lecture du fichier uniquement
      * par la suite toutes les dates aurons le bon décalage.

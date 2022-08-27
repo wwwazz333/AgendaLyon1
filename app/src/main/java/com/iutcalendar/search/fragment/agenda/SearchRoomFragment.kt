@@ -4,42 +4,55 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.CalendarView
-import android.widget.EditText
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.iutcalendar.calendrier.CurrentDate
+import com.iutcalendar.calendrier.DateCalendrier
+import com.iutcalendar.settings.SettingsApp
 import com.univlyon1.tools.agenda.R
+import com.univlyon1.tools.agenda.databinding.FragmentSearchRoomBinding
+import java.util.*
 
 class SearchRoomFragment : Fragment() {
-    private var searchBtn: Button? = null
-    private var resetBtn: Button? = null
-    private var timeChooser: EditText? = null
-    private var calendarView: CalendarView? = null
-    private fun initVariables(view: View) {
-        searchBtn = view.findViewById(R.id.searchBtn)
-        resetBtn = view.findViewById(R.id.resetBtn)
-        timeChooser = view.findViewById(R.id.editTextTime)
-        calendarView = view.findViewById(R.id.calendarView)
-    }
+    private lateinit var binding: FragmentSearchRoomBinding
+
+    private var dateSelected = DateCalendrier()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_search_room, container, false)
-        initVariables(view)
-        resetValues()
-        resetBtn?.setOnClickListener { resetValues() }
-        searchBtn?.setOnClickListener {
-            Navigation.findNavController(view).navigate(R.id.goToDisplay)
+        return inflater.inflate(R.layout.fragment_search_room, container, false).also { view ->
+            binding = FragmentSearchRoomBinding.bind(view)
+
+            resetValues()
+            binding.resetBtn.setOnClickListener { resetValues() }
+            binding.searchBtn.setOnClickListener {
+                val bundle = bundleOf("timeInMillis" to dateSelected.timeInMillis)
+                Navigation.findNavController(view).navigate(R.id.goToDisplay, bundle)
+            }
         }
-        return view
     }
 
     private fun resetValues() {
-        timeChooser?.setText(CurrentDate().timeToString())
-        calendarView?.date = CurrentDate().timeInMillis
+        binding.editTime.apply {
+            setIs24HourView(SettingsApp.locale == SettingsApp.localFrance)
+
+            CurrentDate().let {
+                hour = it.hour
+                minute = it.minute
+            }
+            setOnTimeChangedListener { _, hourOfDay, minuteTime ->
+                dateSelected.hour = hourOfDay
+                dateSelected.minute = minuteTime
+            }
+        }
+
+        binding.calendarView.date = System.currentTimeMillis()
+        dateSelected = CurrentDate()
+        binding.calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
+            dateSelected.from(GregorianCalendar(year, month, dayOfMonth, binding.editTime.hour, binding.editTime.minute, 0))
+        }
     }
 }

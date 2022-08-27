@@ -1,45 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context="com.iutcalendar.search.fragment.agenda.SearchRoomFragment">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.iutcalendar.search.fragment.agenda.SearchRoomFragment">
 
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textView"
+            style="@style/TitleText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/TitleText"
             android:gravity="center"
             android:padding="@dimen/default_padding"
             android:text="Rechercher une salle libre"
-            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent" android:id="@+id/textView"/>
-    <CalendarView
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <CalendarView
             android:id="@+id/calendarView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" android:layout_marginTop="16dp" app:layout_constraintTop_toBottomOf="@+id/textView"/>
-    <TextView
-            android:text="à"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/textView2" app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="24dp" app:layout_constraintTop_toBottomOf="@+id/calendarView" app:layout_constraintEnd_toStartOf="@+id/editTextTime"/>
-    <EditText
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+
+        <TimePicker
+            android:id="@+id/editTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:importantForAutofill="no"
+            android:inputType="time"
+            android:minHeight="48dp"
+            android:timePickerMode="spinner"
+            app:layout_constraintTop_toBottomOf="@+id/calendarView" />
+
+        <Button
+            android:id="@+id/searchBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minHeight="48dp"
-            android:inputType="time"
-            android:ems="10"
-            android:id="@+id/editTextTime"
-            app:layout_constraintStart_toEndOf="@+id/textView2" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textView2" app:layout_constraintBottom_toBottomOf="@+id/textView2"
-            android:importantForAutofill="no"/>
-    <Button
             android:text="rechercher"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/searchBtn" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@+id/resetBtn" app:layout_constraintTop_toTopOf="@+id/resetBtn" app:layout_constraintBottom_toBottomOf="@+id/resetBtn"/>
-    <Button
-            android:text="Reset"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/resetBtn" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@+id/editTextTime" android:layout_marginTop="32dp" app:layout_constraintEnd_toStartOf="@+id/searchBtn"/>
+            app:layout_constraintBottom_toBottomOf="@+id/resetBtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/resetBtn"
+            app:layout_constraintTop_toTopOf="@+id/resetBtn" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:id="@+id/resetBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="Reset"
+            app:layout_constraintEnd_toStartOf="@+id/searchBtn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTime" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

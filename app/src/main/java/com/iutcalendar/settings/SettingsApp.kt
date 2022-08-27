@@ -1,6 +1,5 @@
 package com.iutcalendar.settings
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
@@ -15,7 +14,8 @@ import com.univlyon1.tools.agenda.R
 import java.util.*
 
 object SettingsApp {
-    var locale = Locale("FR", "FRANCE")
+    val localFrance = Locale("fr")
+    var locale = localFrance
         private set
 
     fun setLocale(resources: Resources, language: String?) {
