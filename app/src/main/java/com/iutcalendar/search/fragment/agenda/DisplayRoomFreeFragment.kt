@@ -5,14 +5,16 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import com.iutcalendar.calendrier.DateCalendrier
 import com.iutcalendar.calendrier.SearchCalendrier
 import com.univlyon1.tools.agenda.R
 import com.univlyon1.tools.agenda.databinding.FragmentDisplayRoomFreeBinding
 
+
 class DisplayRoomFreeFragment : Fragment() {
-    lateinit var binding: FragmentDisplayRoomFreeBinding
+    private lateinit var binding: FragmentDisplayRoomFreeBinding
 
     var dateRecherche: DateCalendrier? = null
 
@@ -28,8 +30,14 @@ class DisplayRoomFreeFragment : Fragment() {
             Log.d("SearchRoom", "time is $it -> $dateRecherche")
         }
 
-        dateRecherche?.let {
-            binding.freeRooms.text = SearchCalendrier.freeRoomAt(it).toString()
+        dateRecherche?.let { date ->
+            ArrayAdapter(
+                requireContext(),
+                android.R.layout.simple_list_item_1, android.R.id.text1,
+                SearchCalendrier.freeRoomAt(date)
+            ).let { adapter ->
+                binding.listView.adapter = adapter
+            }
         }
 
         return view

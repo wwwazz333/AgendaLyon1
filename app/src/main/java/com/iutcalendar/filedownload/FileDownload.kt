@@ -63,8 +63,6 @@ object FileDownload {
 
     @Throws(IOException::class, InputStreamFileException::class)
     fun downloadRoomsCalendar(context: Context): Calendrier {
-
-        // update du fichier ou création
         DataGlobal.getSavedRoomsPath(context)?.let { url ->
             if (url.isEmpty()) {
                 throw WrongURLException()

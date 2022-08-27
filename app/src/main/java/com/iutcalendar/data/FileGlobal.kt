@@ -11,9 +11,6 @@ import com.iutcalendar.filedownload.WrongURLException
 import com.iutcalendar.mainpage.PageEventActivity
 import com.iutcalendar.snackbar.ErrorSnackBar
 import com.univlyon1.tools.agenda.R
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import java.io.*
 import java.net.UnknownHostException
 import java.nio.file.Files
@@ -23,7 +20,6 @@ import java.nio.file.Paths
 object FileGlobal {
 
     private const val SAVED_CAL = "savedCal.ics"
-    private const val SAVED_CAL_ROOMS = "savedCalRooms.ics"
     private const val PERSONAL_TASKS = "personalTasks.dat"
     private const val PERSONAL_ALARMS = "personalAlarms.dat"
     private const val PERSONAL_ALARM_CONDITIONS = "personalAlarmConditions.dat"
@@ -39,10 +35,6 @@ object FileGlobal {
 
     fun getFileCalendar(context: Context?): File {
         return getFile(context, SAVED_CAL)
-    }
-
-    fun getFileCalRooms(context: Context?): File {
-        return getFile(context, SAVED_CAL_ROOMS)
     }
 
     fun getFilePersonalTask(context: Context?): File {
