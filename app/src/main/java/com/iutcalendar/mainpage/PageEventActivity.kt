@@ -194,7 +194,7 @@ class PageEventActivity : AppCompatActivity() {
         }
 
     private fun initCalendar() {
-        val fileCal = FileGlobal.getFileDownload(applicationContext)
+        val fileCal = FileGlobal.getFileCalendar(applicationContext)
         val str = FileGlobal.readFile(fileCal)
         calendrier = Calendrier(str)
     }

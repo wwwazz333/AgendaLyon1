@@ -20,6 +20,7 @@ import java.nio.file.Paths
 object FileGlobal {
 
     private const val SAVED_CAL = "savedCal.ics"
+    private const val SAVED_CAL_ROOMS = "savedCalRooms.ics"
     private const val PERSONAL_TASKS = "personalTasks.dat"
     private const val PERSONAL_ALARMS = "personalAlarms.dat"
     private const val PERSONAL_ALARM_CONDITIONS = "personalAlarmConditions.dat"
@@ -33,8 +34,11 @@ object FileGlobal {
         return File(getPathDownloadDir(context) + "/" + whichFile)
     }
 
-    fun getFileDownload(context: Context?): File {
+    fun getFileCalendar(context: Context?): File {
         return getFile(context, SAVED_CAL)
+    }
+    fun getFileCalRooms(context: Context?): File {
+        return getFile(context, SAVED_CAL_ROOMS)
     }
 
     fun getFilePersonalTask(context: Context?): File {
@@ -145,14 +149,14 @@ object FileGlobal {
 
     fun updateAndGetChange(context: Context?, calendrier: Calendrier?, onChangeListener: (Context?, Intent?) -> Unit) {
         try {
-            val prev: Calendrier = calendrier?.clone() ?: Calendrier(readFile(getFileDownload(context)))
-            FileDownload.updateFichier(getFileDownload(context).absolutePath, context)
+            val prev: Calendrier = calendrier?.clone() ?: Calendrier(readFile(getFileCalendar(context)))
+            FileDownload.updateFichier(getFileCalendar(context).absolutePath, context)
             val nouveau: Calendrier
             if (calendrier != null) {
                 nouveau = calendrier
-                nouveau.loadFromString(readFile(getFileDownload(context)))
+                nouveau.loadFromString(readFile(getFileCalendar(context)))
             } else {
-                nouveau = Calendrier(readFile(getFileDownload(context)))
+                nouveau = Calendrier(readFile(getFileCalendar(context)))
             }
             nouveau.deleteUselessTask(context)
             val changes = nouveau.getChangedEvent(prev)

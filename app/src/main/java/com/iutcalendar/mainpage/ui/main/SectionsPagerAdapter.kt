@@ -30,7 +30,7 @@ class SectionsPagerAdapter(private val mContext: Context, fm: FragmentManager?, 
             CurrentDate()
         }
         Log.d("Event", "get item at $dateToLaunch at position $position")
-        return EventFragment(calendrier, dateToLaunch, FileGlobal.getFileDownload(mContext))
+        return EventFragment(calendrier, dateToLaunch, FileGlobal.getFileCalendar(mContext))
     }
 
     override fun getPageTitle(position: Int): CharSequence {

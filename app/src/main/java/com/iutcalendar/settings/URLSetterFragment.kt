@@ -46,12 +46,12 @@ class URLSetterFragment : Fragment() {
         val prevURL = binding.inputURL.text.toString()
         binding.submitBtn.setOnClickListener {
             if (prevURL != binding.inputURL.text.toString()) {
-                FileGlobal.getFileDownload(context).delete()
+                FileGlobal.getFileCalendar(context).delete()
                 FileGlobal.getFile(context, FileGlobal.CHANGEMENT_EVENT).delete()
                 DataGlobal.savePath(context, binding.inputURL.text.toString())
                 Thread {
                     try {
-                        FileDownload.updateFichier(FileGlobal.getFileDownload(context).absolutePath, context)
+                        FileDownload.updateFichier(FileGlobal.getFileCalendar(context).absolutePath, context)
                     } catch (_: InputStreamFileException) {
                     } catch (_: IOException) {
                     }

@@ -38,7 +38,7 @@ class WidgetCalendar : AppWidgetProvider() {
             val views = RemoteViews(context.packageName, SettingsApp.getLayoutResWidget(context))
             var currentDate = CurrentDate()
             currentDate.add(GregorianCalendar.MINUTE, DELAY_AFTER_EVENT_PASSED) //pour que l'event s'affiche tjrs au bout de 30min
-            val cal = Calendrier(FileGlobal.readFile(FileGlobal.getFileDownload(context)))
+            val cal = Calendrier(FileGlobal.readFile(FileGlobal.getFileCalendar(context)))
             val events = cal.getNext2EventAfter(currentDate)
             if (events.isNotEmpty() && events[0] != null && events[0]!!.date != null) {
                 currentDate = CurrentDate(events[0]!!.date)

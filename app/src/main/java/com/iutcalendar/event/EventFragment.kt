@@ -72,7 +72,7 @@ class EventFragment : Fragment {
             if (PreferenceManager.getDefaultSharedPreferences(requireContext())
                     .getBoolean("show_update", true)
             ) {
-                if (calendrier != null && fileUpdate != null && FileGlobal.getFileDownload(
+                if (calendrier != null && fileUpdate != null && FileGlobal.getFileCalendar(
                         requireContext()
                     ).exists()
                 ) {

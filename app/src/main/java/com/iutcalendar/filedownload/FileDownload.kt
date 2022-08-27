@@ -52,7 +52,7 @@ object FileDownload {
         success = Calendrier.writeCalendarFile(contentFile, File(file_path.toString()))
         if (success) {
             Log.d("File", "fichier enregistré")
-            val calendrier = Calendrier(FileGlobal.readFile(FileGlobal.getFileDownload(context)))
+            val calendrier = Calendrier(FileGlobal.readFile(FileGlobal.getFileCalendar(context)))
             Alarm.setUpAlarm(context, calendrier)
         }
         return success

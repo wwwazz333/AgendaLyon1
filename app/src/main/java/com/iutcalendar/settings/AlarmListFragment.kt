@@ -39,7 +39,7 @@ class AlarmListFragment : AbstractFragmentWitheMenu(), DatePickerDialog.OnDateSe
     private fun updateAlarm() {
         Alarm.setUpAlarm(
             context,
-            Calendrier(FileGlobal.readFile(FileGlobal.getFileDownload(context)))
+            Calendrier(FileGlobal.readFile(FileGlobal.getFileCalendar(context)))
         )
         val alarmAdapter = AlarmAdapter(requireContext())
         recyclerViewAlarm?.apply {
