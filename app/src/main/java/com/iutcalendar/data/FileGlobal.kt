@@ -37,6 +37,7 @@ object FileGlobal {
     fun getFileCalendar(context: Context?): File {
         return getFile(context, SAVED_CAL)
     }
+
     fun getFileCalRooms(context: Context?): File {
         return getFile(context, SAVED_CAL_ROOMS)
     }
@@ -152,17 +153,19 @@ object FileGlobal {
             val prev: Calendrier = calendrier?.clone() ?: Calendrier(readFile(getFileCalendar(context)))
             FileDownload.updateFichier(getFileCalendar(context).absolutePath, context)
             val nouveau: Calendrier
-            if (calendrier != null) {
+            if (calendrier == null) {
+                nouveau = Calendrier(readFile(getFileCalendar(context)))
+            } else {
                 nouveau = calendrier
                 nouveau.loadFromString(readFile(getFileCalendar(context)))
-            } else {
-                nouveau = Calendrier(readFile(getFileCalendar(context)))
             }
             nouveau.deleteUselessTask(context)
             val changes = nouveau.getChangedEvent(prev)
-            //sauvegarde l'historique des changements
-            EventChangementManager.getInstance(context).changementList.addAll(changes)
-            EventChangementManager.getInstance(context).save(context)
+
+            EventChangementManager.getInstance(context).apply { //sauvegarde l'historique des changements
+                changementList.addAll(changes)
+                save(context)
+            }
             if (changes.isNotEmpty()) {
                 val intent = Intent(context, PageEventActivity::class.java)
                 DataGlobal.save(context, DataGlobal.NOMBRE_CHANGE_TO_DISPLAY, changes.size)
@@ -180,7 +183,7 @@ object FileGlobal {
             if (context is PageEventActivity) {
                 ErrorSnackBar.showError(context.binding.root, context.getString(R.string.Error))
             }
-            Log.e("SnackBar", e.message!!)
+            Log.e("SnackBar", "${e.message}")
         }
     }
 }

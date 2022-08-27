@@ -73,7 +73,7 @@ class PageEventActivity : AppCompatActivity() {
         WorkUpdate.startBackgroundWork(this)
 
         //update
-        update(null)
+        update {}
         initAds()
 
         /*####Testing feature#####*/
@@ -218,9 +218,9 @@ class PageEventActivity : AppCompatActivity() {
     /**
      * update the calendar file
      *
-     * @param onFinishListener est toujours appelé à la fin de la méthode
+     * @param onFinishListener toujours appelé à la fin de la méthode
      */
-    fun update(onFinishListener: (() -> Unit)?) {
+    fun update(onFinishListener: (() -> Unit)) {
         if (!updating) {
             Log.d("Update", "start")
             updating = true
@@ -229,13 +229,11 @@ class PageEventActivity : AppCompatActivity() {
                     this,
                     calendrier
                 ) { _: Context?, intent: Intent? -> startActivity(intent) }
+
                 runOnUiThread {
-                    Log.d("Debug", "appeler depuis update")
                     updatePageViewEvent()
                 }
-                if (onFinishListener != null) {
-                    onFinishListener()
-                }
+                onFinishListener()
                 updating = false
                 Log.d("Update", "end")
             }.start()

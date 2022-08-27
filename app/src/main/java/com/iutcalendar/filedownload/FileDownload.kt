@@ -16,6 +16,7 @@ import java.net.URL
 
 object FileDownload {
     private const val DEFAULT_BUFFER_SIZE = 8192
+
     @Throws(IOException::class)
     fun getCalender(urlCalender: String?): InputStream? {
         Log.d("File", "Downloading file")
@@ -40,22 +41,24 @@ object FileDownload {
 
     @Throws(IOException::class, InputStreamFileException::class)
     fun updateFichier(file_path: String?, context: Context?): Boolean {
-        val success: Boolean
 
         // update du fichier ou création
-        val url = DataGlobal.getSavedPath(context)
-        if (url!!.isEmpty()) {
-            throw WrongURLException()
+        DataGlobal.getSavedPath(context)?.let { url ->
+            if (url.isEmpty()) {
+                throw WrongURLException()
+            }
+            val inputStream = getCalender(url) ?: throw InputStreamFileException("input stream est null")
+
+            val contentFile = inputStream2String(inputStream)
+            val success = Calendrier.writeCalendarFile(contentFile, File(file_path.toString()))
+            if (success) {
+                Log.d("File", "fichier enregistré")
+                val calendrier = Calendrier(FileGlobal.readFile(FileGlobal.getFileCalendar(context)))
+                Alarm.setUpAlarm(context, calendrier)
+            }
+            return success
         }
-        val inputStream = getCalender(url) ?: throw InputStreamFileException("input stream est null")
-        val contentFile = inputStream2String(inputStream)
-        success = Calendrier.writeCalendarFile(contentFile, File(file_path.toString()))
-        if (success) {
-            Log.d("File", "fichier enregistré")
-            val calendrier = Calendrier(FileGlobal.readFile(FileGlobal.getFileCalendar(context)))
-            Alarm.setUpAlarm(context, calendrier)
-        }
-        return success
+        return false
     }
 
     @Throws(IOException::class)
