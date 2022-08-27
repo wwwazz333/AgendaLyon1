@@ -35,7 +35,6 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.8.0'
 
 
-
     implementation 'androidx.appcompat:appcompat:1.5.0'
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
@@ -61,8 +60,12 @@ dependencies {
     //workmanager
     implementation "androidx.work:work-runtime:2.7.1"
 
-    //splash screen
-    implementation "androidx.core:core-splashscreen:1.0.0"
+    //coroutines
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1'
+
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.0-alpha01"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.6.0-alpha01"
 
 
     //leeks

@@ -11,6 +11,9 @@ import com.iutcalendar.filedownload.WrongURLException
 import com.iutcalendar.mainpage.PageEventActivity
 import com.iutcalendar.snackbar.ErrorSnackBar
 import com.univlyon1.tools.agenda.R
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.io.*
 import java.net.UnknownHostException
 import java.nio.file.Files
@@ -183,7 +186,7 @@ object FileGlobal {
             if (context is PageEventActivity) {
                 ErrorSnackBar.showError(context.binding.root, context.getString(R.string.Error))
             }
-            Log.e("SnackBar", "${e.message}")
+            Log.e("SnackBar", "${e.cause} -> ${e.message}")
         }
     }
 }

@@ -193,5 +193,8 @@
     <string name="snooze" translatable="false">SNOOZE</string>
     <string name="alarm_reported">alarme reporté de 5 min</string>
     <string name="New_alarm">Nouvelle alarme</string>
+    <string name="url_des_salles">URL des salles</string>
+    <string name="les_salles_libres">Les salles libres</string>
+    <string name="No_room_free">Aucune salle disponible</string>
 
 </resources>

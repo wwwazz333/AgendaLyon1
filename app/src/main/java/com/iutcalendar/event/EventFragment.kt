@@ -23,17 +23,18 @@ import java.text.SimpleDateFormat
 
 class EventFragment : Fragment {
     private var calendrier: Calendrier? = null
-    private var date: CurrentDate? = null
+    private var date: CurrentDate
     private var fileUpdate: File? = null
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private var updateTextView: TextView? = null
     private lateinit var recycleView: RecyclerView
 
     constructor() {
+        date = CurrentDate()
         // Required empty public constructor
     }
 
-    constructor(calendrier: Calendrier?, date: CurrentDate?, fileUpdate: File?) {
+    constructor(calendrier: Calendrier?, date: CurrentDate, fileUpdate: File?) {
         this.calendrier = calendrier
         this.date = date
         this.fileUpdate = fileUpdate

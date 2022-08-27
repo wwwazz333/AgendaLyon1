@@ -177,5 +177,8 @@ Ainsi qu'un horaire qui correspond à l'heure à l'aquelle l'alarme va sonner."
     <string name="alarme_enabled_summary_off">Aucune alarmes ne sonnera</string>
     <string name="alarm_reported">alarme reporté de 5 min</string>
     <string name="New_alarm">Nouvelle alarme</string>
+    <string name="url_des_salles">URL des salles</string>
+    <string name="les_salles_libres">Les salles libres</string>
+    <string name="No_room_free">Aucune salle disponible</string>
 
 </resources>

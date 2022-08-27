@@ -28,7 +28,7 @@ open class DateCalendrier() : GregorianCalendar() {
         other.minute
     )
 
-    fun from(gregorianCalendar: GregorianCalendar) : DateCalendrier {
+    fun from(gregorianCalendar: GregorianCalendar): DateCalendrier {
         this.set(YEAR, gregorianCalendar.get(YEAR))
         this.set(DAY_OF_YEAR, gregorianCalendar.get(DAY_OF_YEAR))
         this.set(HOUR_OF_DAY, gregorianCalendar.get(HOUR_OF_DAY))
@@ -128,17 +128,12 @@ open class DateCalendrier() : GregorianCalendar() {
     }
 
     fun sameDay(obj: Any?): Boolean {
-        if (obj == null) {
-            return false
+        if (obj == null) return false
+        if (this === obj) return true
+        if (obj is DateCalendrier) {
+            return get(DAY_OF_YEAR) == obj[DAY_OF_YEAR] && year == obj.year
         }
-        if (this === obj) {
-            return true
-        }
-        if (this.javaClass != obj.javaClass) {
-            return false
-        }
-        val other = obj as DateCalendrier
-        return get(DAY_OF_YEAR) == other[DAY_OF_YEAR] && year == other.year
+        return false
     }
 
 

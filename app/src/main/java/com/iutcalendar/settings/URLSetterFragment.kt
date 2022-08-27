@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.iutcalendar.calendrier.InputStreamFileException
@@ -28,22 +29,28 @@ class URLSetterFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_url_setter, container, false)
         binding = FragmentUrlSetterBinding.bind(view)
 
-        binding.inputURL.setText(DataGlobal.getSavedPath(context))
-        val barcodeLauncher = registerForActivityResult(ScanContract()) { result: ScanIntentResult ->
-            result.contents?.let {
-                binding.inputURL.setText(it)
-            }
-            if (result.contents == null) {
-                Toast.makeText(context, getString(R.string.Error), Toast.LENGTH_SHORT).show()
-            }
-        }
-        binding.scanBtn.setOnClickListener {
-            val options = ScanOptions()
-            options.setOrientationLocked(true)
-            options.setBeepEnabled(false)
-            barcodeLauncher.launch(options)
-        }
         val prevURL = binding.inputURL.text.toString()
+        val prevURLRooms = binding.inputURLRooms.text.toString()
+
+        //Calendrier classique
+        binding.inputURL.let { editText: EditText ->
+            editText.setText(DataGlobal.getSavedPath(context))
+
+            binding.scanBtn.setOnClickListener {
+                scanQR(editText)
+            }
+        }
+        //Calendrier des salles
+        binding.inputURLRooms.let { editText: EditText ->
+            editText.setText(DataGlobal.getSavedRoomsPath(context))
+
+            binding.scanBtn.setOnClickListener {
+                scanQR(editText)
+            }
+        }
+
+
+
         binding.submitBtn.setOnClickListener {
             if (prevURL != binding.inputURL.text.toString()) {
                 FileGlobal.getFileCalendar(context).delete()
@@ -52,16 +59,42 @@ class URLSetterFragment : Fragment() {
                 Thread {
                     try {
                         FileDownload.updateFichier(FileGlobal.getFileCalendar(context).absolutePath, context)
+                        //TODO faire un system de validation
                     } catch (_: InputStreamFileException) {
                     } catch (_: IOException) {
                     }
                 }.start()
             }
+            binding.inputURLRooms.text.toString().let { newPath ->
+                if (prevURLRooms != newPath) {
+                    DataGlobal.saveRoomsPath(context, newPath)
+                }
+            }
             parentFragmentManager.popBackStackImmediate()
         }
+
         binding.cancelBtn.setOnClickListener {
             parentFragmentManager.popBackStackImmediate()
         }
         return view
     }
+
+    private fun scanQR(editText: EditText) {
+        val barcodeLauncher = registerForActivityResult(ScanContract()) { result: ScanIntentResult ->
+            result.contents?.let {
+                editText.setText(it)
+            }
+            if (result.contents == null) {
+                Toast.makeText(context, getString(R.string.Error), Toast.LENGTH_SHORT).show()
+            }
+        }
+
+
+        val options = ScanOptions()
+        options.setOrientationLocked(true)
+        options.setBeepEnabled(false)
+        barcodeLauncher.launch(options)
+    }
 }
+
+

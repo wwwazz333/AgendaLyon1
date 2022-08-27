@@ -54,11 +54,27 @@ object FileDownload {
             if (success) {
                 Log.d("File", "fichier enregistré")
                 val calendrier = Calendrier(FileGlobal.readFile(FileGlobal.getFileCalendar(context)))
-                Alarm.setUpAlarm(context, calendrier)
+                Alarm.setUpAlarm(context, calendrier) //met a jours les alarmes programmé
             }
             return success
         }
         return false
+    }
+
+    @Throws(IOException::class, InputStreamFileException::class)
+    fun downloadRoomsCalendar(context: Context): Calendrier {
+
+        // update du fichier ou création
+        DataGlobal.getSavedRoomsPath(context)?.let { url ->
+            if (url.isEmpty()) {
+                throw WrongURLException()
+            }
+            val inputStream = getCalender(url) ?: throw InputStreamFileException("input stream est null")
+
+            val contentFile = inputStream2String(inputStream)
+            return Calendrier(contentFile)
+        }
+        return Calendrier(mutableListOf())
     }
 
     @Throws(IOException::class)

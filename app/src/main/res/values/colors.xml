@@ -14,6 +14,7 @@
     <color name="headerColorFont">#FF000000</color>
 
     <color name="grey">#1C1E20</color>
+    <color name="shaded">#541C1E20</color>
     <color name="altWhite">#DCEDEDED</color>
 <!--    <color name="redOnePlus">#FFC41442</color>-->
     <color name="redOnePlus">#FFe6174b</color>

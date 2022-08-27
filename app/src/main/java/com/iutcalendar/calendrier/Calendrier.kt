@@ -11,8 +11,9 @@ import java.io.File
 import java.io.IOException
 import java.util.*
 
-class Calendrier : Cloneable {
-    private var events: MutableList<EventCalendrier> = mutableListOf()
+open class Calendrier : Cloneable {
+    var events: MutableList<EventCalendrier> = mutableListOf()
+        private set
 
     constructor(events: MutableList<EventCalendrier>) {
         setEvent(events)
@@ -21,6 +22,7 @@ class Calendrier : Cloneable {
     constructor(txtIcs: String?) {
         loadFromString(txtIcs)
     }
+
 
     val firstDay: DateCalendrier?
         get() = if (events.isEmpty()) null else events[0].date
@@ -83,28 +85,34 @@ class Calendrier : Cloneable {
             return dateDays
         }
 
-    fun getEventsOfDay(date: DateCalendrier?): List<EventCalendrier> {
+    fun getEventsOfDay(date: DateCalendrier): List<EventCalendrier> {
         val eventsOfDay = LinkedList<EventCalendrier>()
-        if (date != null) {
-            for (ev in events) {
-                if (ev.date != null && ev.date!!.day == date.day && ev.date!!.month == date.month && ev.date!!.year == date.year) {
-                    eventsOfDay.add(ev)
-                } else if (ev.date == null) {
-                    Log.e("Event", "ev date is null")
-                }
+        for (ev in events) {
+            if (ev.date != null && ev.date!!.sameDay(date)) {
+                eventsOfDay.add(ev)
+            } else if (ev.date == null) {
+                Log.e("Event", "ev date is null")
             }
-            //            for (EventCalendrier ev : events) {
-//                if (ev.getDate().getDay() == date.getDay() && ev.getDate().getMonth() == date.getMonth() && ev.getDate().getYear() == date.getYear()) {
-//                    eventsOfDay.add(ev);
-//                }
-//            }
-        } else {
-            Log.e("Event", "is null")
         }
         if (events.isEmpty()) {
             Log.e("Event", "is empty")
         }
         return eventsOfDay
+    }
+
+    fun getEventsDuring(date: DateCalendrier): List<EventCalendrier> {
+        val eventsDuring = LinkedList<EventCalendrier>()
+        for (ev in events) {
+            if (ev.date != null && date in ev.date!!..ev.date!!.addTime(ev.dure)) {
+                eventsDuring.add(ev)
+            } else if (ev.date == null) {
+                Log.e("Event", "ev date is null")
+            }
+        }
+        if (events.isEmpty()) {
+            Log.e("Event", "is empty")
+        }
+        return eventsDuring
     }
 
     val lastEvent: EventCalendrier?
@@ -167,14 +175,14 @@ class Calendrier : Cloneable {
         for (event in events) {
             uids.add(event.uid)
         }
-        val it: MutableIterator<String?> = PersonalCalendrier.getInstance(context)!!.keys.iterator()
+        val it: MutableIterator<String?> = PersonalCalendrier.getInstance(context).keys.iterator()
         while (it.hasNext()) {
             val uid = it.next()
             if (!uids.contains(uid)) { //alors on doit supprimer les taches liées à cette UID (vieux UID).
-                PersonalCalendrier.getInstance(context)!!.removeAllLinkedTask(context, uid, it)
+                PersonalCalendrier.getInstance(context).removeAllLinkedTask(context, uid, it)
             }
         }
-        PersonalCalendrier.getInstance(context)!!.save(context)
+        PersonalCalendrier.getInstance(context).save(context)
     }
 
     override fun hashCode(): Int {

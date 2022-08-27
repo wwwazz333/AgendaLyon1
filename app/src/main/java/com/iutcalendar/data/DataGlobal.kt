@@ -6,9 +6,12 @@ import androidx.preference.PreferenceManager
 import java.util.*
 
 object DataGlobal {
-    val DAYS_OF_WEEK = intArrayOf(GregorianCalendar.MONDAY, GregorianCalendar.TUESDAY, GregorianCalendar.WEDNESDAY,
-            GregorianCalendar.THURSDAY, GregorianCalendar.FRIDAY, GregorianCalendar.SATURDAY, GregorianCalendar.SUNDAY)
+    val DAYS_OF_WEEK = intArrayOf(
+        GregorianCalendar.MONDAY, GregorianCalendar.TUESDAY, GregorianCalendar.WEDNESDAY,
+        GregorianCalendar.THURSDAY, GregorianCalendar.FRIDAY, GregorianCalendar.SATURDAY, GregorianCalendar.SUNDAY
+    )
     const val URL = "url_path"
+    const val URL_ROOMS = "url_rooms_path"
     const val LANGUAGE = "language_selected"
     const val THEME = "theme_selected"
     const val THEME_RES_WIDGET = "theme_widget_selected"
@@ -73,6 +76,14 @@ object DataGlobal {
 
     fun getSavedPath(context: Context?): String? {
         return getSavedString(context, URL)
+    }
+
+    fun saveRoomsPath(context: Context?, data: String?) {
+        save(context, URL_ROOMS, data)
+    }
+
+    fun getSavedRoomsPath(context: Context?): String? {
+        return getSavedString(context, URL_ROOMS)
     }
 
     fun getActivatedDays(context: Context?): List<Int> {
