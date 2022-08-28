@@ -17,7 +17,7 @@ object DialogMessage {
         alertDialog.show()
     }
 
-    fun showInfo(context: Context?, title: String?, msg: String?, onOkListener: () -> Unit) {
+    fun showInfo(context: Context?, title: String?, msg: String?, onOkListener: () -> Unit = {}) {
         val alertDialog = AlertDialog.Builder(context)
         alertDialog.setTitle(title)
         alertDialog.setMessage(msg)

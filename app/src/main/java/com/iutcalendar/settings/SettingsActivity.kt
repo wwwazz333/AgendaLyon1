@@ -108,31 +108,42 @@ class SettingsActivity : AppCompatActivity(),
 
     class SettingsFragment : PreferenceFragmentCompat() {
 
+        var askedToDrawOverLays = false
+        override fun onResume() {
+            super.onResume()
+            if (askedToDrawOverLays && Settings.canDrawOverlays(requireContext())) {
+                DataGlobal.save(requireContext(), "alarme_enable", true)
+                reloadActivity()
+            }
+            askedToDrawOverLays = false
+        }
+
         private var switchComplex: SwitchPreference? = null
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey)
             setToggleComplexAlarm()
-            if (activity != null) {
-                initSeekBar()
 
-                initAlarmActivation()
-                if (activity is SettingsActivity) {
-                    val settingsActivity = activity as SettingsActivity?
-                    //Switch fragment
-                    settingsActivity?.let { setOnClickFragment() }
-                }
+            initSeekBar()
+
+            initAlarmActivation()
+            if (requireActivity() is SettingsActivity) {
+                val settingsActivity = requireActivity() as SettingsActivity?
+                //Switch fragment
+                settingsActivity?.let { setOnClickFragment() }
             }
         }
 
         private fun initAlarmActivation() {
+
             findPreference<Preference>("alarme_enable")!!.onPreferenceChangeListener =
                 Preference.OnPreferenceChangeListener { _: Preference?, newValue: Any ->
-                    if (!Settings.canDrawOverlays(context) && newValue as Boolean) {
+                    if (!Settings.canDrawOverlays(requireContext()) && newValue as Boolean) {
                         DialogMessage.showInfo(
-                            activity,
+                            requireActivity(),
                             "Overlays",
                             requireContext().getString(R.string.msg_activ_overlay)
                         ) {
+                            askedToDrawOverLays = true
                             val intent = Intent(
                                 Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
                                 Uri.parse("package:" + requireActivity().packageName)
@@ -140,7 +151,7 @@ class SettingsActivity : AppCompatActivity(),
                             startActivity(intent)
                         }
                     }
-                    Settings.canDrawOverlays(context)
+                    return@OnPreferenceChangeListener Settings.canDrawOverlays(requireContext()) || !(newValue as Boolean)
                 }
         }
 
