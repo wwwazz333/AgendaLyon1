@@ -35,9 +35,7 @@ class Alarm : BroadcastReceiver() {
                     //Sound
                     startRingtone(context)
 
-
                     //Vibration
-
                     startVibration(context)
 
                     //Notification
@@ -93,7 +91,7 @@ class Alarm : BroadcastReceiver() {
     }
 
     private fun startRingtone(context: Context) {
-        ring = RingtoneManager.getRingtone(context, Settings.System.DEFAULT_ALARM_ALERT_URI)
+        ring = RingtoneManager.getRingtone(context, ringtoneMusic)
         val alarmVolume = AudioAttributes.Builder()
             .setUsage(AudioAttributes.USAGE_ALARM)
             .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
@@ -110,10 +108,8 @@ class Alarm : BroadcastReceiver() {
     }
 
     private fun stopRingtone() {
-        if (ring != null) {
-            ring!!.stop()
-            ring = null
-        }
+        ring?.stop()
+        ring = null
     }
 
     private fun startVibration(context: Context) {
@@ -132,6 +128,7 @@ class Alarm : BroadcastReceiver() {
         const val STOP = 1
         const val START = 2
         const val CANCEL_SNOOZE = 3
+        private var ringtoneMusic = Settings.System.DEFAULT_ALARM_ALERT_URI
         private var ring: Ringtone? = null
 
         /**

@@ -1,10 +1,10 @@
 package com.iutcalendar.settings
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -22,33 +22,27 @@ import java.io.IOException
 class URLSetterFragment : Fragment() {
     private lateinit var binding: FragmentUrlSetterBinding
 
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_url_setter, container, false)
-        binding = FragmentUrlSetterBinding.bind(view)
+    private val optionsScanner = ScanOptions().apply {
+        setOrientationLocked(true)
+        setBeepEnabled(false)
+    }
 
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         //Calendrier classique
         binding.inputURL.let { editText: EditText ->
             editText.setText(DataGlobal.getSavedPath(requireContext()))
-
-            binding.scanBtn.setOnClickListener {
-                scanQR(editText)
-            }
+            scanQR(binding.scanBtn, editText)
         }
+        val prevURL = binding.inputURL.text.toString()
+
         //Calendrier des salles
         binding.inputURLRooms.let { editText: EditText ->
             editText.setText(DataGlobal.getSavedRoomsPath(requireContext()))
-
-            binding.scanBtn.setOnClickListener {
-                scanQR(editText)
-            }
+            scanQR(binding.scanRoomsBtn, editText)
         }
-        val prevURL = binding.inputURL.text.toString()
         val prevURLRooms = binding.inputURLRooms.text.toString()
 
 
@@ -78,10 +72,17 @@ class URLSetterFragment : Fragment() {
         binding.cancelBtn.setOnClickListener {
             parentFragmentManager.popBackStackImmediate()
         }
-        return view
     }
 
-    private fun scanQR(editText: EditText) {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentUrlSetterBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    private fun scanQR(button: Button, editText: EditText) {
         val barcodeLauncher = registerForActivityResult(ScanContract()) { result: ScanIntentResult ->
             result.contents?.let {
                 editText.setText(it)
@@ -91,11 +92,9 @@ class URLSetterFragment : Fragment() {
             }
         }
 
-
-        val options = ScanOptions()
-        options.setOrientationLocked(true)
-        options.setBeepEnabled(false)
-        barcodeLauncher.launch(options)
+        button.setOnClickListener {
+            barcodeLauncher.launch(optionsScanner)
+        }
     }
 }
 
