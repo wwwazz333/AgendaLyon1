@@ -4,6 +4,8 @@ import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.graphics.Color
+import com.iutcalendar.calendrier.DateCalendrier
+import com.iutcalendar.data.DataGlobal
 import com.iutcalendar.notification.NotificationChannels
 import com.iutcalendar.settings.SettingsApp
 import com.univlyon1.tools.agenda.R
@@ -14,6 +16,10 @@ class StartApplication : Application() {
         super.onCreate()
         createNotificationChannels()
         SettingsApp.adapteTheme(applicationContext)
+    }
+
+    private fun initDateOffset() {
+        DateCalendrier.zoneOffset = DataGlobal.getSavedString(applicationContext, "offset_time") ?: DateCalendrier.zoneOffset
     }
 
 

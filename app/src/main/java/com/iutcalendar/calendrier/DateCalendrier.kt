@@ -1,7 +1,6 @@
 package com.iutcalendar.calendrier
 
 import java.time.ZoneId
-import java.time.ZoneOffset
 import java.time.ZonedDateTime
 import java.time.temporal.ChronoField
 import java.util.*
@@ -42,7 +41,6 @@ open class DateCalendrier() : GregorianCalendar() {
      * par la suite toutes les dates aurons le bon décalage.
      */
     fun doZoneOffset() {
-        //FIXME zone offset if pas que pour france ?
         val offset = ZonedDateTime.of(
             year,
             month,
@@ -51,7 +49,7 @@ open class DateCalendrier() : GregorianCalendar() {
             minute,
             0,
             0,
-            ZoneId.of("Europe/Paris")
+            ZoneId.of(zoneOffset)
         )[ChronoField.OFFSET_SECONDS]
         hour += offset / 3600
     }
@@ -161,6 +159,8 @@ open class DateCalendrier() : GregorianCalendar() {
     }
 
     companion object {
+        var zoneOffset = "Europe/Paris"
+
         fun fillWithZeroBefore(n: Int): String {
             var s = n.toString()
             if (s.length < 2) {

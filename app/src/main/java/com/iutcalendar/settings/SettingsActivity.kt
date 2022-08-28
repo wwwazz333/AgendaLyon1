@@ -126,6 +126,8 @@ class SettingsActivity : AppCompatActivity(),
             initSeekBar()
 
             initAlarmActivation()
+
+
             if (requireActivity() is SettingsActivity) {
                 val settingsActivity = requireActivity() as SettingsActivity?
                 //Switch fragment

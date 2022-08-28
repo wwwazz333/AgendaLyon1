@@ -52,6 +52,7 @@
             android:summary="@string/themeWidgetLabelSettings"
             android:title="@string/WidgetTheme" />
 
+
     </PreferenceCategory>
     <PreferenceCategory
         android:icon="@drawable/ic_alarm"
@@ -87,11 +88,11 @@
             android:defaultValue="60"
             android:dependency="alarme_enable"
             android:key="time_before_ring"
+            android:max="300"
             android:summary="@string/HoraireSonnerieDescription"
             android:title="@string/HoraireSonnerie"
-            android:max="300"
             app:min="5"
-            app:showSeekBarValue="true"/>
+            app:showSeekBarValue="true" />
 
         <MultiSelectListPreference
             android:defaultValue="@array/default_days"
