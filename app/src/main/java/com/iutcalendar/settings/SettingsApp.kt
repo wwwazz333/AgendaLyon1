@@ -77,7 +77,7 @@ object SettingsApp {
     }
 
     @LayoutRes
-    fun getLayoutResWidget(context: Context?): Int {
+    fun getLayoutResWidget(context: Context): Int {
         val t = DataGlobal.getThemeResWidget(context)
         Log.d("Widget", "Theme : $t")
         return when (t) {

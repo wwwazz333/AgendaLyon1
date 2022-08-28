@@ -16,7 +16,9 @@ import com.univlyon1.tools.agenda.databinding.FragmentDisplayRoomFreeBinding
 class DisplayRoomFreeFragment : Fragment() {
     private lateinit var binding: FragmentDisplayRoomFreeBinding
 
-    var dateRecherche: DateCalendrier? = null
+    private lateinit var dateRecherche: DateCalendrier
+    
+    //TODO msg aide pr prevenire que peux pas détecter les salles jamais occupé
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,18 +30,13 @@ class DisplayRoomFreeFragment : Fragment() {
         arguments?.getLong("timeInMillis")?.let {
             dateRecherche = DateCalendrier().apply { timeInMillis = it }
             Log.d("SearchRoom", "time is $it -> $dateRecherche")
-        }
 
-        dateRecherche?.let { date ->
-            ArrayAdapter(
+            binding.listView.adapter = ArrayAdapter(
                 requireContext(),
                 android.R.layout.simple_list_item_1, android.R.id.text1,
-                SearchCalendrier.freeRoomAt(date)
-            ).let { adapter ->
-                binding.listView.adapter = adapter
-            }
+                SearchCalendrier.freeRoomAt(dateRecherche)
+            )
         }
-
         return view
     }
 }

@@ -23,71 +23,71 @@ object DataGlobal {
     const val NOTIFICATION_ENABLED = "notification_enabled"
     const val NOMBRE_CHANGE_TO_DISPLAY = "nombre_change_to_display"
     const val DEBUGGING = "debugging"
-    fun getTheme(context: Context?): String? {
-        return PreferenceManager.getDefaultSharedPreferences(context!!).getString(THEME, "default")
+    fun getTheme(context: Context): String? {
+        return PreferenceManager.getDefaultSharedPreferences(context).getString(THEME, "default")
     }
 
-    fun getThemeResWidget(context: Context?): String? {
-        return PreferenceManager.getDefaultSharedPreferences(context!!).getString(THEME_RES_WIDGET, "grey")
+    fun getThemeResWidget(context: Context): String? {
+        return PreferenceManager.getDefaultSharedPreferences(context).getString(THEME_RES_WIDGET, "grey")
     }
 
-    fun getLanguage(context: Context?): String? {
-        return PreferenceManager.getDefaultSharedPreferences(context!!).getString(LANGUAGE, "fr")
+    fun getLanguage(context: Context): String? {
+        return PreferenceManager.getDefaultSharedPreferences(context).getString(LANGUAGE, "fr")
     }
 
     //String
-    fun save(context: Context?, key: String?, data: String?) {
-        PreferenceManager.getDefaultSharedPreferences(context!!).edit().putString(key, data).commit()
+    fun save(context: Context, key: String?, data: String?) {
+        PreferenceManager.getDefaultSharedPreferences(context).edit().putString(key, data).commit()
     }
 
-    fun getSavedString(context: Context?, key: String?): String? {
-        return PreferenceManager.getDefaultSharedPreferences(context!!).getString(key, "")
-    }
-
-    //boolean
-    fun save(context: Context?, key: String?, data: Boolean) {
-        PreferenceManager.getDefaultSharedPreferences(context!!).edit().putBoolean(key, data).commit()
-    }
-
-    fun getSavedBoolean(context: Context?, key: String?): Boolean {
-        return PreferenceManager.getDefaultSharedPreferences(context!!).getBoolean(key, false)
-    }
-
-    fun setDebugging(context: Context?, data: Boolean) {
-        PreferenceManager.getDefaultSharedPreferences(context!!).edit().putBoolean(DEBUGGING, data).commit()
-    }
-
-    fun isDebug(context: Context?): Boolean {
-        return PreferenceManager.getDefaultSharedPreferences(context!!).getBoolean(DEBUGGING, false)
+    fun getSavedString(context: Context, key: String?): String? {
+        return PreferenceManager.getDefaultSharedPreferences(context).getString(key, "")
     }
 
     //boolean
-    fun save(context: Context?, key: String?, data: Int) {
-        PreferenceManager.getDefaultSharedPreferences(context!!).edit().putInt(key, data).commit()
+    fun save(context: Context, key: String?, data: Boolean) {
+        PreferenceManager.getDefaultSharedPreferences(context).edit().putBoolean(key, data).commit()
     }
 
-    fun getSavedInt(context: Context?, key: String?): Int {
-        return PreferenceManager.getDefaultSharedPreferences(context!!).getInt(key, 0)
+    fun getSavedBoolean(context: Context, key: String?): Boolean {
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(key, false)
     }
 
-    fun savePath(context: Context?, data: String?) {
+    fun setDebugging(context: Context, data: Boolean) {
+        PreferenceManager.getDefaultSharedPreferences(context).edit().putBoolean(DEBUGGING, data).commit()
+    }
+
+    fun isDebug(context: Context): Boolean {
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(DEBUGGING, false)
+    }
+
+    //boolean
+    fun save(context: Context, key: String?, data: Int) {
+        PreferenceManager.getDefaultSharedPreferences(context).edit().putInt(key, data).commit()
+    }
+
+    fun getSavedInt(context: Context, key: String?): Int {
+        return PreferenceManager.getDefaultSharedPreferences(context).getInt(key, 0)
+    }
+
+    fun savePath(context: Context, data: String?) {
         save(context, URL, data)
     }
 
-    fun getSavedPath(context: Context?): String? {
+    fun getSavedPath(context: Context): String? {
         return getSavedString(context, URL)
     }
 
-    fun saveRoomsPath(context: Context?, data: String?) {
+    fun saveRoomsPath(context: Context, data: String?) {
         save(context, URL_ROOMS, data)
     }
 
-    fun getSavedRoomsPath(context: Context?): String? {
+    fun getSavedRoomsPath(context: Context): String? {
         return getSavedString(context, URL_ROOMS)
     }
 
-    fun getActivatedDays(context: Context?): List<Int> {
-        val activatedSet = PreferenceManager.getDefaultSharedPreferences(context!!).getStringSet(ACTIVATED_DAYS, ArraySet())
+    fun getActivatedDays(context: Context): List<Int> {
+        val activatedSet = PreferenceManager.getDefaultSharedPreferences(context).getStringSet(ACTIVATED_DAYS, ArraySet())
         val activatedDays: MutableList<Int> = LinkedList()
         for (day in activatedSet!!) {
             var dayToAdd = -1

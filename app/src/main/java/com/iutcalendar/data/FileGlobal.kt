@@ -143,7 +143,7 @@ object FileGlobal {
         return readingObject
     }
 
-    fun updateAndGetChange(context: Context?, calendrier: Calendrier?, onChangeListener: (Context?, Intent?) -> Unit) {
+    fun updateAndGetChange(context: Context, calendrier: Calendrier?, onChangeListener: (Context, Intent?) -> Unit) {
         try {
             val prev: Calendrier = calendrier?.clone() ?: Calendrier(readFile(getFileCalendar(context)))
             FileDownload.updateFichier(getFileCalendar(context).absolutePath, context)

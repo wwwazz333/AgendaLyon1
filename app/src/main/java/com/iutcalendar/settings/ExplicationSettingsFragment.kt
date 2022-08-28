@@ -49,8 +49,8 @@ class ExplicationSettingsFragment : Fragment() {
                 elapsedTimeLastClick = 0
                 countClick = 0
                 lastTimeClick = 0
-                DataGlobal.setDebugging(context, !DataGlobal.isDebug(context))
-                if (DataGlobal.isDebug(context)) {
+                DataGlobal.setDebugging(requireContext(), !DataGlobal.isDebug(requireContext()))
+                if (DataGlobal.isDebug(requireContext())) {
                     Toast.makeText(context, "Activation Debugging", Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(context, "Désactivation Debugging", Toast.LENGTH_SHORT).show()

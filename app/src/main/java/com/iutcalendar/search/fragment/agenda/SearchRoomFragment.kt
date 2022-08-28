@@ -1,7 +1,7 @@
 package com.iutcalendar.search.fragment.agenda
 
+import android.app.AlertDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +12,8 @@ import androidx.navigation.Navigation
 import com.iutcalendar.calendrier.CurrentDate
 import com.iutcalendar.calendrier.DateCalendrier
 import com.iutcalendar.calendrier.SearchCalendrier
+import com.iutcalendar.data.DataGlobal
+import com.iutcalendar.dialog.DialogMessage
 import com.iutcalendar.settings.SettingsApp
 import com.univlyon1.tools.agenda.R
 import com.univlyon1.tools.agenda.databinding.FragmentSearchRoomBinding
@@ -31,26 +33,35 @@ class SearchRoomFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         return inflater.inflate(R.layout.fragment_search_room, container, false).also { view ->
             binding = FragmentSearchRoomBinding.bind(view)
+            DataGlobal.getSavedRoomsPath(requireContext()).let { path ->
+
+                if (path.isNullOrBlank()) {
+                    DialogMessage.showWarning(
+                        context, "Pas d'URL", "vous n'avez pas rentré l'URL pour les salles.\n" +
+                                "Veuillez le faire"
+                    ) {
+
+                    }
+                } else {
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        SearchCalendrier.loadCalendrierRoom(requireContext())
+                        withContext(Dispatchers.Main) {
+                            binding.blockClickView.visibility = View.INVISIBLE
+                            binding.progressBar.visibility = View.INVISIBLE
+                        }
+                    }
 
 
-            lifecycleScope.launch(Dispatchers.IO) {
-                SearchCalendrier.loadCalendrierRoom(requireContext())
-                withContext(Dispatchers.Main) {
-                    binding.blockClickView.visibility = View.INVISIBLE
-                    binding.progressBar.visibility = View.INVISIBLE
+
+                    resetValues()
+                    binding.resetBtn.setOnClickListener { resetValues() }
+                    binding.searchBtn.setOnClickListener {
+                        val bundle = bundleOf("timeInMillis" to dateSelected.timeInMillis)
+                        Navigation.findNavController(view).navigate(R.id.goToDisplay, bundle)
+                    }
                 }
-            }
-
-
-
-            resetValues()
-            binding.resetBtn.setOnClickListener { resetValues() }
-            binding.searchBtn.setOnClickListener {
-                val bundle = bundleOf("timeInMillis" to dateSelected.timeInMillis)
-                Navigation.findNavController(view).navigate(R.id.goToDisplay, bundle)
             }
         }
     }

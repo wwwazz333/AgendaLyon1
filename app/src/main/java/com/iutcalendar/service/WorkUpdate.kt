@@ -36,7 +36,7 @@ class WorkUpdate(context: Context, workerParams: WorkerParameters) : Worker(cont
     }
 
     private fun updateFile(cxt: Context) {
-        FileGlobal.updateAndGetChange(cxt, null) { context: Context?, intent: Intent? ->
+        FileGlobal.updateAndGetChange(cxt, null) { context: Context, intent: Intent? ->
             val pendingIntent = PendingIntent.getActivity(
                 context,
                 0,

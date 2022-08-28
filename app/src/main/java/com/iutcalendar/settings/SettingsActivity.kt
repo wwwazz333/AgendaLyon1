@@ -195,7 +195,7 @@ class SettingsActivity : AppCompatActivity(),
             findPreference<Preference>(DataGlobal.LANGUAGE)?.let {
                 it.onPreferenceChangeListener =
                     Preference.OnPreferenceChangeListener { _: Preference?, newValue: Any ->
-                        DataGlobal.save(context, DataGlobal.LANGUAGE, newValue.toString())
+                        DataGlobal.save(requireContext(), DataGlobal.LANGUAGE, newValue.toString())
                         reloadActivity()
                         true
                     }

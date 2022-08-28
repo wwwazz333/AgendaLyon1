@@ -40,7 +40,7 @@ object FileDownload {
     }
 
     @Throws(IOException::class, InputStreamFileException::class)
-    fun updateFichier(file_path: String?, context: Context?): Boolean {
+    fun updateFichier(file_path: String?, context: Context): Boolean {
 
         // update du fichier ou création
         DataGlobal.getSavedPath(context)?.let { url ->

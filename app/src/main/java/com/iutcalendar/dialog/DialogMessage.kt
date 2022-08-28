@@ -6,14 +6,14 @@ import android.content.DialogInterface
 import com.univlyon1.tools.agenda.R
 
 object DialogMessage {
-    fun showWarning(context: Context?, title: String?, msg: String?) {
+    fun showWarning(context: Context?, title: String?, msg: String?, onPositiveButton: () -> Unit = { }) {
         val alertDialog = AlertDialog.Builder(context)
         alertDialog.setTitle(title)
         alertDialog.setMessage(msg)
         alertDialog.setIcon(R.drawable.ic_error)
         alertDialog.setPositiveButton(
             context!!.getString(R.string.ok)
-        ) { dialog: DialogInterface, _: Int -> dialog.dismiss() }
+        ) { dialog: DialogInterface, _: Int -> onPositiveButton(); dialog.dismiss() }
         alertDialog.show()
     }
 
