@@ -17,8 +17,6 @@ class DisplayRoomFreeFragment : Fragment() {
     private lateinit var binding: FragmentDisplayRoomFreeBinding
 
     private lateinit var dateRecherche: DateCalendrier
-    
-    //TODO msg aide pr prevenire que peux pas détecter les salles jamais occupé
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

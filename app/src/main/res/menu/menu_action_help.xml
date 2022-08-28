@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/aideBtn"
+        android:contentDescription="@string/bouton_d_aide"
+        android:icon="@drawable/ic_help"
+        android:title=""
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/overflowMenu"
+        android:icon="@drawable/ic_menu"
+        android:title=""
+        app:showAsAction="always"
+        android:contentDescription="@string/MenuNav">
+        <menu>
+            <item
+                android:id="@+id/calendrier"
+                android:icon="@drawable/ic_calendar"
+                android:title="@string/Calendar"
+                android:contentDescription="@string/go_to_page_Calendar"/>
+
+
+            <item
+                android:id="@+id/search"
+                android:icon="@drawable/ic_search"
+                android:title="@string/Search_room_title"
+                android:contentDescription="@string/go_to_page_Search"/>
+
+
+            <item
+                android:id="@+id/history"
+                android:icon="@drawable/ic_history"
+                android:title="@string/History"
+                android:contentDescription="@string/go_to_page_History"/>
+            <item
+                android:id="@+id/settings"
+                android:icon="@drawable/ic_settings_ico"
+                android:title="@string/Settings"
+                android:contentDescription="@string/go_to_page_Settings"/>
+        </menu>
+    </item>
+</menu>

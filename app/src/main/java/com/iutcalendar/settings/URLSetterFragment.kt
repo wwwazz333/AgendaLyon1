@@ -61,7 +61,7 @@ class URLSetterFragment : Fragment() {
                 Thread {
                     try {
                         FileDownload.updateFichier(FileGlobal.getFileCalendar(context).absolutePath, requireContext())
-                        //TODO faire un system de validation
+                        //TODO faire un system de validation d'url
                     } catch (_: InputStreamFileException) {
                     } catch (_: IOException) {
                     }

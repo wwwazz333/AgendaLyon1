@@ -85,11 +85,11 @@
     <string name="And">Et</string>
     <string name="RingHour">Heure Sonnerie</string>
     <string name="aide_conditon_alarm">
-        "Une alarm sera placé pour chaques CONDITION respecter.
+"Une alarm sera placé pour chaques CONDITION respecter.
 
-        Une CONDITION possède un intérvale dont les valeurs (inférieur ET supérieur) sont comprises.
+Une CONDITION possède un intérvale dont les valeurs (inférieur ET supérieur) sont comprises.
 
-        Ainsi qu'un horaire qui correspond à l'heure à l'aquelle l'alarme va sonner."
+Ainsi qu'un horaire qui correspond à l'heure à l'aquelle l'alarme va sonner."
     </string>
     <string name="must_contain">Doit contenir</string>
     <string name="must_not_contain">Ne doit pas contenir</string>
@@ -176,7 +176,7 @@
     <string name="Back_app">Fond de l\'application</string>
     <string name="Wrong_URL">Mauvais URL</string>
     <string name="No_connexion">Pas de connexion</string>
-    <string name="Search">Recherche un salle (Beta)</string>
+    <string name="Search_room_title">Recherché un salle (Beta)</string>
     <string name="go_to_page_Search">Allez à la page Recherche de salle</string>
     <string name="Error">Erreur</string>
     <string name="change_in_schedul">Il y a des changements dans votre emploi du temps</string>
@@ -196,5 +196,8 @@
     <string name="url_des_salles">URL des salles</string>
     <string name="les_salles_libres">Les salles libres</string>
     <string name="No_room_free">Aucune salle disponible</string>
+    <string name="help_search_room">Cette section vous permet de rechercher une salle libre à un certain horaire.\n\nCependant, les salles qui ne sont jamais occupées ne pourront pas être détectées en tant que salle de l\'établissement. Donc elle ne s\'affichera pas dans la liste des salles libres.</string>
+    <string name="Search">Rechercher</string>
+    <string name="reset" translatable="false">Reset</string>
 
 </resources>

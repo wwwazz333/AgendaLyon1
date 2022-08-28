@@ -14,8 +14,6 @@ import com.univlyon1.tools.agenda.R
 class MenuItemClickActivities(private val context: Context) : MenuItem.OnMenuItemClickListener, PopupMenu.OnMenuItemClickListener {
     private val activity: Activity = context as Activity
 
-    //TODO optimize transition
-
     override fun onMenuItemClick(item: MenuItem): Boolean {
         val activityToLaunch: Class<*> = when (item.itemId) {
             R.id.calendrier -> PageEventActivity::class.java

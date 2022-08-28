@@ -26,7 +26,6 @@ import java.util.*
 
 class SearchRoomFragment : Fragment() {
     private lateinit var binding: FragmentSearchRoomBinding
-    //TODO check if url rooms
 
     private var dateSelected = DateCalendrier()
 
