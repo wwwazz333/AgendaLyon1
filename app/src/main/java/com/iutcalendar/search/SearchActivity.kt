@@ -1,11 +1,9 @@
 package com.iutcalendar.search
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import com.iutcalendar.mainpage.PageEventActivity
 import com.iutcalendar.menu.MenuItemClickActivities
 import com.univlyon1.tools.agenda.R
 
@@ -29,9 +27,9 @@ class SearchActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        val intent = Intent(this, PageEventActivity::class.java)
-        startActivity(intent)
-    }
+    //    override fun onBackPressed() {
+//        super.onBackPressed()
+//        val intent = Intent(this, PageEventActivity::class.java)
+//        startActivity(intent)
+//    }
 }

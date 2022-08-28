@@ -105,11 +105,6 @@ class SettingsActivity : AppCompatActivity(),
         return false
     }
 
-    override fun onBackPressed() {
-        if (getFragment is SettingsFragment) goBackToCalendar()
-        else super.onBackPressed()
-    }
-
 
     class SettingsFragment : PreferenceFragmentCompat() {
 

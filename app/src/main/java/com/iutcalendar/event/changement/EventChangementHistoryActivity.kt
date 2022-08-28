@@ -1,12 +1,10 @@
 package com.iutcalendar.event.changement
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.iutcalendar.data.DataGlobal
-import com.iutcalendar.mainpage.PageEventActivity
 import com.iutcalendar.menu.MenuItemClickActivities
 import com.iutcalendar.settings.SettingsApp
 import com.univlyon1.tools.agenda.R
@@ -30,11 +28,5 @@ class EventChangementHistoryActivity : AppCompatActivity() {
         val inflater = menuInflater
         inflater.inflate(R.menu.menu_activities, menu)
         return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onBackPressed() {
-        super.onBackPressed()
-        val intent = Intent(this, PageEventActivity::class.java)
-        startActivity(intent)
     }
 }

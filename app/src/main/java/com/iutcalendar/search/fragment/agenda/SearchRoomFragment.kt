@@ -1,6 +1,5 @@
 package com.iutcalendar.search.fragment.agenda
 
-import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +13,9 @@ import com.iutcalendar.calendrier.DateCalendrier
 import com.iutcalendar.calendrier.SearchCalendrier
 import com.iutcalendar.data.DataGlobal
 import com.iutcalendar.dialog.DialogMessage
+import com.iutcalendar.fragment.NavigatorManager
 import com.iutcalendar.settings.SettingsApp
+import com.iutcalendar.settings.URLSetterFragment
 import com.univlyon1.tools.agenda.R
 import com.univlyon1.tools.agenda.databinding.FragmentSearchRoomBinding
 import kotlinx.coroutines.Dispatchers
@@ -42,7 +43,7 @@ class SearchRoomFragment : Fragment() {
                         context, "Pas d'URL", "vous n'avez pas rentré l'URL pour les salles.\n" +
                                 "Veuillez le faire"
                     ) {
-
+                        NavigatorManager.startFragmentFromFragment(this, URLSetterFragment())
                     }
                 } else {
                     lifecycleScope.launch(Dispatchers.IO) {

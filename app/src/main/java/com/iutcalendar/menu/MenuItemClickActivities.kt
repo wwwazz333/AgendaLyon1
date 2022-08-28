@@ -17,15 +17,19 @@ class MenuItemClickActivities(private val context: Context) : MenuItem.OnMenuIte
     //TODO optimize transition
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
-        val intent: Intent = when (item.itemId) {
-            R.id.calendrier -> Intent(context, PageEventActivity::class.java)
-            R.id.settings -> Intent(context, SettingsActivity::class.java)
-            R.id.history -> Intent(context, EventChangementHistoryActivity::class.java)
-            R.id.search -> Intent(context, SearchActivity::class.java)
+        val activityToLaunch: Class<*> = when (item.itemId) {
+            R.id.calendrier -> PageEventActivity::class.java
+            R.id.settings -> SettingsActivity::class.java
+            R.id.history -> EventChangementHistoryActivity::class.java
+            R.id.search -> SearchActivity::class.java
             else -> return false
         }
-        context.startActivity(intent)
-        activity.finish()
+
+        context.startActivity(Intent(context, activityToLaunch))
+        if (activity !is PageEventActivity || activityToLaunch == PageEventActivity::class.java) {
+            activity.finish()
+        }
+
         return true
     }
 }

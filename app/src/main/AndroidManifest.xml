@@ -39,11 +39,14 @@
         <activity
             android:name="com.iutcalendar.search.SearchActivity"
             android:exported="true"
+            android:hardwareAccelerated="false"
+            android:parentActivityName="com.iutcalendar.mainpage.PageEventActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.iutcalendar.event.changement.EventChangementHistoryActivity"
             android:exported="true"
             android:hardwareAccelerated="false"
+            android:parentActivityName="com.iutcalendar.mainpage.PageEventActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.iutcalendar.alarm.AlarmRingActivity"
@@ -69,7 +72,7 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/widget_calendar_info" />
         </receiver>
-        <receiver android:name="com.iutcalendar.alarm.Alarm"></receiver>
+        <receiver android:name="com.iutcalendar.alarm.Alarm" />
 
 
         <meta-data
