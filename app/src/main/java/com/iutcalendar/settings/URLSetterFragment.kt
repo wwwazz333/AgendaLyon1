@@ -8,16 +8,19 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.iutcalendar.calendrier.InputStreamFileException
+import androidx.lifecycle.lifecycleScope
 import com.iutcalendar.data.DataGlobal
 import com.iutcalendar.data.FileGlobal
+import com.iutcalendar.dialog.DialogMessage
 import com.iutcalendar.filedownload.FileDownload
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanIntentResult
 import com.journeyapps.barcodescanner.ScanOptions
 import com.univlyon1.tools.agenda.R
 import com.univlyon1.tools.agenda.databinding.FragmentUrlSetterBinding
-import java.io.IOException
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class URLSetterFragment : Fragment() {
     private lateinit var binding: FragmentUrlSetterBinding
@@ -48,25 +51,53 @@ class URLSetterFragment : Fragment() {
 
 
         binding.submitBtn.setOnClickListener {
-            if (prevURL != binding.inputURL.text.toString()) {
-                FileGlobal.getFileCalendar(requireContext()).delete()
-                FileGlobal.getFile(requireContext(), FileGlobal.CHANGEMENT_EVENT).delete()
-                DataGlobal.savePath(requireContext(), binding.inputURL.text.toString())
-                Thread {
-                    try {
-                        FileDownload.updateFichier(FileGlobal.getFileCalendar(context).absolutePath, requireContext())
-                        //TODO faire un system de validation d'url
-                    } catch (_: InputStreamFileException) {
-                    } catch (_: IOException) {
+            lifecycleScope.launch(Dispatchers.IO) {
+                withContext(Dispatchers.Main) { loading(true) }
+                var succes = true
+                binding.inputURL.text.toString().let { newPath ->
+                    if (newPath.isNotEmpty() && !FileDownload.isValideURL(newPath)) {
+                        succes = false
+                        withContext(Dispatchers.Main) {
+                            DialogMessage.showWarning(
+                                requireContext(), getString(R.string.url_invalide), getString(R.string.url_invalide_msg)
+                            ) {
+                                loading(false)
+                            }
+                        }
+                    } else if (prevURL != newPath) {
+                        FileGlobal.getFileCalendar(requireContext()).delete()
+                        FileGlobal.getFile(requireContext(), FileGlobal.CHANGEMENT_EVENT).delete()
+                        DataGlobal.savePath(requireContext(), newPath)
+
+                        try {
+                            FileDownload.updateFichier(FileGlobal.getFileCalendar(requireContext()).absolutePath, requireContext())
+                        } catch (exception: Exception) {
+                        }
                     }
-                }.start()
-            }
-            binding.inputURLRooms.text.toString().let { newPath ->
-                if (prevURLRooms != newPath) {
-                    DataGlobal.saveRoomsPath(requireContext(), newPath)
+                }
+                binding.inputURLRooms.text.toString().let { newPath ->
+
+                    if (newPath.isNotEmpty() && !FileDownload.isValideURL(newPath)) {
+                        succes = false
+                        withContext(Dispatchers.Main) {
+                            DialogMessage.showWarning(
+                                requireContext(), getString(R.string.url_rooms_invalide), getString(R.string.url_rooms_invalide_msg)
+                            ) {
+                                loading(false)
+                            }
+                        }
+                    } else if (prevURLRooms != newPath) {
+                        DataGlobal.saveRoomsPath(requireContext(), newPath)
+                    }
+                }
+
+                withContext(Dispatchers.Main) {
+                    if (succes) {
+                        parentFragmentManager.popBackStackImmediate()
+                        loading(false)
+                    }
                 }
             }
-            parentFragmentManager.popBackStackImmediate()
         }
 
         binding.cancelBtn.setOnClickListener {
@@ -82,6 +113,7 @@ class URLSetterFragment : Fragment() {
         return binding.root
     }
 
+
     private fun scanQR(button: Button, editText: EditText) {
         val barcodeLauncher = registerForActivityResult(ScanContract()) { result: ScanIntentResult ->
             result.contents?.let {
@@ -94,6 +126,16 @@ class URLSetterFragment : Fragment() {
 
         button.setOnClickListener {
             barcodeLauncher.launch(optionsScanner)
+        }
+    }
+
+    private fun loading(state: Boolean) {
+        if (state) {
+            binding.blockClickView.visibility = View.VISIBLE
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.blockClickView.visibility = View.INVISIBLE
+            binding.progressBar.visibility = View.INVISIBLE
         }
     }
 }

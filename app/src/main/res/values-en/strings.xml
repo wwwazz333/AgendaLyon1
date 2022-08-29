@@ -172,4 +172,8 @@ As well as a time which corresponds to the hour at which the alarm will sound."<
     <string name="Search">Search</string>
     <string name="choose_ringtone">Choose your ringtone</string>
     <string name="Ringtone">Ringtone</string>
+    <string name="url_rooms_invalide_msg">The URL you entered for the rooms is invalid.\nPlease enter a valid URL.</string>
+    <string name="url_rooms_invalide">Invalid Room URL</string>
+    <string name="url_invalide">invalid URL</string>
+    <string name="url_invalide_msg">The URL you entered is invalid.\nPlease enter a valid URL.</string>
 </resources>

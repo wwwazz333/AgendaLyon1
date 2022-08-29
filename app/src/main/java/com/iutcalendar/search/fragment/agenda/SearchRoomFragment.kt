@@ -13,6 +13,7 @@ import com.iutcalendar.calendrier.DateCalendrier
 import com.iutcalendar.calendrier.SearchCalendrier
 import com.iutcalendar.data.DataGlobal
 import com.iutcalendar.dialog.DialogMessage
+import com.iutcalendar.filedownload.FileDownload
 import com.iutcalendar.fragment.NavigatorManager
 import com.iutcalendar.settings.SettingsApp
 import com.iutcalendar.settings.URLSetterFragment
@@ -35,34 +36,44 @@ class SearchRoomFragment : Fragment() {
     ): View? {
         return inflater.inflate(R.layout.fragment_search_room, container, false).also { view ->
             binding = FragmentSearchRoomBinding.bind(view)
-            DataGlobal.getSavedRoomsPath(requireContext()).let { path ->
 
-                if (path.isNullOrBlank()) {
-                    DialogMessage.showWarning(
-                        context, "Pas d'URL", "vous n'avez pas rentré l'URL pour les salles.\n" +
-                                "Veuillez le faire"
-                    ) {
-                        NavigatorManager.startFragmentFromFragment(this, URLSetterFragment())
-                    }
-                } else {
-                    lifecycleScope.launch(Dispatchers.IO) {
+            resetValues()
+            binding.resetBtn.setOnClickListener { resetValues() }
+            binding.searchBtn.setOnClickListener {
+                val bundle = bundleOf("timeInMillis" to dateSelected.timeInMillis)
+                Navigation.findNavController(view).navigate(R.id.goToDisplay, bundle)
+            }
+
+
+            DataGlobal.getSavedRoomsPath(requireContext()).let { path ->
+                lifecycleScope.launch(Dispatchers.IO) {
+                    if (path.isNullOrBlank() || !FileDownload.isValideURL(path)) {
+                        withContext(Dispatchers.Main) {
+                            DialogMessage.showWarning(
+                                context, getString(R.string.url_rooms_invalide), getString(R.string.url_rooms_invalide_msg)
+                            ) {
+                                NavigatorManager.startFragmentFromFragment(this@SearchRoomFragment, URLSetterFragment())
+                            }
+                        }
+
+                    } else {
                         SearchCalendrier.loadCalendrierRoom(requireContext())
                         withContext(Dispatchers.Main) {
-                            binding.blockClickView.visibility = View.INVISIBLE
-                            binding.progressBar.visibility = View.INVISIBLE
+                            loading(false)
                         }
-                    }
-
-
-
-                    resetValues()
-                    binding.resetBtn.setOnClickListener { resetValues() }
-                    binding.searchBtn.setOnClickListener {
-                        val bundle = bundleOf("timeInMillis" to dateSelected.timeInMillis)
-                        Navigation.findNavController(view).navigate(R.id.goToDisplay, bundle)
                     }
                 }
             }
+        }
+    }
+
+    private fun loading(state: Boolean) {
+        if (state) {
+            binding.blockClickView.visibility = View.VISIBLE
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.blockClickView.visibility = View.INVISIBLE
+            binding.progressBar.visibility = View.INVISIBLE
         }
     }
 

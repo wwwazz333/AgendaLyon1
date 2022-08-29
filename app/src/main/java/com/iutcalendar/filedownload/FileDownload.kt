@@ -17,8 +17,21 @@ import java.net.URL
 object FileDownload {
     private const val DEFAULT_BUFFER_SIZE = 8192
 
+    fun isValideURL(urlCalender: String): Boolean {
+        return try {
+            val url = URL(urlCalender)
+            val huc = url.openConnection() as HttpURLConnection
+            huc.instanceFollowRedirects = false
+            huc.connect()
+            huc.disconnect()
+            true
+        } catch (exception: Exception) {
+            return false
+        }
+    }
+
     @Throws(IOException::class)
-    fun getCalender(urlCalender: String?): InputStream? {
+    fun getCalender(urlCalender: String): InputStream? {
         Log.d("File", "Downloading file")
         var url = URL(urlCalender)
         var huc = url.openConnection() as HttpURLConnection
@@ -44,7 +57,7 @@ object FileDownload {
 
         // update du fichier ou création
         DataGlobal.getSavedPath(context)?.let { url ->
-            if (url.isEmpty()) {
+            if (url.isBlank() || !isValideURL(url)) {
                 throw WrongURLException()
             }
             val inputStream = getCalender(url) ?: throw InputStreamFileException("input stream est null")

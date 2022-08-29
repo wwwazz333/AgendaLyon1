@@ -9,8 +9,8 @@ android {
         applicationId "com.univlyon1.tools.agenda"
         minSdk 26
         targetSdk 32
-        versionCode 23
-        versionName "0.985c"
+        versionCode 24
+        versionName "0.986"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

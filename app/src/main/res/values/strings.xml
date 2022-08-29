@@ -201,5 +201,9 @@ Ainsi qu'un horaire qui correspond à l'heure à l'aquelle l'alarme va sonner."
     <string name="reset" translatable="false">Reset</string>
     <string name="choose_ringtone">Choisissez votre sonnerie</string>
     <string name="Ringtone">Sonnerie</string>
+    <string name="url_rooms_invalide">URL des salles invalide</string>
+    <string name="url_rooms_invalide_msg">L\'URL que vous avez rentré pour les salles est invalide.\nVeuillez rentre un URL valide.\n</string>
+    <string name="url_invalide_msg">L\'URL que vous avez rentré est invalide.\nVeuillez rentre un URL valide.</string>
+    <string name="url_invalide">URL invalide</string>
 
 </resources>
