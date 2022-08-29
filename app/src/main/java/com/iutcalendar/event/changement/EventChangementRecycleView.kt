@@ -7,7 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.iutcalendar.event.changement.EventChangement.Change
 import com.univlyon1.tools.agenda.R
 
-class EventChangementRecycleView(private val context: Context?, private var changementsList: List<EventChangement?>) : RecyclerView.Adapter<EventChangementViewHolder>() {
+class EventChangementRecycleView(private val context: Context?, private var changementsList: List<EventChangement?>) :
+    RecyclerView.Adapter<EventChangementViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventChangementViewHolder {
         val context = parent.context
         val inflater = LayoutInflater.from(context)

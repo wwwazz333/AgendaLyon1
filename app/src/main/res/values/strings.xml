@@ -106,7 +106,7 @@ Ainsi qu'un horaire qui correspond à l'heure à l'aquelle l'alarme va sonner."
     <string name="alarme">Alarme</string>
     <string name="stop_alarme">stop alarme</string>
     <string name="poubelle">Poubelle</string>
-    <string name="d_plac">Déplacé</string>
+    <string name="deplacer">Déplacé</string>
     <string name="exemple_event_name">Maths</string>
     <string name="le">le</string>
     <string name="From">Du</string>

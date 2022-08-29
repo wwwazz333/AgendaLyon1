@@ -38,7 +38,7 @@ class PersonalCalendrier {
      * Supprime-les tasks attacher à un event
      *
      * @param context     le context
-     * @param linkedToUID L'UID de l'event auquelle sont attaché les tasks
+     * @param linkedToUID L'UID de l'event à laquelle sont attaché les tasks
      * @param iterator    iterator qui permet de parcourir les tasks liée
      */
     fun removeAllLinkedTask(

@@ -3,7 +3,6 @@ package com.iutcalendar.task
 import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
@@ -14,7 +13,7 @@ import com.univlyon1.tools.agenda.R
 
 class TaskAdapter(
     var context: Context,
-    var relatedEvent: EventCalendrier
+    private var relatedEvent: EventCalendrier
 ) : RecyclerView.Adapter<TaskViewHolder>() {
 
     private val personalCalendrier

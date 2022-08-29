@@ -6,8 +6,8 @@ import android.content.Context
 import androidx.annotation.DrawableRes
 import androidx.core.app.NotificationCompat
 
-class Notif(context: Context, private val chanelId: String, title: String?, msg: String?, @DrawableRes icon: Int, pendingIntent: PendingIntent?) :
-    NotificationCompat.Builder(context, chanelId) {
+class Notif(context: Context, private val channelId: String, title: String?, msg: String?, @DrawableRes icon: Int, pendingIntent: PendingIntent?) :
+    NotificationCompat.Builder(context, channelId) {
     private val mNotificationManager: NotificationManager
 
 
@@ -22,7 +22,7 @@ class Notif(context: Context, private val chanelId: String, title: String?, msg:
 
     fun show() {
         mNotificationManager.notify(
-            if (chanelId == NotificationChannels.ALARM_NOTIFICATION_ID) {
+            if (channelId == NotificationChannels.ALARM_NOTIFICATION_ID) {
                 0
             } else {
                 System.currentTimeMillis().toInt()

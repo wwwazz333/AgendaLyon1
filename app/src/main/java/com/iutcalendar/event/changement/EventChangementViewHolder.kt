@@ -10,9 +10,9 @@ class EventChangementViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVi
     var name: TextView
     var action: TextView
     var actionDate: TextView
-    var fromLabel: TextView
+    private var fromLabel: TextView
     var fromDate: TextView
-    var toLabel: TextView
+    private var toLabel: TextView
     var toDate: TextView
     var globalLayout: LinearLayout
     var fromLayout: LinearLayout

@@ -23,7 +23,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/Between"/>
                 <TextView
-                        android:id="@+id/begingHour"
+                        android:id="@+id/beginHour"
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:gravity="center"

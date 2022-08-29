@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/mybutton"
+        android:id="@+id/updateBtn"
         android:contentDescription="@string/reload_data"
         android:icon="@drawable/ic_refresh"
         android:title=""

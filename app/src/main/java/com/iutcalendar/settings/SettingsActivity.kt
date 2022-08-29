@@ -129,7 +129,10 @@ class SettingsActivity : AppCompatActivity(),
                 putExtra(RingtoneManager.EXTRA_RINGTONE_TITLE, getString(R.string.choose_ringtone))
                 putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_SILENT, false)
                 putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_DEFAULT, true)
-                putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, Alarm.getUriRingtone(requireContext()))//requireContext() need to be attached that is why the getter
+                putExtra(
+                    RingtoneManager.EXTRA_RINGTONE_EXISTING_URI,
+                    Alarm.getUriRingtone(requireContext())
+                )//requireContext() need to be attached that is why the getter
                 putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_ALARM)
             }
 

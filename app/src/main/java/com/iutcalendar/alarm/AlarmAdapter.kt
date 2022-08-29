@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.iutcalendar.data.DataGlobal
 import com.univlyon1.tools.agenda.R
 
-class AlarmAdapter(var ctx: Context) : RecyclerView.Adapter<AlarmViewHolder>() {
+class AlarmAdapter(private var ctx: Context) : RecyclerView.Adapter<AlarmViewHolder>() {
 
     private val alarmManager: PersonalAlarmManager
         get() = PersonalAlarmManager.getInstance(ctx)

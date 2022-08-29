@@ -87,7 +87,7 @@ As well as a time which corresponds to the hour at which the alarm will sound."<
     <string name="alarme">Alarm</string>
     <string name="stop_alarme">stop alarm</string>
     <string name="poubelle">Trash</string>
-    <string name="d_plac">Moved</string>
+    <string name="deplacer">Moved</string>
     <string name="le">on</string>
     <string name="From">From</string>
     <string name="To">To</string>

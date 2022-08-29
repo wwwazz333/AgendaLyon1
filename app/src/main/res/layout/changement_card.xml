@@ -22,7 +22,7 @@
         <TextView
                 android:id="@+id/actionLabel"
                 android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:text="@string/d_plac"
+                android:text="@string/deplacer"
                 style="@style/subTitle"/>
         <TextView
                 android:layout_width="wrap_content" android:layout_height="wrap_content"

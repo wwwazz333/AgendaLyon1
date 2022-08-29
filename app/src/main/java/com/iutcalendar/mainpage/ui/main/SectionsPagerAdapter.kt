@@ -15,7 +15,8 @@ import com.iutcalendar.event.EventFragment
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
  * one of the sections/tabs/pages.
  */
-class SectionsPagerAdapter(private val mContext: Context, fm: FragmentManager?, private val calendrier: Calendrier?) : FragmentPagerAdapter(fm!!, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+class SectionsPagerAdapter(private val mContext: Context, fm: FragmentManager?, private val calendrier: Calendrier?) :
+    FragmentPagerAdapter(fm!!, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
     private var countDay = 0
 
     init {

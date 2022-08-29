@@ -17,8 +17,10 @@ class ExplicationSettingsFragment : Fragment() {
     private var countClick = 0
     private var elapsedTimeLastClick: Long = 0
     private var lastTimeClick: Long = 0
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val view = inflater.inflate(R.layout.fragment_explication_settings, container, false)
         val version = view.findViewById<TextView>(R.id.versionLabel)
         val pm = requireContext().packageManager

@@ -37,7 +37,7 @@ class WidgetCalendar : AppWidgetProvider() {
             // Construct the RemoteViews object
             val views = RemoteViews(context.packageName, SettingsApp.getLayoutResWidget(context))
             var currentDate = CurrentDate()
-            currentDate.add(GregorianCalendar.MINUTE, DELAY_AFTER_EVENT_PASSED) //pour que l'event s'affiche tjrs au bout de 30min
+            currentDate.add(GregorianCalendar.MINUTE, DELAY_AFTER_EVENT_PASSED) //pour que l'event s'affiche toujours au bout de 30min
             val cal = Calendrier(FileGlobal.readFile(FileGlobal.getFileCalendar(context)))
             val events = cal.getNext2EventAfter(currentDate)
             if (events.isNotEmpty() && events[0] != null && events[0]!!.date != null) {
@@ -86,7 +86,7 @@ class WidgetCalendar : AppWidgetProvider() {
             views.setTextViewText(R.id.fin1, event1.date!!.addTime(event1.dure).timeToString())
             views.setTextViewText(R.id.summary1, event1.nameEvent)
             views.setTextViewText(R.id.salle1, event1.salle.replace("\\,", " "))
-            val numberTask: Int = PersonalCalendrier.getInstance(context)!!.getCountTaskOf(event1)
+            val numberTask: Int = PersonalCalendrier.getInstance(context).getCountTaskOf(event1)
             setNumTask(views, R.id.countTask1, numberTask)
         } else {
             views.setTextViewText(R.id.debut1, "")
@@ -100,7 +100,7 @@ class WidgetCalendar : AppWidgetProvider() {
             views.setTextViewText(R.id.fin2, event2.date!!.addTime(event2.dure).timeToString())
             views.setTextViewText(R.id.summary2, event2.nameEvent)
             views.setTextViewText(R.id.salle2, event2.salle.replace("\\,", " "))
-            val numberTask: Int = PersonalCalendrier.getInstance(context)!!.getCountTaskOf(event2)
+            val numberTask: Int = PersonalCalendrier.getInstance(context).getCountTaskOf(event2)
             setNumTask(views, R.id.countTask2, numberTask)
         } else {
             views.setTextViewText(R.id.debut2, "")

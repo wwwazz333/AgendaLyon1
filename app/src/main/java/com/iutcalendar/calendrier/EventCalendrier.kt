@@ -93,7 +93,7 @@ class EventCalendrier : Comparable<EventCalendrier>, Serializable, Cloneable {
             Log.e("Event", "date null")
             return -1
         }
-        return if(other.date != null)
+        return if (other.date != null)
             date!!.compareTo(other.date!!)
         else -1
     }

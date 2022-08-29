@@ -22,7 +22,7 @@ class AlarmConditionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
     var sunday: CheckedTextView
 
     init {
-        beginHour = itemView.findViewById(R.id.begingHour)
+        beginHour = itemView.findViewById(R.id.beginHour)
         endHour = itemView.findViewById(R.id.endHour)
         ringHour = itemView.findViewById(R.id.ringHour)
         //        listConstraint = itemView.findViewById(R.id.listConstraint);

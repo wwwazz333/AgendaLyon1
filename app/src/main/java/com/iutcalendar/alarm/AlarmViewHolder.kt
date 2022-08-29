@@ -4,7 +4,6 @@ import android.view.View
 import android.widget.ImageButton
 import android.widget.Switch
 import android.widget.TextView
-import androidx.appcompat.widget.SwitchCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.univlyon1.tools.agenda.R
 

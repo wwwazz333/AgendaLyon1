@@ -44,7 +44,7 @@ class PersonalAlarmManager : Serializable {
 
     /**
      * @param day le jour où doivent sonner les alarms qu'on retourne
-     * @return le timeMillis de l'alarme correspondant à event ou -1 si pas d'alarme
+     * @return le timeMillis de l'alarme correspondant à event ou -1 si pas il n'y a pas d'alarme
      */
     operator fun get(day: DateCalendrier): MutableList<AlarmRing> {
         return alarms.getOrDefault(createDayId(day), LinkedList())

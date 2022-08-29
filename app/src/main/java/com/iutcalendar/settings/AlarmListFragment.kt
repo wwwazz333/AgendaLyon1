@@ -94,7 +94,7 @@ class AlarmListFragment : AbstractFragmentWitheMenu(), DatePickerDialog.OnDateSe
     /*#################MENU BAR#################*/
     override fun clickMenu(item: MenuItem) {
         when (item.itemId) {
-            R.id.mybutton -> {
+            R.id.updateBtn -> {
                 updateAlarm()
             }
             R.id.addBtn -> {

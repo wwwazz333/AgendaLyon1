@@ -119,16 +119,16 @@ open class Calendrier : Cloneable {
         get() = if (events.isEmpty()) null else events[events.size - 1]
 
     fun getNext2EventAfter(date: DateCalendrier): Array<EventCalendrier?> {
-        val nexts = arrayOfNulls<EventCalendrier>(2)
+        val next2 = arrayOfNulls<EventCalendrier>(2)
         var i = 0
         for (e in events) {
             if (i >= 2) {
                 break
             } else if (e.date != null && e.date!!.timeInMillis >= date.timeInMillis) {
-                nexts[i++] = e
+                next2[i++] = e
             }
         }
-        return nexts
+        return next2
     }
 
     override fun toString(): String {
