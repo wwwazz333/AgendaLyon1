@@ -3,19 +3,15 @@ package com.iutcalendar.mainpage
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
-import android.media.RingtoneManager
-import android.net.Uri
 import android.os.Bundle
-import android.provider.Settings
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
-import androidx.activity.result.ActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.lifecycleScope
 import androidx.viewpager.widget.ViewPager
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.google.android.gms.ads.AdRequest
@@ -35,6 +31,9 @@ import com.iutcalendar.task.PersonalCalendrier
 import com.iutcalendar.widget.WidgetCalendar
 import com.univlyon1.tools.agenda.R
 import com.univlyon1.tools.agenda.databinding.ActivityPageEventBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.*
 
 
@@ -45,6 +44,16 @@ class PageEventActivity : AppCompatActivity() {
     private var currDateLabel: TextView? = null
     var calendrier: Calendrier? = null
     private var viewPager: ViewPager? = null
+
+    override fun onResume() {
+        super.onResume()
+        Calendrier(FileGlobal.readFile(FileGlobal.getFileCalendar(applicationContext))).let { newCalendrier ->
+            if (newCalendrier != calendrier) {
+                startActivity(Intent(this, PageEventActivity::class.java))
+                finish()
+            }
+        }
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -135,13 +144,14 @@ class PageEventActivity : AppCompatActivity() {
                 )
             )
         }
-        binding.dayOfWeek.setOnTouchListener(
-            TouchGestureListener(
-                applicationContext,
-                GestureWeekListener()
+        binding.dayOfWeek.apply {
+            setOnTouchListener(
+                TouchGestureListener(
+                    applicationContext,
+                    GestureWeekListener()
+                )
             )
-        )
-
+        }
     }
 
     /**
@@ -171,10 +181,11 @@ class PageEventActivity : AppCompatActivity() {
     }
 
     private fun updatePageViewEvent() {
-        Log.d("Event", "update Section page adapter------------------")
-        val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager, calendrier)
-        viewPager!!.removeAllViews()
-        viewPager!!.adapter = sectionsPagerAdapter
+        Log.d("Event", "update Section page adapter")
+        viewPager?.apply {
+            removeAllViews()
+            adapter = SectionsPagerAdapter(this@PageEventActivity, supportFragmentManager, calendrier)
+        }
         setPositionPageToCurrDate()
     }
 
@@ -201,9 +212,7 @@ class PageEventActivity : AppCompatActivity() {
         }
 
     private fun initCalendar() {
-        val fileCal = FileGlobal.getFileCalendar(applicationContext)
-        val str = FileGlobal.readFile(fileCal)
-        calendrier = Calendrier(str)
+        calendrier = Calendrier(FileGlobal.readFile(FileGlobal.getFileCalendar(applicationContext)))
     }
 
     private fun initVariable() {
@@ -222,33 +231,40 @@ class PageEventActivity : AppCompatActivity() {
     /*########################################################################
                                      UPDATE
     ########################################################################*/
+
+    private val poolActionEndUpdate = ArrayDeque<() -> Unit>()
+
     /**
      * update the calendar file
      *
-     * @param onFinishListener toujours appelé à la fin de la méthode
+     * @param onFinishListener toujours appelé quand la maj se fini
      */
     fun update(onFinishListener: (() -> Unit)) {
+        poolActionEndUpdate.add(onFinishListener)
         if (!updating) {
             Log.d("Update", "start")
             updating = true
-            Thread {
+
+            lifecycleScope.launch(Dispatchers.IO) {
                 FileGlobal.updateAndGetChange(
-                    this,
+                    this@PageEventActivity,
                     calendrier
                 ) { _: Context?, intent: Intent? -> startActivity(intent) }
 
-                runOnUiThread {
+                withContext(Dispatchers.Main) {
                     updatePageViewEvent()
                 }
-                onFinishListener()
+                while (poolActionEndUpdate.isNotEmpty()) {
+                    poolActionEndUpdate.pop()()
+                }
                 updating = false
                 Log.d("Update", "end")
-            }.start()
+            }
         }
     }
 
+
     private fun showChangedEvent(nombreChangements: Int) {
-        //FIXME pas afficher quand charger agenda
         ChangeDialog(this, nombreChangements).show()
     }
 
@@ -303,16 +319,18 @@ class PageEventActivity : AppCompatActivity() {
     }
 
     private fun setOnClickDay(dayClicked: TextView?, day: Int) {
-        dayClicked?.setOnTouchListener(
-            TouchGestureListener(
-                applicationContext,
-                object : GestureWeekListener() {
-                    override fun onClick() {
-                        setCurrDate(currDate.getDateOfDayOfWeek(day))
-                        super.onClick()
-                    }
-                })
-        )
+        dayClicked?.apply {
+            setOnTouchListener(
+                TouchGestureListener(
+                    applicationContext,
+                    object : GestureWeekListener() {
+                        override fun onClick() {
+                            setCurrDate(currDate.getDateOfDayOfWeek(day))
+                            super.onClick()
+                        }
+                    })
+            )
+        }
     }
 
     /**

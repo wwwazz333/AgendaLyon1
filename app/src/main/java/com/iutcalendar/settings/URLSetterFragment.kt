@@ -1,6 +1,7 @@
 package com.iutcalendar.settings
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -71,6 +72,7 @@ class URLSetterFragment : Fragment() {
 
                         try {
                             FileDownload.updateFichier(FileGlobal.getFileCalendar(requireContext()).absolutePath, requireContext())
+                            Log.d("Update", "end load new calendar")
                         } catch (exception: Exception) {
                         }
                     }

@@ -141,9 +141,13 @@ open class Calendrier : Cloneable {
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
-        if (other == null || javaClass != other.javaClass) return false
-        val that = other as Calendrier
-        return events == that.events
+        if (javaClass != other?.javaClass) return false
+
+        other as Calendrier
+
+        if (events != other.events) return false
+
+        return true
     }
 
     fun getChangedEvent(prevCal: Calendrier?): List<EventChangement> {
