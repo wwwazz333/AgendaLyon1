@@ -170,4 +170,6 @@ As well as a time which corresponds to the hour at which the alarm will sound."<
     <string name="No_room_free">No room available</string>
     <string name="help_search_room">This section allows you to search for a free room at a certain time.\n\nHowever, rooms that are never occupied will not be detected as a facility room. So it will not appear in the list of free rooms.</string>
     <string name="Search">Search</string>
+    <string name="choose_ringtone">Choose your ringtone</string>
+    <string name="Ringtone">Ringtone</string>
 </resources>

@@ -3,11 +3,16 @@ package com.iutcalendar.mainpage
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.media.RingtoneManager
+import android.net.Uri
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
@@ -32,6 +37,7 @@ import com.univlyon1.tools.agenda.R
 import com.univlyon1.tools.agenda.databinding.ActivityPageEventBinding
 import java.util.*
 
+
 class PageEventActivity : AppCompatActivity() {
     lateinit var binding: ActivityPageEventBinding
     private var fragmentTransaction: FragmentTransaction? = null
@@ -39,6 +45,7 @@ class PageEventActivity : AppCompatActivity() {
     private var currDateLabel: TextView? = null
     var calendrier: Calendrier? = null
     private var viewPager: ViewPager? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

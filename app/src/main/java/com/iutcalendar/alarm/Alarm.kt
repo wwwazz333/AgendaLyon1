@@ -23,6 +23,9 @@ import com.iutcalendar.notification.Notif
 import com.iutcalendar.notification.NotificationChannels
 import com.iutcalendar.tools.vibrator.VibratorSimpleUse
 import com.univlyon1.tools.agenda.R
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.util.*
 
 class Alarm : BroadcastReceiver() {
@@ -33,6 +36,7 @@ class Alarm : BroadcastReceiver() {
                 val enabled = DataGlobal.getSavedBoolean(context, DataGlobal.ALARM_ENABLED)
                 if (enabled) {
                     //Sound
+                    initMusicRingtone(context)
                     startRingtone(context)
 
                     //Vibration
@@ -69,6 +73,7 @@ class Alarm : BroadcastReceiver() {
         }
     }
 
+
     private fun clearNotif(context: Context) {
         Notif.cancelAlarmNotif(context)
     }
@@ -90,6 +95,10 @@ class Alarm : BroadcastReceiver() {
         notif.show()
     }
 
+    private fun initMusicRingtone(context: Context) {
+        ringtoneMusic = getUriRingtone(context)
+    }
+
     private fun startRingtone(context: Context) {
         ring = RingtoneManager.getRingtone(context, ringtoneMusic)
         val alarmVolume = AudioAttributes.Builder()
@@ -100,10 +109,19 @@ class Alarm : BroadcastReceiver() {
             audioAttributes = alarmVolume
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                 isLooping = true
+                play()
             } else {
+                GlobalScope.launch {
+                    while (ring != null) {
+                        if (!isPlaying) {
+                            play()
+                        }
+                        delay(500)
+                    }
+                }
                 Log.d("Alarm", "can't put loop")
             }
-            play()
+
         }
     }
 
@@ -128,8 +146,13 @@ class Alarm : BroadcastReceiver() {
         const val STOP = 1
         const val START = 2
         const val CANCEL_SNOOZE = 3
+        const val RINGTONE_ALARM = "ringtone_alarm"
         private var ringtoneMusic = Settings.System.DEFAULT_ALARM_ALERT_URI
         private var ring: Ringtone? = null
+
+        fun getUriRingtone(context: Context): Uri {
+            return Uri.parse(DataGlobal.getSavedString(context, RINGTONE_ALARM)) ?: Settings.System.DEFAULT_ALARM_ALERT_URI
+        }
 
         /**
          * Cancel l'alarme précédente et en place une nouvelle

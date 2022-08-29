@@ -1,6 +1,5 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
     <PreferenceCategory
         android:icon="@drawable/ic_link_url"
         app:title="@string/url">
@@ -63,6 +62,11 @@
             android:summaryOff="@string/alarme_enabled_summary_off"
             android:summaryOn="@string/alarm_auto_label"
             android:title="@string/Alarm_auto" />
+        <Preference
+            android:dependency="alarme_enable"
+            android:key="ringtone_picker"
+            app:summary="@string/choose_ringtone"
+            app:title="@string/Ringtone" />
         <SwitchPreference
             android:defaultValue="false"
             android:dependency="alarme_enable"
@@ -70,7 +74,6 @@
             android:summaryOff="@string/publicHolidaysDescriptionOff"
             android:summaryOn="@string/publicHolidaysDescriptionOn"
             android:title="@string/PublicHolidays" />
-
         <Preference
             android:dependency="alarme_enable"
             android:key="liste_alarmes"

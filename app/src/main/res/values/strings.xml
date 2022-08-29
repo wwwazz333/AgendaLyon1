@@ -199,5 +199,7 @@ Ainsi qu'un horaire qui correspond à l'heure à l'aquelle l'alarme va sonner."
     <string name="help_search_room">Cette section vous permet de rechercher une salle libre à un certain horaire.\n\nCependant, les salles qui ne sont jamais occupées ne pourront pas être détectées en tant que salle de l\'établissement. Donc elle ne s\'affichera pas dans la liste des salles libres.</string>
     <string name="Search">Rechercher</string>
     <string name="reset" translatable="false">Reset</string>
+    <string name="choose_ringtone">Choisissez votre sonnerie</string>
+    <string name="Ringtone">Sonnerie</string>
 
 </resources>

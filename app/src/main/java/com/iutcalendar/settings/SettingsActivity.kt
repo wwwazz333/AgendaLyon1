@@ -1,6 +1,7 @@
 package com.iutcalendar.settings
 
 import android.content.Intent
+import android.media.RingtoneManager
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
@@ -10,6 +11,8 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuProvider
@@ -18,6 +21,7 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SeekBarPreference
 import androidx.preference.SwitchPreference
+import com.iutcalendar.alarm.Alarm
 import com.iutcalendar.data.DataGlobal
 import com.iutcalendar.dialog.DialogMessage
 import com.iutcalendar.mainpage.PageEventActivity
@@ -107,8 +111,30 @@ class SettingsActivity : AppCompatActivity(),
 
 
     class SettingsFragment : PreferenceFragmentCompat() {
+        private val startActivityForResult =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { activityResult: ActivityResult? ->
+                activityResult?.let { result ->
+                    if (result.resultCode == RESULT_OK) {
+                        Log.d("Ringtone", "chosen ringtone : ${result.data?.getParcelableExtra<Uri>(RingtoneManager.EXTRA_RINGTONE_PICKED_URI)}")
+                        DataGlobal.save(
+                            requireContext(),
+                            Alarm.RINGTONE_ALARM,
+                            result.data?.getParcelableExtra<Uri>(RingtoneManager.EXTRA_RINGTONE_PICKED_URI).toString()
+                        )
+                    }
+                }
+            }
+        private val intentRingtonePicker
+            get() = Intent(RingtoneManager.ACTION_RINGTONE_PICKER).apply {
+                putExtra(RingtoneManager.EXTRA_RINGTONE_TITLE, getString(R.string.choose_ringtone))
+                putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_SILENT, false)
+                putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_DEFAULT, true)
+                putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, Alarm.getUriRingtone(requireContext()))//requireContext() need to be attached that is why the getter
+                putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_ALARM)
+            }
 
-        var askedToDrawOverLays = false
+
+        private var askedToDrawOverLays = false
         override fun onResume() {
             super.onResume()
             if (askedToDrawOverLays && Settings.canDrawOverlays(requireContext())) {
@@ -127,6 +153,11 @@ class SettingsActivity : AppCompatActivity(),
 
             initAlarmActivation()
 
+            findPreference<Preference>("ringtone_picker")?.onPreferenceClickListener = Preference.OnPreferenceClickListener {
+                startActivityForResult.launch(intentRingtonePicker)
+                true
+            }
+
 
             if (requireActivity() is SettingsActivity) {
                 val settingsActivity = requireActivity() as SettingsActivity?
@@ -137,7 +168,7 @@ class SettingsActivity : AppCompatActivity(),
 
         private fun initAlarmActivation() {
 
-            findPreference<Preference>("alarme_enable")!!.onPreferenceChangeListener =
+            findPreference<Preference>("alarme_enable")?.onPreferenceChangeListener =
                 Preference.OnPreferenceChangeListener { _: Preference?, newValue: Any ->
                     if (!Settings.canDrawOverlays(requireContext()) && newValue as Boolean) {
                         DialogMessage.showInfo(
