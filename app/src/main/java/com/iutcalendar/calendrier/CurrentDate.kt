@@ -8,7 +8,7 @@ import java.util.*
 
 class CurrentDate : DateCalendrier {
     constructor() : super()
-    constructor(other: DateCalendrier?) : super(other)
+    constructor(other: DateCalendrier) : super(other)
     constructor(day: Int, month: Int, year: Int, hour: Int, minute: Int) : super(day, month, year, hour, minute)
 
     fun set(other: DateCalendrier) {

@@ -20,8 +20,8 @@ open class DateCalendrier() : GregorianCalendar() {
         this.minute = minute
     }
 
-    constructor(other: DateCalendrier?) : this(
-        other!!.day,
+    constructor(other: DateCalendrier) : this(
+        other.day,
         other.month,
         other.year,
         other.hour,

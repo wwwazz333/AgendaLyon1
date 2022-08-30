@@ -243,9 +243,9 @@ class Alarm : BroadcastReceiver() {
                                 currEvent
                             )
                         )
-                        if (alarmConditionManager.matchConstraints(currEvent)) {
+                        if (alarmConditionManager.matchConstraints(currEvent) && currEvent.date != null) {
                             //remet ou met l'alarme si besoin
-                            val timeAlarmRing = DateCalendrier(currEvent.date)
+                            val timeAlarmRing = DateCalendrier(currEvent.date!!)
                             if (DataGlobal.getSavedBoolean(
                                     context,
                                     DataGlobal.COMPLEX_ALARM_SETTINGS

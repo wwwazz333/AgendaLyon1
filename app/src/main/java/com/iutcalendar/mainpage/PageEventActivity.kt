@@ -12,8 +12,7 @@ import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.lifecycleScope
-import androidx.viewpager.widget.ViewPager
-import androidx.viewpager.widget.ViewPager.OnPageChangeListener
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import com.iutcalendar.calendrier.Calendrier
@@ -43,7 +42,7 @@ class PageEventActivity : AppCompatActivity() {
     private var currDate: CurrentDate = CurrentDate()
     private var currDateLabel: TextView? = null
     var calendrier: Calendrier? = null
-    private var viewPager: ViewPager? = null
+    private var viewPager: ViewPager2? = null
 
     override fun onResume() {
         super.onResume()
@@ -160,31 +159,31 @@ class PageEventActivity : AppCompatActivity() {
     private fun initPageViewEvent() {
         Log.d("Event", "creation Section page adapter")
         viewPager = binding.viewPager
-        val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager, calendrier)
+        val sectionsPagerAdapter = SectionsPagerAdapter(this, calendrier)
         viewPager?.adapter = sectionsPagerAdapter
-        viewPager?.addOnPageChangeListener(object : OnPageChangeListener {
-            override fun onPageScrolled(
-                position: Int,
-                positionOffset: Float,
-                positionOffsetPixels: Int
-            ) {
-            }
-
+        viewPager?.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 Log.d("Page", "new page : $position")
-                setCurrDate(CurrentDate(calendrier?.firstDay).addDay(position))
-            }
+                calendrier?.firstDay?.let {
+                    setCurrDate(CurrentDate(it).addDay(position))
+                }
 
-            override fun onPageScrollStateChanged(state: Int) {}
+            }
         })
+
+
+
         setPositionPageToCurrDate()
     }
 
+
     private fun updatePageViewEvent() {
         Log.d("Event", "update Section page adapter")
+
         viewPager?.apply {
-            removeAllViews()
-            adapter = SectionsPagerAdapter(this@PageEventActivity, supportFragmentManager, calendrier)
+//            removeAllViews()
+//            adapter = SectionsPagerAdapter(this@PageEventActivity, calendrier)
+            adapter?.notifyDataSetChanged()
         }
         setPositionPageToCurrDate()
     }
@@ -202,8 +201,8 @@ class PageEventActivity : AppCompatActivity() {
                     WidgetCalendar.DELAY_AFTER_EVENT_PASSED
                 ) //pcq event est toujours affiché toujours au bout de 30min
                 val es = calendrier!!.getNext2EventAfter(dateToLaunch)
-                if (es[0] != null) {
-                    dateToLaunch = CurrentDate(es[0]?.date)
+                es[0]?.date?.let { date ->
+                    dateToLaunch = CurrentDate(date)
                 }
             } else {
                 Log.d("Widget", "default date")
@@ -274,13 +273,15 @@ class PageEventActivity : AppCompatActivity() {
 
     fun setCurrDate(newCurrentDate: CurrentDate?) {
         if (newCurrentDate != null) {
-            var newDate = newCurrentDate
+            var newDate: CurrentDate = newCurrentDate
             Log.d("Date", "$currDate set curr date to $newDate")
-            if (calendrier != null && calendrier!!.firstDay != null && calendrier!!.lastDay != null) {
-                if (newDate < calendrier!!.firstDay!!) {
-                    newDate = CurrentDate(calendrier!!.firstDay)
-                } else if (newDate > calendrier!!.lastDay!!) {
-                    newDate = CurrentDate(calendrier!!.lastDay)
+            calendrier?.firstDay?.let { firstDay ->
+                calendrier?.lastDay?.let { lastDay ->
+                    if (newDate < firstDay) {
+                        newDate = CurrentDate(firstDay)
+                    } else if (newDate > lastDay) {
+                        newDate = CurrentDate(lastDay)
+                    }
                 }
             }
             currDate.set(newDate)

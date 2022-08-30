@@ -41,7 +41,7 @@ class WidgetCalendar : AppWidgetProvider() {
             val cal = Calendrier(FileGlobal.readFile(FileGlobal.getFileCalendar(context)))
             val events = cal.getNext2EventAfter(currentDate)
             if (events.isNotEmpty() && events[0] != null && events[0]!!.date != null) {
-                currentDate = CurrentDate(events[0]!!.date)
+                currentDate = CurrentDate(events[0]!!.date!!)
                 if (events.size == 2 && events[1] != null && events[0]!!.date!!.sameDay(events[1]!!.date)) {
                     updateBothEvent(context, views, events[0], events[1])
                 } else {
