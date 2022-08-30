@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <Preference
+        android:key="ringtone_picker"
+        app:summary="@string/choose_ringtone"
+        app:title="@string/Ringtone" />
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="jour_ferier_enabled"
+        android:summaryOff="@string/publicHolidaysDescriptionOff"
+        android:summaryOn="@string/publicHolidaysDescriptionOn"
+        android:title="@string/PublicHolidays" />
+    <Preference
+        android:key="liste_alarmes"
+        app:summary="@string/settings_alarm_label"
+        app:title="@string/List_alarms" />
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="complex_alarm_settings"
+        android:summaryOff="@string/alarmesComplexOff"
+        android:summaryOn="@string/alarmesComplexOn"
+        android:title="@string/AlarmesComplex" />
+
+    <SeekBarPreference
+        android:defaultValue="60"
+        android:key="time_before_ring"
+        android:max="300"
+        android:summary="@string/HoraireSonnerieDescription"
+        android:title="@string/HoraireSonnerie"
+        app:min="5"
+        app:showSeekBarValue="true" />
+
+    <MultiSelectListPreference
+        android:defaultValue="@array/default_days"
+        android:dialogTitle="@string/ActivatedDays"
+        android:entries="@array/names_days"
+        android:entryValues="@array/values_days"
+        android:key="activated_days"
+        android:summary="@string/activatedDaysDescription"
+        android:title="@string/ActivatedDays" />
+
+
+    <Preference
+        android:key="horaire_alarmes"
+        app:summary="@string/label_horaire_alarm_auto"
+        app:title="@string/Horaire_alarms_auto" />
+    <Preference
+        android:key="contrainte_alarmes"
+        app:summary="@string/ConstraintAlarmsDescription"
+        app:title="@string/ConstraintAlarms" />
+</PreferenceScreen>

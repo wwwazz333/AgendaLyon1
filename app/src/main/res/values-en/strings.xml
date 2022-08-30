@@ -60,7 +60,7 @@
     <string name="urlSettingsLabel">URL for calendar\'s update</string>
     <string name="Alarm_auto">Alarms auto</string>
     <string name="alarm_auto_label">an alarm will be activate according to preferences</string>
-    <string name="Settings_alarms">List of alarms</string>
+    <string name="List_alarms">List of alarms</string>
     <string name="settings_alarm_label">Automatic alarm list</string>
     <string name="Between">Between</string>
     <string name="And">And</string>
@@ -176,4 +176,5 @@ As well as a time which corresponds to the hour at which the alarm will sound."<
     <string name="url_rooms_invalide">Invalid Room URL</string>
     <string name="url_invalide">invalid URL</string>
     <string name="url_invalide_msg">The URL you entered is invalid.\nPlease enter a valid URL.</string>
+    <string name="Settings_alarms">Settings alarms</string>
 </resources>

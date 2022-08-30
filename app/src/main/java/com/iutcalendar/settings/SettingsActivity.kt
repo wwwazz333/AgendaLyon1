@@ -109,34 +109,7 @@ class SettingsActivity : AppCompatActivity(),
         return false
     }
 
-
     class SettingsFragment : PreferenceFragmentCompat() {
-        private val startActivityForResult =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { activityResult: ActivityResult? ->
-                activityResult?.let { result ->
-                    if (result.resultCode == RESULT_OK) {
-                        Log.d("Ringtone", "chosen ringtone : ${result.data?.getParcelableExtra<Uri>(RingtoneManager.EXTRA_RINGTONE_PICKED_URI)}")
-                        DataGlobal.save(
-                            requireContext(),
-                            Alarm.RINGTONE_ALARM,
-                            result.data?.getParcelableExtra<Uri>(RingtoneManager.EXTRA_RINGTONE_PICKED_URI).toString()
-                        )
-                    }
-                }
-            }
-        private val intentRingtonePicker
-            get() = Intent(RingtoneManager.ACTION_RINGTONE_PICKER).apply {
-                putExtra(RingtoneManager.EXTRA_RINGTONE_TITLE, getString(R.string.choose_ringtone))
-                putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_SILENT, false)
-                putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_DEFAULT, true)
-                putExtra(
-                    RingtoneManager.EXTRA_RINGTONE_EXISTING_URI,
-                    Alarm.getUriRingtone(requireContext())
-                )//requireContext() need to be attached that is why the getter
-                putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_ALARM)
-            }
-
-
         private var askedToDrawOverLays = false
         override fun onResume() {
             super.onResume()
@@ -147,18 +120,26 @@ class SettingsActivity : AppCompatActivity(),
             askedToDrawOverLays = false
         }
 
-        private var switchComplex: SwitchPreference? = null
+
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey)
-            setToggleComplexAlarm()
-
-            initSeekBar()
 
             initAlarmActivation()
 
-            findPreference<Preference>("ringtone_picker")?.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-                startActivityForResult.launch(intentRingtonePicker)
-                true
+            findPreference<Preference>(DataGlobal.THEME)?.let {
+                it.onPreferenceChangeListener =
+                    Preference.OnPreferenceChangeListener { _: Preference?, newValue: Any ->
+                        SettingsApp.adapteTheme(newValue.toString())
+                        true
+                    }
+            }
+            findPreference<Preference>(DataGlobal.LANGUAGE)?.let {
+                it.onPreferenceChangeListener =
+                    Preference.OnPreferenceChangeListener { _: Preference?, newValue: Any ->
+                        DataGlobal.save(requireContext(), DataGlobal.LANGUAGE, newValue.toString())
+                        reloadActivity()
+                        true
+                    }
             }
 
 
@@ -191,6 +172,92 @@ class SettingsActivity : AppCompatActivity(),
                 }
         }
 
+
+        private fun setOnClickFragment() {
+            findPreference<Preference>("ContactFragment")?.onPreferenceClickListener =
+                Preference.OnPreferenceClickListener {
+                    switchFragment(ContactFragment())
+                    false
+                }
+            findPreference<Preference>("ExplicationSettingsFragment")?.onPreferenceClickListener =
+                Preference.OnPreferenceClickListener {
+                    switchFragment(ExplicationSettingsFragment())
+                    false
+                }
+            findPreference<Preference>("URLSetterFragment")?.onPreferenceClickListener =
+                Preference.OnPreferenceClickListener {
+                    switchFragment(URLSetterFragment())
+                    false
+                }
+        }
+
+        private fun switchFragment(fragment: Fragment) {
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.settings, fragment)
+                .addToBackStack(null)
+                .commit()
+        }
+
+        private fun reloadActivity() {
+            requireActivity().let {
+                it.finish()
+                it.overridePendingTransition(0, 0)
+                startActivity(requireActivity().intent)
+                it.overridePendingTransition(0, 0)
+            }
+        }
+    }
+
+    class SettingsAlarmFragment : PreferenceFragmentCompat() {
+        private var switchComplex: SwitchPreference? = null
+
+        private val startActivityForResult =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { activityResult: ActivityResult? ->
+                activityResult?.let { result ->
+                    if (result.resultCode == RESULT_OK) {
+                        Log.d("Ringtone", "chosen ringtone : ${result.data?.getParcelableExtra<Uri>(RingtoneManager.EXTRA_RINGTONE_PICKED_URI)}")
+                        DataGlobal.save(
+                            requireContext(),
+                            Alarm.RINGTONE_ALARM,
+                            result.data?.getParcelableExtra<Uri>(RingtoneManager.EXTRA_RINGTONE_PICKED_URI).toString()
+                        )
+                    }
+                }
+            }
+        private val intentRingtonePicker
+            get() = Intent(RingtoneManager.ACTION_RINGTONE_PICKER).apply {
+                putExtra(RingtoneManager.EXTRA_RINGTONE_TITLE, getString(R.string.choose_ringtone))
+                putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_SILENT, false)
+                putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_DEFAULT, true)
+                putExtra(
+                    RingtoneManager.EXTRA_RINGTONE_EXISTING_URI,
+                    Alarm.getUriRingtone(requireContext())
+                )//requireContext() need to be attached that is why the getter
+                putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_ALARM)
+            }
+
+
+        override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+            setPreferencesFromResource(R.xml.alarm_preferences, rootKey)
+
+            initSeekBar()
+            setToggleComplexAlarm()
+
+
+
+            findPreference<Preference>("ringtone_picker")?.onPreferenceClickListener = Preference.OnPreferenceClickListener {
+                startActivityForResult.launch(intentRingtonePicker)
+                true
+            }
+
+            if (requireActivity() is SettingsActivity) {
+                val settingsActivity = requireActivity() as SettingsActivity?
+                //Switch fragment
+                settingsActivity?.let { setOnClickFragment() }
+            }
+
+        }
+
         private fun initSeekBar() {
             findPreference<SeekBarPreference>("time_before_ring")?.let {
                 it.onPreferenceChangeListener = object : OnSeekBarChangeListener,
@@ -217,44 +284,7 @@ class SettingsActivity : AppCompatActivity(),
             }
         }
 
-        private fun setToggleComplexAlarm() {
-            switchComplex = findPreference(DataGlobal.COMPLEX_ALARM_SETTINGS)
-            if (switchComplex != null) {
-                switchComplex?.isChecked?.let { setAlarmComplexity(it) }
-                switchComplex!!.onPreferenceChangeListener =
-                    Preference.OnPreferenceChangeListener { _: Preference?, newValue: Any ->
-                        setAlarmComplexity(newValue as Boolean)
-                        true
-                    }
-            }
-            findPreference<Preference>(DataGlobal.THEME)?.let {
-                it.onPreferenceChangeListener =
-                    Preference.OnPreferenceChangeListener { _: Preference?, newValue: Any ->
-                        SettingsApp.adapteTheme(newValue.toString())
-                        true
-                    }
-            }
-            findPreference<Preference>(DataGlobal.LANGUAGE)?.let {
-                it.onPreferenceChangeListener =
-                    Preference.OnPreferenceChangeListener { _: Preference?, newValue: Any ->
-                        DataGlobal.save(requireContext(), DataGlobal.LANGUAGE, newValue.toString())
-                        reloadActivity()
-                        true
-                    }
-            }
-        }
-
         private fun setOnClickFragment() {
-            findPreference<Preference>("ContactFragment")?.onPreferenceClickListener =
-                Preference.OnPreferenceClickListener {
-                    switchFragment(ContactFragment())
-                    false
-                }
-            findPreference<Preference>("ExplicationSettingsFragment")?.onPreferenceClickListener =
-                Preference.OnPreferenceClickListener {
-                    switchFragment(ExplicationSettingsFragment())
-                    false
-                }
             findPreference<Preference>("contrainte_alarmes")?.onPreferenceClickListener =
                 Preference.OnPreferenceClickListener {
                     switchFragment(AlarmConstraintFragment())
@@ -270,18 +300,18 @@ class SettingsActivity : AppCompatActivity(),
                     switchFragment(AlarmListFragment())
                     false
                 }
-            findPreference<Preference>("URLSetterFragment")?.onPreferenceClickListener =
-                Preference.OnPreferenceClickListener {
-                    switchFragment(URLSetterFragment())
-                    false
-                }
         }
 
-        private fun switchFragment(fragment: Fragment) {
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.settings, fragment)
-                .addToBackStack(null)
-                .commit()
+        private fun setToggleComplexAlarm() {
+            switchComplex = findPreference(DataGlobal.COMPLEX_ALARM_SETTINGS)
+            if (switchComplex != null) {
+                switchComplex?.isChecked?.let { setAlarmComplexity(it) }
+                switchComplex!!.onPreferenceChangeListener =
+                    Preference.OnPreferenceChangeListener { _: Preference?, newValue: Any ->
+                        setAlarmComplexity(newValue as Boolean)
+                        true
+                    }
+            }
         }
 
         private fun setAlarmComplexity(complex: Boolean) {
@@ -297,13 +327,11 @@ class SettingsActivity : AppCompatActivity(),
             }
         }
 
-        private fun reloadActivity() {
-            requireActivity().let {
-                it.finish()
-                it.overridePendingTransition(0, 0)
-                startActivity(requireActivity().intent)
-                it.overridePendingTransition(0, 0)
-            }
+        private fun switchFragment(fragment: Fragment) {
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.settings, fragment)
+                .addToBackStack(null)
+                .commit()
         }
     }
 }

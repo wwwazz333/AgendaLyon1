@@ -64,60 +64,9 @@
             android:title="@string/Alarm_auto" />
         <Preference
             android:dependency="alarme_enable"
-            android:key="ringtone_picker"
-            app:summary="@string/choose_ringtone"
-            app:title="@string/Ringtone" />
-        <SwitchPreference
-            android:defaultValue="false"
-            android:dependency="alarme_enable"
-            android:key="jour_ferier_enabled"
-            android:summaryOff="@string/publicHolidaysDescriptionOff"
-            android:summaryOn="@string/publicHolidaysDescriptionOn"
-            android:title="@string/PublicHolidays" />
-        <Preference
-            android:dependency="alarme_enable"
-            android:key="liste_alarmes"
-            app:summary="@string/settings_alarm_label"
-            app:title="@string/Settings_alarms" />
-        <SwitchPreference
-            android:defaultValue="false"
-            android:dependency="alarme_enable"
-            android:key="complex_alarm_settings"
-            android:summaryOff="@string/alarmesComplexOff"
-            android:summaryOn="@string/alarmesComplexOn"
-            android:title="@string/AlarmesComplex" />
-
-        <SeekBarPreference
-            android:defaultValue="60"
-            android:dependency="alarme_enable"
-            android:key="time_before_ring"
-            android:max="300"
-            android:summary="@string/HoraireSonnerieDescription"
-            android:title="@string/HoraireSonnerie"
-            app:min="5"
-            app:showSeekBarValue="true" />
-
-        <MultiSelectListPreference
-            android:defaultValue="@array/default_days"
-            android:dependency="alarme_enable"
-            android:dialogTitle="@string/ActivatedDays"
-            android:entries="@array/names_days"
-            android:entryValues="@array/values_days"
-            android:key="activated_days"
-            android:summary="@string/activatedDaysDescription"
-            android:title="@string/ActivatedDays" />
-
-
-        <Preference
-            android:dependency="alarme_enable"
-            android:key="horaire_alarmes"
-            app:summary="@string/label_horaire_alarm_auto"
-            app:title="@string/Horaire_alarms_auto" />
-        <Preference
-            android:dependency="alarme_enable"
-            android:key="contrainte_alarmes"
-            app:summary="@string/ConstraintAlarmsDescription"
-            app:title="@string/ConstraintAlarms" />
+            android:key="sub_prefence_alarm"
+            android:title="@string/Settings_alarms"
+            android:fragment="com.iutcalendar.settings.SettingsAlarmFragment"/>
     </PreferenceCategory>
 
     <PreferenceCategory
