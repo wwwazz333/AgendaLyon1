@@ -46,7 +46,7 @@ class CurrentDate : DateCalendrier {
         return addDay(-7)
     }
 
-    fun addDay(days: Int): CurrentDate {
+    override fun addDay(days: Int): CurrentDate {
         val cal = CurrentDate(this)
         cal.add(DAY_OF_YEAR, days)
         return cal

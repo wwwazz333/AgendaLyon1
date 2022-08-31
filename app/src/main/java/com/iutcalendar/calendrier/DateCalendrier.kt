@@ -127,6 +127,12 @@ open class DateCalendrier() : GregorianCalendar() {
         return (other!!.year - year) * nbrDayInYear + other.dayOfYear - dayOfYear
     }
 
+    open fun addDay(days: Int): DateCalendrier {
+        val newDate = CurrentDate(this)
+        newDate.add(DAY_OF_YEAR, days)
+        return newDate
+    }
+
     fun sameDay(obj: Any?): Boolean {
         if (obj == null) return false
         if (this === obj) return true
@@ -148,10 +154,8 @@ open class DateCalendrier() : GregorianCalendar() {
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
-        if (javaClass != other?.javaClass) return false
+        if (other !is DateCalendrier) return false
         if (!super.equals(other)) return false
-
-        other as DateCalendrier
 
         if (timeInMillis != other.timeInMillis) return false
 

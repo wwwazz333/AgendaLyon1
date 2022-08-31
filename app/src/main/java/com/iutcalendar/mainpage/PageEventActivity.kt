@@ -42,7 +42,8 @@ class PageEventActivity : AppCompatActivity() {
     private var currDate: CurrentDate = CurrentDate()
     private var currDateLabel: TextView? = null
     var calendrier: Calendrier? = null
-    private var viewPager: ViewPager2? = null
+    private val viewPager: ViewPager2
+        get() = binding.viewPager
 
     override fun onResume() {
         super.onResume()
@@ -159,10 +160,9 @@ class PageEventActivity : AppCompatActivity() {
      */
     private fun initPageViewEvent() {
         Log.d("Event", "creation Section page adapter")
-        viewPager = binding.viewPager
         val sectionsPagerAdapter = SectionsPagerAdapter(this, calendrier)
-        viewPager?.adapter = sectionsPagerAdapter
-        viewPager?.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+        viewPager.adapter = sectionsPagerAdapter
+        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 Log.d("Page", "new page : $position")
                 calendrier?.firstDay?.let {
@@ -172,8 +172,6 @@ class PageEventActivity : AppCompatActivity() {
             }
         })
 
-
-
         setPositionPageToCurrDate()
     }
 
@@ -181,7 +179,7 @@ class PageEventActivity : AppCompatActivity() {
     private fun updatePageViewEvent() {
         Log.d("Event", "update Section page adapter")
 
-        viewPager?.adapter?.notifyDataSetChanged()
+        viewPager.adapter?.notifyDataSetChanged()
 
         setPositionPageToCurrDate()
     }
@@ -292,8 +290,8 @@ class PageEventActivity : AppCompatActivity() {
     }
 
     private fun setPositionPageToCurrDate() {
-        if (calendrier != null && calendrier!!.firstDay != null && viewPager != null) {
-            viewPager!!.currentItem = getPosOfDate(currDate)
+        if (calendrier != null && calendrier!!.firstDay != null) {
+            viewPager.currentItem = getPosOfDate(currDate)
         }
     }
 
