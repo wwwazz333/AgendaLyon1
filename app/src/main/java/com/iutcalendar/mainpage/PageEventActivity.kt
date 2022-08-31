@@ -93,6 +93,7 @@ class PageEventActivity : AppCompatActivity() {
 
         /*####Testing feature#####*/
         Log.d("Global", "PageEventActivity end")
+
     }
 
     private fun initAds() {
@@ -180,11 +181,8 @@ class PageEventActivity : AppCompatActivity() {
     private fun updatePageViewEvent() {
         Log.d("Event", "update Section page adapter")
 
-        viewPager?.apply {
-//            removeAllViews()
-//            adapter = SectionsPagerAdapter(this@PageEventActivity, calendrier)
-            adapter?.notifyDataSetChanged()
-        }
+        viewPager?.adapter?.notifyDataSetChanged()
+
         setPositionPageToCurrDate()
     }
 

@@ -30,7 +30,7 @@ open class Calendrier : Cloneable {
         get() = if (events.isEmpty()) null else events[events.size - 1].date
 
     fun loadFromString(txtIcs: String?) {
-        events = ArrayList()
+        val tempEvents: MutableList<EventCalendrier> = mutableListOf()
         val lines = txtIcs!!.split(DELIMITER_LINE.toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
         var stateCal = State.CLOSE
         for (i in lines.indices) {
@@ -42,21 +42,22 @@ open class Calendrier : Cloneable {
                     stateCal = State.CLOSE
                     break
                 } else if (lines[i] == "BEGIN:VEVENT") {
-                    if (events.isNotEmpty() && events[events.size - 1].date == null) {
+                    if (tempEvents.isNotEmpty() && tempEvents[tempEvents.size - 1].date == null) {
                         Log.e("Event", "date is null")
                     }
-                    events.add(EventCalendrier())
+                    tempEvents.add(EventCalendrier())
                     stateCal = State.EVENT
                 }
             } else if (stateCal == State.EVENT) {
                 if (lines[i] == "END:VEVENT") {
                     stateCal = State.OPEN
                 } else {
-                    events[events.size - 1].parseLine(lines[i])
+                    tempEvents[tempEvents.size - 1].parseLine(lines[i])
                 }
             }
         }
-        setEvent(events)
+        setEvent(tempEvents)
+        if (events.isEmpty()) Log.e("Event", "events is empty")
     }
 
     private fun setEvent(events: MutableList<EventCalendrier>) {

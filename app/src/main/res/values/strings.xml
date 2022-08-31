@@ -206,5 +206,6 @@ Ainsi qu'un horaire qui correspond à l'heure à l'aquelle l'alarme va sonner."
     <string name="url_invalide_msg">L\'URL que vous avez rentré est invalide.\nVeuillez rentre un URL valide.</string>
     <string name="url_invalide">URL invalide</string>
     <string name="Settings_alarms">Paramètre alarmes</string>
+    <string name="error_should_reboot">Erreur, veuillez redémarrez</string>
 
 </resources>
