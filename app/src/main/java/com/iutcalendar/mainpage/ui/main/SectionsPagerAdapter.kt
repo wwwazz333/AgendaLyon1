@@ -20,18 +20,11 @@ class SectionsPagerAdapter(private val parent: FragmentActivity, private val cal
     }
 
     override fun createFragment(position: Int): Fragment {
-        val dateToLaunch: CurrentDate = if (calendrier?.firstDay != null) {
-            CurrentDate(calendrier.firstDay!!).addDay(position)
-        } else {
-            CurrentDate()
-        }
+        val dateToLaunch: CurrentDate = calendrier?.firstDay?.let { firstDay -> CurrentDate(firstDay).addDay(position) } ?: CurrentDate()
         Log.d("Event", "get item at $dateToLaunch at position $position")
         return EventFragment(calendrier, dateToLaunch, FileGlobal.getFileCalendar(parent))
     }
 
-//    override fun getPageTitle(position: Int): CharSequence {
-//        return DataGlobal.DAYS_OF_WEEK[position].toString()
-//    }
 
     override fun getItemCount(): Int {
         return countDay
