@@ -7,31 +7,36 @@ import com.iutcalendar.calendrier.Calendrier
 import com.iutcalendar.calendrier.InputStreamFileException
 import com.iutcalendar.data.DataGlobal
 import com.iutcalendar.data.FileGlobal
-import java.io.ByteArrayOutputStream
-import java.io.File
-import java.io.IOException
-import java.io.InputStream
+import java.io.*
 import java.net.HttpURLConnection
 import java.net.URL
+import java.net.UnknownHostException
 
 object FileDownload {
     private const val DEFAULT_BUFFER_SIZE = 8192
 
-    fun isValideURL(urlCalender: String): Boolean {
+    enum class URLValidity {
+        VALIDE, INVALIDE, ERROR_CONNECTION
+    }
+
+    fun isValideURL(urlCalender: String): URLValidity {
         return try {
             val url = URL(urlCalender)
             val huc = url.openConnection() as HttpURLConnection
             huc.instanceFollowRedirects = false
             huc.connect()
             huc.disconnect()
-            true
-        } catch (exception: Exception) {
-            return false
+            URLValidity.VALIDE
+        } catch (e: UnknownHostException) {
+            URLValidity.ERROR_CONNECTION
+        } catch (e: Exception) {
+            Log.e("URL", "$e")
+            URLValidity.INVALIDE
         }
     }
 
     @Throws(IOException::class)
-    fun getCalender(urlCalender: String): InputStream? {
+    fun getCalendar(urlCalender: String): InputStream? {
         Log.d("File", "Downloading file")
         var url = URL(urlCalender)
         var huc = url.openConnection() as HttpURLConnection
@@ -53,47 +58,68 @@ object FileDownload {
     }
 
     @Throws(IOException::class, InputStreamFileException::class)
-    fun updateFichier(file_path: String?, context: Context): Boolean {
-
+    fun updateFichierCalendrier(context: Context, url_path: String? = null): Boolean {
         // update du fichier ou création
-        DataGlobal.getSavedPath(context)?.let { url ->
-            if (url.isBlank() || !isValideURL(url)) {
-                throw WrongURLException()
-            }
-            val inputStream = getCalender(url) ?: throw InputStreamFileException("input stream est null")
-
-            val contentFile = inputStream2String(inputStream)
-            val success = Calendrier.writeCalendarFile(contentFile, File(file_path.toString()))
+        val url = url_path ?: DataGlobal.getSavedPath(context) ?: ""
+        return updateFichier(FileGlobal.getFileCalendar(context).absolutePath, url).also { success ->
             if (success) {
                 Log.d("File", "fichier enregistré")
                 val calendrier = Calendrier(FileGlobal.readFile(FileGlobal.getFileCalendar(context)))
                 Alarm.setUpAlarm(context, calendrier) //met a jours les alarmes programmé
             }
-            return success
         }
-        return false
     }
 
     @Throws(IOException::class, InputStreamFileException::class)
-    fun downloadRoomsCalendar(context: Context): Calendrier {
-        DataGlobal.getSavedRoomsPath(context)?.let { url ->
-            if (url.isEmpty()) {
-                throw WrongURLException()
-            }
-            val inputStream = getCalender(url) ?: throw InputStreamFileException("input stream est null")
-
-            val contentFile = inputStream2String(inputStream)
-            return Calendrier(contentFile)
+    fun updateFichier(file_path: String?, url_path: String): Boolean {
+        // update du fichier ou création
+        try {
+            return updateFileWithURL(file_path, url_path)
+        } catch (e: FileNotFoundException) {
+            throw WrongURLException()
         }
-        return Calendrier(mutableListOf())
     }
 
+    @Throws(Exception::class)
+    private fun updateFileWithURL(file_path: String?, url_path: String): Boolean {
+        return Calendrier.writeCalendarFile(downloadURL(url_path), File(file_path.toString()))
+    }
+
+    @Throws(IOException::class, InputStreamFileException::class)
+    fun downloadRoomsCalendar(context: Context, url_path: String? = null): Calendrier {
+        try {
+            return if (url_path != null) downloadCalendar(url_path) else
+                DataGlobal.getSavedRoomsPath(context)?.let { url ->
+                    downloadCalendar(url)
+                } ?: Calendrier(mutableListOf())
+        } catch (e: FileNotFoundException) {
+            throw WrongURLException()
+        }
+
+    }
+
+    @Throws(Exception::class)
+    private fun downloadCalendar(url_path: String): Calendrier {
+        return Calendrier(downloadURL(url_path))
+    }
+
+    @Throws(Exception::class)
+    private fun downloadURL(url_path: String): String {
+        if (url_path.isEmpty() || isValideURL(url_path) == URLValidity.INVALIDE) {
+            throw WrongURLException()
+        }
+        val inputStream = getCalendar(url_path) ?: throw InputStreamFileException("input stream est null")
+
+        return inputStream2String(inputStream)
+    }
+
+
     @Throws(IOException::class)
-    private fun inputStream2String(`is`: InputStream): String {
+    private fun inputStream2String(inputStream: InputStream): String {
         val result = ByteArrayOutputStream()
         val buffer = ByteArray(DEFAULT_BUFFER_SIZE)
         var length: Int
-        while (`is`.read(buffer).also { length = it } != -1) {
+        while (inputStream.read(buffer).also { length = it } != -1) {
             result.write(buffer, 0, length)
         }
         return result.toString("UTF-8")

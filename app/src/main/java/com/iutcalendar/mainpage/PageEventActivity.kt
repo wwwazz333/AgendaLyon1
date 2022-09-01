@@ -38,22 +38,13 @@ import java.util.*
 
 class PageEventActivity : AppCompatActivity() {
     lateinit var binding: ActivityPageEventBinding
+        private set
     private var fragmentTransaction: FragmentTransaction? = null
     private var currDate: CurrentDate = CurrentDate()
     private var currDateLabel: TextView? = null
     var calendrier: Calendrier? = null
     private val viewPager: ViewPager2
         get() = binding.viewPager
-
-    override fun onResume() {
-        super.onResume()
-        Calendrier(FileGlobal.readFile(FileGlobal.getFileCalendar(applicationContext))).let { newCalendrier ->
-            if (newCalendrier != calendrier) {
-                startActivity(Intent(this, PageEventActivity::class.java))
-                finish()
-            }
-        }
-    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

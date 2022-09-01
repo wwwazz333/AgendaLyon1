@@ -14,6 +14,7 @@ import com.iutcalendar.data.DataGlobal
 import com.iutcalendar.data.FileGlobal
 import com.iutcalendar.dialog.DialogMessage
 import com.iutcalendar.filedownload.FileDownload
+import com.iutcalendar.filedownload.WrongURLException
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanIntentResult
 import com.journeyapps.barcodescanner.ScanOptions
@@ -55,40 +56,52 @@ class URLSetterFragment : Fragment() {
             lifecycleScope.launch(Dispatchers.IO) {
                 withContext(Dispatchers.Main) { loading(true) }
                 var succes = true
+
                 binding.inputURL.text.toString().let { newPath ->
-                    if (newPath.isNotEmpty() && !FileDownload.isValideURL(newPath)) {
-                        succes = false
-                        withContext(Dispatchers.Main) {
-                            DialogMessage.showWarning(
-                                requireContext(), getString(R.string.url_invalide), getString(R.string.url_invalide_msg)
-                            ) {
-                                loading(false)
+                    if (prevURL != newPath) {
+                        try {
+                            if (newPath.isNotEmpty()) {
+                                FileDownload.updateFichierCalendrier(requireContext(), newPath)
                             }
+                        } catch (exception: WrongURLException) {
+                            succes = false
+                            withContext(Dispatchers.Main) {
+                                DialogMessage.showWarning(
+                                    requireContext(), getString(R.string.url_invalide), getString(R.string.url_invalide_msg)
+                                ) {
+                                    loading(false)
+                                }
+                            }
+                            return@let
+                        } catch (exception: Exception) {
+                            Log.e("URL", "$exception")
                         }
-                    } else if (prevURL != newPath) {
+
                         FileGlobal.getFileCalendar(requireContext()).delete()
                         FileGlobal.getFile(requireContext(), FileGlobal.CHANGEMENT_EVENT).delete()
                         DataGlobal.savePath(requireContext(), newPath)
-
-                        try {
-                            FileDownload.updateFichier(FileGlobal.getFileCalendar(requireContext()).absolutePath, requireContext())
-                            Log.d("Update", "end load new calendar")
-                        } catch (exception: Exception) {
-                        }
+                        Log.d("Update", "end load new calendar")
                     }
                 }
                 binding.inputURLRooms.text.toString().let { newPath ->
+                    if (prevURLRooms != newPath) {
+                        try {
+                            if (newPath.isNotEmpty())
+                                FileDownload.downloadRoomsCalendar(requireContext(), newPath)
 
-                    if (newPath.isNotEmpty() && !FileDownload.isValideURL(newPath)) {
-                        succes = false
-                        withContext(Dispatchers.Main) {
-                            DialogMessage.showWarning(
-                                requireContext(), getString(R.string.url_rooms_invalide), getString(R.string.url_rooms_invalide_msg)
-                            ) {
-                                loading(false)
+                        } catch (e: WrongURLException) {
+                            succes = false
+                            withContext(Dispatchers.Main) {
+                                DialogMessage.showWarning(
+                                    requireContext(), getString(R.string.url_rooms_invalide), getString(R.string.url_rooms_invalide_msg)
+                                ) {
+                                    loading(false)
+                                }
                             }
+                            return@let
+                        } catch (exception: Exception) {
+                            Log.e("URL", "$exception")
                         }
-                    } else if (prevURLRooms != newPath) {
                         DataGlobal.saveRoomsPath(requireContext(), newPath)
                     }
                 }

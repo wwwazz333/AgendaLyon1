@@ -47,13 +47,21 @@ class SearchRoomFragment : Fragment() {
 
             DataGlobal.getSavedRoomsPath(requireContext()).let { path ->
                 lifecycleScope.launch(Dispatchers.IO) {
-                    if (path.isNullOrBlank() || !FileDownload.isValideURL(path)) {
+                    var urlValidity: FileDownload.URLValidity? = null
+                    if (path.isNullOrBlank() || FileDownload.isValideURL(path).also { urlValidity = it } == FileDownload.URLValidity.INVALIDE) {
                         withContext(Dispatchers.Main) {
                             DialogMessage.showWarning(
                                 context, getString(R.string.url_rooms_invalide), getString(R.string.url_rooms_invalide_msg)
                             ) {
                                 NavigatorManager.startFragmentFromFragment(this@SearchRoomFragment, URLSetterFragment())
                             }
+                        }
+
+                    } else if (urlValidity == null || urlValidity == FileDownload.URLValidity.ERROR_CONNECTION) {
+                        withContext(Dispatchers.Main) {
+                            DialogMessage.showWarning(
+                                context, getString(R.string.No_connexion), "Cette fonctionnalité nécessite une connection internet valide."
+                            )
                         }
 
                     } else {

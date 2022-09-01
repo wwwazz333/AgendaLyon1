@@ -146,7 +146,7 @@ object FileGlobal {
     fun updateAndGetChange(context: Context, calendrier: Calendrier?, onChangeListener: (Context, Intent?) -> Unit) {
         try {
             val prev: Calendrier = calendrier?.clone() ?: Calendrier(readFile(getFileCalendar(context)))
-            FileDownload.updateFichier(getFileCalendar(context).absolutePath, context)
+            FileDownload.updateFichierCalendrier(context)
             val nouveau: Calendrier
             if (calendrier == null) {
                 nouveau = Calendrier(readFile(getFileCalendar(context)))
@@ -178,7 +178,7 @@ object FileGlobal {
             if (context is PageEventActivity) {
                 ErrorSnackBar.showError(context.binding.root, context.getString(R.string.Error))
             }
-            Log.e("SnackBar", "${e.cause} -> ${e.message}")
+            Log.e("SnackBar", "$e : ${e.cause} -> ${e.message}")
         }
     }
 }

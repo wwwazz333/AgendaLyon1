@@ -128,6 +128,7 @@ class EventFragment : Fragment {
                 swipeRefreshLayout.setOnRefreshListener {
                     parentActivity?.update {
                         swipeRefreshLayout.isRefreshing = false
+                        updateLabel()
                     }
                 }
                 recycleView.layoutManager = LinearLayoutManager(activity)
