@@ -108,7 +108,7 @@ class EventFragment : Fragment {
                     updateText.text = getString(R.string.no_last_update)
                 }
             } else {
-                updateText.text = ""
+                updateText.visibility = View.GONE
             }
         }
 
