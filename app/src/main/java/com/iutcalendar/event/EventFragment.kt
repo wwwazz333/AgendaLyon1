@@ -76,6 +76,7 @@ class EventFragment : Fragment {
             if (PreferenceManager.getDefaultSharedPreferences(requireContext())
                     .getBoolean("show_update", true)
             ) {
+                updateText.visibility = View.VISIBLE
                 if (fileUpdate.exists()) {
                     CurrentDate().apply {   //affichage la dernière maj
                         timeInMillis = fileUpdate.lastModified()
