@@ -65,7 +65,8 @@
         <Preference
             android:dependency="alarme_enable"
             android:key="sub_prefence_alarm"
-            android:title="@string/Settings_alarms"/>
+            android:title="@string/Settings_alarms"
+            android:summary="@string/settings_alarms"/>
     </PreferenceCategory>
 
     <PreferenceCategory
