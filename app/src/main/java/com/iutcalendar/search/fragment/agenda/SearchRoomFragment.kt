@@ -60,7 +60,7 @@ class SearchRoomFragment : Fragment() {
                     } else if (urlValidity == null || urlValidity == FileDownload.URLValidity.ERROR_CONNECTION) {
                         withContext(Dispatchers.Main) {
                             DialogMessage.showWarning(
-                                context, getString(R.string.No_connexion), "Cette fonctionnalité nécessite une connection internet valide."
+                                context, getString(R.string.No_connexion), getString(R.string.feature_need_network)
                             )
                         }
 

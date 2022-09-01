@@ -178,4 +178,5 @@ As well as a time which corresponds to the hour at which the alarm will sound."<
     <string name="url_invalide_msg">The URL you entered is invalid.\nPlease enter a valid URL.</string>
     <string name="Settings_alarms">Settings alarms</string>
     <string name="error_should_reboot">Error, please restart</string>
+    <string name="feature_need_network">This feature needs an internet connection.</string>
 </resources>
