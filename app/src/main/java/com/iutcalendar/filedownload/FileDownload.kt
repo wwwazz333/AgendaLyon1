@@ -5,6 +5,7 @@ import android.util.Log
 import com.iutcalendar.alarm.Alarm
 import com.iutcalendar.calendrier.Calendrier
 import com.iutcalendar.calendrier.InputStreamFileException
+import com.iutcalendar.data.CachedData
 import com.iutcalendar.data.DataGlobal
 import com.iutcalendar.data.FileGlobal
 import java.io.*
@@ -63,9 +64,10 @@ object FileDownload {
         val url = url_path ?: DataGlobal.getSavedPath(context) ?: ""
         return updateFichier(FileGlobal.getFileCalendar(context).absolutePath, url).also { success ->
             if (success) {
-                Log.d("File", "fichier enregistré")
-                val calendrier = Calendrier(FileGlobal.readFile(FileGlobal.getFileCalendar(context)))
-                Alarm.setUpAlarm(context, calendrier) //met a jours les alarmes programmé
+                Log.d("File", "fichier enregistré : ${FileGlobal.getFileCalendar(context).exists()}")
+                CachedData.calendrier = Calendrier(FileGlobal.readFile(FileGlobal.getFileCalendar(context)))
+                Log.d("File", "cached data calendrier has ${CachedData.calendrier.events.size}")
+                Alarm.setUpAlarm(context, CachedData.calendrier) //met a jours les alarmes programmé
             }
         }
     }

@@ -13,18 +13,23 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.iutcalendar.calendrier.Calendrier
 import com.iutcalendar.calendrier.CurrentDate
+import com.iutcalendar.data.CachedData
 import com.iutcalendar.data.DataGlobal
 import com.iutcalendar.data.FileGlobal
 import com.iutcalendar.mainpage.PageEventActivity
 import com.iutcalendar.settings.SettingsApp
 import com.univlyon1.tools.agenda.R
-import java.io.File
 import java.text.SimpleDateFormat
 
 class EventFragment : Fragment {
-    private var calendrier: Calendrier? = null
+    var calendrier: Calendrier
+        get() = CachedData.calendrier
+        set(value) {
+            CachedData.calendrier = value
+        }
     private var date: CurrentDate
-    private var fileUpdate: File? = null
+    private val fileUpdate
+        get() = FileGlobal.getFileCalendar(requireContext())
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private var updateTextView: TextView? = null
     private lateinit var recycleView: RecyclerView
@@ -34,10 +39,8 @@ class EventFragment : Fragment {
         // Required empty public constructor
     }
 
-    constructor(calendrier: Calendrier?, date: CurrentDate, fileUpdate: File?) {
-        this.calendrier = calendrier
+    constructor(date: CurrentDate) {
         this.date = date
-        this.fileUpdate = fileUpdate
         Log.d("Event", "creation fragment event for $date")
     }
 
@@ -48,9 +51,9 @@ class EventFragment : Fragment {
     }
 
     private fun updateRecycleView() {
-        if (activity != null && calendrier != null) {
+        if (activity != null) {
 
-            val eventToday = calendrier!!.clone().getEventsOfDay(date)
+            val eventToday = calendrier.clone().getEventsOfDay(date)
             val onClickEvent = { index: Int ->
                 if (context != null && activity != null) {
                     val ev = eventToday[index]
@@ -73,19 +76,16 @@ class EventFragment : Fragment {
             if (PreferenceManager.getDefaultSharedPreferences(requireContext())
                     .getBoolean("show_update", true)
             ) {
-                if (calendrier != null && fileUpdate != null && FileGlobal.getFileCalendar(
-                        requireContext()
-                    ).exists()
-                ) {
+                if (fileUpdate.exists()) {
                     CurrentDate().apply {   //affichage la dernière maj
-                        timeInMillis = fileUpdate!!.lastModified()
+                        timeInMillis = fileUpdate.lastModified()
                         runForDate({
                             updateText.text = resources.getString(
                                 R.string.last_update,
                                 SimpleDateFormat(
                                     "HH:mm",
                                     SettingsApp.locale
-                                ).format(fileUpdate!!.lastModified())
+                                ).format(fileUpdate.lastModified())
                             )
                         }, {
                             updateText.text = resources.getString(
@@ -98,12 +98,13 @@ class EventFragment : Fragment {
                                 SimpleDateFormat(
                                     "dd/MM/yyyy HH:mm",
                                     SettingsApp.locale
-                                ).format(fileUpdate!!.lastModified())
+                                ).format(fileUpdate.lastModified())
                             )
                         }
                     }
 
                 } else {
+                    Log.d("File", "calendar file doesn't existe")
                     updateText.text = getString(R.string.no_last_update)
                 }
             } else {

@@ -10,6 +10,8 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import com.iutcalendar.calendrier.Calendrier
+import com.iutcalendar.data.CachedData
 import com.iutcalendar.data.DataGlobal
 import com.iutcalendar.data.FileGlobal
 import com.iutcalendar.dialog.DialogMessage
@@ -62,6 +64,9 @@ class URLSetterFragment : Fragment() {
                         try {
                             if (newPath.isNotEmpty()) {
                                 FileDownload.updateFichierCalendrier(requireContext(), newPath)
+                            }else{
+                                CachedData.calendrier = Calendrier(mutableListOf())
+                                FileGlobal.getFileCalendar(requireContext()).delete()
                             }
                         } catch (exception: WrongURLException) {
                             succes = false
@@ -75,9 +80,10 @@ class URLSetterFragment : Fragment() {
                             return@let
                         } catch (exception: Exception) {
                             Log.e("URL", "$exception")
+                            CachedData.calendrier = Calendrier(mutableListOf())
+                            FileGlobal.getFileCalendar(requireContext()).delete()//pas de connexion
                         }
 
-                        FileGlobal.getFileCalendar(requireContext()).delete()
                         FileGlobal.getFile(requireContext(), FileGlobal.CHANGEMENT_EVENT).delete()
                         DataGlobal.savePath(requireContext(), newPath)
                         Log.d("Update", "end load new calendar")

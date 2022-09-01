@@ -17,6 +17,7 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import com.iutcalendar.calendrier.Calendrier
 import com.iutcalendar.calendrier.CurrentDate
+import com.iutcalendar.data.CachedData
 import com.iutcalendar.data.DataGlobal
 import com.iutcalendar.data.FileGlobal
 import com.iutcalendar.event.changement.ChangeDialog
@@ -42,15 +43,37 @@ class PageEventActivity : AppCompatActivity() {
     private var fragmentTransaction: FragmentTransaction? = null
     private var currDate: CurrentDate = CurrentDate()
     private var currDateLabel: TextView? = null
-    var calendrier: Calendrier? = null
+    var calendrier: Calendrier
+        get() = CachedData.calendrier
+        set(value) {
+            CachedData.calendrier = value
+        }
     private val viewPager: ViewPager2
         get() = binding.viewPager
 
+    var savedInstanceCalendrier: Calendrier? = null
+
+
+    override fun onResume() {
+        super.onResume()
+
+        savedInstanceCalendrier?.let {
+            if (it != CachedData.calendrier) {
+                initPageViewEvent()
+            }
+            Log.d("PageEventActivity", "new has = ${CachedData.calendrier.events.size}\t prev has ${it.events.size}")
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        savedInstanceCalendrier = calendrier.clone()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         SettingsApp.setLocale(resources, DataGlobal.getLanguage(applicationContext))
-        Log.d("Global", "PageEventActivity start")
+        Log.d("PageEventActivity", "PageEventActivity start")
         binding = ActivityPageEventBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initVariable()
@@ -84,7 +107,7 @@ class PageEventActivity : AppCompatActivity() {
         initAds()
 
         /*####Testing feature#####*/
-        Log.d("Global", "PageEventActivity end")
+        Log.d("PageEventActivity", "PageEventActivity end")
 
     }
 
@@ -151,12 +174,12 @@ class PageEventActivity : AppCompatActivity() {
      */
     private fun initPageViewEvent() {
         Log.d("Event", "creation Section page adapter")
-        val sectionsPagerAdapter = SectionsPagerAdapter(this, calendrier)
+        val sectionsPagerAdapter = SectionsPagerAdapter(this)
         viewPager.adapter = sectionsPagerAdapter
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 Log.d("Page", "new page : $position")
-                calendrier?.firstDay?.let {
+                calendrier.firstDay?.let {
                     setCurrDate(CurrentDate(it).addDay(position))
                 }
 
@@ -187,7 +210,7 @@ class PageEventActivity : AppCompatActivity() {
                     GregorianCalendar.MINUTE,
                     WidgetCalendar.DELAY_AFTER_EVENT_PASSED
                 ) //pcq event est toujours affiché toujours au bout de 30min
-                val es = calendrier!!.getNext2EventAfter(dateToLaunch)
+                val es = calendrier.getNext2EventAfter(dateToLaunch)
                 es[0]?.date?.let { date ->
                     dateToLaunch = CurrentDate(date)
                 }
@@ -262,8 +285,8 @@ class PageEventActivity : AppCompatActivity() {
         if (newCurrentDate != null) {
             var newDate: CurrentDate = newCurrentDate
             Log.d("Date", "$currDate set curr date to $newDate")
-            calendrier?.firstDay?.let { firstDay ->
-                calendrier?.lastDay?.let { lastDay ->
+            calendrier.firstDay?.let { firstDay ->
+                calendrier.lastDay?.let { lastDay ->
                     if (newDate < firstDay) {
                         newDate = CurrentDate(firstDay)
                     } else if (newDate > lastDay) {
@@ -281,14 +304,14 @@ class PageEventActivity : AppCompatActivity() {
     }
 
     private fun setPositionPageToCurrDate() {
-        if (calendrier != null && calendrier!!.firstDay != null) {
+        if (calendrier != null && calendrier.firstDay != null) {
             viewPager.currentItem = getPosOfDate(currDate)
         }
     }
 
     private fun getPosOfDate(date: CurrentDate?): Int {
-        if (calendrier != null && calendrier!!.firstDay != null) {
-            val pos = calendrier!!.firstDay!!.getNbrDayTo(date)
+        if (calendrier != null && calendrier.firstDay != null) {
+            val pos = calendrier.firstDay!!.getNbrDayTo(date)
             Log.d("Event", "position = $pos for date $date")
             Log.d("Position", "offset : $pos")
             return pos
