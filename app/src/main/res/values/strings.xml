@@ -201,8 +201,8 @@ Ainsi qu'un horaire qui correspond à l'heure à laquelle l'alarme va sonner."
     <string name="url_des_salles">URL des salles</string>
     <string name="les_salles_libres">Les salles libres</string>
     <string name="No_room_free">Aucune salle disponible</string>
-    <string name="help_search_room">Cette section vous permet de rechercher une salle libre à un certain horaire.\n\nCependant, les salles qui ne sont jamais occupées ne pourront pas être détectées en tant que salle de l\'établissement. Donc elle ne s\'affichera pas dans la liste des salles libres.</string>
-    <string name="Search">Rechercher</string>
+    <string name="help_search_room">Cette section vous permet de chercher une salle libre à un certain horaire.\n\nCependant, les salles qui ne sont jamais occupées ne pourront pas être détectées en tant que salle de l\'établissement. Donc elle ne s\'affichera pas dans la liste des salles libres.</string>
+    <string name="Search">Recherché</string>
     <string name="choose_ringtone">Choisissez votre sonnerie</string>
     <string name="Ringtone">Sonnerie</string>
     <string name="url_rooms_invalide">URL des salles invalide</string>
