@@ -183,4 +183,6 @@ As well as a time which corresponds to the hour at which the alarm will sound."<
     <string name="search_room_help_msg1">This feature allows you to search for a room available at a certain time.</string>
     <string name="search_room_help_msg2">To use this feature, you must enter the room URL of your institution in the URL section at \'room URL\'.</string>
     <string name="search_room_help_msg3">Attention: it is advisable to export the calendar for the whole year (start and end date) so that the application can analyze all the available rooms.</string>
+    <string name="exemple">Example</string>
+    <string name="example_url_salle">For the IT department of the IUT Doua in Lyon 1</string>
 </resources>

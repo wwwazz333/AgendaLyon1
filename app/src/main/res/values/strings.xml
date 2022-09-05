@@ -216,5 +216,8 @@ Ainsi qu'un horaire qui correspond à l'heure à laquelle l'alarme va sonner."
     <string name="search_room_help_msg1">Cette fonctionnalité vous permet de chercher une salle disponible à un certain horaire.</string>
     <string name="search_room_help_msg2">Pour utiliser cette fonctionnalité, il vous faut rentrer l’URL des salles de votre établissement dans la section URL à \'URL des salles\'.</string>
     <string name="search_room_help_msg3">Attention : il est conseiller d\'exporter le calendrier pour toute l\'année (date de début et de fin) pour que l\'application puisse analyser toutes les salles disponibles.</string>
+    <string name="exemple">Exemple</string>
+    <string name="url_video_explicative" translatable="false">https://youtu.be/KCixXNonoCI</string>
+    <string name="example_url_salle">Pour le département informatique de l\'IUT Doua à lyon 1</string>
 
 </resources>

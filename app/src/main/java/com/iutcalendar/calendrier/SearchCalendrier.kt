@@ -44,7 +44,9 @@ object SearchCalendrier {
                     roomAvailable.remove(salle)
                 }
             }
-            return roomAvailable
+            return roomAvailable.apply{
+                sort()
+            }
         }
         return listOf()
     }

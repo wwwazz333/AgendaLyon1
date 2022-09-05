@@ -219,6 +219,31 @@
             android:layout_marginStart="@dimen/tab_gap"
             android:layout_marginTop="@dimen/default_padding"
             android:text="@string/search_room_help_msg3" />
+
+        <TextView
+            style="@style/subTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/tab_gap"
+            android:layout_marginTop="@dimen/default_padding"
+            android:text="@string/exemple" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/tab_gap"
+            android:layout_marginTop="@dimen/default_padding"
+            android:text="@string/example_url_salle" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/tab_gap"
+            android:layout_marginTop="@dimen/default_padding"
+            android:autoLink="web"
+            android:gravity="center"
+            android:minWidth="@dimen/minTactile"
+            android:minHeight="@dimen/minTactile"
+            android:text="@string/url_video_explicative" />
+
     </LinearLayout>
 
         <LinearLayout
