@@ -54,7 +54,7 @@
     <string name="Theme">Theme</string>
     <string name="No_alarm">No alarm</string>
     <string name="WidgetTheme">Widget Theme</string>
-    <string name="themeWidgetLabelSettings">Change theme of home screen widget (apply after update)</string>
+    <string name="themeWidgetLabelSettings">Change theme of home screen widget (apply after an update)</string>
     <string name="Information">Information</string>
     <string name="InformationSettingsLabel">Information about this app</string>
     <string name="urlSettingsLabel">URL for calendar\'s update</string>
@@ -94,7 +94,7 @@ As well as a time which corresponds to the hour at which the alarm will sound."<
     <string name="Calendar">Calendar</string>
     <string name="History">History</string>
     <string name="PublicHolidays">Public holidays</string>
-    <string name="publicHolidaysDescriptionOff">Alarms are deactivated for public holidays (8 hours class)</string>
+    <string name="publicHolidaysDescriptionOff">Alarms are deactivated for public holidays (8 hours classes)</string>
     <string name="publicHolidaysDescriptionOn">Alarms are activated for public holidays</string>
     <string name="AlarmesComplex">Complex alarms</string>
     <string name="alarmesComplexOff">The alarm is set a pre-determined time before the first class of the day.</string>
@@ -110,15 +110,15 @@ As well as a time which corresponds to the hour at which the alarm will sound."<
 
 - 'Contain' a string of characters
 - 'Is not' a string of characters"</string>
-    <string name="presentationGeneral">This application allows you to consult your university calendar on your phone, you can be notified of a change in your schedule, you can find all changes in the history.</string>
+    <string name="presentationGeneral">This application allows you to consult your university calendar on your phone. You can be notified of a change in your schedule, you can find all changes in the history.</string>
     <string name="ForStarted">Getting Started</string>
     <string name="commencer1">You need to link this application to your schedule, to do so go to :</string>
     <string name="commencer2">You will need to log in and then export the desired schedule.</string>
     <string name="commencer3">Then you can type the url proposed in the URL section of the parameters or simply use the simply use the QR code.</string>
-    <string name="alarm_auto_aide1">You can activate the automatic alarms, it is an alarm clock which adapts itself according to your 1st hour of course (they are generated in advance for the next 7 days).</string>
+    <string name="alarm_auto_aide1">You can activate the automatic alarms. It is an alarm clock which adapts itself according to your 1st hour of course (they are generated in advance for the next 7 days).</string>
     <string name="alarm_auto_aide2">There are 2 ways to set them up.</string>
     <string name="ManiereSimplifie">Simplified way</string>
-    <string name="maniereSimplifierAide1">The alarm clock will ring at a fixed time before the first hour of class. determined in minutes by the slide bar titled Alarm Clock.</string>
+    <string name="maniereSimplifierAide1">The alarm clock will ring at a fixed time before the first hour of class. Determined in minutes by the slide bar titled Alarm Clock.</string>
     <string name="maniereSimplifierAide2">You can also determine the days when the alarms will be activated or not, with the \'Days activated\' setting.</string>
     <string name="ManiereAvancer">Advanced way</string>
     <string name="alarmesAutoAide1">"This section allows you to add alarms that must meet certain conditions, which are :"</string>
@@ -146,13 +146,13 @@ As well as a time which corresponds to the hour at which the alarm will sound."<
     <string name="go_to_page_Calendar">Go to page Calendar</string>
     <string name="go_to_page_History">Go to page History</string>
     <string name="go_to_page_Settings">Go to page Settings</string>
-    <string name="Back_app">Background of app</string>
+    <string name="Back_app">Background of the app</string>
     <string name="Wrong_URL">Wrong URL</string>
     <string name="No_connexion">No connection</string>
     <string name="Search_room_title">Search a room (Beta)</string>
     <string name="go_to_page_Search">Go to page Search a room</string>
     <string name="Error">Error</string>
-    <string name="change_in_schedul">There is changes in your schedule</string>
+    <string name="change_in_schedul">There are changes in your schedule</string>
     <string name="change_schedule">Changes in the schedule</string>
     <string name="notify_change">Notify of a change in the schedule</string>
     <string name="notif_for_alarm">Alarm notification</string>
