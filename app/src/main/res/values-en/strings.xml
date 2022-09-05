@@ -165,7 +165,7 @@ As well as a time which corresponds to the hour at which the alarm will sound."<
     <string name="alarme_enabled_summary_off">No alarms will ring</string>
     <string name="alarm_reported">alarm delayed by 5 min</string>
     <string name="New_alarm">New alarm</string>
-    <string name="url_des_salles">Room URLs</string>
+    <string name="url_des_salles">Room URL</string>
     <string name="les_salles_libres">Available rooms</string>
     <string name="No_room_free">No room available</string>
     <string name="help_search_room">This section allows you to search for a free room at a certain time.\n\nHowever, rooms that are never occupied will not be detected as a facility room. So it will not appear in the list of free rooms.</string>
@@ -180,4 +180,7 @@ As well as a time which corresponds to the hour at which the alarm will sound."<
     <string name="error_should_reboot">Error, please restart</string>
     <string name="feature_need_network">This feature needs an internet connection.</string>
     <string name="settings_alarms">Displays of alarms</string>
+    <string name="search_room_help_msg1">This feature allows you to search for a room available at a certain time.</string>
+    <string name="search_room_help_msg2">To use this feature, you must enter the room URL of your institution in the URL section at \'room URL\'.</string>
+    <string name="search_room_help_msg3">Attention: it is advisable to export the calendar for the whole year (start and end date) so that the application can analyze all the available rooms.</string>
 </resources>
