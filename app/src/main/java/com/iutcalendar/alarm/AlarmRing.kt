@@ -56,8 +56,8 @@ class AlarmRing(val timeInMillis: Long, var isActivate: Boolean = true, var isDe
             timePickerDialog.show()
         }
 
-        fun askTime(context: Context?, onTimeSetListener: OnTimeSetListener?) {
-            val timePickerDialog = TimePickerDialog(context, onTimeSetListener, 0, 0, SettingsApp.locale == SettingsApp.localFrance)
+        fun askTime(context: Context?, hourOfDay : Int = 0, minute : Int = 0, onTimeSetListener: OnTimeSetListener?) {
+            val timePickerDialog = TimePickerDialog(context, onTimeSetListener, hourOfDay, minute, SettingsApp.locale == SettingsApp.localFrance)
             timePickerDialog.show()
         }
     }

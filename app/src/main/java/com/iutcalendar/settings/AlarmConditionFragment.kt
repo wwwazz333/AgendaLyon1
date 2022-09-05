@@ -66,32 +66,35 @@ class AlarmConditionFragment : AbstractFragmentWitheMenu() {
             //demande heure fin
             AlarmRing.askTime(
                 context,
-                getString(R.string.BorneSup)
-            ) { _: TimePicker?, hourOfDayEnd: Int, minuteEnd: Int ->
-                val end: Long = DateCalendrier.getHourInMillis(hourOfDayEnd, minuteEnd)
-                if (begin > end) {
-                    DialogMessage.showWarning(
-                        context,
-                        getString(R.string.Interval),
-                        getString(R.string.born_sup_et_inf_inverser)
-                    )
-                } else {
-                    //demande heure sonnerie
-                    AlarmRing.askTime(
-                        context,
-                        getString(R.string.TimeToRing)
-                    ) { _: TimePicker?, hourOfDayAlarmAt: Int, minuteAlarmAt: Int ->
-                        val alarmAt: Long =
-                            DateCalendrier.getHourInMillis(hourOfDayAlarmAt, minuteAlarmAt)
-                        AlarmConditionManager.getInstance(context)
-                            .addCondition(AlarmCondition(begin, end, alarmAt))
-                        recyclerViewConstraint?.adapter?.let {
-                            it.notifyItemInserted(it.itemCount - 1)
-                        }
-                        saveConditions()
+                getString(R.string.BorneSup),
+
+
+                { _: TimePicker?, hourOfDayEnd: Int, minuteEnd: Int ->
+                    val end: Long = DateCalendrier.getHourInMillis(hourOfDayEnd, minuteEnd)
+                    if (begin > end) {
+                        DialogMessage.showWarning(
+                            context,
+                            getString(R.string.Interval),
+                            getString(R.string.born_sup_et_inf_inverser)
+                        )
+                    } else {
+                        //demande heure sonnerie
+                        AlarmRing.askTime(
+                            context,
+                            getString(R.string.TimeToRing), { _: TimePicker?, hourOfDayAlarmAt: Int, minuteAlarmAt: Int ->
+                                val alarmAt: Long =
+                                    DateCalendrier.getHourInMillis(hourOfDayAlarmAt, minuteAlarmAt)
+                                AlarmConditionManager.getInstance(context)
+                                    .addCondition(AlarmCondition(begin, end, alarmAt))
+                                recyclerViewConstraint?.adapter?.let {
+                                    it.notifyItemInserted(it.itemCount - 1)
+                                }
+                                saveConditions()
+                            }, hourOfDayBegin, minuteBegin
+                        )
                     }
-                }
-            }
+                }, hourOfDayBegin, minuteBegin
+            )
         }
     }
 

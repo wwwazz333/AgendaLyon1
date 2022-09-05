@@ -9,6 +9,7 @@ import android.widget.TimePicker
 import androidx.recyclerview.widget.RecyclerView
 import com.iutcalendar.alarm.AlarmRing
 import com.iutcalendar.calendrier.DateCalendrier
+import com.iutcalendar.dialog.DialogMessage
 import com.univlyon1.tools.agenda.R
 import java.util.*
 
@@ -33,21 +34,44 @@ class AlarmConditionAdapter(
         holder.endHour.text = DateCalendrier.timeLongToString(alarmConstraint.end)
         holder.ringHour.text = DateCalendrier.timeLongToString(alarmConstraint.alarmAt)
         holder.beginHour.setOnClickListener {
-            AlarmRing.askTime(context) { _: TimePicker?, hourOfDay: Int, minute: Int ->
-                alarmConstraint.begin = DateCalendrier.getHourInMillis(hourOfDay, minute)
-                notifyItemChanged(position)
-                saveListener()
+            val currentDateSet = DateCalendrier().apply { setHourWithMillis(alarmConstraint.begin) }
+
+            AlarmRing.askTime(context, currentDateSet.hour, currentDateSet.minute) { _: TimePicker?, hourOfDay: Int, minute: Int ->
+                if (alarmConstraint.end >= DateCalendrier.getHourInMillis(hourOfDay, minute)) {
+                    alarmConstraint.begin = DateCalendrier.getHourInMillis(hourOfDay, minute)
+                    notifyItemChanged(position)
+                    saveListener()
+                } else {
+                    DialogMessage.showWarning(
+                        context,
+                        context?.getString(R.string.Interval),
+                        context?.getString(R.string.born_sup_et_inf_inverser)
+                    )
+                }
+
             }
         }
         holder.endHour.setOnClickListener {
-            AlarmRing.askTime(context) { _: TimePicker?, hourOfDay: Int, minute: Int ->
-                alarmConstraint.end = DateCalendrier.getHourInMillis(hourOfDay, minute)
-                notifyItemChanged(position)
-                saveListener()
+            val currentDateSet = DateCalendrier().apply { setHourWithMillis(alarmConstraint.end) }
+            AlarmRing.askTime(context, currentDateSet.hour, currentDateSet.minute) { _: TimePicker?, hourOfDay: Int, minute: Int ->
+                if(alarmConstraint.begin <= DateCalendrier.getHourInMillis(hourOfDay, minute)){
+                    alarmConstraint.end = DateCalendrier.getHourInMillis(hourOfDay, minute)
+                    notifyItemChanged(position)
+                    saveListener()
+                }else{
+                    DialogMessage.showWarning(
+                        context,
+                        context?.getString(R.string.Interval),
+                        context?.getString(R.string.born_sup_et_inf_inverser)
+                    )
+                }
+
             }
         }
         holder.ringHour.setOnClickListener {
-            AlarmRing.askTime(context) { _: TimePicker?, hourOfDay: Int, minute: Int ->
+            val currentDateSet = DateCalendrier().apply { setHourWithMillis(alarmConstraint.alarmAt) }
+
+            AlarmRing.askTime(context, currentDateSet.hour, currentDateSet.minute) { _: TimePicker?, hourOfDay: Int, minute: Int ->
                 alarmConstraint.alarmAt = DateCalendrier.getHourInMillis(hourOfDay, minute)
                 notifyItemChanged(position)
                 saveListener()
