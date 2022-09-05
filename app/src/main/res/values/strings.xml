@@ -1,9 +1,27 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:locale="fr">
+    <!--    Intraduisible-->
+
     <string name="app_name" translatable="false">Agenda Lyon1</string>
-    <string name="title_activity_settings">Paramètre</string>
+    <string name="ok" translatable="false">OK</string>
+    <string name="exemple_url" translatable="false"><![CDATA[http://adelb.univ-lyon1.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=xxxxx&projectId=1&amp;calType=ical&firstDate=year-month-day&lastDate=year-month-day]]></string>
+    <string name="exemple_hour" translatable="false">10:00</string>
+    <string name="exemple_date" translatable="false">10/05/2022</string>
+    <string name="both_time" translatable="false">%1$s - %2$s</string>
+    <string name="version_build" translatable="false">Version : %1$s</string>
+    <string name="exemple_text" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
+    <string name="url" translatable="false">URL</string>
+    <string name="Contact" translatable="false">Contact</string>
+    <string name="lien_edt" translatable="false">edt.univ-lyon1.fr/</string>
+    <string name="myEmail" translatable="false">univlyon1.tools@gmail.com</string>
+    <string name="repoGithub" translatable="false">https://github.com/wwwazz333/IUTCalendar</string>
+    <string name="LogoGithub" translatable="false">Logo Github</string>
+    <string name="LogoMail" translatable="false">Logo Mail</string>
+    <string name="snooze" translatable="false">SNOOZE</string>
+    <string name="reset" translatable="false">Reset</string>
+
 
     <!--    Basique-->
-    <string name="ok" translatable="false">OK</string>
+    <string name="title_activity_settings">Paramètre</string>
     <string name="open">Ouvrir</string>
     <string name="cancel">Annulé</string>
     <string name="submit">Validé</string>
@@ -19,14 +37,10 @@
 
     <!--    Exemple-->
     <string name="date_exemple">Dim 24 avril 2022</string>
-    <string name="exemple_url" translatable="false"><![CDATA[http://adelb.univ-lyon1.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=xxxxx&projectId=1&amp;calType=ical&firstDate=year-month-day&lastDate=year-month-day]]></string>
-    <string name="exemple_hour" translatable="false">10:00</string>
-    <string name="exemple_date" translatable="false">10/05/2022</string>
+
 
     <!--    Avec placeholder-->
-    <string name="both_time" translatable="false">%1$s - %2$s</string>
     <string name="last_update">dernière maj. : %1$s</string>
-    <string name="version_build" translatable="false">Version : %1$s</string>
 
     <!--    Other-->
     <string name="event">Évènement</string>
@@ -44,21 +58,19 @@
     <string name="Vendredi_abv">Ven</string>
     <string name="Samedi_abv">Sam</string>
     <string name="Dimanche_abv">Dim</string>
-    <string name="exemple_text" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
     <string name="Duration">Durée</string>
     <string name="General">Général</string>
     <string name="Reload">Recharger</string>
     <string name="load_icon">icone de chargement</string>
-    <string name="url" translatable="false">URL</string>
     <string name="qr_code_scan">Scan QR code</string>
     <string name="logo_settings">Logo paramètre</string>
     <string name="close_settings">fermer les paramètres</string>
-    <string name="show_update">Afficher update</string>
+    <string name="show_update">Afficher maj.</string>
     <string name="show_date_description">Afficher la date de la dernière maj. du calendrier</string>
     <string name="revert_swipe">Inverser défilement</string>
     <string name="revert_swipe_description">Inverser le défilement des jours et des semaines (swipe)</string>
     <string name="summer_offset">Heure d\'été</string>
-    <string name="summer_offset_description">Applique le décallager pour l\'heure d\'été</string>
+    <string name="summer_offset_description">Applique le décalage pour l\'heure d\'été</string>
     <string name="choose_langue">Langue</string>
     <string name="choose_langue_description">Changer la langue</string>
     <string name="Feature">Fonctionnalité</string>
@@ -68,7 +80,7 @@
     <string name="Added">Ajouté</string>
     <string name="Deleted">Supprimé</string>
     <string name="Moved">Déplacé</string>
-    <string name="No_events">Aucun événements</string>
+    <string name="No_events">Aucun événement</string>
     <string name="Theme">Thème</string>
     <string name="themeLabelSettings">Changer de thème</string>
     <string name="No_alarm">Aucune alarme</string>
@@ -78,26 +90,26 @@
     <string name="InformationSettingsLabel">Information à propos de l\'application</string>
     <string name="urlSettingsLabel">URL pour mettre à jour le calendrier</string>
     <string name="Alarm_auto">Alarmes auto</string>
-    <string name="alarm_auto_label">Une alarm automatique vas s\'activé en fonction des préférences</string>
+    <string name="alarm_auto_label">Une alarme automatique vas s\'activé en fonction des préférences</string>
     <string name="List_alarms">Liste des Alarmes</string>
     <string name="settings_alarm_label">Liste des alarmes automatique</string>
     <string name="Between">Entre</string>
     <string name="And">Et</string>
     <string name="RingHour">Heure Sonnerie</string>
     <string name="aide_conditon_alarm">
-"Une alarm sera placé pour chaques CONDITION respecter.
+"Une alarme sera placée pour chaque CONDITION respecter.
 
 Une CONDITION possède un intérvale dont les valeurs (inférieur ET supérieur) sont comprises.
 
-Ainsi qu'un horaire qui correspond à l'heure à l'aquelle l'alarme va sonner."
+Ainsi qu'un horaire qui correspond à l'heure à laquelle l'alarme va sonner."
     </string>
     <string name="must_contain">Doit contenir</string>
     <string name="must_not_contain">Ne doit pas contenir</string>
     <string name="Ajout_contrainte">Ajouté Contrainte</string>
-    <string name="Horaire_alarms_auto">Horaire Alarms auto</string>
-    <string name="label_horaire_alarm_auto">Paramètrage des conditions pour les horaires des alarmes</string>
+    <string name="Horaire_alarms_auto">Horaire Alarmes auto</string>
+    <string name="label_horaire_alarm_auto">Paramétrage des conditions pour les horaires des alarmes</string>
     <string name="Help">Aide</string>
-    <string name="TimeToRing">Horaire à laquelle faire sonné</string>
+    <string name="TimeToRing">Horaire à laquelle faire sonner</string>
     <string name="BorneSup">Intervale supérieur (compris)</string>
     <string name="BorneInf">Intervale inferieur (compris)</string>
     <string name="Interval">Intervale</string>
@@ -114,44 +126,42 @@ Ainsi qu'un horaire qui correspond à l'heure à l'aquelle l'alarme va sonner."
     <string name="Calendar">Calendrier</string>
     <string name="History">Historique</string>
     <string name="PublicHolidays">Jours fériés</string>
-    <string name="publicHolidaysDescriptionOff">Les alarms sont désactivé pour les jours fériés (cours de 8 h)</string>
-    <string name="publicHolidaysDescriptionOn">Les alarms sont activé pour les jours fériés</string>
+    <string name="publicHolidaysDescriptionOff">Les alarmes sont désactivés pour les jours fériés (cours de 8 h)</string>
+    <string name="publicHolidaysDescriptionOn">Les alarmes sont activés pour les jours fériés</string>
     <string name="AlarmesComplex">Alarmes avancées</string>
-    <string name="alarmesComplexOff">"L'alarme est placès un temps prédéterminé avant le 1er cours de la journée.\n"</string>
-    <string name="alarmesComplexOn">Les alarmes sont placès en fonction des intervales de temps prédéfinie (Horaires Alarmes auto) et avec des contraintes (Contraintes Alarmes)</string>
+    <string name="alarmesComplexOff">"L'alarme est placé un temps prédéterminé avant le 1er cours de la journée.\n"</string>
+    <string name="alarmesComplexOn">Les alarmes sont placés en fonction des intervalles de temps prédéfinie (Horaires Alarmes auto) et avec des contraintes (Contraintes Alarmes)</string>
     <string name="HoraireSonnerie">Horaire Sonnerie</string>
     <string name="HoraireSonnerieDescription">Horaire de la sonnerie relative au 1er cours de la journée (en minutes avant le cours)</string>
     <string name="ActivatedDays">Jours activé</string>
     <string name="activatedDaysDescription">Les jours de la semaine où les alarmes automatiques seront activé</string>
     <string name="ConstraintAlarms">Contraintes Alarmes</string>
-    <string name="ConstraintAlarmsDescription">Paramètrage des contraintes pour les alarmes</string>
+    <string name="ConstraintAlarmsDescription">Paramétrage des contraintes pour les alarmes</string>
     <string name="aid_constraint_alarm">
-"Les CONTRAINTES sont des conditions sur le titre de l\'évenement qui doit soit
+"Les CONTRAINTES sont des conditions sur le titre de l\'événement qui doit soit
 
-- 'Ne doit pas contenir' une chaine de caractères
-- 'N\'est pas' une chaine de caractères"
+- 'Ne doit pas contenir' une chaîne de caractères
+- 'N\'est pas' une chaîne de caractères"
     </string>
-    <string name="Contact" translatable="false">Contact</string>
-    <string name="presentationGeneral">"Cette application vous permet de consulter votre agenda universitaire sur votre téléphone, vous pourez ainsi être notifié d\'un changemenet dans votre emploi du temps, vous pourez retrouvez tous les changements dans l\'historique."</string>
+    <string name="presentationGeneral">"Cette application vous permet de consulter votre agenda universitaire sur votre téléphone, vous pourrez ainsi être notifié d\'un changement dans votre emploi du temps, vous pourrez retrouver tous les changements dans l\'historique."</string>
     <string name="ForStarted">Pour Commencer</string>
     <string name="commencer1">"Il vous faut lier cette application à votre emploi du temps, pour se faire rendez-vous sur :"</string>
-    <string name="lien_edt" translatable="false">edt.univ-lyon1.fr/</string>
     <string name="commencer2">Vous devrez vous connecter puis exporter l\'emplois du temps désirer.</string>
     <string name="commencer3">Ensuite vous pouvez taper l\'url proposer dans la section URL des paramètres ou tous simplement utiliser le QR code.</string>
-    <string name="alarm_auto_aide1">Vous pouvez activer les alarmes automatiques, c\'est un réveil qui s\'adapte en fonction de votre 1re heure de cours (elles sont généré à l\'avance pour les 7 prochain jours).</string>
-    <string name="alarm_auto_aide2">Il y a 2 moyens de les paramètrer.</string>
+    <string name="alarm_auto_aide1">Vous pouvez activer les alarmes automatiques, c\'est un réveil qui s\'adapte en fonction de votre 1re heure de cours (elles sont générées à l\'avance pour les 7 prochains jours).</string>
+    <string name="alarm_auto_aide2">Il y a 2 moyens de les paramétrer.</string>
     <string name="ManiereSimplifie">Manière simplifié</string>
     <string name="maniereSimplifierAide1">>Aide pour utiliser</string>
-    <string name="maniereSimplifierAide2">Vous pourez aussi déterminié les jours où les alarmes pourons s\'activé ou non, avec le paramétre \'Jours activé\'</string>
+    <string name="maniereSimplifierAide2">Vous pourrez aussi déterminer les jours où les alarmes pourront s\'activer ou non, avec le paramètre  \'Jours activé\'</string>
     <string name="ManiereAvancer">Manière avancé</string>
-    <string name="alarmesAutoAide1">Cette section permet d\'ajouté des alarmes qui devrons respecter des conditions, qui sont :</string>
+    <string name="alarmesAutoAide1">Cette section permet d\'ajouté des alarmes qui devront respecter des conditions, qui sont :</string>
     <string name="alarmesAutoAide2">le début du 1er cours de la journée doit être dans l\'interval et doit être un des jours sélectionné pour ces alarmes, alors l\'alarmes sonnera à l\'heure indiqué.</string>
-    <string name="alarmesAutoAide3">Avec la Manière avancée il est ainsi possible de mettre plusieurs alarmes à des horaires différente</string>
+    <string name="alarmesAutoAide3">Avec la Manière avancée il est ainsi possible de mettre plusieurs alarmes à des horaires différentes</string>
     <string name="ConstraintAlarmsAide1">Les contrainte sont valables pour toutes les alarmes configurer dans la section précédente. Ce sont des contraintes sur le nom de la matière. Les 2 contraintes possibles sont :</string>
-    <string name="ConstraintAlarmsAide2">Ne doit pas contenir une chaine de caractère</string>
+    <string name="ConstraintAlarmsAide2">Ne doit pas contenir une chaîne de caractère</string>
     <string name="ConstraintAlarmsAide3">Et l\'autre est N\'est pas, soit qui ne doit pas être exactement la chaine de caractère (attention aux majuscules dans les 2 cas).</string>
     <string name="widget">Widget</string>
-    <string name="widgetAide1">Vous pouvez changer sont theme (blanc, noire, gris) dans les paramètre.</string>
+    <string name="widgetAide1">Vous pouvez changer son thème (blanc, noire, gris) dans les paramètre.</string>
     <string name="widgetAide2">Il affiche les 2 prochains cours (s\'ils sont dans la même journée). Un cours affiché un certain temps après son commencement puis le widget affichera les suivants.</string>
     <string name="widgetAide3">Il s\'actualise seul fréquemment, mais vous pouvez clicker dessus pour l\'actualiser manuellement.</string>
     <string name="msg_activ_overlay">Cette application a besoin de l\'option Afficher sur d\'autres applis pour pouvoir être utilisé en tant que réveil.</string>
@@ -159,10 +169,6 @@ Ainsi qu'un horaire qui correspond à l'heure à l'aquelle l'alarme va sonner."
     <string name="DelCondition">Supprime la condition</string>
     <string name="Autonomie">Autonomie</string>
     <string name="DelConstraint">Supprime la contrainte</string>
-    <string name="myEmail" translatable="false">univlyon1.tools@gmail.com</string>
-    <string name="repoGithub" translatable="false">https://github.com/wwwazz333/IUTCalendar</string>
-    <string name="LogoGithub" translatable="false">Logo Github</string>
-    <string name="LogoMail" translatable="false">Logo Mail</string>
     <string name="LogoRememberOrNot">Logo rappel ou pas rappel</string>
     <string name="MenuNav">Menu de navigation</string>
     <string name="Today_s_event">Évènement d\'aujourd\'hui</string>
@@ -176,21 +182,20 @@ Ainsi qu'un horaire qui correspond à l'heure à l'aquelle l'alarme va sonner."
     <string name="Back_app">Fond de l\'application</string>
     <string name="Wrong_URL">Mauvais URL</string>
     <string name="No_connexion">Pas de connexion</string>
-    <string name="Search_room_title">Recherché un salle (Beta)</string>
+    <string name="Search_room_title">Recherché une salle (Beta)</string>
     <string name="go_to_page_Search">Allez à la page Recherche de salle</string>
     <string name="Error">Erreur</string>
     <string name="change_in_schedul">Il y a des changements dans votre emploi du temps</string>
     <string name="change_schedule">Changements dans l\'agenda</string>
     <string name="notify_change">Notifie d\'un changement dans l\'emplois du temps</string>
     <string name="notif_for_alarm">Notification d\'alarme</string>
-    <string name="notify_for_alarm">Notification pour les alarmes (ne pas désactivé si utilise les alarmes)</string>
+    <string name="notify_for_alarm">Notification pour les alarmes (ne pas désactiver si utilise les alarmes)</string>
     <string name="French">Français</string>
     <string name="English">Anglais</string>
-    <string name="notif_summary_on">Les notifications sont activé</string>
-    <string name="notif_summary_off">Les notifications sont désactivé</string>
+    <string name="notif_summary_on">Les notifications sont activés</string>
+    <string name="notif_summary_off">Les notifications sont désactivés</string>
     <string name="Notification">Notification</string>
-    <string name="alarme_enabled_summary_off">Aucune alarmes ne sonnera</string>
-    <string name="snooze" translatable="false">SNOOZE</string>
+    <string name="alarme_enabled_summary_off">Aucune alarme ne sonnera</string>
     <string name="alarm_reported">alarme reporté de 5 min</string>
     <string name="New_alarm">Nouvelle alarme</string>
     <string name="url_des_salles">URL des salles</string>
@@ -198,7 +203,6 @@ Ainsi qu'un horaire qui correspond à l'heure à l'aquelle l'alarme va sonner."
     <string name="No_room_free">Aucune salle disponible</string>
     <string name="help_search_room">Cette section vous permet de rechercher une salle libre à un certain horaire.\n\nCependant, les salles qui ne sont jamais occupées ne pourront pas être détectées en tant que salle de l\'établissement. Donc elle ne s\'affichera pas dans la liste des salles libres.</string>
     <string name="Search">Rechercher</string>
-    <string name="reset" translatable="false">Reset</string>
     <string name="choose_ringtone">Choisissez votre sonnerie</string>
     <string name="Ringtone">Sonnerie</string>
     <string name="url_rooms_invalide">URL des salles invalide</string>
@@ -206,8 +210,8 @@ Ainsi qu'un horaire qui correspond à l'heure à l'aquelle l'alarme va sonner."
     <string name="url_invalide_msg">L\'URL que vous avez rentré est invalide.\nVeuillez rentre un URL valide.</string>
     <string name="url_invalide">URL invalide</string>
     <string name="Settings_alarms">Paramètre alarmes</string>
-    <string name="error_should_reboot">Erreur, veuillez redémarrez</string>
-    <string name="feature_need_network">Cette fonctionnalité nécessite une connection internet valide.</string>
+    <string name="error_should_reboot">Erreur, veuillez redémarrer</string>
+    <string name="feature_need_network">Cette fonctionnalité nécessite une connexion internet valide.</string>
     <string name="settings_alarms">Régalages des alarmes</string>
 
 </resources>

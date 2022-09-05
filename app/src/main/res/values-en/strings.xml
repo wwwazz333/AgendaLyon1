@@ -9,7 +9,7 @@
     <string name="today">Today</string>
     <string name="app_widget_description">Widget to see 2 next event (it can be updated on click)</string>
     <string name="task_add_btn_label">adding task button</string>
-    <string name="date_exemple">Sun 24 april 2022</string>
+    <string name="date_exemple">Sun 24 April 2022</string>
     <string name="event">Event</string>
     <string name="task">Task</string>
     <string name="titreLabel">Title</string>
@@ -128,7 +128,7 @@ As well as a time which corresponds to the hour at which the alarm will sound."<
     <string name="ConstraintAlarmsAide2">Must not contain a string</string>
     <string name="ConstraintAlarmsAide3">"And the other is Not, which must not be exactly the string (beware of capitalization in both cases)."</string>
     <string name="widget">"Home Widget"</string>
-    <string name="widgetAide1">You can change its theme (white, black, gray) in the settings.</string>
+    <string name="widgetAide1">You can change its theme (white, black, grey) in the settings.</string>
     <string name="widgetAide2">"It displays the next 2 courses (if they are in the same day). A course will be displayed for a while after it starts and then the widget will display the next ones."</string>
     <string name="widgetAide3">"It updates itself frequently, but you can click on it to update it manually."</string>
     <string name="msg_activ_overlay">This application needs Overlays to be used as an alarm clock.</string>
@@ -161,7 +161,7 @@ As well as a time which corresponds to the hour at which the alarm will sound."<
     <string name="English">English</string>
     <string name="Notification">Notification</string>
     <string name="notif_summary_on">Notifications are enabled</string>
-    <string name="notif_summary_off">Notifications are diseabled</string>
+    <string name="notif_summary_off">Notifications are disabled</string>
     <string name="alarme_enabled_summary_off">No alarms will ring</string>
     <string name="alarm_reported">alarm delayed by 5 min</string>
     <string name="New_alarm">New alarm</string>
