@@ -4,6 +4,7 @@ import android.app.TimePickerDialog
 import android.app.TimePickerDialog.OnTimeSetListener
 import android.content.Context
 import com.iutcalendar.calendrier.CurrentDate
+import com.iutcalendar.settings.SettingsApp
 import java.io.Serializable
 
 class AlarmRing(val timeInMillis: Long, var isActivate: Boolean = true, var isDeletable: Boolean = false) : Serializable, Comparable<AlarmRing> {
@@ -45,13 +46,18 @@ class AlarmRing(val timeInMillis: Long, var isActivate: Boolean = true, var isDe
 
     companion object {
         fun askTime(context: Context?, title: String?, onTimeSetListener: OnTimeSetListener?) {
-            val timePickerDialog = TimePickerDialog(context, onTimeSetListener, 0, 0, true)
+            val timePickerDialog = TimePickerDialog(context, onTimeSetListener, 0, 0, SettingsApp.locale == SettingsApp.localFrance)
+            timePickerDialog.setTitle(title)
+            timePickerDialog.show()
+        }
+        fun askTime(context: Context?, title: String?, onTimeSetListener: OnTimeSetListener?, hourOfDay : Int = 0, minute : Int = 0) {
+            val timePickerDialog = TimePickerDialog(context, onTimeSetListener, hourOfDay, minute, SettingsApp.locale == SettingsApp.localFrance)
             timePickerDialog.setTitle(title)
             timePickerDialog.show()
         }
 
         fun askTime(context: Context?, onTimeSetListener: OnTimeSetListener?) {
-            val timePickerDialog = TimePickerDialog(context, onTimeSetListener, 0, 0, true)
+            val timePickerDialog = TimePickerDialog(context, onTimeSetListener, 0, 0, SettingsApp.locale == SettingsApp.localFrance)
             timePickerDialog.show()
         }
     }

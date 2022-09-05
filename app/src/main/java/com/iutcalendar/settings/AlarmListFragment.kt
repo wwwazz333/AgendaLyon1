@@ -67,28 +67,29 @@ class AlarmListFragment : AbstractFragmentWitheMenu(), DatePickerDialog.OnDateSe
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
         AlarmRing.askTime(
             requireContext(),
-            getString(R.string.New_alarm)
-        ) { _: TimePicker?, hourOfDay: Int, minute: Int ->
+            getString(R.string.New_alarm), { _: TimePicker?, hourOfDay: Int, minute: Int ->
 
 
-            val date = GregorianCalendar().apply {
-                set(GregorianCalendar.YEAR, year)
-                set(GregorianCalendar.MONTH, month)
-                set(GregorianCalendar.DAY_OF_MONTH, dayOfMonth)
-                set(GregorianCalendar.HOUR_OF_DAY, hourOfDay)
-                set(GregorianCalendar.MINUTE, minute)
-                set(GregorianCalendar.SECOND, 0)
-            }
+                val date = GregorianCalendar().apply {
+                    set(GregorianCalendar.YEAR, year)
+                    set(GregorianCalendar.MONTH, month)
+                    set(GregorianCalendar.DAY_OF_MONTH, dayOfMonth)
+                    set(GregorianCalendar.HOUR_OF_DAY, hourOfDay)
+                    set(GregorianCalendar.MINUTE, minute)
+                    set(GregorianCalendar.SECOND, 0)
+                }
 
-            PersonalAlarmManager.getInstance(requireContext()).addNewAlarm(
-                requireContext(), CurrentDate(), AlarmRing(
-                    date.timeInMillis,
-                    isDeletable = true
+                PersonalAlarmManager.getInstance(requireContext()).addNewAlarm(
+                    requireContext(), CurrentDate(), AlarmRing(
+                        date.timeInMillis,
+                        isDeletable = true
+                    )
                 )
-            )
 
-            recyclerViewAlarm?.adapter?.notifyDataSetChanged()
-        }
+                recyclerViewAlarm?.adapter?.notifyDataSetChanged()
+            },
+            CurrentDate().hour, CurrentDate().minute
+        )
     }
 
     /*#################MENU BAR#################*/
