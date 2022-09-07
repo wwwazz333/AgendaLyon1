@@ -5,11 +5,19 @@ import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
 import android.content.DialogInterface
+import android.graphics.drawable.ColorDrawable
 import android.util.Log
+import android.view.View
 import android.widget.*
+import androidx.core.graphics.blue
+import androidx.core.graphics.green
+import androidx.core.graphics.red
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.iutcalendar.calendrier.EventCalendrier
+import com.iutcalendar.data.CachedData
+import com.iutcalendar.data.ColorEvent
+import com.iutcalendar.dialog.ColorPickerDialog
 import com.iutcalendar.task.PersonalCalendrier
 import com.iutcalendar.task.Task
 import com.iutcalendar.task.TaskAdapter
@@ -28,9 +36,11 @@ class DialogPopupEvent(
     private lateinit var salle: TextView
     private lateinit var horaire: TextView
     private lateinit var duree: TextView
+    private lateinit var tpsRestant: TextView
     private lateinit var okBtn: Button
     private lateinit var addBtn: ImageButton
     private lateinit var recyclerViewTask: RecyclerView
+    private lateinit var colorEdit: View
 
 
     init {
@@ -48,6 +58,25 @@ class DialogPopupEvent(
         salle.text = relatedEvent.salle.replace("\\,", ", ")
         horaire.text = context.getString(R.string.both_time, timeDebut, timeFin)
         duree.text = relatedEvent.dure.timeToString()
+
+        countMinutesModule().let {
+            tpsRestant.text = "${it / 60}h ${it % 60}min"
+        }
+
+
+        updateColorEdit()
+        colorEdit.setOnClickListener {
+
+            (colorEdit.background as ColorDrawable).color.apply {
+                ColorPickerDialog(context, red, green, blue) { colorId ->
+                    ColorEvent.save(context, relatedEvent.nameEvent, colorId)
+                    updateColorEdit()
+                }.show()
+            }
+        }
+
+
+
         initRecyclerViewTask()
         Log.d("Dialog", "end")
     }
@@ -58,9 +87,21 @@ class DialogPopupEvent(
         salle = findViewById(R.id.salle)
         horaire = findViewById(R.id.horaire)
         duree = findViewById(R.id.duree)
+        tpsRestant = findViewById(R.id.tpsRestant)
         okBtn = findViewById(R.id.okBtn)
         addBtn = findViewById(R.id.addBtn)
         recyclerViewTask = findViewById(R.id.listTask)
+        colorEdit = findViewById(R.id.colorEdit)
+    }
+
+    private fun countMinutesModule(): Int {
+        var count = 0
+        var startCount = false
+        CachedData.calendrier.events.forEach { e ->
+            if (e.uid == relatedEvent.uid) startCount = true
+            if (startCount && e.nameEvent == relatedEvent.nameEvent) count += e.dure.hour * 60 + e.dure.minute
+        }
+        return count
     }
 
     private fun initRecyclerViewTask() {
@@ -70,6 +111,10 @@ class DialogPopupEvent(
             layoutManager = LinearLayoutManager(activity)
         }
         Log.d("Dialog", "updateTask")
+    }
+
+    private fun updateColorEdit() {
+        colorEdit.setBackgroundColor(ColorEvent.getOrCreate(context, relatedEvent.nameEvent))//should get and not create
     }
 
     override fun dismiss() {
@@ -101,6 +146,11 @@ class DialogPopupEvent(
         }
         alertDialog.setNegativeButton(context.getString(R.string.cancel)) { dialog: DialogInterface, _: Int -> dialog.cancel() }
         alertDialog.show()
+    }
+
+    private fun changeColor() {
+
+
     }
 
 }

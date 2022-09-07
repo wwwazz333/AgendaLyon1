@@ -5,6 +5,7 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.graphics.Color
 import com.iutcalendar.calendrier.DateCalendrier
+import com.iutcalendar.data.ColorEvent
 import com.iutcalendar.data.DataGlobal
 import com.iutcalendar.notification.NotificationChannels
 import com.iutcalendar.settings.SettingsApp
@@ -16,6 +17,8 @@ class StartApplication : Application() {
         super.onCreate()
         createNotificationChannels()
         SettingsApp.adapteTheme(applicationContext)
+
+        ColorEvent.load(applicationContext)
     }
 
     private fun initDateOffset() {

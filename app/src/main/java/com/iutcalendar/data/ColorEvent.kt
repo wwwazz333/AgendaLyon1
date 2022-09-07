@@ -65,18 +65,25 @@ object ColorEvent : Serializable {
 
     }
 
-    fun getOrCreate(name: String): Int {
+    fun getOrCreate(ctx: Context, name: String): Int {
         return if (isDark) {
             if (!colors.containsKey(name)) {
                 colors[name] = darkColors[count++ % darkColors.size]
+                save(ctx)
             }
             colors[name]!!
         } else {
             if (!colors.containsKey(name)) {
                 colors[name] = lightColors[count++ % lightColors.size]
+                save(ctx)
             }
             colors[name]!!
         }
+    }
+
+    fun save(ctx: Context, nameEvent: String, value: Int) {
+        colors[nameEvent] = value
+        save(ctx)
     }
 
     fun load(context: Context?) {

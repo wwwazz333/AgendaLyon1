@@ -31,7 +31,7 @@ class EventAdapter(
         holder.apply {
             val eventCalendrier = list[position]
 
-            val c = ColorEvent.getOrCreate(eventCalendrier.nameEvent)
+            val c = ColorEvent.getOrCreate(context, eventCalendrier.nameEvent)
             view.setCardBackgroundColor(c)
             Log.d("Color", "${eventCalendrier.nameEvent} : ${c.red} ${c.green} ${c.blue}")
 
