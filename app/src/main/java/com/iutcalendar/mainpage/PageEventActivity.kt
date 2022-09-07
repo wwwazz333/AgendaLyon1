@@ -18,6 +18,7 @@ import com.google.android.gms.ads.MobileAds
 import com.iutcalendar.calendrier.Calendrier
 import com.iutcalendar.calendrier.CurrentDate
 import com.iutcalendar.data.CachedData
+import com.iutcalendar.data.ColorEvent
 import com.iutcalendar.data.DataGlobal
 import com.iutcalendar.data.FileGlobal
 import com.iutcalendar.event.changement.ChangeDialog
@@ -108,7 +109,6 @@ class PageEventActivity : AppCompatActivity() {
 
         /*####Testing feature#####*/
         Log.d("PageEventActivity", "PageEventActivity end")
-
     }
 
     private fun initAds() {

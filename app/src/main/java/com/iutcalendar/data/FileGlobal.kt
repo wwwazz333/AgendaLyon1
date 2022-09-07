@@ -24,6 +24,7 @@ object FileGlobal {
     private const val PERSONAL_ALARMS = "personalAlarms.dat"
     private const val PERSONAL_ALARM_CONDITIONS = "personalAlarmConditions.dat"
     private const val PERSONAL_ALARM_CONSTRAINTS = "personalAlarmConstraints.dat"
+    private const val PERSONAL_COLOR_FOR_EVENT = "personalColorForEvent.dat"
     const val CHANGEMENT_EVENT = "changementEvent.dat"
     private fun getPathDownloadDir(context: Context?): String {
         return context!!.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)!!.absolutePath
@@ -43,6 +44,9 @@ object FileGlobal {
 
     fun getFilePersonalAlarm(context: Context?): File {
         return getFile(context, PERSONAL_ALARMS)
+    }
+    fun getFilePersonalColorEvent(context: Context?): File {
+        return getFile(context, PERSONAL_COLOR_FOR_EVENT)
     }
 
     fun getFileConditions(context: Context?): File {

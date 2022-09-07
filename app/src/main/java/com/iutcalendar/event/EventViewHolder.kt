@@ -2,6 +2,7 @@ package com.iutcalendar.event
 
 import android.view.View
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.univlyon1.tools.agenda.R
 
@@ -11,7 +12,7 @@ class EventViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     var summary: TextView
     var salle: TextView
     var countTask: TextView
-    var view: View
+    var view: CardView
 
     init {
         debut = itemView.findViewById(R.id.debut)
@@ -19,6 +20,6 @@ class EventViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         summary = itemView.findViewById(R.id.summary)
         salle = itemView.findViewById(R.id.salle)
         countTask = itemView.findViewById(R.id.countTask)
-        view = itemView
+        view = itemView as CardView
     }
 }

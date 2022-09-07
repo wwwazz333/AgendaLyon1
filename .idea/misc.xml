@@ -48,7 +48,7 @@
         <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/layout/constraint_card.xml" value="0.365625" />
         <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/layout/dialog_constraint_type_edit.xml" value="0.365625" />
         <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/layout/dialog_event_edit.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/layout/event_card.xml" value="0.33" />
+        <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/layout/event_card.xml" value="0.67" />
         <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/layout/fragment_alarm_condition.xml" value="0.18802083333333333" />
         <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/layout/fragment_alarm_constraint.xml" value="0.18802083333333333" />
         <entry key="..\:/Users/wwwaz/IntelliJIDEAProjects/IUTCalendar/app/src/main/res/layout/fragment_alarm_horaire.xml" value="0.36666666666666664" />
@@ -195,7 +195,7 @@
       </value>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_16_PREVIEW" project-jdk-name="11" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_16" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

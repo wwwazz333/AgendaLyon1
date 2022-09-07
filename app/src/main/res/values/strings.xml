@@ -192,8 +192,8 @@ Ainsi qu'un horaire qui correspond à l'heure à laquelle l'alarme va sonner."
     <string name="notify_for_alarm">Notification pour les alarmes (ne pas désactiver si utilise les alarmes)</string>
     <string name="French">Français</string>
     <string name="English">Anglais</string>
-    <string name="notif_summary_on">Les notifications sont activés</string>
-    <string name="notif_summary_off">Les notifications sont désactivés</string>
+    <string name="notif_summary_on">Les notifications sont activées</string>
+    <string name="notif_summary_off">Les notifications sont désactivées</string>
     <string name="Notification">Notification</string>
     <string name="alarme_enabled_summary_off">Aucune alarme ne sonnera</string>
     <string name="alarm_reported">alarme reporté de 5 min</string>

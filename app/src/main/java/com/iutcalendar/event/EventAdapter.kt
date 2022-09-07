@@ -1,11 +1,16 @@
 package com.iutcalendar.event
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.graphics.blue
+import androidx.core.graphics.green
+import androidx.core.graphics.red
 import androidx.recyclerview.widget.RecyclerView
 import com.iutcalendar.calendrier.EventCalendrier
+import com.iutcalendar.data.ColorEvent
 import com.iutcalendar.swiping.GestureEventManager
 import com.iutcalendar.swiping.TouchGestureListener
 import com.iutcalendar.task.PersonalCalendrier
@@ -25,6 +30,11 @@ class EventAdapter(
     override fun onBindViewHolder(holder: EventViewHolder, position: Int) {
         holder.apply {
             val eventCalendrier = list[position]
+
+            val c = ColorEvent.getOrCreate(eventCalendrier.nameEvent)
+            view.setCardBackgroundColor(c)
+            Log.d("Color", "${eventCalendrier.nameEvent} : ${c.red} ${c.green} ${c.blue}")
+
             debut.text = eventCalendrier.date?.timeToString()
             fin.text = eventCalendrier.date!!.addTime(eventCalendrier.dure).timeToString()
             summary.text = eventCalendrier.nameEvent

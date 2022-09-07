@@ -122,7 +122,7 @@ class SettingsActivity : AppCompatActivity(),
             findPreference<Preference>(DataGlobal.THEME)?.let {
                 it.onPreferenceChangeListener =
                     Preference.OnPreferenceChangeListener { _: Preference?, newValue: Any ->
-                        SettingsApp.adapteTheme(newValue.toString())
+                        SettingsApp.adapteTheme(requireContext(), newValue.toString())
                         true
                     }
             }
