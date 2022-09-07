@@ -2,11 +2,17 @@ package com.iutcalendar.data
 
 import android.content.Context
 import android.graphics.Color
+import com.iutcalendar.settings.SettingsApp
 import java.io.Serializable
 
 object ColorEvent : Serializable {
-    var isDark = false
     private var count = 0
+
+    @Transient
+    private val defaultDarkColor = Color.parseColor("#1C1E20")
+
+    @Transient
+    private val defaultLightColor = Color.parseColor("#EDEDED")
 
 
     @Transient
@@ -26,9 +32,9 @@ object ColorEvent : Serializable {
         Color.parseColor("#1D263B"),
         Color.parseColor("#0D1821"),
         Color.parseColor("#071013"),
-        Color.parseColor("#3E92CC"),
+        Color.parseColor("#226fa5"),
         Color.parseColor("#235170"),
-        Color.parseColor("#E85D75"),
+        Color.parseColor("#7f2231"),
         Color.parseColor("#783744"),
         Color.parseColor("#62C370"),
         Color.parseColor("#356A42")
@@ -65,16 +71,45 @@ object ColorEvent : Serializable {
 
     }
 
+    fun generateLightColorsForCalendar(ctx: Context) {
+        CachedData.calendrier.events.forEach { ev ->
+            colors[ev.nameEvent] = lightColors[count++ % lightColors.size]
+        }
+        save(ctx)
+    }
+
+    fun generateDarkColorsForCalendar(ctx: Context) {
+        CachedData.calendrier.events.forEach { ev ->
+            colors[ev.nameEvent] = darkColors[count++ % darkColors.size]
+        }
+        save(ctx)
+    }
+
+    fun generateDarkDefaultColorsForCalendar(ctx: Context) {
+        CachedData.calendrier.events.forEach { ev ->
+            colors[ev.nameEvent] = defaultDarkColor
+        }
+        save(ctx)
+    }
+
+    fun generateLightDefaultColorsForCalendar(ctx: Context) {
+        CachedData.calendrier.events.forEach { ev ->
+            colors[ev.nameEvent] = defaultLightColor
+        }
+        save(ctx)
+    }
+
+    //    darkColors[count++ % darkColors.size]
     fun getOrCreate(ctx: Context, name: String): Int {
-        return if (isDark) {
+        return if (SettingsApp.isDarkMode(ctx)) {
             if (!colors.containsKey(name)) {
-                colors[name] = darkColors[count++ % darkColors.size]
+                colors[name] = defaultDarkColor
                 save(ctx)
             }
             colors[name]!!
         } else {
             if (!colors.containsKey(name)) {
-                colors[name] = lightColors[count++ % lightColors.size]
+                colors[name] = defaultLightColor
                 save(ctx)
             }
             colors[name]!!

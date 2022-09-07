@@ -219,5 +219,18 @@ Ainsi qu'un horaire qui correspond à l'heure à laquelle l'alarme va sonner."
     <string name="exemple">Exemple</string>
     <string name="url_video_explicative" translatable="false">https://youtu.be/KCixXNonoCI</string>
     <string name="example_url_salle">Pour le département informatique de l\'IUT Doua à lyon 1</string>
+    <string name="DarkTheme">Thème Sombre</string>
+    <string name="LightTheme">Thème Claire</string>
+    <string name="QuelTheme">Quel Thème ?</string>
+    <string name="msg_choose_gen_theme">Pour quel thème voulez-vous générer des couleurs ?</string>
+    <string name="msg_choose_reset_theme">Pour quel thème voulez-vous réinitialiser les couleurs ?</string>
+    <string name="Blue__">Bleu :</string>
+    <string name="Green__">Vert :</string>
+    <string name="Red__">Rouge :</string>
+    <string name="gene_auto_colors">Générer couleurs auto</string>
+    <string name="msg_gene_auto_colors">Générer des couleurs automatiquement pour le calendrier.</string>
+    <string name="msg_rest_colors">Réinitialiser les couleurs par défaut pour le calendrier.</string>
+    <string name="reste_colors">Réinitialiser les couleurs</string>
+    <string name="heures_restantes">Heures restantes</string>
 
 </resources>

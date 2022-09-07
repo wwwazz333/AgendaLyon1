@@ -9,7 +9,6 @@ import android.provider.Settings
 import android.util.Log
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatDelegate
-import com.iutcalendar.data.ColorEvent
 import com.iutcalendar.data.DataGlobal
 import com.univlyon1.tools.agenda.R
 import java.util.*
@@ -33,7 +32,7 @@ object SettingsApp {
     /**
      * Besoin de savoir si on change ou non sinon bug pour la main page
      *
-     * @param context le context
+     * @param ctx le context
      * @return si le theme à besoin de changer
      */
     fun adapteTheme(ctx: Context): Boolean {
@@ -42,17 +41,14 @@ object SettingsApp {
         val hasToChange: Boolean
         when (theme) {
             "black" -> {
-                ColorEvent.isDark = true
                 darkMode = AppCompatDelegate.MODE_NIGHT_YES
                 hasToChange = !isDarkMode(ctx)
             }
             "light" -> {
-                ColorEvent.isDark = false
                 darkMode = AppCompatDelegate.MODE_NIGHT_NO
                 hasToChange = isDarkMode(ctx)
             }
             else -> {
-                ColorEvent.isDark = isDarkMode(ctx)
                 darkMode = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
                 hasToChange = false
             }
@@ -66,24 +62,20 @@ object SettingsApp {
      *
      * @param theme le nouveau theme
      */
-    fun adapteTheme(ctx: Context, theme: String) {
+    fun adapteTheme(theme: String) {
         val darkMode: Int = when (theme) {
             "black" -> {
-                ColorEvent.isDark = true
                 AppCompatDelegate.MODE_NIGHT_YES
             }
             "light" -> {
-                ColorEvent.isDark = false
                 AppCompatDelegate.MODE_NIGHT_NO
             }
             else -> {
                 //FIXME petit bug de couleur qd revien sur main activity
-                ColorEvent.isDark = !isDarkMode(ctx)
                 AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
             }
         }
         AppCompatDelegate.setDefaultNightMode(darkMode)
-        ColorEvent.clear(ctx)
     }
 
     @LayoutRes
@@ -110,7 +102,7 @@ object SettingsApp {
     }
 
 
-    private fun isDarkMode(ctx: Context): Boolean {
+    fun isDarkMode(ctx: Context): Boolean {
         return ctx.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
 
     }

@@ -27,7 +27,7 @@ class DialogPopupEvent(
     context: Context,
     eventClicked: EventCalendrier,
     activity: Activity?,
-    private val whenFinish: () -> Unit
+    private val whenFinish: (shouldRestart: Boolean) -> Unit
 ) : Dialog(context) {
     private val relatedEvent: EventCalendrier
     private val activity: Activity?
@@ -41,6 +41,7 @@ class DialogPopupEvent(
     private lateinit var addBtn: ImageButton
     private lateinit var recyclerViewTask: RecyclerView
     private lateinit var colorEdit: View
+    private var shouldRestart: Boolean = false
 
 
     init {
@@ -66,11 +67,11 @@ class DialogPopupEvent(
 
         updateColorEdit()
         colorEdit.setOnClickListener {
-
             (colorEdit.background as ColorDrawable).color.apply {
                 ColorPickerDialog(context, red, green, blue) { colorId ->
                     ColorEvent.save(context, relatedEvent.nameEvent, colorId)
                     updateColorEdit()
+                    shouldRestart = true
                 }.show()
             }
         }
@@ -118,7 +119,7 @@ class DialogPopupEvent(
     }
 
     override fun dismiss() {
-        whenFinish()
+        whenFinish(shouldRestart)
         super.dismiss()
     }
 

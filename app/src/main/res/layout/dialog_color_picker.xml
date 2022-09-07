@@ -24,13 +24,12 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Rouge : " />
+            android:text="@string/Red__" />
 
         <TextView
             android:id="@+id/redValue"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:layout_height="wrap_content"/>
     </LinearLayout>
 
     <SeekBar
@@ -56,13 +55,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Vert : " />
+            android:text="@string/Green__" />
 
         <TextView
             android:id="@+id/greenValue"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:layout_height="wrap_content"/>
     </LinearLayout>
 
     <SeekBar
@@ -88,13 +86,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Bleu : " />
+            android:text="@string/Blue__" />
 
         <TextView
             android:id="@+id/blueValue"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:layout_height="wrap_content"/>
     </LinearLayout>
 
     <SeekBar

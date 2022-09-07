@@ -14,6 +14,7 @@ import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import com.iutcalendar.data.ColorEvent
 import com.iutcalendar.data.DataGlobal
 import com.iutcalendar.dialog.DialogMessage
 import com.iutcalendar.mainpage.PageEventActivity
@@ -122,7 +123,7 @@ class SettingsActivity : AppCompatActivity(),
             findPreference<Preference>(DataGlobal.THEME)?.let {
                 it.onPreferenceChangeListener =
                     Preference.OnPreferenceChangeListener { _: Preference?, newValue: Any ->
-                        SettingsApp.adapteTheme(requireContext(), newValue.toString())
+                        SettingsApp.adapteTheme(newValue.toString())
                         true
                     }
             }
@@ -134,6 +135,35 @@ class SettingsActivity : AppCompatActivity(),
                         true
                     }
             }
+
+
+            findPreference<Preference>("auto_generate_color")?.let {
+                it.setOnPreferenceClickListener {
+                    DialogMessage.showChooseDarkOrLightMode(
+                        requireContext(),
+                        getString(R.string.msg_choose_gen_theme),
+                        { ColorEvent.generateDarkColorsForCalendar(requireContext());PageEventActivity.hasToReload = true },
+                        { ColorEvent.generateLightColorsForCalendar(requireContext());PageEventActivity.hasToReload = true })
+                    true
+                }
+            }
+            findPreference<Preference>("reste_color")?.let {
+                it.setOnPreferenceClickListener {
+                    DialogMessage.showChooseDarkOrLightMode(
+                        requireContext(),
+                        getString(R.string.msg_choose_reset_theme),
+                        {
+                            ColorEvent.generateDarkDefaultColorsForCalendar(requireContext())
+                            PageEventActivity.hasToReload = true
+                        },
+                        {
+                            ColorEvent.generateLightDefaultColorsForCalendar(requireContext())
+                            PageEventActivity.hasToReload = true
+                        })
+                    true
+                }
+            }
+
 
 
             if (requireActivity() is SettingsActivity) {

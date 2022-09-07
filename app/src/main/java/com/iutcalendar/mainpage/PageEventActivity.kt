@@ -20,8 +20,6 @@ import com.iutcalendar.calendrier.CurrentDate
 import com.iutcalendar.data.CachedData
 import com.iutcalendar.data.DataGlobal
 import com.iutcalendar.data.FileGlobal
-import com.iutcalendar.dialog.ColorPickerDialog
-import com.iutcalendar.event.DialogPopupEvent
 import com.iutcalendar.event.changement.ChangeDialog
 import com.iutcalendar.mainpage.ui.main.SectionsPagerAdapter
 import com.iutcalendar.menu.MenuItemClickActivities
@@ -58,8 +56,11 @@ class PageEventActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-
-        savedInstanceCalendrier?.let {
+        Log.d("PageEventActivity", "onResume")
+        if (hasToReload) {
+            initPageViewEvent()
+            hasToReload = false
+        } else savedInstanceCalendrier?.let {
             if (it != CachedData.calendrier) {
                 initPageViewEvent()
             }
@@ -174,7 +175,7 @@ class PageEventActivity : AppCompatActivity() {
     /**
      * init viewPager and sectionsPagerAdapter to see events
      */
-    private fun initPageViewEvent() {
+    fun initPageViewEvent() {
         Log.d("Event", "creation Section page adapter")
         val sectionsPagerAdapter = SectionsPagerAdapter(this)
         viewPager.adapter = sectionsPagerAdapter
@@ -404,5 +405,6 @@ class PageEventActivity : AppCompatActivity() {
 
     companion object {
         private var updating = false
+        var hasToReload = false
     }
 }

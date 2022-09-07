@@ -41,4 +41,22 @@ object DialogMessage {
         ) { dialog: DialogInterface, _: Int -> dialog.dismiss() }
         alertDialog.show()
     }
+
+    fun showChooseDarkOrLightMode(ctx: Context, msg: String, darkMode: () -> Unit, lightMode: () -> Unit) {
+        val alertDialog = AlertDialog.Builder(ctx)
+        alertDialog.setTitle(ctx.getString(R.string.QuelTheme))
+        alertDialog.setMessage(msg)
+        alertDialog.setIcon(R.drawable.ic_help)
+        alertDialog.setPositiveButton(ctx.getString(R.string.DarkTheme))
+        { dialog: DialogInterface, _: Int ->
+            darkMode()
+            dialog.dismiss()
+        }
+        alertDialog.setNeutralButton(ctx.getString(R.string.LightTheme)) { dialog: DialogInterface, _: Int ->
+            lightMode()
+            dialog.dismiss()
+
+        }
+        alertDialog.show()
+    }
 }

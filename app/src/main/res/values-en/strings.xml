@@ -185,4 +185,17 @@ As well as a time which corresponds to the hour at which the alarm will sound."<
     <string name="search_room_help_msg3">Attention: it is advisable to export the calendar for the whole year (start and end date) so that the application can analyze all the available rooms.</string>
     <string name="exemple">Example</string>
     <string name="example_url_salle">For the IT department of the IUT Doua in Lyon 1</string>
+    <string name="DarkTheme">Dark Theme</string>
+    <string name="LightTheme">Light Theme</string>
+    <string name="QuelTheme">What Theme ?</string>
+    <string name="msg_choose_gen_theme">For what Theme do you want to generate colors ?</string>
+    <string name="msg_choose_reset_theme">For what Theme do you want to reste colors ?</string>
+    <string name="Blue__">"Blue : "</string>
+    <string name="Green__">"Green : "</string>
+    <string name="Red__">"Red : "</string>
+    <string name="gene_auto_colors">Generate auto colors</string>
+    <string name="msg_gene_auto_colors">Generate colors automatically for the calendar.</string>
+    <string name="msg_rest_colors">Reset the default colors for the calendar.</string>
+    <string name="reste_colors">Color Reset</string>
+    <string name="heures_restantes">hours left</string>
 </resources>

@@ -61,8 +61,11 @@ class EventFragment : Fragment {
                         requireContext(),
                         ev,
                         activity
-                    ) {
-                        recycleView.adapter?.notifyItemChanged(index)
+                    ) { shouldRestart ->
+                        if (shouldRestart && activity is PageEventActivity)
+                            (activity as PageEventActivity).initPageViewEvent()
+                        else
+                            recycleView.adapter?.notifyItemChanged(index)
                     }
                     dialog.show()
                 }

@@ -52,6 +52,16 @@
             android:title="@string/WidgetTheme" />
 
 
+        <Preference
+            android:key="auto_generate_color"
+            android:summary="@string/msg_gene_auto_colors"
+            android:title="@string/gene_auto_colors" />
+        <Preference
+            android:key="reste_color"
+            android:summary="@string/msg_rest_colors"
+            android:title="@string/reste_colors" />
+
+
     </PreferenceCategory>
     <PreferenceCategory
         android:icon="@drawable/ic_alarm"
@@ -65,8 +75,8 @@
         <Preference
             android:dependency="alarme_enable"
             android:key="sub_prefence_alarm"
-            android:title="@string/Settings_alarms"
-            android:summary="@string/settings_alarms"/>
+            android:summary="@string/settings_alarms"
+            android:title="@string/Settings_alarms" />
     </PreferenceCategory>
 
     <PreferenceCategory
