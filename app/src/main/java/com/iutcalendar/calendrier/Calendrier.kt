@@ -175,7 +175,7 @@ open class Calendrier : Cloneable {
         return changed
     }
 
-    fun deleteUselessTask(context: Context?) {
+    fun deleteUselessTask(context: Context) {
         val uids = LinkedList<String?>()
         for (event in events) {
             uids.add(event.uid)

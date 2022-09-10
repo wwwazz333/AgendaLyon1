@@ -198,5 +198,5 @@ As well as a time which corresponds to the hour at which the alarm will sound."<
     <string name="msg_rest_colors">Reset the default colors for the calendar.</string>
     <string name="reste_colors">Color Reset</string>
     <string name="heures_restantes">hours left</string>
-    <string name="news_msg">You can create colors for your schedule, and you can personalize them.\n\nDo not forget to check that your alarms are always set after each shift it may happen that it deletes the configuration file.</string>
+    <string name="news_msg">You can create colors for your schedule, and you can personalize them.\n\nUnfortunately you alarms have been reset, please re set them (it will not happen at each update).</string>
 </resources>

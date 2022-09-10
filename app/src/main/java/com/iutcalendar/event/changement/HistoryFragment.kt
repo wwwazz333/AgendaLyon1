@@ -22,8 +22,9 @@ class HistoryFragment : Fragment() {
         val recyclerView = view.findViewById<RecyclerView>(R.id.recycleView)
         val textView = view.findViewById<TextView>(R.id.text)
         recyclerView.layoutManager = LinearLayoutManager(context)
-        Log.d("History", EventChangementManager.getInstance(context).changementList.toString())
-        var eventChangementList: List<EventChangement?> = LinkedList(EventChangementManager.getInstance(context).changementList)
+        Log.d("History", EventChangementManager.getInstance(requireContext()).changementList.toString())
+
+        var eventChangementList: List<EventChangement?> = LinkedList(EventChangementManager.getInstance(requireContext()).changementList)
         if (arguments != null && requireArguments().getInt(NOMBRE_EVENT, 0) > 0) {
             eventChangementList = eventChangementList.subList(0, requireArguments().getInt(NOMBRE_EVENT, 0))
         }

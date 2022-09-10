@@ -38,7 +38,7 @@ class AlarmConditionFragment : AbstractFragmentWitheMenu() {
     private fun updateConditions() {
         val alarmAdapter = AlarmConditionAdapter(
             context,
-            AlarmConditionManager.getInstance(context).allConditions
+            AlarmConditionManager.getInstance(requireContext()).allConditions
         ) { saveConditions() }
         recyclerViewConstraint?.apply {
             adapter = alarmAdapter
@@ -51,7 +51,7 @@ class AlarmConditionFragment : AbstractFragmentWitheMenu() {
     }
 
     private fun saveConditions() {
-        AlarmConditionManager.getInstance(context).save(context)
+        AlarmConditionManager.getInstance(requireContext()).save(requireContext())
     }
 
     private fun addCondition() {
@@ -84,7 +84,7 @@ class AlarmConditionFragment : AbstractFragmentWitheMenu() {
                             getString(R.string.TimeToRing), { _: TimePicker?, hourOfDayAlarmAt: Int, minuteAlarmAt: Int ->
                                 val alarmAt: Long =
                                     DateCalendrier.getHourInMillis(hourOfDayAlarmAt, minuteAlarmAt)
-                                AlarmConditionManager.getInstance(context)
+                                AlarmConditionManager.getInstance(requireContext())
                                     .addCondition(AlarmCondition(begin, end, alarmAt))
                                 recyclerViewConstraint?.adapter?.let {
                                     it.notifyItemInserted(it.itemCount - 1)

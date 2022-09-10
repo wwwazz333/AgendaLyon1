@@ -211,6 +211,6 @@ Ainsi qu'un horaire qui correspond à l'heure à laquelle l'alarme va sonner."
     <string name="msg_rest_colors">Réinitialiser les couleurs par défaut pour le calendrier.</string>
     <string name="reste_colors">Réinitialiser les couleurs</string>
     <string name="heures_restantes">Heures restantes</string>
-    <string name="news_msg">Vous pouvez générer des couleurs pour votre agenda et vous pouvez même les personnaliser.\n\nN\'oubliez pas de vérifier que vos alarmes sont toujours bien paramétré après chaque maj il peut arriver qu\'elle supprime le fichier de configuration.</string>
+    <string name="news_msg">Vous pouvez générer des couleurs pour votre agenda et vous pouvez même les personnaliser.\n\nMalheureusement vos alarmes on été réinitialiser, pensez à les re-paramétrer (ça ne fera pas ça à chaque maj).</string>
 
 </resources>

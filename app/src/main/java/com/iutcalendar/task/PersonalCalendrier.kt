@@ -64,7 +64,7 @@ class PersonalCalendrier {
     val keys: MutableSet<String?>
         get() = tasks.keys
 
-    fun load(context: Context?) {
+    fun load(context: Context) {
         tasks = HashMap()
 
         (FileGlobal.loadBinaryFile(FileGlobal.getFilePersonalTask(context)) as HashMap<String?, MutableList<Task>>?)?.let {
@@ -72,13 +72,13 @@ class PersonalCalendrier {
         }
     }
 
-    fun save(context: Context?) {
+    fun save(context: Context) {
         FileGlobal.writeBinaryFile(tasks, FileGlobal.getFilePersonalTask(context))
     }
 
     companion object {
         private var instance: PersonalCalendrier? = null
-        fun getInstance(context: Context?): PersonalCalendrier {
+        fun getInstance(context: Context): PersonalCalendrier {
             if (instance == null) {
                 instance = PersonalCalendrier().apply { load(context) }
             }

@@ -78,7 +78,7 @@ class AlarmConditionAdapter(
             }
         }
         holder.delBtn.setOnClickListener {
-            AlarmConditionManager.getInstance(context).removeCondition(position)
+            context?.let { ctx -> AlarmConditionManager.getInstance(ctx).removeCondition(position) }
             notifyItemRemoved(position)
             notifyItemRangeChanged(position, itemCount - position)
             saveListener()

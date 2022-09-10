@@ -34,7 +34,7 @@ class AlarmConstraintFragment : AbstractFragmentWitheMenu() {
     }
 
     private fun updateConstraint() {
-        val adapter = AlarmConditionManager.getInstance(context).allConstraints?.let {
+        val adapter = AlarmConditionManager.getInstance(requireContext()).allConstraints?.let {
             AlarmLabelConstraintAdapter(
                 context,
                 it
@@ -49,11 +49,11 @@ class AlarmConstraintFragment : AbstractFragmentWitheMenu() {
     }
 
     private fun saveConstraint() {
-        AlarmConditionManager.getInstance(context).save(context)
+        AlarmConditionManager.getInstance(requireContext()).save(requireContext())
     }
 
     private fun addConstraint() {
-        AlarmConditionManager.getInstance(context)
+        AlarmConditionManager.getInstance(requireContext())
             .addConstraint(AlarmConstraintLabel(Containing.MUST_NOT_CONTAIN, ""))
         recyclerViewConstraint?.adapter?.let {
             it.notifyItemInserted(it.itemCount - 1)

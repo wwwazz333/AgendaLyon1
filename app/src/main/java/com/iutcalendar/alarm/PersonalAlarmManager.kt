@@ -100,20 +100,20 @@ class PersonalAlarmManager : Serializable {
             return liste
         }
 
-    fun load(context: Context?) {
+    fun load(context: Context) {
         alarms = HashMap()
         (FileGlobal.loadBinaryFile(FileGlobal.getFilePersonalAlarm(context)) as HashMap<String, MutableList<AlarmRing>>?)?.let {
             alarms = it
         }
     }
 
-    fun save(context: Context?) {
+    fun save(context: Context) {
         FileGlobal.writeBinaryFile(alarms, FileGlobal.getFilePersonalAlarm(context))
     }
 
     companion object {
         private var instance: PersonalAlarmManager? = null
-        fun getInstance(context: Context?): PersonalAlarmManager {
+        fun getInstance(context: Context): PersonalAlarmManager {
             if (instance == null) {
                 instance = PersonalAlarmManager()
                 instance!!.load(context)

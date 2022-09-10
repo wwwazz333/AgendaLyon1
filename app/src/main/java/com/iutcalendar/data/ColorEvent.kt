@@ -128,14 +128,14 @@ object ColorEvent : Serializable {
         save(ctx)
     }
 
-    fun load(context: Context?) {
+    fun load(context: Context) {
         colors = java.util.HashMap()
         (FileGlobal.loadBinaryFile(FileGlobal.getFilePersonalColorEvent(context)) as HashMap<String, Int>?)?.let {
             colors = it
         }
     }
 
-    fun save(context: Context?) {
+    fun save(context: Context) {
         FileGlobal.writeBinaryFile(colors, FileGlobal.getFilePersonalColorEvent(context))
     }
 }

@@ -49,7 +49,7 @@ class AlarmConditionManager : Serializable {
         return true
     }
 
-    fun load(context: Context?) {
+    fun load(context: Context) {
         allConditions = FileGlobal.loadBinaryFile(FileGlobal.getFileConditions(context))
         if (allConditions == null) {
             Log.i("Condition", "listCondition is null")
@@ -62,14 +62,14 @@ class AlarmConditionManager : Serializable {
         }
     }
 
-    fun save(context: Context?) {
+    fun save(context: Context) {
         FileGlobal.writeBinaryFile(allConditions, FileGlobal.getFileConditions(context))
         FileGlobal.writeBinaryFile(allConstraints, FileGlobal.getFileConstraints(context))
     }
 
     companion object {
         private var instance: AlarmConditionManager? = null
-        fun getInstance(context: Context?): AlarmConditionManager {
+        fun getInstance(context: Context): AlarmConditionManager {
             if (instance == null) {
                 instance = AlarmConditionManager()
                 instance!!.load(context)

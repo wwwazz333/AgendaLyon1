@@ -122,7 +122,6 @@ class PageEventActivity : AppCompatActivity() {
 
         /*####Testing feature#####*/
         Log.d("PageEventActivity", "PageEventActivity end")
-
     }
 
     private fun initAds() {

@@ -39,7 +39,7 @@ class AlarmListFragment : AbstractFragmentWitheMenu(), DatePickerDialog.OnDateSe
     private fun updateAlarm() {
         Alarm.setUpAlarm(
             requireContext(),
-            Calendrier(FileGlobal.readFile(FileGlobal.getFileCalendar(context)))
+            Calendrier(FileGlobal.readFile(FileGlobal.getFileCalendar(requireContext())))
         )
         val alarmAdapter = AlarmAdapter(requireContext())
         recyclerViewAlarm?.apply {
@@ -49,12 +49,12 @@ class AlarmListFragment : AbstractFragmentWitheMenu(), DatePickerDialog.OnDateSe
         saveAlarm()
         Log.d(
             "Alarm",
-            "updateAlarm : " + PersonalAlarmManager.getInstance(context).allAlarmToList.size
+            "updateAlarm : " + PersonalAlarmManager.getInstance(requireContext()).allAlarmToList.size
         )
     }
 
     private fun saveAlarm() {
-        PersonalAlarmManager.getInstance(context).save(context)
+        PersonalAlarmManager.getInstance(requireContext()).save(requireContext())
     }
 
 

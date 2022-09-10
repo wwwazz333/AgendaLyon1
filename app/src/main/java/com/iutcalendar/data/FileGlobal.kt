@@ -2,7 +2,6 @@ package com.iutcalendar.data
 
 import android.content.Context
 import android.content.Intent
-import android.os.Environment
 import android.util.Log
 import com.iutcalendar.calendrier.Calendrier
 import com.iutcalendar.event.changement.EventChangementManager
@@ -26,40 +25,38 @@ object FileGlobal {
     private const val PERSONAL_ALARM_CONSTRAINTS = "personalAlarmConstraints.dat"
     private const val PERSONAL_COLOR_FOR_EVENT = "personalColorForEvent.dat"
     const val CHANGEMENT_EVENT = "changementEvent.dat"
-    private fun getPathDownloadDir(context: Context?): String {
-        return context!!.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)!!.absolutePath
+
+    fun getFile(context: Context, whichFile: String?): File {
+        return File(context.filesDir.absoluteFile.toString() + "/" + whichFile)
     }
 
-    fun getFile(context: Context?, whichFile: String?): File {
-        return File(getPathDownloadDir(context) + "/" + whichFile)
-    }
-
-    fun getFileCalendar(context: Context?): File {
+    fun getFileCalendar(context: Context): File {
         return getFile(context, SAVED_CAL)
     }
 
-    fun getFilePersonalTask(context: Context?): File {
+    fun getFilePersonalTask(context: Context): File {
         return getFile(context, PERSONAL_TASKS)
     }
 
-    fun getFilePersonalAlarm(context: Context?): File {
+    fun getFilePersonalAlarm(context: Context): File {
         return getFile(context, PERSONAL_ALARMS)
     }
-    fun getFilePersonalColorEvent(context: Context?): File {
+
+    fun getFilePersonalColorEvent(context: Context): File {
         return getFile(context, PERSONAL_COLOR_FOR_EVENT)
     }
 
-    fun getFileConditions(context: Context?): File {
+    fun getFileConditions(context: Context): File {
         return getFile(context, PERSONAL_ALARM_CONDITIONS)
     }
 
-    fun getFileConstraints(context: Context?): File {
+    fun getFileConstraints(context: Context): File {
         return getFile(context, PERSONAL_ALARM_CONSTRAINTS)
     }
 
-    fun readFile(file: File?): String {
+    fun readFile(file: File): String {
         val build = StringBuilder()
-        val path = Paths.get(file!!.absolutePath)
+        val path = Paths.get(file.absolutePath)
         val reader: BufferedReader = try {
             Files.newBufferedReader(path)
         } catch (e: FileNotFoundException) {

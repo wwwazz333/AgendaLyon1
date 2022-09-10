@@ -45,7 +45,7 @@ class AlarmLabelConstraintAdapter(
         })
         holder.constraint.isSelected = false
         holder.delBtn.setOnClickListener {
-            AlarmConditionManager.getInstance(context).removeConstraint(constraintLabelAlarm)
+            context?.let { ctx -> AlarmConditionManager.getInstance(ctx).removeConstraint(constraintLabelAlarm) }
             notifyItemRemoved(position)
             notifyItemRangeChanged(position, itemCount - position)
             saveListener()
