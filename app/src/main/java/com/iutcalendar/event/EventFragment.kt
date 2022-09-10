@@ -122,7 +122,6 @@ class EventFragment : Fragment {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        SettingsApp.setLocale(resources, DataGlobal.getLanguage(requireContext()))
 
         return inflater.inflate(R.layout.fragment_event, container, false).also { view ->
             recycleView = view.findViewById(R.id.recycleView)

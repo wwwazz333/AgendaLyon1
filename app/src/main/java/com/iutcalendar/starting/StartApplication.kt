@@ -16,6 +16,7 @@ class StartApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         createNotificationChannels()
+        SettingsApp.updateLocale(applicationContext)
         SettingsApp.adapteTheme(applicationContext)
 
         ColorEvent.load(applicationContext)

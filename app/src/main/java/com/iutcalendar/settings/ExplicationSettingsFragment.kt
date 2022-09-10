@@ -1,9 +1,6 @@
 package com.iutcalendar.settings
 
-import android.content.pm.PackageInfo
-import android.content.pm.PackageManager.NameNotFoundException
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +8,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.iutcalendar.data.DataGlobal
+import com.univlyon1.tools.agenda.BuildConfig
 import com.univlyon1.tools.agenda.R
 
 class ExplicationSettingsFragment : Fragment() {
@@ -23,15 +21,17 @@ class ExplicationSettingsFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_explication_settings, container, false)
         val version = view.findViewById<TextView>(R.id.versionLabel)
-        val pm = requireContext().packageManager
-        val pkgName = requireContext().packageName
-        val pkgInfo: PackageInfo?
-        try {
-            pkgInfo = pm.getPackageInfo(pkgName, 0)
-            version.text = getString(R.string.version_build, pkgInfo.versionName)
-        } catch (e: NameNotFoundException) {
-            Log.e("Information", "error version build affichage : " + e.message)
-        }
+
+//        try {
+//        val pm = requireContext().packageManager
+//        val pkgName = requireContext().packageName
+//            val pkgInfo = pm.getPackageInfo(pkgName, 0)
+////            version.text = getString(R.string.version_build, pkgInfo.versionName)
+//            version.text = getString(R.string.version_build, BuildConfig.VERSION_NAME)
+//        } catch (e: NameNotFoundException) {
+//            Log.e("Information", "error version build affichage : " + e.message)
+//        }
+        version.text = getString(R.string.version_build, BuildConfig.VERSION_NAME)
         version.setOnClickListener {
             if (lastTimeClick == 0L) {
                 elapsedTimeLastClick = 0

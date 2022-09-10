@@ -26,7 +26,6 @@ import kotlin.concurrent.schedule
 class AlarmRingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        SettingsApp.setLocale(resources, DataGlobal.getLanguage(applicationContext))
 
         //wakeup phone & not unlock needed
         wakeAndShowActivity()

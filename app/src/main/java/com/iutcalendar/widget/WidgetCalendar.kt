@@ -27,7 +27,6 @@ class WidgetCalendar : AppWidgetProvider() {
     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
         //Load some Data needed
         PersonalCalendrier.getInstance(context)
-        SettingsApp.setLocale(context.resources, DataGlobal.getLanguage(context))
 
         //update Widget
         val thisWidget = ComponentName(context, WidgetCalendar::class.java)

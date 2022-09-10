@@ -31,7 +31,6 @@ class SettingsActivity : AppCompatActivity(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        SettingsApp.setLocale(resources, DataGlobal.getLanguage(applicationContext))
         setContentView(R.layout.settings_activity)
         if (savedInstanceState == null) {
             supportFragmentManager
@@ -131,7 +130,7 @@ class SettingsActivity : AppCompatActivity(),
                 it.onPreferenceChangeListener =
                     Preference.OnPreferenceChangeListener { _: Preference?, newValue: Any ->
                         DataGlobal.save(requireContext(), DataGlobal.LANGUAGE, newValue.toString())
-                        reloadActivity()
+                        SettingsApp.updateLanguage(requireContext())
                         true
                     }
             }

@@ -3,29 +3,34 @@ package com.iutcalendar.settings
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
-import android.content.res.Resources
 import android.net.Uri
 import android.provider.Settings
 import android.util.Log
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.os.LocaleListCompat
 import com.iutcalendar.data.DataGlobal
 import com.univlyon1.tools.agenda.R
 import java.util.*
+
 
 object SettingsApp {
     val localFrance = Locale("fr")
     var locale = localFrance
         private set
 
-    fun setLocale(resources: Resources, language: String?) {
-        val metrics = resources.displayMetrics
-        val configuration = resources.configuration
-        configuration.setLocale(Locale(language.toString()))
-        locale = Locale(language.toString())
-        //Update configuration
-        Log.d("Language", configuration.locales.toString())
-        resources.updateConfiguration(configuration, metrics)
+    fun updateLocale(ctx: Context) {
+        DataGlobal.getLanguage(ctx)?.let { tag ->
+            locale = Locale(tag)
+        }
+    }
+
+    fun updateLanguage(ctx: Context) {
+        DataGlobal.getLanguage(ctx)?.let { tag ->
+            AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(tag))
+            updateLocale(ctx)
+        }
+
     }
 
 
@@ -33,7 +38,7 @@ object SettingsApp {
      * Besoin de savoir si on change ou non sinon bug pour la main page
      *
      * @param ctx le context
-     * @return si le theme à besoin de changer
+     * @return si le theme avais besoin de changer
      */
     fun adapteTheme(ctx: Context): Boolean {
         val theme = DataGlobal.getTheme(ctx)

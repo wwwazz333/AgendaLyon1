@@ -12,7 +12,6 @@ import com.univlyon1.tools.agenda.R
 class EventChangementHistoryActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        SettingsApp.setLocale(resources, DataGlobal.getLanguage(applicationContext))
         setContentView(R.layout.activity_event_changement_history)
         val actionBar = supportActionBar
         if (actionBar != null) {

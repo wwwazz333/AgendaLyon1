@@ -20,6 +20,7 @@ import com.iutcalendar.calendrier.CurrentDate
 import com.iutcalendar.data.CachedData
 import com.iutcalendar.data.DataGlobal
 import com.iutcalendar.data.FileGlobal
+import com.iutcalendar.dialog.DialogMessage
 import com.iutcalendar.event.changement.ChangeDialog
 import com.iutcalendar.mainpage.ui.main.SectionsPagerAdapter
 import com.iutcalendar.menu.MenuItemClickActivities
@@ -29,6 +30,7 @@ import com.iutcalendar.swiping.GestureEventManager
 import com.iutcalendar.swiping.TouchGestureListener
 import com.iutcalendar.task.PersonalCalendrier
 import com.iutcalendar.widget.WidgetCalendar
+import com.univlyon1.tools.agenda.BuildConfig
 import com.univlyon1.tools.agenda.R
 import com.univlyon1.tools.agenda.databinding.ActivityPageEventBinding
 import kotlinx.coroutines.Dispatchers
@@ -76,7 +78,7 @@ class PageEventActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        SettingsApp.setLocale(resources, DataGlobal.getLanguage(applicationContext))
+
         Log.d("PageEventActivity", "PageEventActivity start")
         binding = ActivityPageEventBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -109,6 +111,14 @@ class PageEventActivity : AppCompatActivity() {
         //update
         update {}
         initAds()
+
+        //if update show news
+        if (DataGlobal.getSavedString(applicationContext, DataGlobal.LAST_UPDATE_TAG) != BuildConfig.VERSION_NAME) {
+            DialogMessage.showInfo(this, baseContext.resources.getString(R.string.What_new), baseContext.resources.getString(R.string.news_msg)) {
+                DataGlobal.save(applicationContext, DataGlobal.LAST_UPDATE_TAG, BuildConfig.VERSION_NAME)
+            }
+        }
+
 
         /*####Testing feature#####*/
         Log.d("PageEventActivity", "PageEventActivity end")

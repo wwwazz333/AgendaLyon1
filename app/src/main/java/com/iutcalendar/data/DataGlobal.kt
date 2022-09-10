@@ -22,6 +22,7 @@ object DataGlobal {
     const val ACTIVATED_DAYS = "activated_days"
     const val NOTIFICATION_ENABLED = "notification_enabled"
     const val NOMBRE_CHANGE_TO_DISPLAY = "nombre_change_to_display"
+    const val LAST_UPDATE_TAG = "last_update_tag"
     const val DEBUGGING = "debugging"
     fun getTheme(context: Context): String? {
         return PreferenceManager.getDefaultSharedPreferences(context).getString(THEME, "default")
