@@ -58,6 +58,7 @@ class PageEventActivity : AppCompatActivity() {
         super.onResume()
         Log.d("PageEventActivity", "onResume")
         if (hasToReload) {
+            currDate = CurrentDate()
             initPageViewEvent()
             hasToReload = false
         } else savedInstanceCalendrier?.let {
@@ -189,6 +190,7 @@ class PageEventActivity : AppCompatActivity() {
             }
         })
 
+        setCurrDate(currDate)
         setPositionPageToCurrDate()
     }
 

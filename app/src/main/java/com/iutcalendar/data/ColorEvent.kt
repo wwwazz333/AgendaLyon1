@@ -14,53 +14,60 @@ object ColorEvent : Serializable {
     @Transient
     private val defaultLightColor = Color.parseColor("#EDEDED")
 
-
+//34404c
     @Transient
     private val darkColors: List<Int> = listOf(
-        Color.parseColor("#211F11"),
-        Color.parseColor("#1C1E20"),
-        Color.parseColor("#1A0A1C"),
-        Color.parseColor("#1C1133"),
-        Color.parseColor("#13171D"),
-        Color.parseColor("#192610"),
-        Color.parseColor("#193241"),
-        Color.parseColor("#31013A"),
-        Color.parseColor("#380E0D"),
-        Color.parseColor("#071928"),
+        Color.parseColor("#632727"),
+        Color.parseColor("#636327"),
+        Color.parseColor("#127C8A"),
+        Color.parseColor("#272763"),
 
-        Color.parseColor("#153243"),
-        Color.parseColor("#1D263B"),
-        Color.parseColor("#0D1821"),
-        Color.parseColor("#071013"),
-        Color.parseColor("#226fa5"),
-        Color.parseColor("#235170"),
-        Color.parseColor("#7f2231"),
-        Color.parseColor("#783744"),
-        Color.parseColor("#62C370"),
-        Color.parseColor("#356A42")
+        Color.parseColor("#635027"),
+        Color.parseColor("#3a6327"),
+        Color.parseColor("#273a63"),
+        Color.parseColor("#502763"),
+
+        Color.parseColor("#462763"),
+        Color.parseColor("#632744"),
+
+
+        Color.parseColor("#352763"),
+        Color.parseColor("#632755"),
+        Color.parseColor("#556327"),
+        Color.parseColor("#276335"),
+
+        Color.parseColor("#63273c"),
+        Color.parseColor("#634e27"),
+        Color.parseColor("#34404c"),
+        Color.parseColor("#273c63")
     )
 
 
     @Transient
     private val lightColors: List<Int> = listOf(
-        Color.parseColor("#989899"),
-        Color.parseColor("#E7E7E7"),
-        Color.parseColor("#D1AF87"),
-        Color.parseColor("#CEC5B7"),
-        Color.parseColor("#CBDAE6"),
-        Color.parseColor("#AFCDE4"),
-        Color.parseColor("#75A9D1"),
+        Color.parseColor("#cc4f4f"),
+        Color.parseColor("#cccc4f"),
+        Color.parseColor("#4fcccc"),
 
-        Color.parseColor("#FFFBF2"),
-        Color.parseColor("#D9D4D1"),
-        Color.parseColor("#B2B0BE"),
-        Color.parseColor("#325b6d"),
-        Color.parseColor("#3B5B81"),
-        Color.parseColor("#566487"),
-        Color.parseColor("#4A87A4"),
-        Color.parseColor("#6EA0B9"),
-        Color.parseColor("#5D99B3"),
-        Color.parseColor("#B4C3D8")
+        Color.parseColor("#cca44f"),
+        Color.parseColor("#76cc4f"),
+        Color.parseColor("#4f76cc"),
+        Color.parseColor("#a44fcc"),
+
+        Color.parseColor("#8bcc4f"),
+        Color.parseColor("#8f4fcc"),
+        Color.parseColor("#cc4f8b"),
+
+
+        Color.parseColor("#6c4fcc"),
+        Color.parseColor("#cc4fae"),
+        Color.parseColor("#aecc4f"),
+        Color.parseColor("#4fcc6c"),
+
+        Color.parseColor("#cc4f7b"),
+        Color.parseColor("#cca04f"),
+        Color.parseColor("#4fcca0"),
+        Color.parseColor("#4f7bcc")
     )
 
     private var colors: HashMap<String, Int> = hashMapOf()
