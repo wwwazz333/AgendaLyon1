@@ -1,13 +1,9 @@
 package com.iutcalendar.event
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.graphics.blue
-import androidx.core.graphics.green
-import androidx.core.graphics.red
 import androidx.recyclerview.widget.RecyclerView
 import com.iutcalendar.calendrier.EventCalendrier
 import com.iutcalendar.data.ColorEvent
@@ -31,12 +27,11 @@ class EventAdapter(
         holder.apply {
             val eventCalendrier = list[position]
 
-            val c = ColorEvent.getOrCreate(context, eventCalendrier.nameEvent)
-            view.setCardBackgroundColor(c)
-            Log.d("Color", "${eventCalendrier.nameEvent} : ${c.red} ${c.green} ${c.blue}")
+            view.setCardBackgroundColor(ColorEvent.getOrCreate(context, eventCalendrier.nameEvent))
+            view.setOnClickListener { clickListener(absoluteAdapterPosition) }
 
             debut.text = eventCalendrier.date?.timeToString()
-            fin.text = eventCalendrier.date!!.addTime(eventCalendrier.dure).timeToString()
+            fin.text = eventCalendrier.date?.addTime(eventCalendrier.dure)?.timeToString()
             summary.text = eventCalendrier.nameEvent
             salle.text = eventCalendrier.salle.replace("\\,", "\n")
 
@@ -48,13 +43,6 @@ class EventAdapter(
                     countTask.text = it.toString()
                 }
             }
-
-            view.setOnTouchListener(TouchGestureListener(context, object : GestureEventManager() {
-                override fun onClick() {
-                    clickListener(absoluteAdapterPosition)
-                    super.onClick()
-                }
-            }))
         }
     }
 
