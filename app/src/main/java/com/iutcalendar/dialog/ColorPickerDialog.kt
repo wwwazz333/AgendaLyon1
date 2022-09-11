@@ -7,7 +7,9 @@ import android.view.View
 import android.widget.Button
 import android.widget.SeekBar
 import android.widget.TextView
+import com.iutcalendar.math.MyMath
 import com.univlyon1.tools.agenda.R
+import kotlin.math.roundToInt
 
 class ColorPickerDialog(
     context: Context,
@@ -20,6 +22,8 @@ class ColorPickerDialog(
     private lateinit var greenSeek: SeekBar
     private lateinit var blueValue: TextView
     private lateinit var blueSeek: SeekBar
+    private lateinit var lumValue: TextView
+    private lateinit var lumSeek: SeekBar
 
     private lateinit var submitBtn: Button
     private lateinit var cancelBtn: Button
@@ -34,6 +38,8 @@ class ColorPickerDialog(
         greenSeek = findViewById(R.id.green)
         blueValue = findViewById(R.id.blueValue)
         blueSeek = findViewById(R.id.blue)
+        lumValue = findViewById(R.id.lumValue)
+        lumSeek = findViewById(R.id.lum)
 
         submitBtn = findViewById(R.id.submitBtn)
         cancelBtn = findViewById(R.id.cancelBtn)
@@ -58,11 +64,17 @@ class ColorPickerDialog(
         cancelBtn.setOnClickListener { dismiss() }
     }
 
+
     private fun getColor(): Int {
-        val r = fillWithZero(Integer.toHexString(redSeek.progress))
-        val g = fillWithZero(Integer.toHexString(greenSeek.progress))
-        val b = fillWithZero(Integer.toHexString(blueSeek.progress))
-        return Color.parseColor("#$r$g$b")
+        (lumSeek.progress / 100.0).let { light ->
+            val lum = light + 1.0
+            (greenSeek.progress * lum).roundToInt()
+            val r = fillWithZero(Integer.toHexString(MyMath.between((redSeek.progress * lum).roundToInt(), 0, 255)))
+            val g = fillWithZero(Integer.toHexString(MyMath.between((greenSeek.progress * lum).roundToInt(), 0, 255)))
+            val b = fillWithZero(Integer.toHexString(MyMath.between((blueSeek.progress * lum).roundToInt(), 0, 255)))
+
+            return Color.parseColor("#$r$g$b")
+        }
     }
 
     private fun fillWithZero(string: String, nbZero: Int = 2): String {
@@ -81,7 +93,6 @@ class ColorPickerDialog(
 
         redSeek.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                redValue.text = progress.toString()
                 previewColor()
             }
 
@@ -91,7 +102,6 @@ class ColorPickerDialog(
 
         blueSeek.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                blueValue.text = progress.toString()
                 previewColor()
             }
 
@@ -101,7 +111,15 @@ class ColorPickerDialog(
 
         greenSeek.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                greenValue.text = progress.toString()
+                previewColor()
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+        })
+
+        lumSeek.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 previewColor()
             }
 
@@ -111,6 +129,10 @@ class ColorPickerDialog(
     }
 
     private fun previewColor() {
+        redValue.text = redSeek.progress.toString()
+        greenValue.text = greenSeek.progress.toString()
+        blueValue.text = blueSeek.progress.toString()
+        lumValue.text = (lumSeek.progress / 100.0).toString()
         colorView.setBackgroundColor(getColor())
     }
 }
