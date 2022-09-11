@@ -20,12 +20,12 @@ import com.iutcalendar.calendrier.CurrentDate
 import com.iutcalendar.data.CachedData
 import com.iutcalendar.data.DataGlobal
 import com.iutcalendar.data.FileGlobal
-import com.iutcalendar.dialog.ColorPickerDialog
 import com.iutcalendar.dialog.DialogMessage
 import com.iutcalendar.event.changement.ChangeDialog
 import com.iutcalendar.mainpage.ui.main.SectionsPagerAdapter
 import com.iutcalendar.menu.MenuItemClickActivities
 import com.iutcalendar.service.WorkUpdate
+import com.iutcalendar.settings.SettingsApp
 import com.iutcalendar.swiping.GestureEventManager
 import com.iutcalendar.swiping.TouchGestureListener
 import com.iutcalendar.task.PersonalCalendrier
@@ -122,6 +122,7 @@ class PageEventActivity : AppCompatActivity() {
 
         /*####Testing feature#####*/
         Log.d("PageEventActivity", "PageEventActivity end")
+
     }
 
     private fun initAds() {

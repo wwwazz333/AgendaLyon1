@@ -70,7 +70,7 @@ class EventFragment : Fragment {
                     dialog.show()
                 }
             }
-            recycleView.adapter = EventAdapter(eventToday, requireActivity().application, onClickEvent)
+            recycleView.adapter = EventAdapter(eventToday, requireActivity(), onClickEvent)
         }
     }
 

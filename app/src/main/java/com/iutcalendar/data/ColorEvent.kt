@@ -2,6 +2,7 @@ package com.iutcalendar.data
 
 import android.content.Context
 import android.graphics.Color
+import android.util.Log
 import com.iutcalendar.settings.SettingsApp
 import java.io.Serializable
 
@@ -14,7 +15,7 @@ object ColorEvent : Serializable {
     @Transient
     private val defaultLightColor = Color.parseColor("#EDEDED")
 
-//34404c
+    //34404c
     @Transient
     private val darkColors: List<Int> = listOf(
         Color.parseColor("#632727"),
@@ -108,19 +109,17 @@ object ColorEvent : Serializable {
 
     //    darkColors[count++ % darkColors.size]
     fun getOrCreate(ctx: Context, name: String): Int {
-        return if (SettingsApp.isDarkMode(ctx)) {
-            if (!colors.containsKey(name)) {
+        if (!colors.containsKey(name)) {
+            if (SettingsApp.isDarkMode(ctx)) {
                 colors[name] = defaultDarkColor
-                save(ctx)
-            }
-            colors[name]!!
-        } else {
-            if (!colors.containsKey(name)) {
+                Log.d("Color", "defaultDarkColor")
+            } else {
                 colors[name] = defaultLightColor
-                save(ctx)
+                Log.d("Color", "defaultLightColor")
             }
-            colors[name]!!
+            save(ctx)
         }
+        return colors[name]!!
     }
 
     fun save(ctx: Context, nameEvent: String, value: Int) {
