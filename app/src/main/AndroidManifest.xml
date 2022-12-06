@@ -85,9 +85,6 @@
         <receiver android:name="com.iutcalendar.alarm.Alarm" />
 
 
-        <meta-data
-            android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-5948550134102575~7748128275" />
     </application>
 
 </manifest>
