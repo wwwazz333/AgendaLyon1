@@ -1,5 +1,25 @@
 # AgendaLyon1
 
+## English
+
+This agenda allows you to view your university timetable from Lyon 1, with features such as:
+
+Attach tasks to a course — for homework, reminders of exams, etc.
+
+Get notified of any changes to your timetable.
+
+Set smart alarms that adapt to your schedule, based on your class times, so you’ll never be late again.
+
+Find an available classroom in your university.
+
+Use a widget to quickly see your upcoming classes.
+
+This application was designed to display the timetables of students at Université Lyon 1 (lyon1), but it also works with any university calendar that uses a dynamic ICalendar link.
+
+It’s very easy to add your schedule or calendar to the app — simply scan the provided QR code.
+
+## French
+
 Cet agenda vous permet de consulter votre emploi du temps universitaire de Lyon 1 avec des fonctionnalités telles que :
 
 - Associer des taches à un cours, pour vos devoirs, se rappeler d'un DS, etc.
